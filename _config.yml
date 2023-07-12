@@ -2,7 +2,7 @@ destination: ./_site
 lsi: false
 port: 4000
 permalink: /:year/:month/:day/:title.html
-url: https://you.com
+url: https://dominiclizarraga.github.io/
 include: ["_redirects", ".well-known", "_headers"]
 # Add
 #
@@ -19,11 +19,11 @@ include: ["_redirects", ".well-known", "_headers"]
 me:
   description: Rails, Ruby, webapps, Hotwire
   name: Dom Lizarraga
-  site_name: you.com
-  github: you
-  twitter: you
+  site_name: dominiclizarraga.github.io
+  github: dominiclizarraga
+  twitter: domlizarraga_
   # Get your twitter ID: https://tweeterid.com/
-  twitter_id: dom_lizarraga_
+  twitter_id: domlizarraga_
   email: dominiclizarraga@hotmail.com
   # Get a coil id, like $ilp.uphold.com/Kk2HbEYgFH6K
   # at https://coil.com/ if you want to monetize through Coil
