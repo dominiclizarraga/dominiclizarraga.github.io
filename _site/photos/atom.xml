@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Dom Lizarraga</title>
+  <language>en-US</language>
+  <link href="http://localhost:4000/atom.xml" rel="self"/>
+  <link href="http://localhost:4000/"/>
+  <updated>2023-07-12T13:51:16-04:00</updated>
+  <description></description>
+  <id>http://localhost:4000/</id>
+  <author>
+    <name>Dom Lizarraga</name>
+    <email>dominiclizarraga@hotmail.com</email>
+  </author>
+  
+  <entry>
+    <title>Example</title>
+    <link href="http://localhost:4000/2021/05/29/example.html"/>
+    <updated>2021-05-29T00:00:00-04:00</updated>
+    <id>http://localhost:4000/2021/05/29/example</id>
+    <content type="html">
+      &lt;img alt=&quot;&quot; src=&quot;2021-06-11-sf-bay_2880.jpg&quot;/&gt;
+      &lt;p&gt;Test photo!&lt;/p&gt;
+
+    </content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+</feed>

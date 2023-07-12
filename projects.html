@@ -1,0 +1,29 @@
+---
+layout: projects
+title: Projects
+notitle: true
+permalink: projects/index.html
+image: /graphics/projects/preview.jpg
+projects:
+  - name: Example project
+    description: Example project description
+    image: /graphics/projects/example.png
+    link: https://example.com/
+  - name: Example project
+    description: Example project description
+    image: /graphics/projects/example.png
+    link: https://example.com/
+  - name: Example project
+    description: Example project description
+    image: /graphics/projects/example.png
+    link: https://example.com/
+---
+
+<div class='project-box'>
+{% for project in page.projects %}
+<a href='{{project.link}}' class='project'>
+  <img src='{{project.image}}' alt="" />
+  <strong>{{project.name}}</strong> <span>{{project.description}}</span>
+</a>
+{% endfor %}
+</div>

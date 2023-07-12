@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name=author content='{{ site.me.name }}' />
+  <meta name='theme-color' content='#fff' />
+  <meta name='twitter:title' content="{{ page.title | xml_escape}}" />
+  <meta name=viewport content='width=device-width,minimum-scale=1'>
+  <meta name='twitter:site' content="{{site.me.site_name}}" />
+  <meta name='twitter:creator' content="@{{ site.me.twitter }}" />
+  <meta name='twitter:card' content=summary_large_image />
+  {% if page.photo %}
+  <meta property="og:image" content="{{site.photo_prefix}}{{page.photo}}_1280.jpg" />
+  <meta name=thumbnail content="{{site.photo_prefix}}{{page.photo}}_1280.jpg" />
+  {% endif %}
+  <link rel=alternate type='application/rss+xml' title="{{site.me.site_name}}" href="{{site.url}}/photos/rss.xml" />
+  <link rel=alternate type='application/atom+xml' title="{{site.me.site_name}}" href="{{site.url}}/photos/atom.xml" />
+  <link rel=icon type=image/x-icon href=/css/favicon.png />{% if page.head %}{{ page.head }}{% endif %}
+  <link rel="canonical" href="{{ site.url }}{{ page.url | replace:'index.html',''}}">
+  <style>{% include screen-photos.css %}</style>
+  <title>{% if page.title %}{{ page.title }} - {% endif %}{{site.me.site_name}}</title>
+</head>
+<body {% if page.dark or page.path == 'photos/index.html' and site.categories.photo[0].dark %}class=dark{% endif %}>
+  <nav>
+    <h1>{{site.me.name}}</h1>
+    <a href='/'>Writing</a>
+    <a href='/reading/'>Reading</a>
+    <a style='text-decoration: underline' href='/photos/'>Photos</a>
+    <a href='/photos/archive.html'>(archive)</a>
+    <a href='/projects/'>Projects</a>
+    <a href='/about/'>About</a>
+  </nav>
+  <div>
+    {{ content }}
+  </div>
+</body>
+</html>

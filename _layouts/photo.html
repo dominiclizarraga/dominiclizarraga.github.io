@@ -1,0 +1,46 @@
+---
+layout: photos
+class: page
+---
+
+<section {% if page.dark %}class=dark{% endif %}>
+  {% if page.video %}
+  <video
+    poster='{{site.photo_prefix}}{{page.photo}}_1280.jpg'
+    controls autoplay muted loop>
+    <source 
+      src='{{site.photo_prefix}}{{page.photo}}.mp4' />
+  </video>
+  {% else %}
+  <picture>
+    <source
+      type='image/webp'
+      srcset='{{site.photo_prefix}}{{page.photo}}_1280.webp 1280w, {{site.photo_prefix}}{{page.photo}}_2880.webp 2880w' />
+    <source
+      srcset='{{site.photo_prefix}}{{page.photo}}_1280.jpg 1280w, {{site.photo_prefix}}{{page.photo}}_2880.jpg 2880w' />
+    <img
+      alt='{{photo.title}}'
+      src='{{site.photo_prefix}}{{page.photo}}_1280.jpg' />
+  </picture>
+  {% endif %}
+</section>
+<div class='meta'>
+  <div>
+    <h1 style='font-weight:700; font-size: inherit; margin:0;'>
+      {{page.title}}
+    </h1>
+    <postamble datetime="{{ page.date | date: "%Y-%m-%d" }}">
+      {{ page.date | date: "%B %d, %Y" }}
+    </postamble>
+    <div>
+      Ⓒ {{site.me.name}}. All Rights Reserved.
+    </div>
+  </div>
+  <div>
+    Camera: <strong>{{ page.camera }}</strong><br />
+    Large: <strong><a href="{{site.photo_prefix}}{{page.photo}}_original.jpg">JPEG</a></strong>
+  </div>
+</div>
+{% if content %}<div class='post'>
+  {{ content }}
+</div>{% endif %}

@@ -1,0 +1,41 @@
+destination: ./_site
+lsi: false
+port: 4000
+permalink: /:year/:month/:day/:title.html
+url: https://you.com
+include: ["_redirects", ".well-known", "_headers"]
+# Add
+#
+# Get a bookshop id at Bookshop.org, affiliates
+# bookshop_id: 
+#
+# Get a bookshop id at Indiebound.org, affiliates
+# https://www.indiebound.org/affiliate
+# indiebound_id: 
+#
+# Photos: follow the directions to add photos,
+# and then copy the URL to here.
+# photo_prefix:
+me:
+  description: Rails, Ruby, webapps, Hotwire
+  name: Dom Lizarraga
+  site_name: you.com
+  github: you
+  twitter: you
+  # Get your twitter ID: https://tweeterid.com/
+  twitter_id: dom_lizarraga_
+  email: dominiclizarraga@hotmail.com
+  # Get a coil id, like $ilp.uphold.com/Kk2HbEYgFH6K
+  # at https://coil.com/ if you want to monetize through Coil
+  # coil_id: 
+kramdown:
+  syntax_highlighter: rouge
+  input: GFM
+  hard_wrap: false
+exclude:
+  - README.md
+  - node_modules
+  - package.json
+  - yarn.lock
+  - Gemfile
+  - _scripts
