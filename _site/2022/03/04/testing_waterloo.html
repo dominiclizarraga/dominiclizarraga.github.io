@@ -1,0 +1,1006 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name=author content='Dom Lizarraga' />
+  <meta name='theme-color' content='#fff' />
+  <meta name='twitter:title' content="Rails Testing | Whaterloo Uni" />
+  <meta name=description content="" />
+  <meta name=viewport content='width=device-width,minimum-scale=1'>
+  <meta property='og:site_name' content="dominiclizarraga.github.io"/>
+  <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
+  <meta property='og:type' content=blog />
+  <meta property='twitter:account_id' content=domlizarraga_ />
+  
+  
+  <script type='application/ld+json'>{"@context": "http://schema.org","@type": "CreativeWork","author": "Dom Lizarraga"}</script>
+  
+    <link rel=alternate type='application/rss+xml' title="dominiclizarraga.github.io" href="http://localhost:4000/rss.xml" />
+    <link rel=alternate type='application/atom+xml' title="dominiclizarraga.github.io" href="http://localhost:4000/atom.xml" />
+  
+  <link rel=icon type=image/x-icon href=/css/favicon.png />
+  <style>:root {
+  --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial,
+    sans-serif;
+}
+
+.star {
+  width: 13px;
+  height: 12px;
+  display: inline-block;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYuMzA5IDkuMjJMMi40MDkgMTJsMS40NC00LjU2N0wwIDQuNTgzbDQuNzg4LS4wNDJMNi4zMDggMCA3LjgzIDQuNTRsNC43ODkuMDQ0LTMuODUgMi44NDlMMTAuMjA5IDEyeiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+");
+}
+
+body {
+  color: #111;
+  margin: 0px auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  font-size: 1rem;
+  font-family: var(--sans-font);
+}
+
+/* Print tweaks ------------------------------------------------------------- */
+.only-print {
+  display: none;
+}
+
+.notitle .body p:first-child {
+  margin-top: 0.25rem;
+}
+
+.body img {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* Element styles ----------------------------------------------------------- */
+sup,
+sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub {
+  top: 0.4em;
+}
+
+a {
+  color: #000;
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #333;
+}
+
+ol,
+ul {
+  margin: 1rem 0;
+}
+
+ul ul {
+  margin: 0;
+}
+
+ol li ul {
+  margin: 5px 10px;
+}
+
+iframe {
+  border: 0;
+}
+
+small,
+.small {
+  font-size: 14px;
+}
+
+br {
+  line-height: 1em;
+}
+
+h1 a {
+  color: #111;
+}
+
+em {
+  font-style: italic;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.004em;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.009em;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.009em;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+blockquote {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+td {
+  vertical-align: top;
+}
+
+hr {
+  background: #000;
+  height: 1px;
+  border: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.body th {
+  text-align: left;
+}
+
+.body td,
+.body th {
+  padding: 0.5rem;
+}
+
+.body td {
+  border: 1px solid #cfcfcf;
+}
+
+.limiter {
+  max-width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding --------------------------------------- */
+.pad2y {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+span.image-credit {
+  float: right;
+  margin: 0 0 10px 10px;
+  font-size: 12px;
+}
+
+span.image-credit:before {
+  content: "↑";
+  margin-right: 5px;
+}
+
+figcaption {
+  font-size: 11px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: -1.2rem;
+}
+
+div.post blockquote p {
+  margin: 0;
+}
+
+/** Writing ----------------------------------------------------------------- */
+.writing,
+.books {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.writing {
+  grid-template-columns: 1fr min-content;
+}
+
+.books {
+  grid-template-columns: 1fr 0.75fr min-content 70px;
+}
+
+.writing a,
+.books a {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.writing > div,
+.books > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.writing time,
+.books time {
+  padding-right: 0.25em;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.012em;
+  white-space: pre;
+}
+
+.project-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.project-box a.project {
+  text-decoration: none;
+  color: #666;
+}
+.project-box a.project:hover {
+  color: #000;
+}
+.project-box a.project img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/** Responsive -------------------------------------------------------------- */
+
+@media screen and (max-width: 480px) {
+  .project-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .limiter {
+    width: auto;
+  }
+  .project-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .writing,
+  .books {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0px;
+  }
+
+  .writing div,
+  .books div {
+    white-space: normal;
+  }
+
+  .writing time,
+  .books div:nth-child(4n) {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .nu a {
+    text-decoration: none;
+  }
+
+  .nu a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-wrap {
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+  }
+  .sigil {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .header {
+    position: absolute;
+    top: 40px;
+    right: 50%;
+    margin-right: 340px !important;
+    letter-spacing: -0.009em;
+  }
+  .content h1:first-child {
+    margin-top: 0;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  .only-print {
+    display: block;
+  }
+  body {
+    margin: 0;
+  }
+  .limiter {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/** Code highlighting ------------------------------------------------------- */
+p code,
+pre code,
+li code,
+g.highlight,
+.code {
+  font-family: var(--mono-font);
+}
+
+p code {
+  font-size: 90%;
+}
+
+pre code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.highlight,
+blockquote {
+  overflow-x: auto;
+  padding: 10px 20px;
+  margin: 0;
+  background: #fff;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+blockquote p:first-child {
+  margin-top: 0;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* pygments theme. does not support generics. .highlight class omitted */
+.highlight {
+  margin: 10px 0;
+}
+
+.highlight .hll {
+  background-color: #ffffcc;
+}
+
+.c, /* Comment */
+.cm, /* Comment.Multiline */
+.cp, /* Comment.Preproc */
+.cs, /* Comment.Special */
+.c1 {
+  color: #999988;
+} /* Comment.Single */
+
+.o, /* Operator */
+.ow, /* Operator.Word */
+.ge {
+  color: #000000;
+} /* Generic.Emph */
+
+.kc, /* Keyword.Constant */
+.kd, /* Keyword.Declaration */
+.kn, /* Keyword.Namespace */
+.kp, /* Keyword.Pseudo */
+.kr, /* Keyword.Reserved */
+.kt {
+  color: #445588;
+} /* Keyword.Type */
+
+.err {
+  color: #a61717;
+} /* Error */
+
+.m {
+  color: #007f7f;
+} /* Literal.Number */
+.s {
+  color: #d01040;
+} /* Literal.String */
+
+.na, /* Name.Attribute */
+.nb, /* Name.Builtin */
+.nc, /* Name.Class */
+.no, /* Name.Constant */
+.nd, /* Name.Decorator */
+.ni, /* Name.Entity */
+.ne, /* Name.Exception */
+.nf, /* Name.Function */
+.nn, /* Name.Namespace */
+.nt, /* Name.Tag */
+.nl {
+  color: #990000;
+} /* Name.Label */
+
+.k, /* Keyword */
+.nv {
+  color: #008080;
+} /* Name.Variable */
+
+.mf, /* Literal.Number.Float */
+.mh, /* Literal.Number.Hex */
+.mi, /* Literal.Number.Integer */
+.mo {
+  color: #009999;
+} /* Literal.Number.Oct */
+
+.sb, /* Literal.String.Backtick */
+.sc, /* Literal.String.Char */
+.sd, /* Literal.String.Doc */
+.s2, /* Literal.String.Double */
+.se, /* Literal.String.Escape */
+.sh, /* Literal.String.Heredoc */
+.s1, /* Literal.String.Single */
+.si, /* Literal.String.Interpol */
+.ss, /* Literal.String.Symbol */
+.bp, /* Name.Builtin.Pseudo */
+.sx {
+  color: #d01040;
+} /* Literal.String.Other */
+
+.sr, /* Literal.String.Regex */
+.vc, /* Name.Variable.Class */
+.vg, /* Name.Variable.Global */
+.vi, /* Name.Variable.Instance */
+.il {
+  color: #009999;
+} /* Literal.Number.Integer.Long */
+</style>
+  <title>Rails Testing | Whaterloo Uni - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2022/03/04/testing_waterloo.html">
+</head>
+<body>
+  <div class='pad2y' style='position:relative'>
+    
+    <div class='only-print'>
+      <h2>Dom Lizarraga</h2>
+      <div style='margin-top:0;'>dominiclizarraga@hotmail.com</div>
+    </div>
+    <nav class='header-wrap'>
+      <div class='header nu limiter no-print'>
+        <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>Dom Lizarraga</h1>
+        <ul style='list-style:none;padding:0;margin:0;'>
+          <li><a href='/'>Writing</a>⇠</li>
+          <li><a href='/reading/'>Reading</a></li>
+          <li><a href='/projects/'>Projects</a></li>
+          <li><a href='/about/'>About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class='pad2y limiter content '>
+      <h1>Rails Testing | Whaterloo Uni</h1>
+<div class='body'><p>Testing Pyramid and Rails</p>
+
+<div><img src="/../graphics/projects/test_pyramid.png" alt="beginning_rails" style="width:300px;" /></div>
+
+<p>How to test?</p>
+
+<p>Mike Cohn in his book Succeeding with agile.</p>
+
+<p>You should spend most of your time in Unit.</p>
+
+<p>End to end is manual and it means a person goes through all the user flow to reach a user acceptance criteria, click buttons, links, add stuff to the shopping cart, make a payment.</p>
+
+<p>This can be Manual test, actually using the interface, this is what the customer will see/use.</p>
+
+<p>Template:
+Given: that I’m a logged in user in “home page”
+When: when I click on “log out”
+Then: I’m logged out</p>
+
+<p>Only the basics here, for example: I can create an account but don’t extensively, send an email, one happy path and one sad path.</p>
+
+<p>In Rails End to end tests are called system tests</p>
+
+<p>Integration, tests multiple components but exclude user interface.</p>
+
+<p>In Rails it tests the controller. what does it respond? what does it send?</p>
+
+<p>POST to this path with this params (we can see if a form is going to the right path)</p>
+
+<p>Unit, it isolates one single object or method from the rest of the system and test it by itself. This help us see where the problem is.</p>
+
+<p>Models, and classes we create,</p>
+
+<p>First I need to make sure my individual pieces work, then i put them together and see if that larger system works and eventually we’re going to check out and test the whole entire system.</p>
+
+<p>https://www.youtube.com/watch?v=gVKQilNUjtA&amp;t=10s</p>
+
+<p>MSCI 245 : Testing</p>
+
+<p>Is my app free of bugs?
+Does the program work as specified? Write a specification or a test that specifies expected behavior.</p>
+
+<p>Test case: average_rating</p>
+
+<p>Arrange - what is the input?
+Act - run the program
+Assert - check the output against the expected output</p>
+
+<p>Then we need 2 cases:</p>
+<ol>
+  <li>For a Book with 1 or more rating, it should return the average of  that book’s ratings
+    <ol>
+      <li>known gotchas: integers vs float division, off by one (when you skip 1st element of the loop).</li>
+    </ol>
+  </li>
+  <li>For a Book with 0 rating, it should return nil</li>
+</ol>
+
+<p>This is the arrange
+Bob rated 5
+Sue rated -2
+Ali rated 4
+total 7</p>
+
+<p>Run the program 
+total 7 / 3 = 2.333</p>
+
+<p>Assert
+total vs expected_value</p>
+
+<p>https://www.youtube.com/watch?v=2yYSR6ftxUo</p>
+
+<p>Testing fundamentals - equivalence classes</p>
+
+<p>You cannot test all inputs. You need to carefully pick inputs to find your mistakes.</p>
+
+<p>“… testing can be used very effectively to show the presence of bugs, but never to show their absence” E.W. Dijkstra</p>
+
+<p>if 2 inputs produce the same output, they are said to be member of the same equivalence class.</p>
+
+<p>if the net method is tested correctly,  the behavior of the method should be the same, there are only 2 inputs that we must use: [1, 2, 3] and [0, -12]</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">absolute_value</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+		<span class="k">return</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">x</span>
+	<span class="k">else</span>
+		<span class="k">return</span> <span class="n">x</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Interior &amp; boundary values.</p>
+
+<p>Values that sit on either side of a division between equivalence classes are boundary valuer -&gt; where bugs hide.</p>
+
+<p>Other values are the interior values.</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">minimum</span><span class="o">...</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">|</span><span class="p">[</span><span class="mi">0</span> <span class="o">...</span> <span class="n">maximum</span><span class="p">]</span> 
+<span class="n">the</span> <span class="n">boundary</span> <span class="n">is</span> <span class="n">between</span> <span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<p>Test cases: (try to put all below in just one test)</p>
+
+<div><img src="/../graphics/projects/testing_water.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Equivalence test case</p>
+
+<p>min(a, b)</p>
+
+<p>Test:</p>
+<ol>
+  <li>a == b</li>
+  <li>a &lt; b</li>
+  <li>a &gt; b
+https://www.youtube.com/watch?v=-1kCdERz1sM</li>
+</ol>
+
+<p>Base, Edge, and Corner Cases; Happy and Sad Paths</p>
+
+<p>Base case - normal expected inputs
+Edge case - inputs approach limits or outside limits
+Corner case - crazy values, should never see in real world</p>
+
+<p>Example: user interface - e commerce - shopping cart</p>
+
+<p>Base -&gt; user adds a few items
+Edge -&gt; user surprises us with a large order 100-1000 things
+Corner -&gt; whole store in cart (we don’t want the whole site to fail, we should put a limit)</p>
+
+<p>We can think of a form for creating a user name, nick names, emails, domains, capitalization</p>
+
+<p>Success &amp; failure (code should handle both)</p>
+
+<p>Test both good input (success).</p>
+
+<p>Test bad inputs (failure) to test proper error handling.</p>
+
+<p>Black box, you test the software and don’t get a look at the code, you cannot call the code</p>
+
+<p>White box, you test the software and get a look at the code to see what is happening</p>
+
+<p>https://www.youtube.com/watch?v=NoP3am8ipYw</p>
+
+<p>Hunting for bugs</p>
+
+<p>Logic errors</p>
+<ul>
+  <li>boundaries</li>
+  <li>common inputs to test
+    <ul>
+      <li>some minimum</li>
+      <li>zero</li>
+      <li>one</li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>empty - zero</td>
+              <td>length</td>
+              <td>list</td>
+              <td>empty</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>negative numbers</li>
+      <li>first/last element of an array</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Most common working with arrays or any sort of list:</p>
+<ul>
+  <li>skip first/last element</li>
+  <li>don’t process last element</li>
+</ul>
+
+<p>Numerical erros</p>
+<ul>
+  <li>accidental truncation of floating point to integer</li>
+  <li>divide by zero (think of a way how a user can input a 0 as denominator and catch the error)</li>
+  <li>bad floating behavior (try to add a lot of small numbers to a larger numbers)</li>
+  <li>assume the sum of the computer is correct</li>
+  <li>sqrt(2) != √2</li>
+</ul>
+
+<p>Integrating boundaries</p>
+<ul>
+  <li>one system talking to another</li>
+  <li>misunderstandings about proper inputs/outputs</li>
+</ul>
+
+<p>Other</p>
+<ul>
+  <li>null values -nil</li>
+  <li>handling of exceptions</li>
+  <li>loss of networks/disk/power?</li>
+</ul>
+
+<p>https://www.youtube.com/watch?v=crFl2K1bOhI</p>
+
+<p>MSCI 245 : A quick intro to Minitest and automated testing</p>
+
+<ul>
+  <li>testing framework</li>
+  <li>enabled by default in Rails</li>
+  <li>automated testing at 3 levels
+    <ul>
+      <li>Unit (individual methods or objects, this part works correctly)</li>
+      <li>Controller (integration) (we reproduce a browser with http verbs POST, GET)</li>
+      <li>System - end to end (E2E) user interface (manual, buttons)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To do unit testing we make a class that inherits from ActiveSupport::TestCase.
+We make one test case for every class we want to unit test.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>test/models/book_test.rb
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Arrange</span>
+<span class="no">Act</span>
+<span class="no">Assert</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="nb">require</span> <span class="s1">'test_helper'</span> <span class="c1"># brings test/test_helper.rb</span>
+
+<span class="k">class</span> <span class="nc">BookTest</span> <span class="o">&lt;</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">TestCase</span>
+	<span class="c1"># (always start with "test_")</span>
+
+	<span class="c1"># The DB within test is empty</span>
+	<span class="k">def</span> <span class="nf">test_average_rating_multiple_ratings</span>
+		<span class="c1"># you have to build up the case in the database</span>
+		<span class="n">card</span> <span class="o">=</span> <span class="no">Author</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Orson Scott Card"</span><span class="p">)</span> <span class="n">arrange</span>
+		<span class="n">ender_game</span> <span class="o">=</span> <span class="no">Book</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">title: </span><span class="s2">"Ender's Game"</span><span class="p">,</span> <span class="ss">year: </span><span class="s2">"1985"</span><span class="p">,</span> <span class="ss">author: </span><span class="n">card</span> <span class="n">arrange</span>
+		<span class="o">...</span>
+		<span class="o">...</span> <span class="n">add</span> <span class="n">ratings</span><span class="o">/</span> <span class="n">users</span>
+		
+		<span class="n">assert_in_delta</span><span class="p">(</span><span class="mf">2.333</span><span class="p">,</span> <span class="n">ender_game</span><span class="p">.</span><span class="nf">average_rating</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="s2">"should return 2.333 for Ender's Game"</span><span class="p">)</span>
+	<span class="k">end</span>
+
+	<span class="k">def</span>  <span class="nf">test_average_rating_no_ratings</span>
+		<span class="n">christie</span> <span class="o">=</span> <span class="no">Author</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Agatha Christie"</span><span class="p">)</span>
+		<span class="n">fire_pigs</span> <span class="o">=</span> <span class="no">Book</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="ss">title: </span><span class="s2">"Fire Pigs"</span><span class="p">,</span> <span class="ss">year: </span><span class="s2">"1942"</span><span class="p">,</span> <span class="ss">author: </span><span class="n">christie</span><span class="p">)</span>
+		
+		<span class="c1"># first the expected, then the actual</span>
+		<span class="n">assert_nil</span><span class="p">(</span><span class="n">fire_pigs</span><span class="p">.</span><span class="nf">average_nil</span><span class="p">,</span> <span class="s2">"this should be nil"</span><span class="p">)</span>
+	<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Things to note:</p>
+
+<ul>
+  <li>File that start with “test_” are run with “rails test”</li>
+  <li>You can create other methods</li>
+  <li>You have access to all Rails</li>
+  <li>You can use debugger</li>
+  <li>Each test should be independent of other tests</li>
+  <li>You can define a setup method in the beginning and call it before every method, (to create data)</li>
+</ul>
+
+<p>https://www.youtube.com/watch?v=JYbHurKGzM0</p>
+
+<p>Testing - Test Cases - Minitest - Capybara</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Arrange</span>  <span class="o">-</span> <span class="n">setup</span> <span class="n">the</span> <span class="n">input</span> <span class="n">code</span>
+<span class="no">Act</span>  <span class="o">-</span> <span class="n">execute</span> <span class="n">the</span> <span class="n">code</span> <span class="n">w</span><span class="o">/</span> <span class="n">input</span>
+<span class="no">Assert</span> <span class="o">-</span> <span class="n">check</span> <span class="n">the</span> <span class="n">result</span> <span class="n">against</span> <span class="n">our</span> <span class="n">expected</span> <span class="n">output</span> 
+</code></pre></div></div>
+
+<p>Example: we are testing addition, the  input is 1 and 2, the expected result is 3.</p>
+
+<p>E2E or systems tests:</p>
+
+<p>Arrange    - sometimes could be add items to DB
+Act - visit the home page, click a link to create account
+Assert - did i end up in the home page?</p>
+
+<p>seeds.rb is not for tests, is for using the app, like: admin.</p>
+
+<p>FIRST properties of good tests</p>
+
+<p>Fast - run fast
+I - independent | isolated, a test should not depend on another test that has run before it; what went wrong and where (try one idea per test)
+R - repeatable, every time you run a test it behaves the same
+S - self validating,  tests reports pass or fail by automatic 
+T - timely | thorough, write the test when your write the code; coverage</p>
+
+<p>Test Frameworks - Minitest (will help us write FIRST tests)</p>
+
+<ol>
+  <li>resetting the Rails app and DB after each test  (repeatable, independent)</li>
+  <li>run tests in randomly order (independent)</li>
+  <li>provide assert statements &amp; reports of pass and fail (self validating)</li>
+</ol>
+
+<p>Fast is mainly a property of this type of test, low overhead (faster than Rspec)
+Timely &amp; Through this is about developer behavior and skills</p>
+
+<p>Basics of Minitest</p>
+
+<ol>
+  <li>You write classes that inherit from Minitest.</li>
+  <li>Each method of the class that star with “test_” is run as independent test .</li>
+  <li>You can write a “setup” method, it will run before every test within that class (for creating user for instance).</li>
+  <li>Rails and Minitest restore state after each test, includes the DB.</li>
+  <li>Everything in Minitest in plain Ruby (only new methods like assert) (not like Rspec or cucumber).</li>
+  <li>Your class can have non-test  methods.</li>
+  <li>You have access to all Rails, models methods and so on.</li>
+  <li>Separate test DB to avoid contamination.</li>
+  <li>There are a lots of ways to assert.</li>
+</ol>
+
+<p>assert(test = must be a boolean, message to display) - &gt; assert(expected == results)</p>
+
+<p>assert_equal(expected, actual)</p>
+
+<p>assert_nil(nil)</p>
+
+<p>flunk (msg) make the test fail in purpose</p>
+
+<p>skip (msg)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>Capybara</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>url = root_path
+visit url 
+——
+assert_current_path url
+—–
+click_link(‘id-of-link’) # id’s from HTML
+click_link(‘Books’)
+click_button(‘Submit’) # it’s better to click on id
+fill_in(‘Name’, with: ‘Bob’)
+——-
+assert page.has_content?(‘Sorry Invalid.’)</p>
+
+<p>You can search element on the page and interact with them or inspect them
+page.find(:css, ‘a[href=’sign_up_path’]’).click</p>
+
+<p>assert_text (‘Create an account.’)</p>
+
+<p>=&gt; all about UI. If you wont access session &amp; other “lower stuff” then write an integration.</p>
+
+<p>Example:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">LinkTest</span> <span class="o">&lt;</span> <span class="no">ApplicationSystemTestCase</span>
+	<span class="k">def</span> <span class="nf">test_nav_root_to_create_account</span>
+		<span class="n">visit</span> <span class="n">root_path</span>
+		<span class="n">click_link</span><span class="p">(</span><span class="s1">'Create Account'</span><span class="p">)</span>
+		<span class="n">assert_current_path</span> <span class="n">sign_up_path</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>https://www.youtube.com/watch?v=DxIoWJKYxIg&amp;t=1278s</p>
+
+<p>Demo of TDD</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Arrange</span>
+<span class="no">Act</span>
+<span class="no">Assert</span>
+
+<span class="k">class</span> <span class="nc">StatFunction</span>
+	<span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">median</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">values</span><span class="p">.</span><span class="nf">nil?</span> <span class="o">||</span> <span class="n">values</span><span class="p">.</span><span class="nf">length</span> <span class="o">==</span> <span class="mi">0</span> 
+			<span class="k">raise</span> <span class="no">ArgumentError</span><span class="p">(</span><span class="s2">"it needs at least one element"</span><span class="p">)</span>
+		<span class="k">end</span>
+		
+		<span class="k">if</span> <span class="n">values</span><span class="p">.</span><span class="nf">length</span> <span class="o">==</span> <span class="mi">1</span>
+			<span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+		<span class="k">end</span>
+		
+		<span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">.</span><span class="nf">sort</span>
+		<span class="k">if</span> <span class="n">values</span><span class="p">.</span><span class="nf">length</span><span class="p">.</span><span class="nf">even?</span>
+			<span class="n">left_of_mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="nf">length</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+			<span class="n">result</span> <span class="o">=</span> <span class="p">(</span> <span class="n">values</span><span class="p">[</span><span class="n">left_of_mid</span><span class="p">]</span>  <span class="o">+</span> <span class="n">values</span><span class="p">[</span><span class="n">left_of_mid</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">)</span>  <span class="o">/</span>  <span class="mf">2.0</span>
+			<span class="k">return</span> <span class="n">result</span>
+		<span class="k">else</span>
+			<span class="n">mid</span>  <span class="o">=</span> <span class="p">(</span><span class="n">values</span><span class="p">.</span><span class="nf">length</span> <span class="o">/</span> <span class="mi">2</span> <span class="p">)</span>
+			<span class="k">return</span> <span class="n">values</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Test</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">test_median_one_element</span>
+	<span class="c1"># arrange</span>
+	<span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+	<span class="c1"># act</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="no">TestingExample</span><span class="o">::</span><span class="no">StatFunction</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span> <span class="n">elements</span><span class="p">)</span>
+	<span class="c1"># assert</span>
+	<span class="n">assert_equal</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">test_median_two_elements</span>
+	<span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="no">TestingExample</span><span class="o">::</span><span class="no">StatFunction</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span> <span class="n">elements</span><span class="p">)</span>
+	<span class="n">assert_in_delta</span><span class="p">(</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">test_median_three_elements</span>
+	<span class="n">elements</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+	<span class="n">result</span> <span class="o">=</span> <span class="no">TestingExample</span><span class="o">::</span><span class="no">StatFunction</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span> <span class="n">elements</span><span class="p">)</span>
+	<span class="n">assert_equal</span><span class="p">(</span><span class="mi">2</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">test_median_zero_elements</span>
+	<span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="k">do</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="no">TestingExample</span><span class="o">::</span><span class="no">StatFunction</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span> <span class="n">elements</span><span class="p">)</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">test_median_zero_elements</span>
+	<span class="n">elements</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="k">do</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="no">TestingExample</span><span class="o">::</span><span class="no">StatFunction</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span> <span class="n">elements</span><span class="p">)</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">test_median_nil</span>
+	<span class="n">elements</span> <span class="o">=</span> <span class="kp">nil</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="k">do</span>
+		<span class="n">result</span> <span class="o">=</span> <span class="no">TestingExample</span><span class="o">::</span><span class="no">StatFunction</span><span class="p">.</span><span class="nf">median</span><span class="p">(</span> <span class="n">elements</span><span class="p">)</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>https://www.youtube.com/watch?v=sOT2FgD22VI</p>
+
+<p>What is Minitest?</p>
+
+<p>https://semaphoreci.com/community/tutorials/getting-started-with-minitest</p>
+
+<p>How to Test Rails Models with Minitest</p>
+
+<p>https://semaphoreci.com/community/tutorials/how-to-test-rails-models-with-minitest</p>
+
+<p>Getting Started With Testing In Rails (Using Minitest and RSpec)</p>
+
+<p>https://medium.com/@ethanryan/getting-started-with-testing-in-rails-using-minitest-and-rspec-113fe1f866a</p>
+
+<p>Getting Started With System Tests in Rails With Minitest</p>
+
+<p>In Rails jargon, system testing refers to “testing an application as a whole system”. That is done by using a browser in the tests. Instead of testing separate parts, with system tests, we can test a whole ‘workflow’, just like what a user goes through while interacting with our app, including the JavaScript parts. In practice, it means that we don’t want a system test to check if a record is created in the database when a user clicks a button; we just test if that new record appears on their screen. These kinds of user interaction tests are also called feature tests or acceptance tests. They are different from integration tests: integration tests are for testing the behavior, especially of all the parts of the app together, but not via the user interface.</p>
+
+<p>https://blog.appsignal.com/2020/02/12/getting-started-with-system-tests-in-ruby-with-minitest.html</p>
+
+<p>Official Docs</p>
+
+<p>https://guides.rubyonrails.org/testing.html#rails-meets-minitest</p>
+
+<p>Minitest vs. RSpec in Rails</p>
+
+<p>https://www.honeybadger.io/blog/minitest-rspec-rails/</p>
+</div>
+
+<div class='breaker'></div>
+
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2022-03-04">
+      March  4, 2022
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>

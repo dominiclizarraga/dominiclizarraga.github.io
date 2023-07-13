@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name=author content='Dom Lizarraga' />
+  <meta name='theme-color' content='#fff' />
+  <meta name='twitter:title' content="The Minitest Cookbook" />
+  <meta name=description content="" />
+  <meta name=viewport content='width=device-width,minimum-scale=1'>
+  <meta property='og:site_name' content="dominiclizarraga.github.io"/>
+  <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
+  <meta property='og:type' content=blog />
+  <meta property='twitter:account_id' content=domlizarraga_ />
+  
+  
+  <script type='application/ld+json'>{"@context": "http://schema.org","@type": "CreativeWork","author": "Dom Lizarraga"}</script>
+  
+    <link rel=alternate type='application/rss+xml' title="dominiclizarraga.github.io - Reading" href="http://localhost:4000/reading/rss.xml" />
+    <link rel=alternate type='application/atom+xml' title="dominiclizarraga.github.io - Reading" href="http://localhost:4000/reading/atom.xml" />
+  
+  <link rel=icon type=image/x-icon href=/css/favicon.png />
+  <style>:root {
+  --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial,
+    sans-serif;
+}
+
+.star {
+  width: 13px;
+  height: 12px;
+  display: inline-block;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYuMzA5IDkuMjJMMi40MDkgMTJsMS40NC00LjU2N0wwIDQuNTgzbDQuNzg4LS4wNDJMNi4zMDggMCA3LjgzIDQuNTRsNC43ODkuMDQ0LTMuODUgMi44NDlMMTAuMjA5IDEyeiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+");
+}
+
+body {
+  color: #111;
+  margin: 0px auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  font-size: 1rem;
+  font-family: var(--sans-font);
+}
+
+/* Print tweaks ------------------------------------------------------------- */
+.only-print {
+  display: none;
+}
+
+.notitle .body p:first-child {
+  margin-top: 0.25rem;
+}
+
+.body img {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* Element styles ----------------------------------------------------------- */
+sup,
+sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub {
+  top: 0.4em;
+}
+
+a {
+  color: #000;
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #333;
+}
+
+ol,
+ul {
+  margin: 1rem 0;
+}
+
+ul ul {
+  margin: 0;
+}
+
+ol li ul {
+  margin: 5px 10px;
+}
+
+iframe {
+  border: 0;
+}
+
+small,
+.small {
+  font-size: 14px;
+}
+
+br {
+  line-height: 1em;
+}
+
+h1 a {
+  color: #111;
+}
+
+em {
+  font-style: italic;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.004em;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.009em;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.009em;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+blockquote {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+td {
+  vertical-align: top;
+}
+
+hr {
+  background: #000;
+  height: 1px;
+  border: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.body th {
+  text-align: left;
+}
+
+.body td,
+.body th {
+  padding: 0.5rem;
+}
+
+.body td {
+  border: 1px solid #cfcfcf;
+}
+
+.limiter {
+  max-width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding --------------------------------------- */
+.pad2y {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+span.image-credit {
+  float: right;
+  margin: 0 0 10px 10px;
+  font-size: 12px;
+}
+
+span.image-credit:before {
+  content: "↑";
+  margin-right: 5px;
+}
+
+figcaption {
+  font-size: 11px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: -1.2rem;
+}
+
+div.post blockquote p {
+  margin: 0;
+}
+
+/** Writing ----------------------------------------------------------------- */
+.writing,
+.books {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.writing {
+  grid-template-columns: 1fr min-content;
+}
+
+.books {
+  grid-template-columns: 1fr 0.75fr min-content 70px;
+}
+
+.writing a,
+.books a {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.writing > div,
+.books > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.writing time,
+.books time {
+  padding-right: 0.25em;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.012em;
+  white-space: pre;
+}
+
+.project-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.project-box a.project {
+  text-decoration: none;
+  color: #666;
+}
+.project-box a.project:hover {
+  color: #000;
+}
+.project-box a.project img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/** Responsive -------------------------------------------------------------- */
+
+@media screen and (max-width: 480px) {
+  .project-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .limiter {
+    width: auto;
+  }
+  .project-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .writing,
+  .books {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0px;
+  }
+
+  .writing div,
+  .books div {
+    white-space: normal;
+  }
+
+  .writing time,
+  .books div:nth-child(4n) {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .nu a {
+    text-decoration: none;
+  }
+
+  .nu a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-wrap {
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+  }
+  .sigil {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .header {
+    position: absolute;
+    top: 40px;
+    right: 50%;
+    margin-right: 340px !important;
+    letter-spacing: -0.009em;
+  }
+  .content h1:first-child {
+    margin-top: 0;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  .only-print {
+    display: block;
+  }
+  body {
+    margin: 0;
+  }
+  .limiter {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/** Code highlighting ------------------------------------------------------- */
+p code,
+pre code,
+li code,
+g.highlight,
+.code {
+  font-family: var(--mono-font);
+}
+
+p code {
+  font-size: 90%;
+}
+
+pre code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.highlight,
+blockquote {
+  overflow-x: auto;
+  padding: 10px 20px;
+  margin: 0;
+  background: #fff;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+blockquote p:first-child {
+  margin-top: 0;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* pygments theme. does not support generics. .highlight class omitted */
+.highlight {
+  margin: 10px 0;
+}
+
+.highlight .hll {
+  background-color: #ffffcc;
+}
+
+.c, /* Comment */
+.cm, /* Comment.Multiline */
+.cp, /* Comment.Preproc */
+.cs, /* Comment.Special */
+.c1 {
+  color: #999988;
+} /* Comment.Single */
+
+.o, /* Operator */
+.ow, /* Operator.Word */
+.ge {
+  color: #000000;
+} /* Generic.Emph */
+
+.kc, /* Keyword.Constant */
+.kd, /* Keyword.Declaration */
+.kn, /* Keyword.Namespace */
+.kp, /* Keyword.Pseudo */
+.kr, /* Keyword.Reserved */
+.kt {
+  color: #445588;
+} /* Keyword.Type */
+
+.err {
+  color: #a61717;
+} /* Error */
+
+.m {
+  color: #007f7f;
+} /* Literal.Number */
+.s {
+  color: #d01040;
+} /* Literal.String */
+
+.na, /* Name.Attribute */
+.nb, /* Name.Builtin */
+.nc, /* Name.Class */
+.no, /* Name.Constant */
+.nd, /* Name.Decorator */
+.ni, /* Name.Entity */
+.ne, /* Name.Exception */
+.nf, /* Name.Function */
+.nn, /* Name.Namespace */
+.nt, /* Name.Tag */
+.nl {
+  color: #990000;
+} /* Name.Label */
+
+.k, /* Keyword */
+.nv {
+  color: #008080;
+} /* Name.Variable */
+
+.mf, /* Literal.Number.Float */
+.mh, /* Literal.Number.Hex */
+.mi, /* Literal.Number.Integer */
+.mo {
+  color: #009999;
+} /* Literal.Number.Oct */
+
+.sb, /* Literal.String.Backtick */
+.sc, /* Literal.String.Char */
+.sd, /* Literal.String.Doc */
+.s2, /* Literal.String.Double */
+.se, /* Literal.String.Escape */
+.sh, /* Literal.String.Heredoc */
+.s1, /* Literal.String.Single */
+.si, /* Literal.String.Interpol */
+.ss, /* Literal.String.Symbol */
+.bp, /* Name.Builtin.Pseudo */
+.sx {
+  color: #d01040;
+} /* Literal.String.Other */
+
+.sr, /* Literal.String.Regex */
+.vc, /* Name.Variable.Class */
+.vg, /* Name.Variable.Global */
+.vi, /* Name.Variable.Instance */
+.il {
+  color: #009999;
+} /* Literal.Number.Integer.Long */
+</style>
+  <title>The Minitest Cookbook - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2022/01/05/minitest_cookbook.html">
+</head>
+<body>
+  <div class='pad2y' style='position:relative'>
+    
+    <div class='only-print'>
+      <h2>Dom Lizarraga</h2>
+      <div style='margin-top:0;'>dominiclizarraga@hotmail.com</div>
+    </div>
+    <nav class='header-wrap'>
+      <div class='header nu limiter no-print'>
+        <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>Dom Lizarraga</h1>
+        <ul style='list-style:none;padding:0;margin:0;'>
+          <li><a href='/'>Writing</a></li>
+          <li><a href='/reading/'>Reading</a>⇠</li>
+          <li><a href='/projects/'>Projects</a></li>
+          <li><a href='/about/'>About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class='pad2y limiter content '>
+      <div itemscope itemtype="http://schema.org/Review">
+
+<h1 style='font-size: 30px;'>
+I read The Minitest Cookbook by Chris Kottom
+on <span itemprop="datePublished" datetime="2022-01-05">January 5, 2022</span>
+</h1>
+
+
+<h3 itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">Review
+  <meta itemprop="worstRating" content="1">
+  <meta itemprop="ratingValue" content="5">
+  <meta itemprop="bestRating" content="5">
+  <div
+    class='star'
+    class='value-title'
+    title='5'
+    style='margin-left:10px;display:inline-block;background-size:15px 14px;height:14px;width:75px'></div>
+</h3>
+
+<div itemprop="description" class='body'><p>Today though, the separation between development and testing has largely disappeared - at least in the universe that most Ruby and Rails programmers occupy.</p>
+
+<p>In many if not most cases now, the one writing the code is also responsible for producing automated tests that cover the work
+done. And while you’re probably sick of hearing it, this is a good thing for all kinds of reasons. Why?</p>
+
+<p>• Tests demonstrate that your code actually works.
+• The pattern of thinking needed to write tests for code is very close to
+that needed to design it.
+• Testing and developing in parallel tends to surface more bugs early in the development process when fixing them is cheap and easy.
+• Well-tested code tends to be better designed with reduced coupling and greater cohesion.
+• A good test suite acts as a detailed specification.
+• Writing tests during development increases programmer engagement and efficiency.
+• A test suite with good coverage aids in maintenance, refactoring, and upgrades with reduced risk of breakage and regression.
+• It’s faster to write code with tests than without.
+• Having automated tests reduces or removes the need for manual testing</p>
+
+<p>Best tests will have a few important characteristics in common:
+• Clarity: The name of each test suggests what it’s about at a glance.
+• Purpose: The intent and meaning of the test is obvious and unambiguous from the testing logic.
+• Eloquence: The test logic is expressed through fluent use of the language and the testing framework.
+• Readability: Tests are written and formatted in a way that promotes rapid discovery and comprehension.
+• Efficiency: All other things being equal, automated tests should use the minimum possible system resources</p>
+
+<p>Unlike a lot of books on testing, this one won’t dwell on the mechanics of test-driven development. TDD has become so prevalent and popular among the Ruby and Rails development community that you’d be hard pressed to find a book on testing or development that doesn’t take it as a starting point for everything taught. But TDD is primarily about development and only incidentally about testing, and it often treats the tests that fall out of it as a by-product rather than as first-class citizens of your project. That tends to result in test suites that are neglected after they’ve served the purpose of driving out features.</p>
+
+<p>• Fact: The entire framework weighs in at less than 1600 lines of code. RSpec is almost 8 times as large. With a code base that size, the source practically becomes its own documentation.
+• Fact: Minitest has been singled out as a very readable project because it’s written in plain Ruby that developers of all experience
+levels can dig into and understand.
+• Fact: The project has remained small and simple because of conscious decisions to keep it that way in spite of frequent requests
+for expanded features.
+• Fact: The source code showcases Ruby’s power and elegance with great uses of closures, metaprogramming, concurrent programming, and others.
+• Fact: Since the Minitest framework also happens to be tested with Minitest, it includes some exceptional practical examples illustrating good testing technique</p>
+
+<p>To really get comfortable with Minitest’s internals, there are four basic abstractions that you’ll need to understand: plugins, reporters, runnables and the Minitest runner.</p>
+
+<p>Plugins</p>
+
+<p>In Minitest, plugins are modules that extend or modify the behavior of Minitest. They can be used to add new features, customize the test runner, or modify the output of test results. Examples of plugins in Minitest include pride (a colorful test runner), parallel (for parallel test execution), and focus (to run specific tests or test suites).</p>
+
+<p>Minitest plugins are usually packaged as RubyGems which implement a simple framework-defined contract that allows them to be loaded an initialized by the framework. Specifically speaking, every plugin includes a loader file that follows a standard naming convention - ex: minitest/ foo_plugin.rb where foo is the name of the plugin.</p>
+
+<p>minitest-rails is a plugin for Minitest that adds some additional features for working with Ruby on Rails applications. It provides some additional test generators that can create test files for your Rails application’s models, controllers, views, and helpers. It also includes support for testing Rails-specific features like routes and controllers.</p>
+
+<p>In addition to the generators, minitest-rails also provides a Rails-specific test runner that sets up the Rails environment before running the tests. This can be helpful if your tests need to access Rails configuration or other Rails-specific features.</p>
+
+<p>Overall, minitest-rails is a helpful plugin for anyone working with Ruby on Rails applications and using Minitest as their testing framework.</p>
+
+<p>Another example: the minitest/pride plugin adds colorful output to your test results in the terminal.</p>
+
+<p>Reporters</p>
+
+<p>A test suite is a map for directing development effort to the parts of your project that need it. From this perspective, the results reported by your test suite act as its user interface and indicate the state of your code base.</p>
+
+<p>Each test Minitest runs passes a result to a Reporter object which is responsible for acting on it. Depending on the Reporter, it might:
+• Display information to the console.
+• Store the result for later processing.
+• Increment counters or compile statistics.
+• Send the result to another system - ex: a CI, a database, etc.</p>
+
+<p>As an abstraction, a Reporter is just an object that implements four methods that allow it to accept and operate on test results:
+• #start - called before the first test is run
+• #record - accept and process a single test result
+• #report - deliver a detailed report after the test run
+• #passed? - indicate passed/failed/errored/skipped tests</p>
+
+<div><img src="/../graphics/projects/cook_book_1.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>In Minitest, reporters are used to generate output of the test results. They provide various types of outputs such as progress bar, detailed documentation, and colorized output.</p>
+
+<p>Runnables</p>
+
+<p>In Minitest, runners are classes that run a set of tests.</p>
+
+<p>Assert-style tests and Spec-style tests are two different styles of writing tests in Minitest.</p>
+
+<p>Assert-style tests are based on assertions that verify the expected result of a test. They are usually written using methods such as assert, assert_equal, assert_match, etc. The focus is on verifying specific outcomes and behavior of the code being tested.</p>
+
+<p>Spec-style tests are based on specifying the expected behavior of a system or component. They are usually written using describe and it blocks that describe the behavior of the code being tested. The focus is on describing the behavior and intent of the code, rather than just verifying specific outcomes.</p>
+
+<p>Assert-style tests are based on the idea of making assertions about the state of the system under test. These tests usually follow the “Arrange-Act-Assert” pattern, where the test sets up the system’s initial state, performs some action, and then makes one or more assertions about the system’s final state. (This uses instance methods starting with the string “test_”).</p>
+
+<p>Spec-style tests, on the other hand, are based on the idea of describing the behavior of the system under test using a domain-specific language (DSL). In these tests, the focus is on describing what the system should do rather than how it should do it. Spec-style tests often use “describe” and “it” blocks to structure the test code.</p>
+
+<p>Both styles of testing have their pros and cons, and the choice of which one to use often comes down to personal preference and the requirements of the project. Some developers prefer the clarity and simplicity of Assert-style tests, while others find the expressiveness and readability of Spec-style tests to be more appealing. Ultimately, the most important thing is to choose a style that works for you and your team and allows you to write effective, maintainable tests.</p>
+
+<p>The Minitest Runner</p>
+
+<p>The Minitest Runner is the component responsible for running Minitest test suites. It loads the test files, executes the tests, and reports the results. By default, Minitest uses the Minitest::Runnable and Minitest::Test classes to define and run tests, respectively. However, the runner can be customized to use other classes or to change the way the tests are run. The runner is a key part of Minitest’s flexibility and extensibility.</p>
+
+<p>The runner and Runnables fit together like the layers of an onion where each layer represents a Ruby block or method. The inner layers represent the Runnables where the tests are actually executed, and the outer layers represent the runner - the code that gives the onion its shape.</p>
+
+<p>Minitest.run
+Next, Minitest sets up the environment for the test run along with all the necessary supporting objects. All the framework’s major responsibilities are handled right here as it:
+• Parses the command line arguments.
+• Loads and initializes all detected Minitest plugins.
+• Instantiates and runs the reporters.
+• Runs tests by passing control on to the next layer.
+• Ensures that parallel worker threads are shut down gracefully.</p>
+
+<hr />
+<p>Basic Recipes</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Problem</span><span class="p">:</span>
+<span class="k">class</span> <span class="nc">FizzBuzz</span>
+	<span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+		<span class="k">if</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">15</span> <span class="o">==</span> <span class="mi">0</span>
+			<span class="s2">"FizzBuzz"</span>
+		<span class="k">elsif</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span>
+			<span class="s2">"Buzz"</span>
+		<span class="k">elsif</span> <span class="n">number</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span>
+			<span class="s2">"Fizz"</span>
+		<span class="k">else</span>
+		<span class="n">number</span><span class="p">.</span><span class="nf">to_s</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Takeaways
+You need four things to develop a Ruby project with Minitest:
+• Install Minitest as a project dependency with Bundler.
+• Create a test directory at test/ .
+• Create a test helper to include all global configuration and customization at test/test_helper.rb .
+• Create a new Rakefile or update the existing one with a Rake::TestTask configured to suit your needs (by convention to run tests you use the command <code class="language-plaintext highlighter-rouge">rake</code>)</p>
+
+<hr />
+<p>Writing Tests</p>
+
+<p>All the tests that we write follow the same basic four-phase structure.
+	1. Setup the inputs and data objects prior to running the test.
+	2. Exercise the logic under test.
+	3. Verify that the tested code produces the expected results.
+	4. Teardown or reset application state before running the next test.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'test_helper'</span>
+<span class="nb">require</span> <span class="s1">'fizz_buzz'</span>
+
+<span class="k">class</span> <span class="nc">FizzBuzzTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+	<span class="k">def</span> <span class="nf">setup</span> 
+		<span class="vi">@fb</span> <span class="o">=</span> <span class="no">FizzBuzz</span><span class="p">.</span><span class="nf">new</span>
+	<span class="k">end</span>
+	<span class="k">def</span> <span class="nf">test_converts_multiples_of_fifteen_to_fizzbuzz</span>
+		<span class="c1"># fb = FizzBuzz.new</span>
+		<span class="n">assert_equal</span> <span class="s1">'FizzBuzz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'FizzBuzz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'FizzBuzz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">90</span><span class="p">)</span>
+		<span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">90</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
+			<span class="n">assert_equal</span> <span class="s1">'FizzBuzz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+	<span class="k">def</span> <span class="nf">test_converts_multiples_of_five_to_buzz</span>
+		<span class="c1"># fb = FizzBuzz.new</span>
+		<span class="n">assert_equal</span> <span class="s1">'Buzz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'Buzz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'Buzz'</span><span class="p">,</span> <span class="mi">2</span><span class="n">fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+	<span class="k">end</span>
+	<span class="k">def</span> <span class="nf">test_converts_multiples_of_three_to_fizz</span>
+		<span class="c1"># fb = FizzBuzz.new</span>
+		<span class="n">assert_equal</span> <span class="s1">'Fizz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'Fizz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'Fizz'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">48</span><span class="p">)</span>
+		<span class="c1"># another example could have been assert 'Fizz' == fb.convert(3)</span>
+	<span class="k">end</span>
+	<span class="k">def</span> <span class="nf">test_returns_same_number_for_other_numbers</span>
+		<span class="n">assert_equal</span> <span class="s1">'1'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'101'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+		<span class="n">assert_equal</span> <span class="s1">'2014'</span><span class="p">,</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">2014</span><span class="p">)</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<div><img src="/../graphics/projects/cook_book_2.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<div><img src="/../graphics/projects/cook_book_3.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Another example of syntaxis:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">ArticleTest</span> <span class="o">&lt;</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">TestCase</span>
+	<span class="nb">test</span> <span class="s2">"should not save article without title"</span> <span class="k">do</span>
+		<span class="n">article</span> <span class="o">=</span> <span class="no">Article</span><span class="p">.</span><span class="nf">new</span>
+		<span class="n">assert_not</span> <span class="n">article</span><span class="p">.</span><span class="nf">save</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<div><img src="/../graphics/projects/cook_book_4.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>That’s why many developers follow a strict one assertion per test policy - so that each assertion has exactly one chance to succeed or fail. It’s true that your tests will be better and more maintainable when each test verifies a single behavior of the system, but writing a single test for each of the assertions above seems like overkill to me since they’re all testing the same general behavior.</p>
+
+<p>setup runs before each test.
+teardown runs after each test.</p>
+
+<p>It’s better to favor readability over DRY-ness when writing tests.</p>
+
+<p>Usage of skip</p>
+
+<p>Skip can be useful in situations where you want to write a test that specs out some future work that you’re not
+quite ready to code just yet. For example, FizzBuzzTest doesn’t currently check to see what happens when we pass it an  unexpected input.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">test_raises_argument_error_for_bad_argument</span>
+	<span class="n">skip</span> <span class="s1">'not yet implemented'</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">}</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">}</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="p">}</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="s1">'foo'</span><span class="p">)</span> <span class="p">}</span>
+	<span class="n">assert_raises</span><span class="p">(</span><span class="no">ArgumentError</span><span class="p">)</span> <span class="p">{</span> <span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<p>Takeaways
+	• Assert-style test cases are classes that inherit from Minitest::Test.
+	• Public instance methods of those classes whose names begin with test_ are treated as tests by the runner.
+	• Minitest provides a small set of assertions out of the box, and of those, about half are used frequently.
+	• Override the setup and teardown methods to include code that should be executed before or, respectively, after each test is
+	executed.
+	• If you have to choose between readability and DRY-ness in your tests, you should almost always choose readability.</p>
+
+<p>Writing Specs</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FizzBuzzIterator</span>
+	<span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="vi">@counter</span> <span class="o">=</span> <span class="n">start</span>
+		<span class="vi">@fb</span> <span class="o">=</span> <span class="no">FizzBuzz</span><span class="p">.</span><span class="nf">new</span>
+	<span class="k">end</span>
+	<span class="k">def</span> <span class="nf">next</span>
+		<span class="n">input</span> <span class="o">=</span> <span class="vi">@counter</span>
+		<span class="vi">@counter</span> <span class="o">+=</span> <span class="mi">1</span>
+		<span class="vi">@fb</span><span class="p">.</span><span class="nf">convert</span><span class="p">(</span><span class="n">input</span><span class="p">)</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'test_helper'</span>
+<span class="nb">require</span> <span class="s1">'fizz_buzz_iterator'</span>
+
+<span class="n">describe</span> <span class="no">FizzBuzzIterator</span> <span class="k">do</span>
+	<span class="n">it</span> <span class="s1">'outputs sequential FizzBuzz values starting from 1 when initialized without a starting value'</span> <span class="k">do</span>
+		<span class="n">iterator</span> <span class="o">=</span> <span class="no">FizzBuzzIterator</span><span class="p">.</span><span class="nf">new</span>
+		
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'1'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'2'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'4'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Buzz'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+	<span class="k">end</span>
+	<span class="n">it</span> <span class="s1">'outputs sequential FizzBuzz values starting from the starting value when initialized with a starting value'</span> <span class="k">do</span>
+		<span class="n">iterator</span> <span class="o">=</span> <span class="no">FizzBuzzIterator</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+		
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Buzz'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'11'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'13'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'14'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'FizzBuzz'</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># Other alternatives</span>
+
+<span class="n">expect</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+<span class="n">value</span><span class="p">(</span><span class="n">iteratory</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'11'</span>
+<span class="n">_</span><span class="p">(</span><span class="n">iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Buzz'</span>
+
+</code></pre></div></div>
+<p>Assertion vs Expectation</p>
+
+<div><img src="/../graphics/projects/cook_book_5.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<div><img src="/../graphics/projects/cook_book_6.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<div><img src="/../graphics/projects/cook_book_7.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Like most powerful tools, this one can be abused. As a general rule, try to limit describe block nesting to at most two or three layers deep. More than that and the specs hard to follow and less readable for future developers (including future you).</p>
+
+<p>Before and After for Spec-Style</p>
+
+<p>before blocks for all enclosing scopes will be called before the test logic in order from outermost to innermost.</p>
+
+<p>after blocks for all enclosing scopes will be called after the test logic in order from innermost to outermost.</p>
+
+<p>In practical terms, this lets us define blocks with increasingly specific setup and teardown logic that cascade or override previous operations</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'test_helper'</span>
+<span class="nb">require</span> <span class="s1">'fizz_buzz_iterator'</span>
+
+<span class="n">describe</span> <span class="no">FizzBuzzIterator</span> <span class="k">do</span>
+	<span class="n">before</span> <span class="k">do</span>
+		<span class="vi">@iterator</span> <span class="o">=</span> <span class="no">FizzBuzzIterator</span><span class="p">.</span><span class="nf">new</span>
+	<span class="k">end</span>
+	
+	<span class="n">it</span> <span class="s1">'outputs sequential FizzBuzz values starting from 1'</span> <span class="k">do</span>
+		<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'1'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'2'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'4'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Buzz'</span>
+		<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+	<span class="k">end</span>
+	
+	<span class="n">describe</span> <span class="s1">'when initialized with a starting value'</span> <span class="k">do</span>
+		<span class="n">before</span> <span class="k">do</span>
+			<span class="vi">@iterator</span> <span class="o">=</span> <span class="no">FizzBuzzIterator</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+		<span class="k">end</span>
+		<span class="n">it</span> <span class="s1">'outputs sequential FizzBuzz values starting from the starting value'</span> <span class="k">do</span>
+			<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Buzz'</span>
+			<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'11'</span>
+			<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'Fizz'</span>
+			<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'13'</span>
+			<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'14'</span>
+			<span class="n">expect</span><span class="p">(</span><span class="vi">@iterator</span><span class="p">.</span><span class="nf">next</span><span class="p">).</span><span class="nf">must_equal</span> <span class="s1">'FizzBuzz'</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>The let function provides an alternate and some would say more elegant way of setting up testing state with a more declarative syntax.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="n">describe</span> <span class="no">FizzBuzzIterator</span> <span class="k">do</span>
+	<span class="n">let</span><span class="p">(</span><span class="ss">:iterator</span><span class="p">)</span> <span class="p">{</span> <span class="no">FizzBuzzIterator</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
+	<span class="c1"># ...</span>
+<span class="k">end</span>
+
+<span class="n">describe</span> <span class="no">FizzBuzzIterator</span> <span class="k">do</span>
+	<span class="n">let</span><span class="p">(</span><span class="ss">:iterator</span><span class="p">)</span> <span class="p">{</span> <span class="no">FizzBuzzIterator</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">}</span>
+	<span class="c1"># ...</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Each call to let dynamically defines a new method with the specified name that executes the block argument upon the first invocation and caches the result for later access - in other words, a lazy initializer.</p>
+
+<p>Takeaways</p>
+
+<p>• Create a new test case in Minitest::Spec using a top-level describe block with a String or Class argument.</p>
+
+<p>• Define a test using an it block with a descriptive String passed as a parameter.</p>
+
+<p>• Make assertions on the values of expressions by wrapping them in a Minitest::Expectation object using expect or one of its aliases.</p>
+
+<p>• Use nested describe blocks to define scopes within a test case as a way of grouping related tests.</p>
+
+<p>• Implement before and after blocks for shared setup and teardown logic specific to a block context.</p>
+
+<h2 id="-create-named-lazy-initializers-using-let-blocks">• Create named lazy initializers using let blocks.</h2>
+
+<p>Configure Pre-Test State</p>
+
+<p>As explained back in Writing Tests, each test run under Minitest follows a common progression of steps: Setup, Exercise, Verify, and Teardown. Of these, Setup usually accounts for more lines of code and can be the toughest for new developers to understand. There are several options for setting the state, and knowing which one is the best fit requires familiarity with all of them.</p>
+
+<p>Method 1: Set up the same state before each test.</p>
+
+<div><img src="/../graphics/projects/cook_book_8.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Method 2: Configure different state before each test.</p>
+
+<div><img src="/../graphics/projects/cook_book_9.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Method 3: Using a memoized helper method.</p>
+
+<div><img src="/../graphics/projects/cook_book_10.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Method 4: Create data objects within the test.</p>
+
+<div><img src="/../graphics/projects/cook_book_11.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Collections</p>
+
+<p>Enumerable types where order doesn’t matter like Hash and Set count two instances as being equal if they contain the same elements regardless of the order in which the elements were added or passed during initialization.</p>
+
+<div><img src="/../graphics/projects/cook_book_12.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Relations (active record)</p>
+
+<p>Just as with Arrays though, order matters, so you’ll need to ensure that both the actual and the expected values are sorted the same way when performing comparisons.</p>
+
+<div><img src="/../graphics/projects/cook_book_13.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>ActiveRecord::Relation objects compare mostly like Arrays except when compared with others of the same type, and then according to the SQL representation.</p>
+
+<div><img src="/../graphics/projects/cook_book_14.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Dates and Times</p>
+
+<div><img src="/../graphics/projects/cook_book_16.png" alt="beginning_rails" style="width:500px;" /></div>
+
+<p>Intermediate Recipes</p>
+
+<p>Mocks:  mocks test the behavior of an object toward the objects to which it sends messages.</p>
+
+<p>Use mocks sparingly and only after careful consideration. The more collaborators you mock, the greater your risk of false positives.</p>
+
+<p>• Only mock what you own. If you don’t own it, the API could change, and you’d never detect it in your tests.
+• Only mock immediate collaborators and avoid deep mocking (mocks returning mocks returning mocks).
+• Ideally, only use mocks to solve specific difficult problems like:
+◦ Connecting to unreliable or uncontrollable external resources
+◦ Real object performance is prohibitively slow
+◦ Expensive setup and/or configuration
+◦ Avoiding other undesirable side effects</p>
+
+<p>Stubs
+Stubs provide the context needed to fully exercise an object through a given test scenario</p>
+
+<p>• Use stubs wherever and whenever they’re needed, but recognize that needing too many is probably a code smell.
+• Don’t use stubs where they’re not needed, and apply them as narrowly as possible where you do use them. (See Mocha’s stub_everything and any_instance.stub as prime examples of mocking framework features promoting bad coding practices.)
+• Never ever, ever stub the object under test. More often than not, you’ll end up testing the stub and not the object itself.</p>
+
+<p>Fake Objects</p>
+
+<p>A fake is an alternate version of a given class intended for testing only. It exposes an interface resembling that of the real thing it replaces but with an implementation that’s either simplified or hollowed out which allows
+them to:
+• Capture and verify interactions between the object under test and the fake object (like a mock).
+• Maintain consistent interactions between the object under test and the fake object (like a stub).
+• Avoid resource-intensive or otherwise undesirable processing (like both mocks and stubs).</p>
+
+<p>We could have gotten the same result using mocking or stubbing, but it might have taken many more lines of setup code. A fake can be a great fit when dealing with complex APIs since it comes ready-made and pre-programmed with the behavior we want and need for running our tests.</p>
+
+<p>Testing Mixin Behavior</p>
+
+<p>Testing something that can’t be instantiated on its own confuses many developers.</p>
+
+<p>two types of mixins:</p>
+
+<p>Those that are coupled with the classes that include them, and those that aren’t (non-coupled modules)</p>
+
+<p>Takeaways</p>
+
+<p>• Use Object#extend to patch a mixin’s method into a simple Object for easy testing.
+• Try mixing into a Ruby Struct in cases where you need the including class to have some specific attributes or behavior of its own.</p>
+
+<p>Sharing Code Between Tests</p>
+
+<p>One point that should be clear to you by now is this: a self-contained test is a readable test. Minitest provides a nice, narrow vocabulary for writing tests, and when we stick to that vocabulary, life becomes better for the developers that follow.</p>
+
+<p>When it comes to organizing tests:
+• Extracting code into a new helper methods
+• Extracting helper methods into a new module
+• Extracting tests into a new module</p>
+
+<p>Extracting helper methods by:
+• Using descriptive names for helper methods and variable arguments
+• Updating the extracted code to ensure that it’s still comprehensible, even outside the previous context</p>
+
+<p>Takeaways</p>
+
+<p>• Code shared within a single test case can be extracted to a private helper method in the same class.
+• Code shared across multiple test cases can be extracted to a module that may be included in all.
+	◦ Sharing tests between test cases is a special case of this</p>
+
+<p>Managing Test Data</p>
+
+<p>• Whenever persistence isn’t important to your test, use Object.new to create a new instance.
+• Rails fixtures have a lot going for them including great performance and a reliable set of known models for your tests.
+• Use both functional and memorable names for your fixtures.
+• Configure your fixtures carefully, and try to cover at least:
+◦ One minimal valid configuration
+◦ One or two realistic models
+◦ Other well-defined object states
+• Use advanced ERB and YAML features to define fixtures dynamically.</p>
+
+<p>Testing Active Record Models</p>
+
+<p>Active Record maps the application database to Ruby objects that manage attributes, relationships, queries, and lifecycle methods among other things.</p>
+
+<p>• Test public methods, not private ones.
+• Test interfaces, not implementations.
+• Don’t test Active Record (or the rest of Rails, for that matter).
+• You need to test some of the typical aspects of Active Record models:
+	◦ Complex validations
+	◦ Scopes
+	◦ Callback targets and hooks
+• Make assertions about the results and side effects of public instance methods.
+• Make (selective) assertions an object’s behavior toward collaborators.</p>
+
+<p>Testing Controllers</p>
+
+<p>There’s been a faction of the Rails community that has become vocal about skipping controller testing completely. They usually argue that simulating more realistic user interactions eliminates the need for more focused controller tests which tend to be very repetitive and dull to write anyway. Even the core team has started a gradual move away from controller testing.</p>
+
+<p>◦ Controller tests should include assertions for the visible side effects that controller actions produce including:
+	◦ HTTP response code
+	◦ Redirect location
+	◦ System state changes (models created, updated, or destroyed)
+	◦ Flash variables, session variables, and cookies set or changed
+• You should write tests for complex or generated routes.
+• Controllers should specifically not make assertions about any of the following:
+	◦ Rendered templates
+	◦ Instance variables passed to the view</p>
+</div>
+
+
+<div class='breaker'></div>
+
+<h3>Details</h3>
+<ul itemprop="itemReviewed" itemscope itemtype="http://schema.org/Book">
+  <li><span itemprop=name>The Minitest Cookbook</span> by <span itemprop=author>Chris Kottom</span></li>
+
+  
+  
+
+  <li>Published: <span itemprop=datePublished>2012</span></li>
+  
+</ul>
+
+  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="dominiclizarraga.github.io">
+    <meta itemprop="url" content="http://localhost:4000">
+  </div>
+  <meta itemprop="author" content="Dom Lizarraga">
+  <meta itemprop="url" content="http://localhost:4000/2022/01/05/minitest_cookbook.html">
+
+</div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,696 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name=author content='Dom Lizarraga' />
+  <meta name='theme-color' content='#fff' />
+  <meta name='twitter:title' content="The man in the arena" />
+  <meta name=description content="" />
+  <meta name=viewport content='width=device-width,minimum-scale=1'>
+  <meta property='og:site_name' content="dominiclizarraga.github.io"/>
+  <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
+  <meta property='og:type' content=blog />
+  <meta property='twitter:account_id' content=domlizarraga_ />
+  
+  
+  <script type='application/ld+json'>{"@context": "http://schema.org","@type": "CreativeWork","author": "Dom Lizarraga"}</script>
+  
+    <link rel=alternate type='application/rss+xml' title="dominiclizarraga.github.io" href="http://localhost:4000/rss.xml" />
+    <link rel=alternate type='application/atom+xml' title="dominiclizarraga.github.io" href="http://localhost:4000/atom.xml" />
+  
+  <link rel=icon type=image/x-icon href=/css/favicon.png />
+  <style>:root {
+  --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial,
+    sans-serif;
+}
+
+.star {
+  width: 13px;
+  height: 12px;
+  display: inline-block;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYuMzA5IDkuMjJMMi40MDkgMTJsMS40NC00LjU2N0wwIDQuNTgzbDQuNzg4LS4wNDJMNi4zMDggMCA3LjgzIDQuNTRsNC43ODkuMDQ0LTMuODUgMi44NDlMMTAuMjA5IDEyeiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+");
+}
+
+body {
+  color: #111;
+  margin: 0px auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  font-size: 1rem;
+  font-family: var(--sans-font);
+}
+
+/* Print tweaks ------------------------------------------------------------- */
+.only-print {
+  display: none;
+}
+
+.notitle .body p:first-child {
+  margin-top: 0.25rem;
+}
+
+.body img {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* Element styles ----------------------------------------------------------- */
+sup,
+sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub {
+  top: 0.4em;
+}
+
+a {
+  color: #000;
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #333;
+}
+
+ol,
+ul {
+  margin: 1rem 0;
+}
+
+ul ul {
+  margin: 0;
+}
+
+ol li ul {
+  margin: 5px 10px;
+}
+
+iframe {
+  border: 0;
+}
+
+small,
+.small {
+  font-size: 14px;
+}
+
+br {
+  line-height: 1em;
+}
+
+h1 a {
+  color: #111;
+}
+
+em {
+  font-style: italic;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.004em;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.009em;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.009em;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+blockquote {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+td {
+  vertical-align: top;
+}
+
+hr {
+  background: #000;
+  height: 1px;
+  border: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.body th {
+  text-align: left;
+}
+
+.body td,
+.body th {
+  padding: 0.5rem;
+}
+
+.body td {
+  border: 1px solid #cfcfcf;
+}
+
+.limiter {
+  max-width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding --------------------------------------- */
+.pad2y {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+span.image-credit {
+  float: right;
+  margin: 0 0 10px 10px;
+  font-size: 12px;
+}
+
+span.image-credit:before {
+  content: "↑";
+  margin-right: 5px;
+}
+
+figcaption {
+  font-size: 11px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: -1.2rem;
+}
+
+div.post blockquote p {
+  margin: 0;
+}
+
+/** Writing ----------------------------------------------------------------- */
+.writing,
+.books {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.writing {
+  grid-template-columns: 1fr min-content;
+}
+
+.books {
+  grid-template-columns: 1fr 0.75fr min-content 70px;
+}
+
+.writing a,
+.books a {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.writing > div,
+.books > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.writing time,
+.books time {
+  padding-right: 0.25em;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.012em;
+  white-space: pre;
+}
+
+.project-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.project-box a.project {
+  text-decoration: none;
+  color: #666;
+}
+.project-box a.project:hover {
+  color: #000;
+}
+.project-box a.project img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/** Responsive -------------------------------------------------------------- */
+
+@media screen and (max-width: 480px) {
+  .project-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .limiter {
+    width: auto;
+  }
+  .project-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .writing,
+  .books {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0px;
+  }
+
+  .writing div,
+  .books div {
+    white-space: normal;
+  }
+
+  .writing time,
+  .books div:nth-child(4n) {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .nu a {
+    text-decoration: none;
+  }
+
+  .nu a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-wrap {
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+  }
+  .sigil {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .header {
+    position: absolute;
+    top: 40px;
+    right: 50%;
+    margin-right: 340px !important;
+    letter-spacing: -0.009em;
+  }
+  .content h1:first-child {
+    margin-top: 0;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  .only-print {
+    display: block;
+  }
+  body {
+    margin: 0;
+  }
+  .limiter {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/** Code highlighting ------------------------------------------------------- */
+p code,
+pre code,
+li code,
+g.highlight,
+.code {
+  font-family: var(--mono-font);
+}
+
+p code {
+  font-size: 90%;
+}
+
+pre code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.highlight,
+blockquote {
+  overflow-x: auto;
+  padding: 10px 20px;
+  margin: 0;
+  background: #fff;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+blockquote p:first-child {
+  margin-top: 0;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* pygments theme. does not support generics. .highlight class omitted */
+.highlight {
+  margin: 10px 0;
+}
+
+.highlight .hll {
+  background-color: #ffffcc;
+}
+
+.c, /* Comment */
+.cm, /* Comment.Multiline */
+.cp, /* Comment.Preproc */
+.cs, /* Comment.Special */
+.c1 {
+  color: #999988;
+} /* Comment.Single */
+
+.o, /* Operator */
+.ow, /* Operator.Word */
+.ge {
+  color: #000000;
+} /* Generic.Emph */
+
+.kc, /* Keyword.Constant */
+.kd, /* Keyword.Declaration */
+.kn, /* Keyword.Namespace */
+.kp, /* Keyword.Pseudo */
+.kr, /* Keyword.Reserved */
+.kt {
+  color: #445588;
+} /* Keyword.Type */
+
+.err {
+  color: #a61717;
+} /* Error */
+
+.m {
+  color: #007f7f;
+} /* Literal.Number */
+.s {
+  color: #d01040;
+} /* Literal.String */
+
+.na, /* Name.Attribute */
+.nb, /* Name.Builtin */
+.nc, /* Name.Class */
+.no, /* Name.Constant */
+.nd, /* Name.Decorator */
+.ni, /* Name.Entity */
+.ne, /* Name.Exception */
+.nf, /* Name.Function */
+.nn, /* Name.Namespace */
+.nt, /* Name.Tag */
+.nl {
+  color: #990000;
+} /* Name.Label */
+
+.k, /* Keyword */
+.nv {
+  color: #008080;
+} /* Name.Variable */
+
+.mf, /* Literal.Number.Float */
+.mh, /* Literal.Number.Hex */
+.mi, /* Literal.Number.Integer */
+.mo {
+  color: #009999;
+} /* Literal.Number.Oct */
+
+.sb, /* Literal.String.Backtick */
+.sc, /* Literal.String.Char */
+.sd, /* Literal.String.Doc */
+.s2, /* Literal.String.Double */
+.se, /* Literal.String.Escape */
+.sh, /* Literal.String.Heredoc */
+.s1, /* Literal.String.Single */
+.si, /* Literal.String.Interpol */
+.ss, /* Literal.String.Symbol */
+.bp, /* Name.Builtin.Pseudo */
+.sx {
+  color: #d01040;
+} /* Literal.String.Other */
+
+.sr, /* Literal.String.Regex */
+.vc, /* Name.Variable.Class */
+.vg, /* Name.Variable.Global */
+.vi, /* Name.Variable.Instance */
+.il {
+  color: #009999;
+} /* Literal.Number.Integer.Long */
+</style>
+  <title>The man in the arena - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2022/02/05/the_man_in_the_arena.html">
+</head>
+<body>
+  <div class='pad2y' style='position:relative'>
+    
+    <div class='only-print'>
+      <h2>Dom Lizarraga</h2>
+      <div style='margin-top:0;'>dominiclizarraga@hotmail.com</div>
+    </div>
+    <nav class='header-wrap'>
+      <div class='header nu limiter no-print'>
+        <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>Dom Lizarraga</h1>
+        <ul style='list-style:none;padding:0;margin:0;'>
+          <li><a href='/'>Writing</a>⇠</li>
+          <li><a href='/reading/'>Reading</a></li>
+          <li><a href='/projects/'>Projects</a></li>
+          <li><a href='/about/'>About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class='pad2y limiter content '>
+      <h1>The man in the arena</h1>
+<div class='body'><p><strong>The GOAT 🐐</strong></p>
+
+<blockquote>
+  <p>Chastising the Spanish artist for painting unrepresentative cubistic abstractions, a layman withdrew a photograph of his wife from his pocket and held it up to Picasso with the admonition, “Why can’t you paint realistically, like that?” “Is that what your wife really looks like?” Picasso asked. “Yes,” replied the man. “Well, she’s very small, and quite flat.”</p>
+</blockquote>
+
+<p>First of all i need to be clear that I’m neither a football follower nor fanatic but somehow TB (Tom Brady) caught me up with his “underdog/rejection” story.</p>
+
+<p><em>Chapter 1 On naming the series.</em></p>
+
+<p>The meaning behind the title of this series is because that quote was on the weight room at Michigan University and TB saw it for almost 5 years (it was coined by Theodore Roosevelt) and for him was that eventually you become that man where all eyes are on you and only you know what is all about.</p>
+
+<p>All began in 1993-1996 when Patriots were playing good football however they were not winning, they lost 1 super bowl, new coach; then Mr. Brady appeared in 1999 with a very solid foundation from Michigan state, - “the team, the team is first” was the guideline he was trained.</p>
+
+<p>He defines it <strong>as a combination of talent, what you can add on a daily/weekly basis; at this time he didn’t know what were his strengths</strong>, everynight he looked up what phase was the draft on in order to know his position. Something worth mentioning is that 5 rounds passed and no one chose him, his attributes were not even close to what a pro football team expects, finally he was picked at #199 (only 200 are allowed).</p>
+
+<p>Main QB (quarterback, D. Bledsoe) at that time describe him as “inquisitive”, asking about everything, everyone thought that he’d be just a backup, was not perceived as a threat; on the other side TB defined himself either “just being naive” or “too much confidence” but he was determined to play pro 🏈.</p>
+
+<blockquote>
+  <p>“Working hard is a very sustainable trait. Part of your character. If you don’t have that, at some point the talent does wear off, you’re drafted based on both therefore you must work hard .” Tom Brady.</p>
+</blockquote>
+
+<p>Second season with Brady on board started, Bledsoe signed the highest contract ever for the next 10 years, TB was on the bench until Bledsoe was hit, time to take the grid. Despite of the very low expectation people had on him, he felt ready to do the job. TB continued playing good waiting Bledsoe to get back of his injury however Bill Belichick (coach) made the decision of giving that role to TB, seeking the best for the team.</p>
+
+<p>At the AFC finale (one game before Super Bowl) TB had an ankle injury, Bledsoe took his role back, made a couple of touchdowns and won the game, this only remarks how mentally strong was TB since the beginning, everything came down to Bledsoe would be the starting QB, coach thought different, Tom will play the SB.</p>
+
+<p>As always all odds against Patriots, <strong>however the Pats won being the most underdogs 🏆.</strong></p>
+
+<blockquote>
+  <p>You gotta be ready when your opportunity presents itself. I don’t think I was physically prepared. Was I mentally and emotionally ready? Absolutely. It’s like anything. Its progress and its evolution. It’s a series of small steps that seem so insignificant.” Tom Brady.</p>
+</blockquote>
+
+<p>Chapter 2 On team culture.</p>
+
+<p>TB describes how people, teammates, competitors have been such impactful in his life, on and off the field, those people must help you create the best version of you, if not you gotta move on.</p>
+
+<p>After winning the SB they lost the next season, it was time to regroup the team, they had to have more consistency; following season Belichick cut the defense leader (L. Malloy, best friend of TB) no one understood that decision which gave room to the media to start creating news about the feelings within the team, thing that TB refused with the next phrase “ignore the noise, focus on tactics”.</p>
+
+<p>“Patriots is not collecting talent, is building a team” B. Belichick.</p>
+
+<p>With that being said, TB worked his way to carefully listen to every advice from his coach that gave him structure and confidence, it enabled him to execute selfishness, caring about all his teammates, no one care about who takes the credit.</p>
+
+<blockquote>
+  <p>“Winning is probably the outcome but the process of winning was what the culture was all about. What are you willing to commit to be your the very best?” Tom Brady.</p>
+</blockquote>
+
+<p>TB learned to study every top player, take the good stuff, fine tune it and put it on practice. He used the next metaphor: “Be the best husband you could be, the best father, the best in your job, because you cannot control everything. If you have perspective in the end nothing bad really happens because out of the bad comes the really good things.”</p>
+
+<blockquote>
+  <p>Mental toughness is how you deal with adversity. What’s the attitude of your heart? Embrace challenge? Failure?” Rodney Harrison.</p>
+</blockquote>
+
+<p>Chapter 3 The edge.</p>
+
+<p>This episode was on motivational style, TB put a statement about how their mentality was - one game at the time, this was tough to put into practice due to they had more than 20 wins in a row.</p>
+
+<p>The main responsibility of any leader is to know how to motivate each member of his team, some of them like hard coaching others need just a push and in this sports the QB is the chief; this time Belichick worked to create a competitive environment where all the players wanted to give more, here are some phrases he shares:</p>
+
+<ul>
+  <li>
+    <p>It was not the more you can do it. It was who could do the most.</p>
+  </li>
+  <li>
+    <p>You came 6:30 am? I’ve already got a half hour on you.</p>
+  </li>
+  <li>
+    <p>I’m getting the edge on you.</p>
+  </li>
+  <li>
+    <p>This is what I did. What’d you do?</p>
+  </li>
+</ul>
+
+<p>-Are you leaving already?</p>
+
+<p>-Still not doing the extra, huh? I’m getting the edge on you today</p>
+
+<p>I think is worth pointing out the good outcome that Belichick achieved by building this environment, it’s only as good as the ability of the players to receive it. The team at that time had a high level cohesiveness and the feedback, communication was on point to keep the culture up.</p>
+
+<blockquote>
+  <p>“You don’t know what kind of culture you have until things aren’t going well.” When you have failure, when you don’t do what you were supposed to do, you’ll define how your culture looks like.” Mike Vrabel.</p>
+</blockquote>
+
+<p>TB also mentioned how people think there are going to be more opportunities and that is a mistake because it lowers the bar and keeps you away from doing your best effort, you may miss a chance and will disappoint you next time, it will create fear, you’ll want a lower level to play in order to avoid frustration.
+Chapter 4 The goliaths.</p>
+
+<p>In this episode you’ll find how the Patriots reached its highest level and passed from being the underdogs to the goliaths. Many new team members Randy Moss, Wes Welker amongst others; they knew they were the team to defeat which I think played against them this time.</p>
+
+<p>Pats had a first time ever record with 16 wins and 0 loses, no team had accomplished this before, they made football look easy, then the “spygate” got and again TB spoke up with his phrase “ignore the noise”.</p>
+
+<p>“So much of the success in the life is about that journey and it’s not about whether you win or lose always. It’s about how hard you try and what you put into it, thr relationships, the learnings you develop.” Tom Brady.</p>
+
+<p>In the end Pats lost the Super Bowl against New York Giants, this time Giants were the weaker.</p>
+
+<p>Chapter 5 No guarantees.</p>
+
+<p>This episode covers 4 seasons and Tom describes how are the relationships he was able to develop throughout these years, friendships, the born of his 2 kids, how supportive and stabilizer was Gisselle for him and how you must overcome failure, learn from it and move on.</p>
+
+<p>Some highlights of this episode are the union of NFL players took place for the first time, they couldn’t attend training however TB convoked to train in one college field without coaches with gave the team an advantage over the others, ultimately the got the conditions they were after.</p>
+
+<p>And finally Patriots faced Giants in the finale and they lost, after a series of inconvenient events, Eli Manning won the SB.</p>
+
+<blockquote>
+  <p>“Challenges are opportunities in disguise”. Gisele Bündchen.</p>
+</blockquote>
+
+<p>Chapter 6 Stop the bleeding.</p>
+
+<p>Things were not clear for this season, the media started pressing on TB retirement, a new draft for his position had been picked.</p>
+
+<p>Pats did a comeback throuthroug the season to reach the SB with a record of 12 - 4 gaining confidence game after game, ignoring the noise and building momentum, they did their job and stop the bleeding; suddenly another scandal arose the “deflategate” just a few days before the SB, they faced the best defense at that time Seattle Seahawks with Richard Sherman.</p>
+
+<p>Notwithstanding the dire comments about them, the conquered their 4th Super Bowl 🏆</p>
+
+<blockquote>
+  <p>“Greatness come with taking chances”. Vince Wilfork.</p>
+</blockquote>
+
+<p>Chapter 7 Surrender.</p>
+
+<p>For this chapter Tom invited his 3 sisters in order to lay out how his childhood was, they were a typical California family, attending all 49’s games, Tom Brady being the youngest felt always protected by his 3 sisters and his parents, they did a pretty well job, until he left to attend Michigan University.</p>
+
+<p>The season covered here was on year 2017 when Tom had to defend himself against the “deflategate”, he was penalized, suspended and the worst; his mom was detected with cancer, the quimio and radiation started so his mind was cut on two sides.
+Tom depicts this Super Bowl as the greatest game ever played (I didn’t know why until I watched how it unfold); this finale had the biggest difference in points ever, 28 to be precise despite that, Pats did comeback and scored as many touchdowns as needed to defeat Atlanta Falcons (play after play).
+“I think he lives his life to really be the best at something. He is a hundred, a thousand % committed to being the better than he was a day before.” Tom Brady sister.
+​
+Chapter 8 No body’s business.</p>
+
+<p>Tom introduced his rehab clinic and method along his coach body Alex Guerrero; it seems to be his secret weapon after finishing each game as well as every recovery. From my perspective Alex is an alternative physician who uses natural healing and different methods to prepare the muscles, also he goes over emotional and mental subjects trying to get up to an integral readiness.</p>
+
+<p>After years working on theses methods and proving they really work, Tom convinced Rob Gronkowski to get to Alex and try out his alternatives methods, thing that Belichick didn’t agree with and sent Tom and the trainer to remain outside each meeting and game.</p>
+
+<p>These supplemental activities seemed to gained relevance when Tom suffered a dire injury in his thumb days before the AFC final, he needed punctures and the recovery appeared to be beyond Sunday however after several treatments he was able to flex and use his hand for Sunday and passed to the SB LII.</p>
+
+<p>The super Bowl was fought by the two teams but Pats couldn’t beat the Philadelphia Eagles, another lose for Tom Brady 👎.</p>
+
+<p>Chapter 9 Maybe.</p>
+
+<p>Last episode of this series goes over the season 2018 and 2019 where Pats had to face Kansas City and Patrick Mahomes, I think they highlight this game because KC started to show how good they were and the pro football they play, also because some key teammates were out so regular season was not great.</p>
+
+<p>The Super bowl was against Los Angeles Rams which was meant to be a tough game, very physical, low opportunities, in the end Tom was bearing in mind that it was going to be his last season playing with New England because he didn’t get a new contract.</p>
+
+<blockquote>
+  <p>“All comes down to the people and relationship what I value the most. Tom Brady.</p>
+</blockquote>
+
+<p>Conclusion.</p>
+
+<p>It definitely is a combination of different factors that take you to succeed or to the place you want to be, those factors may be hard work, readiness, persistence and of course luck or how tom said a few times “situacional football” which is when something completely out of your control plays in favor of you, kicker missed the goal, the receiver couldn’t catch the pass, you name them and here is the part of commitment you need to place in every activity, relationship you want to develop because if everything derails and nothing comes to the place you planned was the best; <strong>you must be satisfied that you gave everything you could in order to accomplish but luck this time was not on your side.</strong></p>
+
+<p>Having lost so many SB’s being the most prestigious sports in America has to be tough as well, it’s said very easy, -he won 7 Super Bowls. But how manys he lost?! It’s tough to miss a flight, to be rejected by the company you would have loved to work for, imagine how hard is to lose the most important event in the year, after having practiced and played 9 months in a row without being with your family.</p>
+
+<p>Tom developed a resilient mentality which was key for his journey, to keep his feet on earth and to overcome those setbacks, never look back and learn the most from them.</p>
+</div>
+
+<div class='breaker'></div>
+
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2022-02-05">
+      February  5, 2022
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="Post" />
+  <meta name='twitter:title' content="The Beginner’s Guide to Rails Testing Jason Swett" />
   <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
@@ -497,9 +497,9 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>Post - dominiclizarraga.github.io</title>
+  <title>The Beginner’s Guide to Rails Testing Jason Swett - dominiclizarraga.github.io</title>
   
-  <link rel="canonical" href="http://localhost:4000/2021/01/01/post.html">
+  <link rel="canonical" href="http://localhost:4000/2022/02/14/test_jason_swett.html">
 </head>
 <body>
   <div class='pad2y' style='position:relative'>
@@ -520,49 +520,104 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <h1>Post</h1>
-<div class='body'><p>Here’s an example post! Some styling examples: Here’s a code snippet.</p>
+      <h1>The Beginner’s Guide to Rails Testing Jason Swett</h1>
+<div class='body'><p>The eight types of RSpec specs</p>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">codeSnippet</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="mi">42</span><span class="p">;</span>
-<span class="p">}</span>
+<p>• Model specs
+• System specs
+• Request specs
+• Helper specs
+• View specs
+• Routing specs
+• Mailer specs
+• Job specs</p>
+
+<p>Jason usage:</p>
+
+<p>• Model specs always
+• System specs always
+• Request specs rarely
+• Helper specs rarely
+• View specs never
+• Routing specs never
+• Mailer specs never
+• Job specs never</p>
+
+<p>Model spec</p>
+
+<p>I use model specs to test my models’ methods. When I do so, I tend to use a test-first approach and write a failing test before I add a new line of code so that I’m sure every bit of code in my model is covered by a test.</p>
+
+<p>System spec</p>
+
+<p>System specs are the only type of test that give me confidence my whole application really works.</p>
+
+<p>Even though system specs are indispensable, they’re not without drawbacks. System specs are somewhat “heavy”</p>
+
+<p>Request spec
+I tend not to use request specs much because in most cases they would be redundant to my system specs. If I have system specs covering all my features, then of course a broken controller would fail one or more of my tests, making tests specifically for my controllers unnecessary.</p>
+
+<p>I also try to keep my controllers sufficiently simple as to not call for tests of their own.</p>
+
+<p>There are just three scenarios in which I do use request specs. First: If I’m working on a legacy project with fat controllers, sometimes I’ll use request specs to help me harness and refactor all that controller code. Second: If I’m working on an API-only Rails app, then system specs are physically impossible and I drop down to request specs instead. Lastly, if it’s just too awkward or expensive to use a system spec in a certain case then I’ll use a request spec instead.</p>
+
+<p>View and routing spec</p>
+
+<p>I find view specs and routing specs to be redundant to system specs. If something is wrong with one of my views or routes, it’s highly likely that one of my system specs will catch the problem.</p>
+
+<p>What are all the Rails testing tools and how do I use them?</p>
+
+<p>RSpec is a test framework. A test framework is what gives us a structure for writing our tests as well as the ability to run our tests.</p>
+
+<p>One of the challenges of Rails testing is generating test data.</p>
+
+<p>There are two common ways of generating test data in Rails tests: fixtures and factories.</p>
+
+<p>Fixtures typically take the form of one or more YAML files with some hardcoded data. The data is translated into database records one time, before any of the tests are run, and then deleted afterward. (This happens in a separate test database instance of course.)</p>
+
+<p>With factories, database data is generated specifically for each test. Instead of loading all the data once at the beginning and deleting it at the end, data is inserted before each test case and then deleted before the next test case starts.</p>
+
+<p>One principle of testing is that tests should be deterministic, meaning they run the same way every time no matter what.</p>
+
+<p>Capybara: Some Rails tests only exercise Ruby code. Other tests actually open up a browser and simulate user clicks and keystrokes.</p>
+
+<p>VCR and WebMock: One principle of testing is that tests should be deterministic, meaning they run the same way every time no matter what. When an application’s behavior depends on external services (e.g. a thirdparty API like Stripe) it makes it harder to have deterministic tests. The tests can be made to fail by an internet connection failure or a temporary outage of the external service.</p>
+
+<p>VCR can let us run our tests against the real external service, but capture all the service’s responses in local files so that subsequent test runs don’t talk to the external service but rather just go off of the saved responses. That way, even if the internet connection fails or the service goes down, the tests still work.</p>
+
+<p>What keeps them (Rails devs) in the habit of writing tests consistently?</p>
+
+<p>Laziness, fear, and pride.</p>
+
+<p>Mental energy. If I write a feature without using tests, I’m often juggling the “deciding what to do” work and the “actually doing it” work at the same time, which has a cognitive cost more than twice as much as performing those two jobs separately in serial. When I build a feature with the aid of tests, the tests allow me to separate the “deciding what to do” work from the “actually doing it” work.</p>
+
+<p>it’s not possible to have clean, understandable code without having automated tests.</p>
+
+<p>Pains that tell you your test coverage might be insufficient?</p>
+
+<p>Too many bugs.</p>
+
+<p>Inability to refactor or make big changes</p>
+
+<p>When a change has a large footprint, like a Rails version upgrade or a broad refactoring, it’s basically impossible to gain sufficient confidence of the safety of the change without having a solid automated test suite. So on codebases without good test coverage, these types of improvements tend not to happen.</p>
+
+<p>How do I set up a new Rails project for testing?</p>
+
+<p>Start rails with template: https://guides.rubyonrails.org/rails_application_templates.html</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rails</span> <span class="n">new</span> <span class="n">my_project</span> <span class="o">-</span><span class="no">T</span> <span class="o">-</span><span class="n">d</span> <span class="n">postgresql</span> <span class="p">\</span> <span class="o">-</span><span class="n">m</span> <span class="n">https</span><span class="ss">:/</span><span class="o">/</span><span class="n">raw</span><span class="p">.</span><span class="nf">githubusercontent</span><span class="p">.</span><span class="nf">com</span><span class="o">/</span><span class="n">jasonswett</span><span class="o">/</span><span class="n">testing_application_template</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">applicatiOnce</span>
 </code></pre></div></div>
 
-<p>And a <a href="https://google.com/">link</a> and some <em>styled</em> <strong>text</strong>. Here’s
-a blockquote:</p>
+<p>How do I add tests to an existing Rails project?</p>
 
-<blockquote>
-  <p>Chastising the Spanish artist for painting unrepresentative cubistic abstractions, a layman withdrew a photograph of his wife from his pocket and held it up to Picasso with the admonition, “Why can’t you paint realistically, like that?” “Is that what your wife really looks like?” Picasso asked. “Yes,” replied the man. “Well, she’s very small, and quite flat.”</p>
-</blockquote>
-
-<p>Tables look like this by default:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Count</th>
-      <th>Thing</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>12</td>
-      <td>Angry men</td>
-    </tr>
-    <tr>
-      <td>1</td>
-      <td>Flew over the cuckoos nest</td>
-    </tr>
-  </tbody>
-</table>
+<p>If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects</p>
 </div>
 
 <div class='breaker'></div>
 
 <div class='pad2y'>
   <p>
-    <postamble datetime="2021-01-01">
-      January  1, 2021
+    <postamble datetime="2022-02-14">
+      February 14, 2022
     </postamble>
     &nbsp;
     <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">

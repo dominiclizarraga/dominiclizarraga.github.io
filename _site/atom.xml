@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-07-12T16:50:46-04:00</updated>
+  <updated>2023-07-12T22:42:31-04:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -13,44 +13,904 @@
   </author>
   
   <entry>
-    <title>Post</title>
-    <link href="http://localhost:4000/2021/01/01/post.html"/>
-    <updated>2021-01-01T00:00:00-05:00</updated>
-    <id>http://localhost:4000/2021/01/01/post</id>
-    <content type="html">&lt;p&gt;Here’s an example post! Some styling examples: Here’s a code snippet.&lt;/p&gt;
+    <title>Practicing Rails | Justin Weiss</title>
+    <link href="http://localhost:4000/2022/03/26/practicing_rails.html"/>
+    <updated>2022-03-26T00:00:00-04:00</updated>
+    <id>http://localhost:4000/2022/03/26/practicing_rails</id>
+    <content type="html">&lt;p&gt;Introduction&lt;/p&gt;
 
-&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;codeSnippet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;p&gt;It is possible to learn Rails without having the things you learn abandon you as soon as you try to grab ahold of them.&lt;/p&gt;
+
+&lt;p&gt;That’s what this book is about. It’s a second book of Rails. A companion. It’ll show you how to learn the most in the least amount of time, using the resources and knowledge you already have. And in the process, I’ll guide you through some of the toughest lessons I’ve learned during my programming and Rails career.&lt;/p&gt;
+
+&lt;p&gt;Embrace struggle, failure, and reward.&lt;/p&gt;
+
+&lt;p&gt;Learning to become a great Rails developer is hard work. And, being hard work, the only way to learn is to struggle. I’ve heard programming described as “Running into a brick wall, constantly.” So don’t worry if you feel that way – we all do.&lt;/p&gt;
+
+&lt;p&gt;Learning isn’t just about reading. It’s also about action. And that is why you can’t learn Rails without practicing Rails.&lt;/p&gt;
+
+&lt;p&gt;Chapter 1 Tiny Apps: The best way to study new Rails ideas&lt;/p&gt;
+
+&lt;p&gt;The best way to learn new Rails ideas and techniques is to use them. Right away. Practice them, internalize them, and make those techniques yours.&lt;/p&gt;
+
+&lt;p&gt;When you’re working with such small apps, you focus on the single thing you want to learn. That way, you don’t have to worry about learning that new idea inside your existing, more complicated apps.&lt;/p&gt;
+
+&lt;p&gt;For example, if you’re trying to learn ActiveModel::Serializers, and your controller isn’t serializing the model correctly, you can never be sure if the problem’s a gap in your knowledge, a problem with Rails, or a problem with your app.&lt;/p&gt;
+
+&lt;p&gt;If you tried this out in a tiny test app, you could be pretty sure the problem was just a simple mistake or a misunderstanding. You can catch these mistakes on a small scale before you fight the bugs that appear when you use them into a larger app.&lt;/p&gt;
+
+&lt;p&gt;I care about getting the most knowledge in the least amount of time, and scaffolds and other Rails code generators are a great way to do just that.&lt;/p&gt;
+
+&lt;p&gt;Using the console and Tests for learning.&lt;/p&gt;
+
+&lt;p&gt;The console is great for messing with objects, but getting those objects set up can be hard. Tests are great for getting objects set up, but hard for messing with them.&lt;/p&gt;
+
+&lt;p&gt;Most Rails books and videos are good at showing you what’s possible. But they can’t explain everything. Those gaps will raise questions, and you’ll naturally want to have those questions answered.&lt;/p&gt;
+
+&lt;p&gt;“Why does it work that way?” 
+“How could this possibly work?” 
+“What if I tried using it with this other idea I just learned about?”&lt;/p&gt;
+
+&lt;p&gt;So, when I say “play with and modify the things you learn”, I mean “Answer the questions you have about the things you learn, using code.”&lt;/p&gt;
+
+&lt;div&gt;&lt;img src=&quot;/../graphics/projects/justin_weiss.png&quot; alt=&quot;beginning_rails&quot; style=&quot;width:600px;&quot; /&gt;&lt;/div&gt;
+
+&lt;p&gt;Chapter 2 How to build your own Rails app&lt;/p&gt;
+
+&lt;p&gt;This feeling is totally normal. Whenever I’m about to start a new Rails app, I still feel like I want to give up computers forever and run into the woods or something. But I have a process to share with you that will help you get past this, so you can turn your ideas into real, working apps.&lt;/p&gt;
+
+&lt;p&gt;When you face a large, fuzzy, overwhelming task like this, the answer is always the same: Break it apart! Break your big idea into small tasks that lead you to where you want to be. You’ll have a path you can take that, no matter what, will get you closer to finishing your app.&lt;/p&gt;
+
+&lt;p&gt;How do you choose the first thing to work on?&lt;/p&gt;
+
+&lt;p&gt;When you start a new project, try this short process to help decide which thing to work on first: Take a few minutes and think what you’re trying to build. Write down every feature that comes to mind. Think of the different paths a user could take through your application, the different things they could do. Describe each one in a single sentence.&lt;/p&gt;
+
+&lt;p&gt;Then, focus on just the paths where, if you didn’t have them, your app couldn’t exist. Core paths.&lt;/p&gt;
+
+&lt;p&gt;Core paths are the things you’d talk about if someone asked you to describe your app in 30 seconds.&lt;/p&gt;
+
+&lt;p&gt;Which part of the feature should you start with?&lt;/p&gt;
+
+&lt;p&gt;Once you’re ready to build your first core path, you might feel like writing models for all the objects you have in mind. Maybe you want to create migrations, add attributes, and connect everything together.&lt;/p&gt;
+
+&lt;p&gt;But soon, you’ll have a ton of pieces that may not all fit. It’ll take a long time before you can actually use your app. And if you didn’t design your models well, you’ll just have to do that work over again when you build your UI and actually start playing with your app.&lt;/p&gt;
+
+&lt;p&gt;So, start with UI, and infer your data model from what you see in the UI.&lt;/p&gt;
+
+&lt;p&gt;When you begin work on a single, small feature, start with the UI:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Take the small feature, or core path, from earlier.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Think of one simple thing someone could do with that feature.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Draw just enough screens for that user to be able to do that thing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Describe the path through that action, as if you were telling someone what you were going to do.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;As you describe that path, write out the objects, properties of those objects, and other actions you think you need to develop that path.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
+    <title>Rails Testing | Whaterloo Uni</title>
+    <link href="http://localhost:4000/2022/03/04/testing_waterloo.html"/>
+    <updated>2022-03-04T00:00:00-05:00</updated>
+    <id>http://localhost:4000/2022/03/04/testing_waterloo</id>
+    <content type="html">&lt;p&gt;Testing Pyramid and Rails&lt;/p&gt;
+
+&lt;div&gt;&lt;img src=&quot;/../graphics/projects/test_pyramid.png&quot; alt=&quot;beginning_rails&quot; style=&quot;width:300px;&quot; /&gt;&lt;/div&gt;
+
+&lt;p&gt;How to test?&lt;/p&gt;
+
+&lt;p&gt;Mike Cohn in his book Succeeding with agile.&lt;/p&gt;
+
+&lt;p&gt;You should spend most of your time in Unit.&lt;/p&gt;
+
+&lt;p&gt;End to end is manual and it means a person goes through all the user flow to reach a user acceptance criteria, click buttons, links, add stuff to the shopping cart, make a payment.&lt;/p&gt;
+
+&lt;p&gt;This can be Manual test, actually using the interface, this is what the customer will see/use.&lt;/p&gt;
+
+&lt;p&gt;Template:
+Given: that I’m a logged in user in “home page”
+When: when I click on “log out”
+Then: I’m logged out&lt;/p&gt;
+
+&lt;p&gt;Only the basics here, for example: I can create an account but don’t extensively, send an email, one happy path and one sad path.&lt;/p&gt;
+
+&lt;p&gt;In Rails End to end tests are called system tests&lt;/p&gt;
+
+&lt;p&gt;Integration, tests multiple components but exclude user interface.&lt;/p&gt;
+
+&lt;p&gt;In Rails it tests the controller. what does it respond? what does it send?&lt;/p&gt;
+
+&lt;p&gt;POST to this path with this params (we can see if a form is going to the right path)&lt;/p&gt;
+
+&lt;p&gt;Unit, it isolates one single object or method from the rest of the system and test it by itself. This help us see where the problem is.&lt;/p&gt;
+
+&lt;p&gt;Models, and classes we create,&lt;/p&gt;
+
+&lt;p&gt;First I need to make sure my individual pieces work, then i put them together and see if that larger system works and eventually we’re going to check out and test the whole entire system.&lt;/p&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=gVKQilNUjtA&amp;amp;t=10s&lt;/p&gt;
+
+&lt;p&gt;MSCI 245 : Testing&lt;/p&gt;
+
+&lt;p&gt;Is my app free of bugs?
+Does the program work as specified? Write a specification or a test that specifies expected behavior.&lt;/p&gt;
+
+&lt;p&gt;Test case: average_rating&lt;/p&gt;
+
+&lt;p&gt;Arrange - what is the input?
+Act - run the program
+Assert - check the output against the expected output&lt;/p&gt;
+
+&lt;p&gt;Then we need 2 cases:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;For a Book with 1 or more rating, it should return the average of  that book’s ratings
+    &lt;ol&gt;
+      &lt;li&gt;known gotchas: integers vs float division, off by one (when you skip 1st element of the loop).&lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;For a Book with 0 rating, it should return nil&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;This is the arrange
+Bob rated 5
+Sue rated -2
+Ali rated 4
+total 7&lt;/p&gt;
+
+&lt;p&gt;Run the program 
+total 7 / 3 = 2.333&lt;/p&gt;
+
+&lt;p&gt;Assert
+total vs expected_value&lt;/p&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=2yYSR6ftxUo&lt;/p&gt;
+
+&lt;p&gt;Testing fundamentals - equivalence classes&lt;/p&gt;
+
+&lt;p&gt;You cannot test all inputs. You need to carefully pick inputs to find your mistakes.&lt;/p&gt;
+
+&lt;p&gt;“… testing can be used very effectively to show the presence of bugs, but never to show their absence” E.W. Dijkstra&lt;/p&gt;
+
+&lt;p&gt;if 2 inputs produce the same output, they are said to be member of the same equivalence class.&lt;/p&gt;
+
+&lt;p&gt;if the net method is tested correctly,  the behavior of the method should be the same, there are only 2 inputs that we must use: [1, 2, 3] and [0, -12]&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;absolute_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;And a &lt;a href=&quot;https://google.com/&quot;&gt;link&lt;/a&gt; and some &lt;em&gt;styled&lt;/em&gt; &lt;strong&gt;text&lt;/strong&gt;. Here’s
-a blockquote:&lt;/p&gt;
+&lt;p&gt;Interior &amp;amp; boundary values.&lt;/p&gt;
+
+&lt;p&gt;Values that sit on either side of a division between equivalence classes are boundary valuer -&amp;gt; where bugs hide.&lt;/p&gt;
+
+&lt;p&gt;Other values are the interior values.&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minimum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;maximum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; 
+&lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;boundary&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;is&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;between&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Test cases: (try to put all below in just one test)&lt;/p&gt;
+
+&lt;div&gt;&lt;img src=&quot;/../graphics/projects/testing_water.png&quot; alt=&quot;beginning_rails&quot; style=&quot;width:500px;&quot; /&gt;&lt;/div&gt;
+
+&lt;p&gt;Equivalence test case&lt;/p&gt;
+
+&lt;p&gt;min(a, b)&lt;/p&gt;
+
+&lt;p&gt;Test:&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;a == b&lt;/li&gt;
+  &lt;li&gt;a &amp;lt; b&lt;/li&gt;
+  &lt;li&gt;a &amp;gt; b
+https://www.youtube.com/watch?v=-1kCdERz1sM&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Base, Edge, and Corner Cases; Happy and Sad Paths&lt;/p&gt;
+
+&lt;p&gt;Base case - normal expected inputs
+Edge case - inputs approach limits or outside limits
+Corner case - crazy values, should never see in real world&lt;/p&gt;
+
+&lt;p&gt;Example: user interface - e commerce - shopping cart&lt;/p&gt;
+
+&lt;p&gt;Base -&amp;gt; user adds a few items
+Edge -&amp;gt; user surprises us with a large order 100-1000 things
+Corner -&amp;gt; whole store in cart (we don’t want the whole site to fail, we should put a limit)&lt;/p&gt;
+
+&lt;p&gt;We can think of a form for creating a user name, nick names, emails, domains, capitalization&lt;/p&gt;
+
+&lt;p&gt;Success &amp;amp; failure (code should handle both)&lt;/p&gt;
+
+&lt;p&gt;Test both good input (success).&lt;/p&gt;
+
+&lt;p&gt;Test bad inputs (failure) to test proper error handling.&lt;/p&gt;
+
+&lt;p&gt;Black box, you test the software and don’t get a look at the code, you cannot call the code&lt;/p&gt;
+
+&lt;p&gt;White box, you test the software and get a look at the code to see what is happening&lt;/p&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=NoP3am8ipYw&lt;/p&gt;
+
+&lt;p&gt;Hunting for bugs&lt;/p&gt;
+
+&lt;p&gt;Logic errors&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;boundaries&lt;/li&gt;
+  &lt;li&gt;common inputs to test
+    &lt;ul&gt;
+      &lt;li&gt;some minimum&lt;/li&gt;
+      &lt;li&gt;zero&lt;/li&gt;
+      &lt;li&gt;one&lt;/li&gt;
+      &lt;li&gt;
+        &lt;table&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td&gt;empty - zero&lt;/td&gt;
+              &lt;td&gt;length&lt;/td&gt;
+              &lt;td&gt;list&lt;/td&gt;
+              &lt;td&gt;empty&lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/li&gt;
+      &lt;li&gt;negative numbers&lt;/li&gt;
+      &lt;li&gt;first/last element of an array&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Most common working with arrays or any sort of list:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;skip first/last element&lt;/li&gt;
+  &lt;li&gt;don’t process last element&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Numerical erros&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;accidental truncation of floating point to integer&lt;/li&gt;
+  &lt;li&gt;divide by zero (think of a way how a user can input a 0 as denominator and catch the error)&lt;/li&gt;
+  &lt;li&gt;bad floating behavior (try to add a lot of small numbers to a larger numbers)&lt;/li&gt;
+  &lt;li&gt;assume the sum of the computer is correct&lt;/li&gt;
+  &lt;li&gt;sqrt(2) != √2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Integrating boundaries&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;one system talking to another&lt;/li&gt;
+  &lt;li&gt;misunderstandings about proper inputs/outputs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Other&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;null values -nil&lt;/li&gt;
+  &lt;li&gt;handling of exceptions&lt;/li&gt;
+  &lt;li&gt;loss of networks/disk/power?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=crFl2K1bOhI&lt;/p&gt;
+
+&lt;p&gt;MSCI 245 : A quick intro to Minitest and automated testing&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;testing framework&lt;/li&gt;
+  &lt;li&gt;enabled by default in Rails&lt;/li&gt;
+  &lt;li&gt;automated testing at 3 levels
+    &lt;ul&gt;
+      &lt;li&gt;Unit (individual methods or objects, this part works correctly)&lt;/li&gt;
+      &lt;li&gt;Controller (integration) (we reproduce a browser with http verbs POST, GET)&lt;/li&gt;
+      &lt;li&gt;System - end to end (E2E) user interface (manual, buttons)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To do unit testing we make a class that inherits from ActiveSupport::TestCase.
+We make one test case for every class we want to unit test.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;test/models/book_test.rb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Arrange&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Act&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Assert&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;test_helper&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# brings test/test_helper.rb&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BookTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;TestCase&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# (always start with &quot;test_&quot;)&lt;/span&gt;
+
+	&lt;span class=&quot;c1&quot;&gt;# The DB within test is empty&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_average_rating_multiple_ratings&lt;/span&gt;
+		&lt;span class=&quot;c1&quot;&gt;# you have to build up the case in the database&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;card&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Orson Scott Card&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrange&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;ender_game&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Book&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Ender&apos;s Game&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;year: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1985&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;author: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;card&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arrange&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ratings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;users&lt;/span&gt;
+		
+		&lt;span class=&quot;n&quot;&gt;assert_in_delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;2.333&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ender_game&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;average_rating&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;should return 2.333 for Ender&apos;s Game&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt;  &lt;span class=&quot;nf&quot;&gt;test_average_rating_no_ratings&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;christie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Author&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Agatha Christie&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;fire_pigs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Book&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Fire Pigs&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;year: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1942&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;author: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;christie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		
+		&lt;span class=&quot;c1&quot;&gt;# first the expected, then the actual&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;assert_nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fire_pigs&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;average_nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;this should be nil&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Things to note:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;File that start with “test_” are run with “rails test”&lt;/li&gt;
+  &lt;li&gt;You can create other methods&lt;/li&gt;
+  &lt;li&gt;You have access to all Rails&lt;/li&gt;
+  &lt;li&gt;You can use debugger&lt;/li&gt;
+  &lt;li&gt;Each test should be independent of other tests&lt;/li&gt;
+  &lt;li&gt;You can define a setup method in the beginning and call it before every method, (to create data)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=JYbHurKGzM0&lt;/p&gt;
+
+&lt;p&gt;Testing - Test Cases - Minitest - Capybara&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Arrange&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;setup&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Act&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;execute&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;w&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;input&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Assert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;against&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;our&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Example: we are testing addition, the  input is 1 and 2, the expected result is 3.&lt;/p&gt;
+
+&lt;p&gt;E2E or systems tests:&lt;/p&gt;
+
+&lt;p&gt;Arrange    - sometimes could be add items to DB
+Act - visit the home page, click a link to create account
+Assert - did i end up in the home page?&lt;/p&gt;
+
+&lt;p&gt;seeds.rb is not for tests, is for using the app, like: admin.&lt;/p&gt;
+
+&lt;p&gt;FIRST properties of good tests&lt;/p&gt;
+
+&lt;p&gt;Fast - run fast
+I - independent | isolated, a test should not depend on another test that has run before it; what went wrong and where (try one idea per test)
+R - repeatable, every time you run a test it behaves the same
+S - self validating,  tests reports pass or fail by automatic 
+T - timely | thorough, write the test when your write the code; coverage&lt;/p&gt;
+
+&lt;p&gt;Test Frameworks - Minitest (will help us write FIRST tests)&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;resetting the Rails app and DB after each test  (repeatable, independent)&lt;/li&gt;
+  &lt;li&gt;run tests in randomly order (independent)&lt;/li&gt;
+  &lt;li&gt;provide assert statements &amp;amp; reports of pass and fail (self validating)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Fast is mainly a property of this type of test, low overhead (faster than Rspec)
+Timely &amp;amp; Through this is about developer behavior and skills&lt;/p&gt;
+
+&lt;p&gt;Basics of Minitest&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You write classes that inherit from Minitest.&lt;/li&gt;
+  &lt;li&gt;Each method of the class that star with “test_” is run as independent test .&lt;/li&gt;
+  &lt;li&gt;You can write a “setup” method, it will run before every test within that class (for creating user for instance).&lt;/li&gt;
+  &lt;li&gt;Rails and Minitest restore state after each test, includes the DB.&lt;/li&gt;
+  &lt;li&gt;Everything in Minitest in plain Ruby (only new methods like assert) (not like Rspec or cucumber).&lt;/li&gt;
+  &lt;li&gt;Your class can have non-test  methods.&lt;/li&gt;
+  &lt;li&gt;You have access to all Rails, models methods and so on.&lt;/li&gt;
+  &lt;li&gt;Separate test DB to avoid contamination.&lt;/li&gt;
+  &lt;li&gt;There are a lots of ways to assert.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;assert(test = must be a boolean, message to display) - &amp;gt; assert(expected == results)&lt;/p&gt;
+
+&lt;p&gt;assert_equal(expected, actual)&lt;/p&gt;
+
+&lt;p&gt;assert_nil(nil)&lt;/p&gt;
+
+&lt;p&gt;flunk (msg) make the test fail in purpose&lt;/p&gt;
+
+&lt;p&gt;skip (msg)&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Capybara&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;url = root_path
+visit url 
+——
+assert_current_path url
+—–
+click_link(‘id-of-link’) # id’s from HTML
+click_link(‘Books’)
+click_button(‘Submit’) # it’s better to click on id
+fill_in(‘Name’, with: ‘Bob’)
+——-
+assert page.has_content?(‘Sorry Invalid.’)&lt;/p&gt;
+
+&lt;p&gt;You can search element on the page and interact with them or inspect them
+page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
+
+&lt;p&gt;assert_text (‘Create an account.’)&lt;/p&gt;
+
+&lt;p&gt;=&amp;gt; all about UI. If you wont access session &amp;amp; other “lower stuff” then write an integration.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;LinkTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationSystemTestCase&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_nav_root_to_create_account&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;root_path&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;click_link&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Create Account&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;assert_current_path&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sign_up_path&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=DxIoWJKYxIg&amp;amp;t=1278s&lt;/p&gt;
+
+&lt;p&gt;Demo of TDD&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Arrange&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Act&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Assert&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;StatFunction&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;nil?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; 
+			&lt;span class=&quot;k&quot;&gt;raise&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ArgumentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;it needs at least one element&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+		
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+		
+		&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sort&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;even?&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;left_of_mid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left_of_mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;left_of_mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;  &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;length&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Test&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_median_one_element&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# arrange&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# act&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TestingExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StatFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;# assert&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;assert_equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_median_two_elements&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TestingExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StatFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;assert_in_delta&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_median_three_elements&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TestingExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StatFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;assert_equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_median_zero_elements&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;assert_raises&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ArgumentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TestingExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StatFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_median_zero_elements&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;assert_raises&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ArgumentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TestingExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StatFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_median_nil&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;assert_raises&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ArgumentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TestingExample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;StatFunction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;median&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;https://www.youtube.com/watch?v=sOT2FgD22VI&lt;/p&gt;
+
+&lt;p&gt;What is Minitest?&lt;/p&gt;
+
+&lt;p&gt;https://semaphoreci.com/community/tutorials/getting-started-with-minitest&lt;/p&gt;
+
+&lt;p&gt;How to Test Rails Models with Minitest&lt;/p&gt;
+
+&lt;p&gt;https://semaphoreci.com/community/tutorials/how-to-test-rails-models-with-minitest&lt;/p&gt;
+
+&lt;p&gt;Getting Started With Testing In Rails (Using Minitest and RSpec)&lt;/p&gt;
+
+&lt;p&gt;https://medium.com/@ethanryan/getting-started-with-testing-in-rails-using-minitest-and-rspec-113fe1f866a&lt;/p&gt;
+
+&lt;p&gt;Getting Started With System Tests in Rails With Minitest&lt;/p&gt;
+
+&lt;p&gt;In Rails jargon, system testing refers to “testing an application as a whole system”. That is done by using a browser in the tests. Instead of testing separate parts, with system tests, we can test a whole ‘workflow’, just like what a user goes through while interacting with our app, including the JavaScript parts. In practice, it means that we don’t want a system test to check if a record is created in the database when a user clicks a button; we just test if that new record appears on their screen. These kinds of user interaction tests are also called feature tests or acceptance tests. They are different from integration tests: integration tests are for testing the behavior, especially of all the parts of the app together, but not via the user interface.&lt;/p&gt;
+
+&lt;p&gt;https://blog.appsignal.com/2020/02/12/getting-started-with-system-tests-in-ruby-with-minitest.html&lt;/p&gt;
+
+&lt;p&gt;Official Docs&lt;/p&gt;
+
+&lt;p&gt;https://guides.rubyonrails.org/testing.html#rails-meets-minitest&lt;/p&gt;
+
+&lt;p&gt;Minitest vs. RSpec in Rails&lt;/p&gt;
+
+&lt;p&gt;https://www.honeybadger.io/blog/minitest-rspec-rails/&lt;/p&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
+    <title>The Beginner’s Guide to Rails Testing Jason Swett</title>
+    <link href="http://localhost:4000/2022/02/14/test_jason_swett.html"/>
+    <updated>2022-02-14T00:00:00-05:00</updated>
+    <id>http://localhost:4000/2022/02/14/test_jason_swett</id>
+    <content type="html">&lt;p&gt;The eight types of RSpec specs&lt;/p&gt;
+
+&lt;p&gt;• Model specs
+• System specs
+• Request specs
+• Helper specs
+• View specs
+• Routing specs
+• Mailer specs
+• Job specs&lt;/p&gt;
+
+&lt;p&gt;Jason usage:&lt;/p&gt;
+
+&lt;p&gt;• Model specs always
+• System specs always
+• Request specs rarely
+• Helper specs rarely
+• View specs never
+• Routing specs never
+• Mailer specs never
+• Job specs never&lt;/p&gt;
+
+&lt;p&gt;Model spec&lt;/p&gt;
+
+&lt;p&gt;I use model specs to test my models’ methods. When I do so, I tend to use a test-first approach and write a failing test before I add a new line of code so that I’m sure every bit of code in my model is covered by a test.&lt;/p&gt;
+
+&lt;p&gt;System spec&lt;/p&gt;
+
+&lt;p&gt;System specs are the only type of test that give me confidence my whole application really works.&lt;/p&gt;
+
+&lt;p&gt;Even though system specs are indispensable, they’re not without drawbacks. System specs are somewhat “heavy”&lt;/p&gt;
+
+&lt;p&gt;Request spec
+I tend not to use request specs much because in most cases they would be redundant to my system specs. If I have system specs covering all my features, then of course a broken controller would fail one or more of my tests, making tests specifically for my controllers unnecessary.&lt;/p&gt;
+
+&lt;p&gt;I also try to keep my controllers sufficiently simple as to not call for tests of their own.&lt;/p&gt;
+
+&lt;p&gt;There are just three scenarios in which I do use request specs. First: If I’m working on a legacy project with fat controllers, sometimes I’ll use request specs to help me harness and refactor all that controller code. Second: If I’m working on an API-only Rails app, then system specs are physically impossible and I drop down to request specs instead. Lastly, if it’s just too awkward or expensive to use a system spec in a certain case then I’ll use a request spec instead.&lt;/p&gt;
+
+&lt;p&gt;View and routing spec&lt;/p&gt;
+
+&lt;p&gt;I find view specs and routing specs to be redundant to system specs. If something is wrong with one of my views or routes, it’s highly likely that one of my system specs will catch the problem.&lt;/p&gt;
+
+&lt;p&gt;What are all the Rails testing tools and how do I use them?&lt;/p&gt;
+
+&lt;p&gt;RSpec is a test framework. A test framework is what gives us a structure for writing our tests as well as the ability to run our tests.&lt;/p&gt;
+
+&lt;p&gt;One of the challenges of Rails testing is generating test data.&lt;/p&gt;
+
+&lt;p&gt;There are two common ways of generating test data in Rails tests: fixtures and factories.&lt;/p&gt;
+
+&lt;p&gt;Fixtures typically take the form of one or more YAML files with some hardcoded data. The data is translated into database records one time, before any of the tests are run, and then deleted afterward. (This happens in a separate test database instance of course.)&lt;/p&gt;
+
+&lt;p&gt;With factories, database data is generated specifically for each test. Instead of loading all the data once at the beginning and deleting it at the end, data is inserted before each test case and then deleted before the next test case starts.&lt;/p&gt;
+
+&lt;p&gt;One principle of testing is that tests should be deterministic, meaning they run the same way every time no matter what.&lt;/p&gt;
+
+&lt;p&gt;Capybara: Some Rails tests only exercise Ruby code. Other tests actually open up a browser and simulate user clicks and keystrokes.&lt;/p&gt;
+
+&lt;p&gt;VCR and WebMock: One principle of testing is that tests should be deterministic, meaning they run the same way every time no matter what. When an application’s behavior depends on external services (e.g. a thirdparty API like Stripe) it makes it harder to have deterministic tests. The tests can be made to fail by an internet connection failure or a temporary outage of the external service.&lt;/p&gt;
+
+&lt;p&gt;VCR can let us run our tests against the real external service, but capture all the service’s responses in local files so that subsequent test runs don’t talk to the external service but rather just go off of the saved responses. That way, even if the internet connection fails or the service goes down, the tests still work.&lt;/p&gt;
+
+&lt;p&gt;What keeps them (Rails devs) in the habit of writing tests consistently?&lt;/p&gt;
+
+&lt;p&gt;Laziness, fear, and pride.&lt;/p&gt;
+
+&lt;p&gt;Mental energy. If I write a feature without using tests, I’m often juggling the “deciding what to do” work and the “actually doing it” work at the same time, which has a cognitive cost more than twice as much as performing those two jobs separately in serial. When I build a feature with the aid of tests, the tests allow me to separate the “deciding what to do” work from the “actually doing it” work.&lt;/p&gt;
+
+&lt;p&gt;it’s not possible to have clean, understandable code without having automated tests.&lt;/p&gt;
+
+&lt;p&gt;Pains that tell you your test coverage might be insufficient?&lt;/p&gt;
+
+&lt;p&gt;Too many bugs.&lt;/p&gt;
+
+&lt;p&gt;Inability to refactor or make big changes&lt;/p&gt;
+
+&lt;p&gt;When a change has a large footprint, like a Rails version upgrade or a broad refactoring, it’s basically impossible to gain sufficient confidence of the safety of the change without having a solid automated test suite. So on codebases without good test coverage, these types of improvements tend not to happen.&lt;/p&gt;
+
+&lt;p&gt;How do I set up a new Rails project for testing?&lt;/p&gt;
+
+&lt;p&gt;Start rails with template: https://guides.rubyonrails.org/rails_application_templates.html&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_project&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postgresql&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;githubusercontent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jasonswett&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;testing_application_template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applicatiOnce&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;How do I add tests to an existing Rails project?&lt;/p&gt;
+
+&lt;p&gt;If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects&lt;/p&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
+    <title>The man in the arena</title>
+    <link href="http://localhost:4000/2022/02/05/the_man_in_the_arena.html"/>
+    <updated>2022-02-05T00:00:00-05:00</updated>
+    <id>http://localhost:4000/2022/02/05/the_man_in_the_arena</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;The GOAT 🐐&lt;/strong&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Chastising the Spanish artist for painting unrepresentative cubistic abstractions, a layman withdrew a photograph of his wife from his pocket and held it up to Picasso with the admonition, “Why can’t you paint realistically, like that?” “Is that what your wife really looks like?” Picasso asked. “Yes,” replied the man. “Well, she’s very small, and quite flat.”&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Tables look like this by default:&lt;/p&gt;
+&lt;p&gt;First of all i need to be clear that I’m neither a football follower nor fanatic but somehow TB (Tom Brady) caught me up with his “underdog/rejection” story.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Chapter 1 On naming the series.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The meaning behind the title of this series is because that quote was on the weight room at Michigan University and TB saw it for almost 5 years (it was coined by Theodore Roosevelt) and for him was that eventually you become that man where all eyes are on you and only you know what is all about.&lt;/p&gt;
+
+&lt;p&gt;All began in 1993-1996 when Patriots were playing good football however they were not winning, they lost 1 super bowl, new coach; then Mr. Brady appeared in 1999 with a very solid foundation from Michigan state, - “the team, the team is first” was the guideline he was trained.&lt;/p&gt;
+
+&lt;p&gt;He defines it &lt;strong&gt;as a combination of talent, what you can add on a daily/weekly basis; at this time he didn’t know what were his strengths&lt;/strong&gt;, everynight he looked up what phase was the draft on in order to know his position. Something worth mentioning is that 5 rounds passed and no one chose him, his attributes were not even close to what a pro football team expects, finally he was picked at #199 (only 200 are allowed).&lt;/p&gt;
+
+&lt;p&gt;Main QB (quarterback, D. Bledsoe) at that time describe him as “inquisitive”, asking about everything, everyone thought that he’d be just a backup, was not perceived as a threat; on the other side TB defined himself either “just being naive” or “too much confidence” but he was determined to play pro 🏈.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Working hard is a very sustainable trait. Part of your character. If you don’t have that, at some point the talent does wear off, you’re drafted based on both therefore you must work hard .” Tom Brady.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Second season with Brady on board started, Bledsoe signed the highest contract ever for the next 10 years, TB was on the bench until Bledsoe was hit, time to take the grid. Despite of the very low expectation people had on him, he felt ready to do the job. TB continued playing good waiting Bledsoe to get back of his injury however Bill Belichick (coach) made the decision of giving that role to TB, seeking the best for the team.&lt;/p&gt;
+
+&lt;p&gt;At the AFC finale (one game before Super Bowl) TB had an ankle injury, Bledsoe took his role back, made a couple of touchdowns and won the game, this only remarks how mentally strong was TB since the beginning, everything came down to Bledsoe would be the starting QB, coach thought different, Tom will play the SB.&lt;/p&gt;
+
+&lt;p&gt;As always all odds against Patriots, &lt;strong&gt;however the Pats won being the most underdogs 🏆.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;You gotta be ready when your opportunity presents itself. I don’t think I was physically prepared. Was I mentally and emotionally ready? Absolutely. It’s like anything. Its progress and its evolution. It’s a series of small steps that seem so insignificant.” Tom Brady.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Chapter 2 On team culture.&lt;/p&gt;
+
+&lt;p&gt;TB describes how people, teammates, competitors have been such impactful in his life, on and off the field, those people must help you create the best version of you, if not you gotta move on.&lt;/p&gt;
+
+&lt;p&gt;After winning the SB they lost the next season, it was time to regroup the team, they had to have more consistency; following season Belichick cut the defense leader (L. Malloy, best friend of TB) no one understood that decision which gave room to the media to start creating news about the feelings within the team, thing that TB refused with the next phrase “ignore the noise, focus on tactics”.&lt;/p&gt;
+
+&lt;p&gt;“Patriots is not collecting talent, is building a team” B. Belichick.&lt;/p&gt;
+
+&lt;p&gt;With that being said, TB worked his way to carefully listen to every advice from his coach that gave him structure and confidence, it enabled him to execute selfishness, caring about all his teammates, no one care about who takes the credit.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Winning is probably the outcome but the process of winning was what the culture was all about. What are you willing to commit to be your the very best?” Tom Brady.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;TB learned to study every top player, take the good stuff, fine tune it and put it on practice. He used the next metaphor: “Be the best husband you could be, the best father, the best in your job, because you cannot control everything. If you have perspective in the end nothing bad really happens because out of the bad comes the really good things.”&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Mental toughness is how you deal with adversity. What’s the attitude of your heart? Embrace challenge? Failure?” Rodney Harrison.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Chapter 3 The edge.&lt;/p&gt;
+
+&lt;p&gt;This episode was on motivational style, TB put a statement about how their mentality was - one game at the time, this was tough to put into practice due to they had more than 20 wins in a row.&lt;/p&gt;
+
+&lt;p&gt;The main responsibility of any leader is to know how to motivate each member of his team, some of them like hard coaching others need just a push and in this sports the QB is the chief; this time Belichick worked to create a competitive environment where all the players wanted to give more, here are some phrases he shares:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;It was not the more you can do it. It was who could do the most.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;You came 6:30 am? I’ve already got a half hour on you.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;I’m getting the edge on you.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is what I did. What’d you do?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;-Are you leaving already?&lt;/p&gt;
+
+&lt;p&gt;-Still not doing the extra, huh? I’m getting the edge on you today&lt;/p&gt;
+
+&lt;p&gt;I think is worth pointing out the good outcome that Belichick achieved by building this environment, it’s only as good as the ability of the players to receive it. The team at that time had a high level cohesiveness and the feedback, communication was on point to keep the culture up.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“You don’t know what kind of culture you have until things aren’t going well.” When you have failure, when you don’t do what you were supposed to do, you’ll define how your culture looks like.” Mike Vrabel.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;TB also mentioned how people think there are going to be more opportunities and that is a mistake because it lowers the bar and keeps you away from doing your best effort, you may miss a chance and will disappoint you next time, it will create fear, you’ll want a lower level to play in order to avoid frustration.
+Chapter 4 The goliaths.&lt;/p&gt;
+
+&lt;p&gt;In this episode you’ll find how the Patriots reached its highest level and passed from being the underdogs to the goliaths. Many new team members Randy Moss, Wes Welker amongst others; they knew they were the team to defeat which I think played against them this time.&lt;/p&gt;
+
+&lt;p&gt;Pats had a first time ever record with 16 wins and 0 loses, no team had accomplished this before, they made football look easy, then the “spygate” got and again TB spoke up with his phrase “ignore the noise”.&lt;/p&gt;
+
+&lt;p&gt;“So much of the success in the life is about that journey and it’s not about whether you win or lose always. It’s about how hard you try and what you put into it, thr relationships, the learnings you develop.” Tom Brady.&lt;/p&gt;
+
+&lt;p&gt;In the end Pats lost the Super Bowl against New York Giants, this time Giants were the weaker.&lt;/p&gt;
+
+&lt;p&gt;Chapter 5 No guarantees.&lt;/p&gt;
+
+&lt;p&gt;This episode covers 4 seasons and Tom describes how are the relationships he was able to develop throughout these years, friendships, the born of his 2 kids, how supportive and stabilizer was Gisselle for him and how you must overcome failure, learn from it and move on.&lt;/p&gt;
+
+&lt;p&gt;Some highlights of this episode are the union of NFL players took place for the first time, they couldn’t attend training however TB convoked to train in one college field without coaches with gave the team an advantage over the others, ultimately the got the conditions they were after.&lt;/p&gt;
+
+&lt;p&gt;And finally Patriots faced Giants in the finale and they lost, after a series of inconvenient events, Eli Manning won the SB.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Challenges are opportunities in disguise”. Gisele Bündchen.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Chapter 6 Stop the bleeding.&lt;/p&gt;
+
+&lt;p&gt;Things were not clear for this season, the media started pressing on TB retirement, a new draft for his position had been picked.&lt;/p&gt;
+
+&lt;p&gt;Pats did a comeback throuthroug the season to reach the SB with a record of 12 - 4 gaining confidence game after game, ignoring the noise and building momentum, they did their job and stop the bleeding; suddenly another scandal arose the “deflategate” just a few days before the SB, they faced the best defense at that time Seattle Seahawks with Richard Sherman.&lt;/p&gt;
+
+&lt;p&gt;Notwithstanding the dire comments about them, the conquered their 4th Super Bowl 🏆&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Greatness come with taking chances”. Vince Wilfork.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Chapter 7 Surrender.&lt;/p&gt;
+
+&lt;p&gt;For this chapter Tom invited his 3 sisters in order to lay out how his childhood was, they were a typical California family, attending all 49’s games, Tom Brady being the youngest felt always protected by his 3 sisters and his parents, they did a pretty well job, until he left to attend Michigan University.&lt;/p&gt;
+
+&lt;p&gt;The season covered here was on year 2017 when Tom had to defend himself against the “deflategate”, he was penalized, suspended and the worst; his mom was detected with cancer, the quimio and radiation started so his mind was cut on two sides.
+Tom depicts this Super Bowl as the greatest game ever played (I didn’t know why until I watched how it unfold); this finale had the biggest difference in points ever, 28 to be precise despite that, Pats did comeback and scored as many touchdowns as needed to defeat Atlanta Falcons (play after play).
+“I think he lives his life to really be the best at something. He is a hundred, a thousand % committed to being the better than he was a day before.” Tom Brady sister.
+​
+Chapter 8 No body’s business.&lt;/p&gt;
+
+&lt;p&gt;Tom introduced his rehab clinic and method along his coach body Alex Guerrero; it seems to be his secret weapon after finishing each game as well as every recovery. From my perspective Alex is an alternative physician who uses natural healing and different methods to prepare the muscles, also he goes over emotional and mental subjects trying to get up to an integral readiness.&lt;/p&gt;
+
+&lt;p&gt;After years working on theses methods and proving they really work, Tom convinced Rob Gronkowski to get to Alex and try out his alternatives methods, thing that Belichick didn’t agree with and sent Tom and the trainer to remain outside each meeting and game.&lt;/p&gt;
+
+&lt;p&gt;These supplemental activities seemed to gained relevance when Tom suffered a dire injury in his thumb days before the AFC final, he needed punctures and the recovery appeared to be beyond Sunday however after several treatments he was able to flex and use his hand for Sunday and passed to the SB LII.&lt;/p&gt;
+
+&lt;p&gt;The super Bowl was fought by the two teams but Pats couldn’t beat the Philadelphia Eagles, another lose for Tom Brady 👎.&lt;/p&gt;
+
+&lt;p&gt;Chapter 9 Maybe.&lt;/p&gt;
+
+&lt;p&gt;Last episode of this series goes over the season 2018 and 2019 where Pats had to face Kansas City and Patrick Mahomes, I think they highlight this game because KC started to show how good they were and the pro football they play, also because some key teammates were out so regular season was not great.&lt;/p&gt;
+
+&lt;p&gt;The Super bowl was against Los Angeles Rams which was meant to be a tough game, very physical, low opportunities, in the end Tom was bearing in mind that it was going to be his last season playing with New England because he didn’t get a new contract.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“All comes down to the people and relationship what I value the most. Tom Brady.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Conclusion.&lt;/p&gt;
+
+&lt;p&gt;It definitely is a combination of different factors that take you to succeed or to the place you want to be, those factors may be hard work, readiness, persistence and of course luck or how tom said a few times “situacional football” which is when something completely out of your control plays in favor of you, kicker missed the goal, the receiver couldn’t catch the pass, you name them and here is the part of commitment you need to place in every activity, relationship you want to develop because if everything derails and nothing comes to the place you planned was the best; &lt;strong&gt;you must be satisfied that you gave everything you could in order to accomplish but luck this time was not on your side.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Having lost so many SB’s being the most prestigious sports in America has to be tough as well, it’s said very easy, -he won 7 Super Bowls. But how manys he lost?! It’s tough to miss a flight, to be rejected by the company you would have loved to work for, imagine how hard is to lose the most important event in the year, after having practiced and played 9 months in a row without being with your family.&lt;/p&gt;
+
+&lt;p&gt;Tom developed a resilient mentality which was key for his journey, to keep his feet on earth and to overcome those setbacks, never look back and learn the most from them.&lt;/p&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
+    <title>How to set the right objectives</title>
+    <link href="http://localhost:4000/2021/12/24/how_to_set_right_obj.html"/>
+    <updated>2021-12-24T00:00:00-05:00</updated>
+    <id>http://localhost:4000/2021/12/24/how_to_set_right_obj</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Why Greatness Cannot Be Planned: The Myth of the Objective. Kenneth Stanley&lt;/strong&gt;&lt;/p&gt;
 
 &lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;Count&lt;/th&gt;
-      &lt;th&gt;Thing&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
-      &lt;td&gt;12&lt;/td&gt;
-      &lt;td&gt;Angry men&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;1&lt;/td&gt;
-      &lt;td&gt;Flew over the cuckoos nest&lt;/td&gt;
+      &lt;td&gt;AI Researcher Reveals How to Set the Right Objectives&lt;/td&gt;
+      &lt;td&gt;Knowledge Project Podcast&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;p&gt;Objectives are good when they are modest, but things get complicated when they are more ambitious.&lt;/p&gt;
+
+&lt;p&gt;We as society believe that setting objectives and pursuing them it’s going to help us make new discoveries comma new accomplishments, achievements.&lt;/p&gt;
+
+&lt;p&gt;Some great ideas were never an objective until they were discovered. (Rock and roll, penicillin)&lt;/p&gt;
+
+&lt;p&gt;Serendipity are discoveries that you were not planning to make it.&lt;/p&gt;
+
+&lt;p&gt;The core problem with ambitious objectives is that many cases trying harder won’t help you achieve the outcome you’re seeking. You can’t be so tied to your vision of accomplishment that you’re not open to the unexpected or unplanned.&lt;/p&gt;
+
+&lt;p&gt;You can block your own ability to reach an objective by setting it.&lt;/p&gt;
+
+&lt;p&gt;Assessment feels like we’re moving towards our objective; the problem is that even if the metric shows that you’re moving up in the short run it doesn’t mean it will lead to the point all the way down.&lt;/p&gt;
+
+&lt;p&gt;Example: increasing the tests scores in the US schools. (Universal global achievement. Incredible complex)&lt;/p&gt;
+
+&lt;p&gt;The metric is the assessment and year over year can be going up but it doesn’t solve the fundamental problem. It needs accountability and assessment with a different approach (an approach that recognizes how you actually make innovative progress in a extreme complex problem)&lt;/p&gt;
+
+&lt;p&gt;If stepping stones are counter-intuitive (they are not what you would expect) then the metrics are useless because they (metrics) won’t detect those stepping stones&lt;/p&gt;
+
+&lt;p&gt;If stepping stones are not counter-intuitive then it’s not a hard problem, we would have solved already; that’s what makes the problem hard to solve that you don’t know the steps.&lt;/p&gt;
+
+&lt;p&gt;So we need to proliferate stepping stones.&lt;/p&gt;
+
+&lt;p&gt;It’s like investing portfolio, they are just ideas, you don’t know what is going to pay off but you do need that portfolio and make that kind of prediction; some of them will not work out and we need to tolerate.&lt;/p&gt;
+
+&lt;p&gt;Traditional metrics don’t allow stepping stones that won’t lead to the objective.&lt;/p&gt;
+
+&lt;p&gt;Accountability must thrive interesting steppingstone, even when they won’t go up.&lt;/p&gt;
+
+&lt;p&gt;What is not a stepping stone is having everyone getting better than prior year.&lt;/p&gt;
+
+&lt;p&gt;A solution for the education problem is dissemination of the network teachers, see what on teacher did and work and build from that; it may lead to an end road buy we can’t find out if not try.&lt;/p&gt;
+
+&lt;p&gt;We need to find interesting things that are not objectively detectable through the usual assessment.&lt;/p&gt;
+
+&lt;p&gt;Peer review allows to see from the global optic to the individual. (Academic publishing is an example)
+Innovations happen through individual connections.&lt;/p&gt;
+
+&lt;p&gt;With ambitious goals they are far off in the future and we don’t know what the next stepping stone is so it’s better to almost take like an evolutionary approach where we are creating these mutations or copying errors or trying all these little experiments and then we see which of those experiments leads to some interesting insights or conclusions and then the idea being, we take those conclusions and then we propagate it to and we propagate it to all other nodes almost like nature sort of rewarding.
+Subjective judgments are interesting because objective judgments are easy.&lt;/p&gt;
+
+&lt;p&gt;One example is when we got through this pandemic we should have chosen the best 5th grade teachers (State level or city) and gave them the opportunity to teach all 5th grade students because they were the best, and have best practices however this implies two things: subjection (this is teacher than these others) and failure (which we as a humankind are afraid of).&lt;/p&gt;
+
+&lt;p&gt;Security blanket is provided by assessments, it makes sure nothing really bad happen.&lt;/p&gt;
+
+&lt;p&gt;Reality is inconvenient, scary, and difficult.&lt;/p&gt;
+
+&lt;p&gt;A visionary is someone who in contrast who has recognized when the stepping stones actually have stepped into place now that’s a person you should follow and that’s a very interesting and kind of person.&lt;/p&gt;
+
+&lt;p&gt;Within the corp-life one of the best ways to innovate is to pursue your dream, quit your job and start a start-up this is because the whole society is trapped in this “set goals minded” instead of capturing and developing the idea, they just let it go.&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>

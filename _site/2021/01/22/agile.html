@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name=author content='Dom Lizarraga' />
+  <meta name='theme-color' content='#fff' />
+  <meta name='twitter:title' content="Agile web Development with Rails 6 🛤" />
+  <meta name=description content="" />
+  <meta name=viewport content='width=device-width,minimum-scale=1'>
+  <meta property='og:site_name' content="dominiclizarraga.github.io"/>
+  <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
+  <meta property='og:type' content=blog />
+  <meta property='twitter:account_id' content=domlizarraga_ />
+  
+  
+  <script type='application/ld+json'>{"@context": "http://schema.org","@type": "CreativeWork","author": "Dom Lizarraga"}</script>
+  
+    <link rel=alternate type='application/rss+xml' title="dominiclizarraga.github.io - Reading" href="http://localhost:4000/reading/rss.xml" />
+    <link rel=alternate type='application/atom+xml' title="dominiclizarraga.github.io - Reading" href="http://localhost:4000/reading/atom.xml" />
+  
+  <link rel=icon type=image/x-icon href=/css/favicon.png />
+  <style>:root {
+  --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial,
+    sans-serif;
+}
+
+.star {
+  width: 13px;
+  height: 12px;
+  display: inline-block;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYuMzA5IDkuMjJMMi40MDkgMTJsMS40NC00LjU2N0wwIDQuNTgzbDQuNzg4LS4wNDJMNi4zMDggMCA3LjgzIDQuNTRsNC43ODkuMDQ0LTMuODUgMi44NDlMMTAuMjA5IDEyeiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+");
+}
+
+body {
+  color: #111;
+  margin: 0px auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  font-size: 1rem;
+  font-family: var(--sans-font);
+}
+
+/* Print tweaks ------------------------------------------------------------- */
+.only-print {
+  display: none;
+}
+
+.notitle .body p:first-child {
+  margin-top: 0.25rem;
+}
+
+.body img {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* Element styles ----------------------------------------------------------- */
+sup,
+sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub {
+  top: 0.4em;
+}
+
+a {
+  color: #000;
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #333;
+}
+
+ol,
+ul {
+  margin: 1rem 0;
+}
+
+ul ul {
+  margin: 0;
+}
+
+ol li ul {
+  margin: 5px 10px;
+}
+
+iframe {
+  border: 0;
+}
+
+small,
+.small {
+  font-size: 14px;
+}
+
+br {
+  line-height: 1em;
+}
+
+h1 a {
+  color: #111;
+}
+
+em {
+  font-style: italic;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.004em;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.009em;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.009em;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+blockquote {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+td {
+  vertical-align: top;
+}
+
+hr {
+  background: #000;
+  height: 1px;
+  border: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.body th {
+  text-align: left;
+}
+
+.body td,
+.body th {
+  padding: 0.5rem;
+}
+
+.body td {
+  border: 1px solid #cfcfcf;
+}
+
+.limiter {
+  max-width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding --------------------------------------- */
+.pad2y {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+span.image-credit {
+  float: right;
+  margin: 0 0 10px 10px;
+  font-size: 12px;
+}
+
+span.image-credit:before {
+  content: "↑";
+  margin-right: 5px;
+}
+
+figcaption {
+  font-size: 11px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: -1.2rem;
+}
+
+div.post blockquote p {
+  margin: 0;
+}
+
+/** Writing ----------------------------------------------------------------- */
+.writing,
+.books {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.writing {
+  grid-template-columns: 1fr min-content;
+}
+
+.books {
+  grid-template-columns: 1fr 0.75fr min-content 70px;
+}
+
+.writing a,
+.books a {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.writing > div,
+.books > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.writing time,
+.books time {
+  padding-right: 0.25em;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.012em;
+  white-space: pre;
+}
+
+.project-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.project-box a.project {
+  text-decoration: none;
+  color: #666;
+}
+.project-box a.project:hover {
+  color: #000;
+}
+.project-box a.project img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/** Responsive -------------------------------------------------------------- */
+
+@media screen and (max-width: 480px) {
+  .project-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .limiter {
+    width: auto;
+  }
+  .project-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .writing,
+  .books {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0px;
+  }
+
+  .writing div,
+  .books div {
+    white-space: normal;
+  }
+
+  .writing time,
+  .books div:nth-child(4n) {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .nu a {
+    text-decoration: none;
+  }
+
+  .nu a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-wrap {
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+  }
+  .sigil {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .header {
+    position: absolute;
+    top: 40px;
+    right: 50%;
+    margin-right: 340px !important;
+    letter-spacing: -0.009em;
+  }
+  .content h1:first-child {
+    margin-top: 0;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  .only-print {
+    display: block;
+  }
+  body {
+    margin: 0;
+  }
+  .limiter {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/** Code highlighting ------------------------------------------------------- */
+p code,
+pre code,
+li code,
+g.highlight,
+.code {
+  font-family: var(--mono-font);
+}
+
+p code {
+  font-size: 90%;
+}
+
+pre code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.highlight,
+blockquote {
+  overflow-x: auto;
+  padding: 10px 20px;
+  margin: 0;
+  background: #fff;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+blockquote p:first-child {
+  margin-top: 0;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* pygments theme. does not support generics. .highlight class omitted */
+.highlight {
+  margin: 10px 0;
+}
+
+.highlight .hll {
+  background-color: #ffffcc;
+}
+
+.c, /* Comment */
+.cm, /* Comment.Multiline */
+.cp, /* Comment.Preproc */
+.cs, /* Comment.Special */
+.c1 {
+  color: #999988;
+} /* Comment.Single */
+
+.o, /* Operator */
+.ow, /* Operator.Word */
+.ge {
+  color: #000000;
+} /* Generic.Emph */
+
+.kc, /* Keyword.Constant */
+.kd, /* Keyword.Declaration */
+.kn, /* Keyword.Namespace */
+.kp, /* Keyword.Pseudo */
+.kr, /* Keyword.Reserved */
+.kt {
+  color: #445588;
+} /* Keyword.Type */
+
+.err {
+  color: #a61717;
+} /* Error */
+
+.m {
+  color: #007f7f;
+} /* Literal.Number */
+.s {
+  color: #d01040;
+} /* Literal.String */
+
+.na, /* Name.Attribute */
+.nb, /* Name.Builtin */
+.nc, /* Name.Class */
+.no, /* Name.Constant */
+.nd, /* Name.Decorator */
+.ni, /* Name.Entity */
+.ne, /* Name.Exception */
+.nf, /* Name.Function */
+.nn, /* Name.Namespace */
+.nt, /* Name.Tag */
+.nl {
+  color: #990000;
+} /* Name.Label */
+
+.k, /* Keyword */
+.nv {
+  color: #008080;
+} /* Name.Variable */
+
+.mf, /* Literal.Number.Float */
+.mh, /* Literal.Number.Hex */
+.mi, /* Literal.Number.Integer */
+.mo {
+  color: #009999;
+} /* Literal.Number.Oct */
+
+.sb, /* Literal.String.Backtick */
+.sc, /* Literal.String.Char */
+.sd, /* Literal.String.Doc */
+.s2, /* Literal.String.Double */
+.se, /* Literal.String.Escape */
+.sh, /* Literal.String.Heredoc */
+.s1, /* Literal.String.Single */
+.si, /* Literal.String.Interpol */
+.ss, /* Literal.String.Symbol */
+.bp, /* Name.Builtin.Pseudo */
+.sx {
+  color: #d01040;
+} /* Literal.String.Other */
+
+.sr, /* Literal.String.Regex */
+.vc, /* Name.Variable.Class */
+.vg, /* Name.Variable.Global */
+.vi, /* Name.Variable.Instance */
+.il {
+  color: #009999;
+} /* Literal.Number.Integer.Long */
+</style>
+  <title>Agile web Development with Rails 6 🛤 - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2021/01/22/agile.html">
+</head>
+<body>
+  <div class='pad2y' style='position:relative'>
+    
+    <div class='only-print'>
+      <h2>Dom Lizarraga</h2>
+      <div style='margin-top:0;'>dominiclizarraga@hotmail.com</div>
+    </div>
+    <nav class='header-wrap'>
+      <div class='header nu limiter no-print'>
+        <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>Dom Lizarraga</h1>
+        <ul style='list-style:none;padding:0;margin:0;'>
+          <li><a href='/'>Writing</a></li>
+          <li><a href='/reading/'>Reading</a>⇠</li>
+          <li><a href='/projects/'>Projects</a></li>
+          <li><a href='/about/'>About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class='pad2y limiter content '>
+      <div itemscope itemtype="http://schema.org/Review">
+
+<h1 style='font-size: 30px;'>
+I read Agile web Development with Rails 6 🛤 by Sam Ruby, David B Copeland, Dave Thomas.
+on <span itemprop="datePublished" datetime="2021-01-22">January 22, 2021</span>
+</h1>
+
+
+<h3 itemprop="reviewRating" itemscope itemtype="http://schema.org/Rating">Review
+  <meta itemprop="worstRating" content="1">
+  <meta itemprop="ratingValue" content="4.8">
+  <meta itemprop="bestRating" content="5">
+  <div
+    class='star'
+    class='value-title'
+    title='4.8'
+    style='margin-left:10px;display:inline-block;background-size:15px 14px;height:14px;width:72.0px'></div>
+</h3>
+
+<div itemprop="description" class='body'><p>This was the first Rails book I read and caught me with the real example it takes you through, you’ll be building an online shop and the author goes from installing Rails, ruby and other libraries to finally code some automations and uploading to Heroku, you can either follow the book or at the beginning of each chapter you can download the final version of the app so that you will never lose track of what is being presented, also, brings a summary after lesson and has a playtime section where you can push yourself to do a bit more of the exercises.</p>
+
+<p>In addition something I find very interesting in the book is that the foreword and some sections in each chapter DHH had the opportunity to share either his experience or advice regarding the current topic and he, being the creator of this framework and having built a company on top of it (Basecamp and Hey), I consider it as a nugget of information. Lastly, this is the book that has the best explanation about how Action Pack, Action Controller, Action View, Action Dispatch work together; it dedicates 1 chapter to just explain how routes get match to the controller and their actions and how are they converted into views. Very immaculate.</p>
+
+<p>Let’s begin with chapter 2 (1st is about installing all the stuff) The first example is to show the reader how to use the rails command, in this case the author creates a demo app with two views and one controller, after that it creates a couple of links in order to show how works, nothing fancy so far.</p>
+
+<p>Next chapter goes over the MVC architecture, the model is responsible for maintaining the state of the application. Is more than data; It enforces all the business rules that apply to the that data. For example, if a discount should not be applied to orders of less than $20, the model enforces the constraint. The model acts as both a gatekeeper and a data stored.</p>
+
+<p>That view is responsible for generating a user interface, normally based on data in the model. For example, an online store has a list of products to be displayed on a catalog screen. The list is accessible via the model, but it is a view that formats the list for the end user. Debut itself never handles incoming data. Controllers on the other side, orchestrate the application. They receive events from the outside world (normally, user input), interact with the model, and display an appropriate view to the user.</p>
+
+<p>The MVC architecture was originally intended for conventional GUI applications, where developers found that the separation of concerns led to far less coupling which in turn made the code easier to write and maintain. Each concept or action was expressed in a single, well known place.</p>
+
+<p>In a Rails application, an incoming request is first sent to a router, which works out where in the application the request should be sent and how the request should be parsed. Ultimately, these face identifies a particular method (called an action in rails parlance) somewhere in the controller code. The action might look at data in the request it might interact with the model, and it might cause other actions to be invoked. Eventually the action prepares information for the view, renders something to the user.</p>
+
+<p>The routing component receives the incoming request and immediately picks it apart. The request contains a path (/line_items?product_id=2) and a method (this button does a POST operation; Other commands methods are GET, PUT, PATCH and DELETE). In this case, Rails takes the first part of the path line_items as the name of the controller and the product_id as the id of the product . By convention, POST methods are associated with create actions. They create method handles user requests. In this case, it finds the current user shopping cart when parentheses which is an object managed by the model). It also asks the model to find the information for product 2. It then tells the shopping cart to add the product to itself.</p>
+
+<p>Object relational mapping (ORM) libraries map database tables to classes. If a database has a table called orders, our program will have a class name Order. Rows in this table correspond to objects of the class - a particular order is represented as an object of the Order class. Within that object, attributes are used to get and set the individual columns . Our order object has methods to get and set the amount, sales tax, and so on.</p>
+
+<p>So, and ORM layer maps tables to classes, rows to objects, and columns to attributes of those objects. Class methods are used to perform table level operations, and instance method perform operations on individual rows. Active record is the ORM layer supplied with rails. It closely follows the standard model: tables map 2 classes, roast two objects, and columns to object attributes.</p>
+
+<p>Action pack: the view and controller</p>
+
+<p>When you think about it, and controller parts of the MVC are pretty intimate. The controller supplies their data to the view and the controller receives events from the pages generated by the abuse. Because of these interactions, support for views and controllers in rails is bundled into a single component, Action pack.
+The view is responsible for creating all or part of the response to the displayed in a browser, to be processed by an application, or to be sent as an e-mail. At its simplest , is a chunk of HTML code that displays some fixed text. More typically, you will want to include dynamic content created by the action method in the controller.</p>
+
+<p>The controller in rails is the logical center of your applications. It coordinates the interaction among the user, the abuse, and the model . however, rails handles most of this interaction behind the scenes; The code you write concentrates on application level functionality . This makes rails controller code remarkably easy to develop and maintain.</p>
+
+<p>The controller is also home to a number of important ancillary services:</p>
+
+<p>• It is responsible for routing external requests to internal actions. It handles people friendly you are extremely well.</p>
+
+<p>• It manages catching, which can give application orders of magnitude performance boosts.</p>
+
+<p>• It manages helper modules, which extend the capabilities of the view templates without walking up their code.</p>
+
+<p>• It manages sessions, giving the users the impression of ongoing traction with our applications.</p>
+
+<div><img src="/../graphics/projects/agile_web_dev.jpeg" alt="agile_dev_rails" style="width:300px;" /></div>
+
+<p>Chapter 4 goes on to what is an object oriented language, will we names for local variables, methods parameters, and methods names, it provides the general rules of syntax, the kind of data types you will find in groovy like strings, array, hashes. The core of the Ruby language, which is blocks and iterators, control structures with the if statements, while loops, unless, until.</p>
+
+<p>Chapter 5: incremental development, use cases, page flow, data and priorities are covered. The first sketch of the shopping cart is shown, the user stories are broken down for instance: the buyer uses the web app to browse products we have to sell , select some of to purchase, and supply the information needed to create an order. On the other side the seller journey is as well described and something important is how the data is it going to be handled, how many controllers are we planning to code, the schemas are presented as well and finally the author emphasizes that all of these planning will become outdated because we must get customer feedback and most of these will change. The book pushes you to develop the web app in incremental changes called iterations.</p>
+
+<p>Chapter 6, it starts with the application “rails new depot” and creating the first model in this case the product , it shows you how to migrate, the addition of CSS for the forms, it explains the HTTP verbs and this is the first commit to GitHub. Next chapter added some model validations in order to ensure the user input, also, introduced the first unit test examples and explain how they work; the importance of naming self-explanatory variables, tests.</p>
+
+<p>Chapter 8, builds the 2nd controller in this case is a Store and it added some CSS to the index view, also, went over the layout, using partials files in order to create the navbar, and continued with the testing now including the front end (what should the &lt;H2&gt; tag title contain or how many items &lt;li&gt; should have). The following chapter creates the Cart model, line_item, by a scaffolding them, and connect the line_item model to product and to cart, becoming a joint table; another feature added here is the introduction to sessions , it explains how they work, how much they can carry on and what are they useful.</p>
+
+<p>Chapter 10 covers how to deploy a new migration because in the first one, something was forgotten and leveraging how you can juggle with migrations there are four decided to add a new one instead of creating everything from scratch. Some flash notice modifications took place, and a strong parameter adjustment as well, finally the CSS was at refined to the new changes. The next chapter introduced they AJAX and it explains it very well, the book contains why Ajax exist how can I change the flow of the views, then Ajax feature it’s just highlighting some data without refreshing the whole page and finally action cable is presented with the core concepts.</p>
+
+<p>Within the next iteration the add_order_to_line_item model is created, a new form for capturing the lines items for the order as well and linking Line items 2 one order, after each addition a test is deployed and passed. In order to make more dynamic our rails app we need to add React which is a JavaScript view library designed to quickly create dynamic user interfaces. We will use it to create a dynamic payment method details form coma and Webpacker will ensure that the configuration and set-up for all these is as simple as possible. That said, there is a bit of setup we need to do. Web Packer essentially is the decisions made by the rail steam and bundled up into a gem.</p>
+
+<p>React dynamically renders HTML. Unlike ERB, react does this in the browser, and it is optimized to do it fast. React re render each field of the form instead of having this server re render the entire thing. the core concept in react is components. A component is a view, backed by some sort of state. When the state changes, the rear Enders. The view can behave differently depending on the current state inside the component.</p>
+
+<p>Chapter 14 goes on the e-mail module of Rails and explain why sending e-mail normally is slow, why would you choose Action Mailer and then you put on top of it Active Job to offload the work.
+In a Rails app, when a bit of logic becomes more complex than a line or two of code, you want to move that out of the controller and put it into a model.</p>
+
+<p>The chapter 15, 16, 17, are about logging in, internationalization, and responding emails with rich text this is almost as straight out as you may find it in the rails guide so I won’t go deeper due to is configuration, set-up and little adjustments.</p>
+
+<p>The last part of the book (III) contains 6 chapters and they are under a title called “Rails in depth” I consider this very helpful if you want to go deep into the weeds and explore how is rails composed? why does rails app contain many default files? What are they for? When is correct to use a helper from there app file or from the model? Where does rail put the logs? Naming conventions? Where do you configure the environments? And many interesting methods that I didn’t know.</p>
+
+<p>Active record he’s also touched in this chapter and with more detail the CRUD actions are explained, also, using like classes, order, limit, using the word keyword, joins coma scopes, writing your own SQL, What are the 16 call backs Rails includes.</p>
+
+<p>Action Pack lies at the heart of rails applications. It consists of three Ruby modules: action dispatch, action controller and action view. Action dispatch routes request to controllers. Action controller converts requests into responses. Action view is used by action controller to format those responses. Components such as action controller, action view, and active record handled the processing of request, and the rails environments needs them together into a coherent and easy to use whole.</p>
+
+<p>At its most basic, a web application accepts an incoming request from my browser, process it, and sends a response. The first question that springs to mind is, how does the application know what to do with the incoming request? A shopping cart application will receive requests to display a catalog, add items to a part, create an order, and so on. How does it route these requests to the appropriate code?
+it turns out that Rails provides two ways to define how to route a request: a comprehensive way that you will use when you need to and a convenient way that you will generally use whenever you can.</p>
+
+<p>The comprehensive way lets you define a direct mapping of URLs to actions based on pattern matching, requirements and conditions. The convenient way lets you define routes based on resources, such as the models that you define. And because the convenient weight is built on the comprehensive way, you can freely mix and match the two approaches.</p>
+
+<p>A controller always responds to they use exactly one time per request. This means you should have just one call to a render(), redirect_to() or send() method in the processing of any request. Because the controller must respond exactly once, it checks to see whether a response has been generated just before it finishes handling a request. If not, the controller looks for a template named after the controller and action and automatically renders it. This is the most common way that rendering takes place. You may have noticed that in most of the actions north shopping cart tutorial we never explicitly rendered anything. Instead, or action methods set-up the context for the view and return. The controller notices that no rendering has taken place and automatically invokes the appropriate template.</p>
+
+<p>A real session is a hash-like structure that persists across request. Unlike raw cookies, sessions can hold any objects as long as those objects can be marshaled, which makes them ideal for holding state information in web applications.</p>
+
+<p>Rails encourages and agile, iterative style of development. We don’t expect to get everything right the first time period instead, we write tests and interact with our customer to refine our understanding as we go.</p>
+
+<p>For that to work, we need any supporting set of practices. We write tests to help us design our interfaces and to act as a safety net when we change things, and we use a version control to store our application source files, allowing us to undo mistakes and to monitor what changes day today.
+The database schema in a rails application constantly evolves as we progress through the development column we add a table here, rename a column there, and so on the database changes in step with the applications code.</p>
+
+<p>With rails, each of those steps is made possible through the use of migration. A migration is simply a Ruby source file in your applications and You can modify column types, renaming columns, changing columns, defining indices, renaming tables, the usage of primary keys, and even using native SQL and always you can rollback their migrations when they go bad.</p>
+</div>
+
+
+<div class='breaker'></div>
+
+<h3>Details</h3>
+<ul itemprop="itemReviewed" itemscope itemtype="http://schema.org/Book">
+  <li><span itemprop=name>Agile web Development with Rails 6 🛤</span> by <span itemprop=author>Sam Ruby, David B Copeland, Dave Thomas.</span></li>
+
+  
+  
+
+  <li>Published: <span itemprop=datePublished>2020</span></li>
+  
+</ul>
+
+  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="dominiclizarraga.github.io">
+    <meta itemprop="url" content="http://localhost:4000">
+  </div>
+  <meta itemprop="author" content="Dom Lizarraga">
+  <meta itemprop="url" content="http://localhost:4000/2021/01/22/agile.html">
+
+</div>
+
+    </div>
+  </div>
+</body>
+</html>
