@@ -20,7 +20,7 @@ I'm currently looking for my next adventure, my last job was with [Oblsk](https:
 
 Then we moved to work on [H4H](haymakersforhope.org) a non-profit org that needed a solution for its marketing team so they can create content easiley, here  we implemented [Strapi](https://strapi.io/) API as a headless CMS and Tailwind design (fully-responsive). 🥊
 
-I'm currently working on a [Ruby for good](https://rubyforgood.org/) projec called CASA where I help them to solve stakeholders tickets, I've been doing this as a way of giving back to the community and keep learning since this project uses Rspec, bootstrap, JavaScript and bits of jQuery ✨.
+I'm currently working on a [Ruby for good](https://rubyforgood.org/) project called CASA where I help them to solve stakeholders tickets, I've been doing this as a way of giving back to the community and keep learning since this project uses Rspec, bootstrap, JavaScript and bits of jQuery ✨.
         
 I consider myself as very resilient and resourceful also I have learnt how to manage my emotional state and communicate efficiently and on time. 🔑
 
@@ -37,7 +37,7 @@ Here you may find my [resume](https://standardresume.co/r/YcQ-LtWoMGJlQFJz4IvH5)
 - HTML, CSS - GitHub - Heroku
 
 
-**Idioms**
+**Languages**
 
 
 🇺🇸 English - Professional
