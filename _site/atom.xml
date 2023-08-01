@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-08-01T15:07:40-07:00</updated>
+  <updated>2023-08-01T15:47:12-07:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -17,11 +17,25 @@
     <link href="http://localhost:4000/2023/08/01/llm-langchain-rb.html"/>
     <updated>2023-08-01T00:00:00-07:00</updated>
     <id>http://localhost:4000/2023/08/01/llm-langchain-rb</id>
-    <content type="html">&lt;p&gt;While I was in New York I had the opportunity to attend a &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-rb/&quot;&gt;nyc.rb&lt;/a&gt; webinar where the main subject to discuss was going to be LLMs and what is the Ruby community doing about.&lt;/p&gt;
+    <content type="html">&lt;p&gt;While I was in New York I had the opportunity to attend a &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-rb/&quot;&gt;nyc.rb&lt;/a&gt; webinar where the main subject to discuss was going to be LLMs and what is the Ruby community doing about, &lt;a href=&quot;https://twitter.com/rushing_andrei&quot;&gt;Andrei Bondarev&lt;/a&gt; was the speaker.&lt;/p&gt;
 
 &lt;p&gt;I know it was a webinar you can take wherever you are! However I found it because I was looking for a monthly meeting in NY, also I found that &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-on-rails/&quot;&gt;NYC on rails&lt;/a&gt; is about to start so folks from NY please support &lt;a href=&quot;https://twitter.com/aviflombaum&quot;&gt;Avi&lt;/a&gt; in this journey 🙏.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://twitter.com/aviflombaum/status/1686015466290991107&quot;&gt;Tweet&lt;/a&gt; where Avi anounces that he is going to take up rails monthly meeting (they were held off since 2016).&lt;/p&gt;
+
+&lt;p&gt;OK moving on from ads here I’ll share with you the resources that I have gone over the last week so I got my feet wet with this new topic called LLMs (Large Language Models).&lt;/p&gt;
+
+&lt;p&gt;What is LLMs?&lt;/p&gt;
+
+&lt;p&gt;It’s a subset of Deep Learning as well as Generative AI, both belong to AI.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=G2fqAlgmoPo&quot;&gt;This video explains it very neat&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;What is langchain then? 🦜&lt;/p&gt;
+
+&lt;p&gt;How LLMs work?&lt;/p&gt;
+
+&lt;p&gt;(Main repo)[https://github.com/andreibondarev/langchainrb]&lt;/p&gt;
 
 </content>
     <author>
