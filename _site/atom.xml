@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-07-13T15:24:29-04:00</updated>
+  <updated>2023-08-01T15:07:40-07:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -13,9 +13,27 @@
   </author>
   
   <entry>
+    <title>LLM Langchain.rb 🦜 | Andrei Bondarev</title>
+    <link href="http://localhost:4000/2023/08/01/llm-langchain-rb.html"/>
+    <updated>2023-08-01T00:00:00-07:00</updated>
+    <id>http://localhost:4000/2023/08/01/llm-langchain-rb</id>
+    <content type="html">&lt;p&gt;While I was in New York I had the opportunity to attend a &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-rb/&quot;&gt;nyc.rb&lt;/a&gt; webinar where the main subject to discuss was going to be LLMs and what is the Ruby community doing about.&lt;/p&gt;
+
+&lt;p&gt;I know it was a webinar you can take wherever you are! However I found it because I was looking for a monthly meeting in NY, also I found that &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-on-rails/&quot;&gt;NYC on rails&lt;/a&gt; is about to start so folks from NY please support &lt;a href=&quot;https://twitter.com/aviflombaum&quot;&gt;Avi&lt;/a&gt; in this journey 🙏.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/aviflombaum/status/1686015466290991107&quot;&gt;Tweet&lt;/a&gt; where Avi anounces that he is going to take up rails monthly meeting (they were held off since 2016).&lt;/p&gt;
+
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
     <title>Practicing Rails | Justin Weiss</title>
     <link href="http://localhost:4000/2022/03/26/practicing_rails.html"/>
-    <updated>2022-03-26T00:00:00-04:00</updated>
+    <updated>2022-03-26T00:00:00-07:00</updated>
     <id>http://localhost:4000/2022/03/26/practicing_rails</id>
     <content type="html">&lt;p&gt;Introduction&lt;/p&gt;
 
@@ -106,7 +124,7 @@
   <entry>
     <title>Rails Testing | Whaterloo Uni</title>
     <link href="http://localhost:4000/2022/03/04/testing_waterloo.html"/>
-    <updated>2022-03-04T00:00:00-05:00</updated>
+    <updated>2022-03-04T00:00:00-08:00</updated>
     <id>http://localhost:4000/2022/03/04/testing_waterloo</id>
     <content type="html">&lt;p&gt;Testing Pyramid and Rails&lt;/p&gt;
 
@@ -581,7 +599,7 @@ page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
   <entry>
     <title>The Beginner’s Guide to Rails Testing Jason Swett</title>
     <link href="http://localhost:4000/2022/02/14/test_jason_swett.html"/>
-    <updated>2022-02-14T00:00:00-05:00</updated>
+    <updated>2022-02-14T00:00:00-08:00</updated>
     <id>http://localhost:4000/2022/02/14/test_jason_swett</id>
     <content type="html">&lt;p&gt;The eight types of RSpec specs&lt;/p&gt;
 
@@ -682,7 +700,7 @@ I tend not to use request specs much because in most cases they would be redunda
   <entry>
     <title>The man in the arena</title>
     <link href="http://localhost:4000/2022/02/05/the_man_in_the_arena.html"/>
-    <updated>2022-02-05T00:00:00-05:00</updated>
+    <updated>2022-02-05T00:00:00-08:00</updated>
     <id>http://localhost:4000/2022/02/05/the_man_in_the_arena</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;The GOAT 🐐&lt;/strong&gt;&lt;/p&gt;
 
@@ -847,7 +865,7 @@ Chapter 8 No body’s business.&lt;/p&gt;
   <entry>
     <title>How to set the right objectives</title>
     <link href="http://localhost:4000/2021/12/24/how_to_set_right_obj.html"/>
-    <updated>2021-12-24T00:00:00-05:00</updated>
+    <updated>2021-12-24T00:00:00-08:00</updated>
     <id>http://localhost:4000/2021/12/24/how_to_set_right_obj</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Why Greatness Cannot Be Planned: The Myth of the Objective. Kenneth Stanley&lt;/strong&gt;&lt;/p&gt;
 

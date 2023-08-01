@@ -12,6 +12,21 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>LLM Langchain.rb 🦜 | Andrei Bondarev</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;While I was in New York I had the opportunity to attend a &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-rb/&quot;&gt;nyc.rb&lt;/a&gt; webinar where the main subject to discuss was going to be LLMs and what is the Ruby community doing about.&lt;/p&gt;
+
+&lt;p&gt;I know it was a webinar you can take wherever you are! However I found it because I was looking for a monthly meeting in NY, also I found that &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-on-rails/&quot;&gt;NYC on rails&lt;/a&gt; is about to start so folks from NY please support &lt;a href=&quot;https://twitter.com/aviflombaum&quot;&gt;Avi&lt;/a&gt; in this journey 🙏.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/aviflombaum/status/1686015466290991107&quot;&gt;Tweet&lt;/a&gt; where Avi anounces that he is going to take up rails monthly meeting (they were held off since 2016).&lt;/p&gt;
+
+</description>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2023/08/01/llm-langchain-rb.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/08/01/llm-langchain-rb.html</guid>
+    </item>
+    
+    <item>
       <title>Practicing Rails | Justin Weiss</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;Introduction&lt;/p&gt;
@@ -94,7 +109,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
-      <pubDate>Sat, 26 Mar 2022 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 26 Mar 2022 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2022/03/26/practicing_rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/26/practicing_rails.html</guid>
     </item>
@@ -566,7 +581,7 @@ page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
 
 &lt;p&gt;https://www.honeybadger.io/blog/minitest-rspec-rails/&lt;/p&gt;
 </description>
-      <pubDate>Fri, 04 Mar 2022 00:00:00 -0500</pubDate>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/03/04/testing_waterloo.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/04/testing_waterloo.html</guid>
     </item>
@@ -664,7 +679,7 @@ I tend not to use request specs much because in most cases they would be redunda
 
 &lt;p&gt;If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects&lt;/p&gt;
 </description>
-      <pubDate>Mon, 14 Feb 2022 00:00:00 -0500</pubDate>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/02/14/test_jason_swett.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/02/14/test_jason_swett.html</guid>
     </item>
@@ -826,7 +841,7 @@ Chapter 8 No body’s business.&lt;/p&gt;
 
 &lt;p&gt;Tom developed a resilient mentality which was key for his journey, to keep his feet on earth and to overcome those setbacks, never look back and learn the most from them.&lt;/p&gt;
 </description>
-      <pubDate>Sat, 05 Feb 2022 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 05 Feb 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/02/05/the_man_in_the_arena.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/02/05/the_man_in_the_arena.html</guid>
     </item>
@@ -897,7 +912,7 @@ Subjective judgments are interesting because objective judgments are easy.&lt;/p
 
 &lt;p&gt;Within the corp-life one of the best ways to innovate is to pursue your dream, quit your job and start a start-up this is because the whole society is trapped in this “set goals minded” instead of capturing and developing the idea, they just let it go.&lt;/p&gt;
 </description>
-      <pubDate>Fri, 24 Dec 2021 00:00:00 -0500</pubDate>
+      <pubDate>Fri, 24 Dec 2021 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2021/12/24/how_to_set_right_obj.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/12/24/how_to_set_right_obj.html</guid>
     </item>
