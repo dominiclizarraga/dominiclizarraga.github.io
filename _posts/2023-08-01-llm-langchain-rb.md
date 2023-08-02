@@ -24,4 +24,6 @@ How LLMs work?
 
 (Main repo)[https://github.com/andreibondarev/langchainrb] 
 
+Andrei slides https://docs.google.com/presentation/d/18IkiST1goY2nXA61albDx1WUHCdf9tkaPMYthxLiONQ/edit#slide=id.p
 
+LLM course https://learn.deeplearning.ai/langchain/lesson/1/introduction
