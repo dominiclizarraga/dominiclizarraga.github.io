@@ -6,7 +6,9 @@ layout: post
 
 **Why Greatness Cannot Be Planned: The Myth of the Objective. Kenneth Stanley**
 
-AI Researcher Reveals How to Set the Right Objectives | Knowledge Project Podcast
+[Knowledge Project Podcast](https://www.youtube.com/watch?v=Mo1kIWMdSqk)
+
+*AI Researcher Reveals How to Set the Right Objectives*
 
 Objectives are good when they are modest, but things get complicated when they are more ambitious.
 

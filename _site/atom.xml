@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-08-01T15:48:51-07:00</updated>
+  <updated>2023-08-04T14:32:31-07:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -886,14 +886,9 @@ Chapter 8 No body’s business.&lt;/p&gt;
     <id>http://localhost:4000/2021/12/24/how_to_set_right_obj</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Why Greatness Cannot Be Planned: The Myth of the Objective. Kenneth Stanley&lt;/strong&gt;&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;AI Researcher Reveals How to Set the Right Objectives&lt;/td&gt;
-      &lt;td&gt;Knowledge Project Podcast&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Mo1kIWMdSqk&quot;&gt;Knowledge Project Podcast&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;AI Researcher Reveals How to Set the Right Objectives&lt;/em&gt;&lt;/p&gt;
 
 &lt;p&gt;Objectives are good when they are modest, but things get complicated when they are more ambitious.&lt;/p&gt;
 
