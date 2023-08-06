@@ -1,0 +1,33 @@
+---
+layout: projects
+title: Conferences
+notitle: true
+permalink: "/confs"
+projects:
+  - name:  Rails Saas | Oct 2022.
+    description: Pending.
+
+  - name: Rails Conf | Apr 2023.
+    description: Pending.
+
+  - name: Blue Ridge Ruby | Jun 2023.
+    description: Pending.
+
+  - name: Rails Camp | Sep 2023.
+    description: Not yet.
+
+  - name: Rocky Mountain Ruby | Oct 2023.
+    description: Not yet.
+
+  - name: Ruby Conf SD | Nov 2023.
+    description: Not yet.
+---
+
+<div class='project-box'>
+{% for project in page.projects %}
+<a href='{{project.link}}' class='project'>
+  <img src='{{project.image}}' alt="" />
+  <strong>{{project.name}}</strong> <span>{{project.description}}</span>
+</a>
+{% endfor %}
+</div>
