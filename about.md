@@ -18,7 +18,7 @@ bit of the website, wrap the img in a div! -->
 
 I'm currently looking for my next adventure, my last job was with [Oblsk](https://oblsk.com) where we worked on some amazing projects like [PLT4M](plt4m.com) where I solved user stories from developing new features, creating models, involving ORM queries Sequel, testing with Mini & Capy & CSS responsiveness. 🏃
 
-Then we moved to work on [H4H](haymakersforhope.org) a non-profit org that needed a solution for its marketing team so they can create content easiley, here  we implemented [Strapi](https://strapi.io/) API as a headless CMS and Tailwind design (fully-responsive). 🥊
+Then we moved to work on [H4H](haymakersforhope.org) a non-profit org that needed a solution for its marketing team so they can create content easily, here  we implemented [Strapi](https://strapi.io/) API as a headless CMS and Tailwind design (fully-responsive). 🥊
 
 I'm currently working on a [Ruby for good](https://rubyforgood.org/) project called CASA where I help them to solve stakeholders tickets, I've been doing this as a way of giving back to the community and keep learning since this project uses Rspec, bootstrap, JavaScript and bits of jQuery ✨.
         
