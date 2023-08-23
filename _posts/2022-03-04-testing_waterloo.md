@@ -1,10 +1,10 @@
 ---
-title: Rails Testing | Whaterloo Uni
+title: Rails Testing | University of Waterloo
 categories: blog
 layout: post
 ---
 
-Testing Pyramid and Rails
+*This is a series of lectures about rails testing -Databases & Software Engineering course.*
 
 <div><img src='/../graphics/projects/test_pyramid.png' alt='beginning_rails' style="width:300px;"/></div>
 
@@ -13,8 +13,6 @@ How to test?
 Mike Cohn in his book Succeeding with agile.
 
 You should spend most of your time in Unit.
-
-
 
 End to end is manual and it means a person goes through all the user flow to reach a user acceptance criteria, click buttons, links, add stuff to the shopping cart, make a payment.
 
@@ -41,7 +39,7 @@ Models, and classes we create,
 
 First I need to make sure my individual pieces work, then i put them together and see if that larger system works and eventually we're going to check out and test the whole entire system. 
 
-https://www.youtube.com/watch?v=gVKQilNUjtA&t=10s
+[Testing Pyramid and Rails Video Lecture](https://www.youtube.com/watch?v=gVKQilNUjtA&t=10s)
 
 
 MSCI 245 : Testing
