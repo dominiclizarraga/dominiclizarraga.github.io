@@ -13,7 +13,7 @@ if you want your image on the about page to be flush with the name
 bit of the website, wrap the img in a div! -->
 
 
-👋 Hey there! I'm Dominic a software developer proficient in Ruby on Rails, Hotwire (including Turbo + Stimulus), JS, APIs, Minitest, Capybara, Postgres, HTML, CSS(bootsrap) & Tailwind. 🚀
+👋 Hey there! I'm Dominic a software developer proficient in Ruby on Rails, Hotwire (including Turbo + Stimulus), JS, APIs, Minitest, Capybara, Postgres, HTML, CSS(bootstrap) & Tailwind. 🚀
 
 
 I'm currently looking for my next adventure, my last job was with [Oblsk](https://oblsk.com) where we worked on some amazing projects like [PLT4M](plt4m.com) where I solved user stories from developing new features, creating models, involving ORM queries Sequel, testing with Mini & Capy & CSS responsiveness. 🏃
