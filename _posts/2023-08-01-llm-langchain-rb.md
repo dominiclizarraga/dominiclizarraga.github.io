@@ -22,8 +22,16 @@ What is langchain then? 🦜
 
 How LLMs work?
 
-[Main ruby repo](https://github.com/andreibondarev/langchainrb)
 
-[Andrei NYC.rb slides] (https://docs.google.com/presentation/d/18IkiST1goY2nXA61albDx1WUHCdf9tkaPMYthxLiONQ/edit#slide=id.p)
+[Andrei NYC.rb slides](https://docs.google.com/presentation/d/18IkiST1goY2nXA61albDx1WUHCdf9tkaPMYthxLiONQ/edit#slide=id.p)
+
+[Main Langchain ruby repo](https://github.com/andreibondarev/langchainrb)
+
+Proof of Concept:
+
+[Multi-Agent Chatbot developed by Flexport member (Ben Zhang)](https://github.com/zben/superchat)
+
+
+Courses:
 
 [LangChain for LLM Application Development from Deep Learning AI](https://learn.deeplearning.ai/langchain/lesson/1/introduction)
