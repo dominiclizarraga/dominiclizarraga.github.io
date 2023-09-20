@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-09-20T09:01:24-10:00</updated>
+  <updated>2023-09-20T09:02:47-10:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,19 @@
     <name>Dom Lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>Search bar Rails 🔍</title>
+    <link href="http://localhost:4000/2023/09/10/search-bar-rails.html"/>
+    <updated>2023-09-10T00:00:00-10:00</updated>
+    <id>http://localhost:4000/2023/09/10/search-bar-rails</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;Notes from building a Search bar.&lt;/strong&gt;&lt;/p&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>Chartkick gem vs chart.js</title>
