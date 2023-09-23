@@ -12,11 +12,11 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
-      <title>Search bar Rails 🔍</title>
+      <title>Search bar in Rails 🔍</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes from building a Search bar.&lt;/strong&gt;&lt;/p&gt;
 </description>
-      <pubDate>Sun, 10 Sep 2023 00:00:00 -1000</pubDate>
+      <pubDate>Sun, 10 Sep 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/09/10/search-bar-rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/10/search-bar-rails.html</guid>
     </item>
@@ -26,7 +26,7 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes from chartkick gem implementation&lt;/strong&gt;&lt;/p&gt;
 </description>
-      <pubDate>Sun, 20 Aug 2023 00:00:00 -1000</pubDate>
+      <pubDate>Sun, 20 Aug 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/08/20/chartkick-gem.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/08/20/chartkick-gem.html</guid>
     </item>
@@ -64,7 +64,7 @@
 
 &lt;p&gt;&lt;a href=&quot;https://learn.deeplearning.ai/langchain/lesson/1/introduction&quot;&gt;LangChain for LLM Application Development from Deep Learning AI&lt;/a&gt;&lt;/p&gt;
 </description>
-      <pubDate>Tue, 01 Aug 2023 00:00:00 -1000</pubDate>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/08/01/llm-langchain-rb.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/08/01/llm-langchain-rb.html</guid>
     </item>
@@ -74,7 +74,7 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes from NYU clases&lt;/strong&gt;&lt;/p&gt;
 </description>
-      <pubDate>Mon, 24 Jul 2023 00:00:00 -1000</pubDate>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/07/24/NYU-startup-summer.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/07/24/NYU-startup-summer.html</guid>
     </item>
@@ -134,7 +134,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <pubDate>Wed, 14 Jun 2023 00:00:00 -1000</pubDate>
+      <pubDate>Wed, 14 Jun 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/06/14/how_i_learned_rspec.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/06/14/how_i_learned_rspec.html</guid>
     </item>
@@ -222,7 +222,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
-      <pubDate>Sat, 26 Mar 2022 00:00:00 -1000</pubDate>
+      <pubDate>Sat, 26 Mar 2022 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2022/03/26/practicing_rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/26/practicing_rails.html</guid>
     </item>
@@ -694,7 +694,7 @@ page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
 
 &lt;p&gt;https://www.honeybadger.io/blog/minitest-rspec-rails/&lt;/p&gt;
 </description>
-      <pubDate>Fri, 04 Mar 2022 00:00:00 -1000</pubDate>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/03/04/testing_waterloo.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/04/testing_waterloo.html</guid>
     </item>
@@ -792,7 +792,7 @@ I tend not to use request specs much because in most cases they would be redunda
 
 &lt;p&gt;If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects&lt;/p&gt;
 </description>
-      <pubDate>Mon, 14 Feb 2022 00:00:00 -1000</pubDate>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/02/14/test_jason_swett.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/02/14/test_jason_swett.html</guid>
     </item>
@@ -954,7 +954,7 @@ Chapter 8 No body’s business.&lt;/p&gt;
 
 &lt;p&gt;Tom developed a resilient mentality which was key for his journey, to keep his feet on earth and to overcome those setbacks, never look back and learn the most from them.&lt;/p&gt;
 </description>
-      <pubDate>Sat, 05 Feb 2022 00:00:00 -1000</pubDate>
+      <pubDate>Sat, 05 Feb 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/02/05/the_man_in_the_arena.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/02/05/the_man_in_the_arena.html</guid>
     </item>
@@ -1020,7 +1020,7 @@ Subjective judgments are interesting because objective judgments are easy.&lt;/p
 
 &lt;p&gt;Within the corp-life one of the best ways to innovate is to pursue your dream, quit your job and start a start-up this is because the whole society is trapped in this “set goals minded” instead of capturing and developing the idea, they just let it go.&lt;/p&gt;
 </description>
-      <pubDate>Fri, 24 Dec 2021 00:00:00 -1000</pubDate>
+      <pubDate>Fri, 24 Dec 2021 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2021/12/24/how_to_set_right_obj.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/12/24/how_to_set_right_obj.html</guid>
     </item>

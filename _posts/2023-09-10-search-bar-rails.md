@@ -1,5 +1,5 @@
 ---
-title: Search bar Rails 🔍
+title: Search bar in Rails 🔍
 categories: blog
 layout: post
 ---
