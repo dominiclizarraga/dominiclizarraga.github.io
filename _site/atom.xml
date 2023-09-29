@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-09-23T22:39:43-07:00</updated>
+  <updated>2023-09-28T23:33:45-04:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -15,9 +15,15 @@
   <entry>
     <title>Search bar in Rails 🔍</title>
     <link href="http://localhost:4000/2023/09/10/search-bar-rails.html"/>
-    <updated>2023-09-10T00:00:00-07:00</updated>
+    <updated>2023-09-10T00:00:00-04:00</updated>
     <id>http://localhost:4000/2023/09/10/search-bar-rails</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Notes from building a Search bar.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/&quot;&gt;Justin Weiss search bar using scopes.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://web-crunch.com/posts/turbo-charged-real-time-search-ruby-on-rails-7&quot;&gt;Search bar using turbo frames.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://blog.testdouble.com/posts/2021-09-09-how-to-build-a-search-engine-with-ruby-on-rails/&quot;&gt;Search bar Test double.&lt;/a&gt;&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
@@ -28,7 +34,7 @@
   <entry>
     <title>Chartkick gem vs chart.js</title>
     <link href="http://localhost:4000/2023/08/20/chartkick-gem.html"/>
-    <updated>2023-08-20T00:00:00-07:00</updated>
+    <updated>2023-08-20T00:00:00-04:00</updated>
     <id>http://localhost:4000/2023/08/20/chartkick-gem</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Notes from chartkick gem implementation&lt;/strong&gt;&lt;/p&gt;
 </content>
@@ -41,7 +47,7 @@
   <entry>
     <title>LLM Langchain.rb 🦜 | Andrei Bondarev</title>
     <link href="http://localhost:4000/2023/08/01/llm-langchain-rb.html"/>
-    <updated>2023-08-01T00:00:00-07:00</updated>
+    <updated>2023-08-01T00:00:00-04:00</updated>
     <id>http://localhost:4000/2023/08/01/llm-langchain-rb</id>
     <content type="html">&lt;p&gt;While I was in New York I had the opportunity to attend a &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-rb/&quot;&gt;nyc.rb&lt;/a&gt; webinar where the main subject to discuss was going to be LLMs and what is the Ruby community doing about, &lt;a href=&quot;https://twitter.com/rushing_andrei&quot;&gt;Andrei Bondarev&lt;/a&gt; was the speaker.&lt;/p&gt;
 
@@ -82,7 +88,7 @@
   <entry>
     <title>NYU Startup Summer program</title>
     <link href="http://localhost:4000/2023/07/24/NYU-startup-summer.html"/>
-    <updated>2023-07-24T00:00:00-07:00</updated>
+    <updated>2023-07-24T00:00:00-04:00</updated>
     <id>http://localhost:4000/2023/07/24/NYU-startup-summer</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Notes from NYU clases&lt;/strong&gt;&lt;/p&gt;
 </content>
@@ -95,7 +101,7 @@
   <entry>
     <title>How I learned rpsec</title>
     <link href="http://localhost:4000/2023/06/14/how_i_learned_rspec.html"/>
-    <updated>2023-06-14T00:00:00-07:00</updated>
+    <updated>2023-06-14T00:00:00-04:00</updated>
     <id>http://localhost:4000/2023/06/14/how_i_learned_rspec</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Rspec learning resources&lt;/strong&gt;&lt;/p&gt;
 
@@ -158,7 +164,7 @@
   <entry>
     <title>Practicing Rails | Justin Weiss</title>
     <link href="http://localhost:4000/2022/03/26/practicing_rails.html"/>
-    <updated>2022-03-26T00:00:00-07:00</updated>
+    <updated>2022-03-26T00:00:00-04:00</updated>
     <id>http://localhost:4000/2022/03/26/practicing_rails</id>
     <content type="html">&lt;p&gt;Introduction&lt;/p&gt;
 
@@ -249,7 +255,7 @@
   <entry>
     <title>Rails Testing | University of Waterloo</title>
     <link href="http://localhost:4000/2022/03/04/testing_waterloo.html"/>
-    <updated>2022-03-04T00:00:00-08:00</updated>
+    <updated>2022-03-04T00:00:00-05:00</updated>
     <id>http://localhost:4000/2022/03/04/testing_waterloo</id>
     <content type="html">&lt;p&gt;&lt;em&gt;This is a series of lectures about rails testing -Databases &amp;amp; Software Engineering course.&lt;/em&gt;&lt;/p&gt;
 
@@ -724,7 +730,7 @@ page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
   <entry>
     <title>The Beginner’s Guide to Rails Testing Jason Swett</title>
     <link href="http://localhost:4000/2022/02/14/test_jason_swett.html"/>
-    <updated>2022-02-14T00:00:00-08:00</updated>
+    <updated>2022-02-14T00:00:00-05:00</updated>
     <id>http://localhost:4000/2022/02/14/test_jason_swett</id>
     <content type="html">&lt;p&gt;The eight types of RSpec specs&lt;/p&gt;
 
@@ -825,7 +831,7 @@ I tend not to use request specs much because in most cases they would be redunda
   <entry>
     <title>The man in the arena</title>
     <link href="http://localhost:4000/2022/02/05/the_man_in_the_arena.html"/>
-    <updated>2022-02-05T00:00:00-08:00</updated>
+    <updated>2022-02-05T00:00:00-05:00</updated>
     <id>http://localhost:4000/2022/02/05/the_man_in_the_arena</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;The GOAT 🐐&lt;/strong&gt;&lt;/p&gt;
 
@@ -990,7 +996,7 @@ Chapter 8 No body’s business.&lt;/p&gt;
   <entry>
     <title>How to set the right objectives</title>
     <link href="http://localhost:4000/2021/12/24/how_to_set_right_obj.html"/>
-    <updated>2021-12-24T00:00:00-08:00</updated>
+    <updated>2021-12-24T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/12/24/how_to_set_right_obj</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Why Greatness Cannot Be Planned: The Myth of the Objective. Kenneth Stanley&lt;/strong&gt;&lt;/p&gt;
 
