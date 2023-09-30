@@ -12,6 +12,16 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>How to Crack Your Next Code Challenge 🧮</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;&lt;strong&gt;Notes that will help you understand and then solve a code challenge interview.&lt;/strong&gt;&lt;/p&gt;
+</description>
+      <pubDate>Sat, 30 Sep 2023 00:00:00 -0400</pubDate>
+      <link>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</guid>
+    </item>
+    
+    <item>
       <title>Search bar in Rails 🔍</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes from building a Search bar.&lt;/strong&gt;&lt;/p&gt;
@@ -963,72 +973,6 @@ Chapter 8 No body’s business.&lt;/p&gt;
       <pubDate>Sat, 05 Feb 2022 00:00:00 -0500</pubDate>
       <link>http://localhost:4000/2022/02/05/the_man_in_the_arena.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/02/05/the_man_in_the_arena.html</guid>
-    </item>
-    
-    <item>
-      <title>How to set the right objectives</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Why Greatness Cannot Be Planned: The Myth of the Objective. Kenneth Stanley&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=Mo1kIWMdSqk&quot;&gt;Knowledge Project Podcast&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;AI Researcher Reveals How to Set the Right Objectives&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;Objectives are good when they are modest, but things get complicated when they are more ambitious.&lt;/p&gt;
-
-&lt;p&gt;We as society believe that setting objectives and pursuing them it’s going to help us make new discoveries comma new accomplishments, achievements.&lt;/p&gt;
-
-&lt;p&gt;Some great ideas were never an objective until they were discovered. (Rock and roll, penicillin)&lt;/p&gt;
-
-&lt;p&gt;Serendipity are discoveries that you were not planning to make it.&lt;/p&gt;
-
-&lt;p&gt;The core problem with ambitious objectives is that many cases trying harder won’t help you achieve the outcome you’re seeking. You can’t be so tied to your vision of accomplishment that you’re not open to the unexpected or unplanned.&lt;/p&gt;
-
-&lt;p&gt;You can block your own ability to reach an objective by setting it.&lt;/p&gt;
-
-&lt;p&gt;Assessment feels like we’re moving towards our objective; the problem is that even if the metric shows that you’re moving up in the short run it doesn’t mean it will lead to the point all the way down.&lt;/p&gt;
-
-&lt;p&gt;Example: increasing the tests scores in the US schools. (Universal global achievement. Incredible complex)&lt;/p&gt;
-
-&lt;p&gt;The metric is the assessment and year over year can be going up but it doesn’t solve the fundamental problem. It needs accountability and assessment with a different approach (an approach that recognizes how you actually make innovative progress in a extreme complex problem)&lt;/p&gt;
-
-&lt;p&gt;If stepping stones are counter-intuitive (they are not what you would expect) then the metrics are useless because they (metrics) won’t detect those stepping stones&lt;/p&gt;
-
-&lt;p&gt;If stepping stones are not counter-intuitive then it’s not a hard problem, we would have solved already; that’s what makes the problem hard to solve that you don’t know the steps.&lt;/p&gt;
-
-&lt;p&gt;So we need to proliferate stepping stones.&lt;/p&gt;
-
-&lt;p&gt;It’s like investing portfolio, they are just ideas, you don’t know what is going to pay off but you do need that portfolio and make that kind of prediction; some of them will not work out and we need to tolerate.&lt;/p&gt;
-
-&lt;p&gt;Traditional metrics don’t allow stepping stones that won’t lead to the objective.&lt;/p&gt;
-
-&lt;p&gt;Accountability must thrive interesting steppingstone, even when they won’t go up.&lt;/p&gt;
-
-&lt;p&gt;What is not a stepping stone is having everyone getting better than prior year.&lt;/p&gt;
-
-&lt;p&gt;A solution for the education problem is dissemination of the network teachers, see what on teacher did and work and build from that; it may lead to an end road buy we can’t find out if not try.&lt;/p&gt;
-
-&lt;p&gt;We need to find interesting things that are not objectively detectable through the usual assessment.&lt;/p&gt;
-
-&lt;p&gt;Peer review allows to see from the global optic to the individual. (Academic publishing is an example)
-Innovations happen through individual connections.&lt;/p&gt;
-
-&lt;p&gt;With ambitious goals they are far off in the future and we don’t know what the next stepping stone is so it’s better to almost take like an evolutionary approach where we are creating these mutations or copying errors or trying all these little experiments and then we see which of those experiments leads to some interesting insights or conclusions and then the idea being, we take those conclusions and then we propagate it to and we propagate it to all other nodes almost like nature sort of rewarding.
-Subjective judgments are interesting because objective judgments are easy.&lt;/p&gt;
-
-&lt;p&gt;One example is when we got through this pandemic we should have chosen the best 5th grade teachers (State level or city) and gave them the opportunity to teach all 5th grade students because they were the best, and have best practices however this implies two things: subjection (this is teacher than these others) and failure (which we as a humankind are afraid of).&lt;/p&gt;
-
-&lt;p&gt;Security blanket is provided by assessments, it makes sure nothing really bad happen.&lt;/p&gt;
-
-&lt;p&gt;Reality is inconvenient, scary, and difficult.&lt;/p&gt;
-
-&lt;p&gt;A visionary is someone who in contrast who has recognized when the stepping stones actually have stepped into place now that’s a person you should follow and that’s a very interesting and kind of person.&lt;/p&gt;
-
-&lt;p&gt;Within the corp-life one of the best ways to innovate is to pursue your dream, quit your job and start a start-up this is because the whole society is trapped in this “set goals minded” instead of capturing and developing the idea, they just let it go.&lt;/p&gt;
-</description>
-      <pubDate>Fri, 24 Dec 2021 00:00:00 -0500</pubDate>
-      <link>http://localhost:4000/2021/12/24/how_to_set_right_obj.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2021/12/24/how_to_set_right_obj.html</guid>
     </item>
     
   </channel>
