@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-10-09T19:51:15+02:00</updated>
+  <updated>2023-10-09T21:11:13+02:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,109 @@
     <name>Dom Lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>Financial Wisdom Over Forks.</title>
+    <link href="http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html"/>
+    <updated>2023-10-09T00:00:00+02:00</updated>
+    <id>http://localhost:4000/2023/10/09/financial-wisdom-over-forks</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;A Dinner Chat with &lt;a href=&quot;https://twitter.com/excid3&quot;&gt;Chris Oliver&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/mynameisharry&quot;&gt;Harry Llewelyn&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Recently, I had the opportunity to have dinner and engage in conversation with Chris Oliver and Harry Llewelyn at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.&lt;/p&gt;
+
+&lt;p&gt;Among the insights shared by &lt;a href=&quot;https://twitter.com/dhh&quot;&gt;DHH&lt;/a&gt; was “The One-Person Framework” which enables one to achieve remarkable productivity with &lt;a href=&quot;https://rubyonrails.org/&quot;&gt;Rails&lt;/a&gt;. This framework allows for a comprehensive understanding of everything from backend to frontend to deployment, all while Rails navigates through the complexities aiming for simplicity. Inspired by DHH’s insights, I’m keen on taking advantage of “The One-Person Framework” to enhance my consulting practice. The discussion unfolded as follows:&lt;/p&gt;
+
+&lt;h2 id=&quot;accounting&quot;&gt;Accounting&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Always set aside 30% of each income you receive from consulting to cushion yourself when it’s time to pay taxes. 30 is a good figure; it’s enough.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Hire an accountant; don’t do it yourself, as it can become difficult.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;accounts&quot;&gt;Accounts&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;The money that a business generates is one thing, and it must be in an exclusive account. Separate it from everything else (LLC or whatever structure).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a personal account for personal expenses, and avoid mixing expenses. It might seem easy initially, but it can become difficult to handle.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;sales&quot;&gt;Sales&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When it comes to consulting, once you finish a project and haven’t worked on securing another project, it’s very likely that you’ll end up doing nothing.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Therefore, in the hypothetical case that you finish “Project A” in December, dedicate 80% of your time to the project to get it done, and 20% on sales activities (attending meetups, calls, creating content, follow-ups).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Then, as you get closer to finishing the project, switch to spending 80% of your time on selling and 20% on the project so that when you finish “Project A” in December, you have “Project B” waiting in January.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;always-work-with-contracts&quot;&gt;Always Work with Contracts&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Include a clause specifying that if you no longer wish to work on the project, you can leave without any penalties. If you either get bored or lose interest, you can stop working on it.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;At the point or progress where you leave the project, the customer must pay for the work done.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Sometimes projects evolve into something else, and customers may not be worth maintaining a relationship with.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;work-on-building-trust-with-clients&quot;&gt;Work on Building Trust with Clients&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;When you develop for a customer, aim to either cut their operational costs or increase their revenue/productivity to gain their trust.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Earned trust will increase like compound interest over the years, as they will share with others how you helped them and how efficient you were.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;where-to-find-potential-customers&quot;&gt;Where to Find Potential Customers&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;One approach is to get in touch with local marketing agencies and offer to outsource their work to you, whether it’s web apps or web pages. This is beneficial as it’s easier to secure payments from organizations than individuals, and it also enhances your portfolio and reputation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For the point above 👆, show up! Don’t just email them; meet them in person, attend meetups, even those not related to tech.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Another approach is to reconnect with previous customers and inquire if there’s another department you can assist; this should happen naturally if you’ve had a good working relationship.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;dont-convince-customers-to-have-a-rails-app-when-they-dont-really-need-it-avoid-this-&quot;&gt;Don’t Convince Customers to Have a Rails App When They Don’t Really Need It (Avoid This 🚫)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;One individual secured a contract where the customer apparently needed a WordPress management system, but he kept pushing for a Rails application.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Somehow, the customer paid him in advance, and after a few months, rejected the project and asked for a refund. By then, he had already spent the money without setting aside funds for taxes, and found himself having to answer to both the customer and the tax authorities.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>How to crack your next code challenge 🧮</title>
@@ -834,171 +937,6 @@ I tend not to use request specs much because in most cases they would be redunda
 &lt;p&gt;How do I add tests to an existing Rails project?&lt;/p&gt;
 
 &lt;p&gt;If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects&lt;/p&gt;
-</content>
-    <author>
-      <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>The man in the arena</title>
-    <link href="http://localhost:4000/2022/02/05/the_man_in_the_arena.html"/>
-    <updated>2022-02-05T00:00:00+01:00</updated>
-    <id>http://localhost:4000/2022/02/05/the_man_in_the_arena</id>
-    <content type="html">&lt;p&gt;&lt;strong&gt;The GOAT 🐐&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Chastising the Spanish artist for painting unrepresentative cubistic abstractions, a layman withdrew a photograph of his wife from his pocket and held it up to Picasso with the admonition, “Why can’t you paint realistically, like that?” “Is that what your wife really looks like?” Picasso asked. “Yes,” replied the man. “Well, she’s very small, and quite flat.”&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;First of all i need to be clear that I’m neither a football follower nor fanatic but somehow TB (Tom Brady) caught me up with his “underdog/rejection” story.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Chapter 1 On naming the series.&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;The meaning behind the title of this series is because that quote was on the weight room at Michigan University and TB saw it for almost 5 years (it was coined by Theodore Roosevelt) and for him was that eventually you become that man where all eyes are on you and only you know what is all about.&lt;/p&gt;
-
-&lt;p&gt;All began in 1993-1996 when Patriots were playing good football however they were not winning, they lost 1 super bowl, new coach; then Mr. Brady appeared in 1999 with a very solid foundation from Michigan state, - “the team, the team is first” was the guideline he was trained.&lt;/p&gt;
-
-&lt;p&gt;He defines it &lt;strong&gt;as a combination of talent, what you can add on a daily/weekly basis; at this time he didn’t know what were his strengths&lt;/strong&gt;, everynight he looked up what phase was the draft on in order to know his position. Something worth mentioning is that 5 rounds passed and no one chose him, his attributes were not even close to what a pro football team expects, finally he was picked at #199 (only 200 are allowed).&lt;/p&gt;
-
-&lt;p&gt;Main QB (quarterback, D. Bledsoe) at that time describe him as “inquisitive”, asking about everything, everyone thought that he’d be just a backup, was not perceived as a threat; on the other side TB defined himself either “just being naive” or “too much confidence” but he was determined to play pro 🏈.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Working hard is a very sustainable trait. Part of your character. If you don’t have that, at some point the talent does wear off, you’re drafted based on both therefore you must work hard .” Tom Brady.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Second season with Brady on board started, Bledsoe signed the highest contract ever for the next 10 years, TB was on the bench until Bledsoe was hit, time to take the grid. Despite of the very low expectation people had on him, he felt ready to do the job. TB continued playing good waiting Bledsoe to get back of his injury however Bill Belichick (coach) made the decision of giving that role to TB, seeking the best for the team.&lt;/p&gt;
-
-&lt;p&gt;At the AFC finale (one game before Super Bowl) TB had an ankle injury, Bledsoe took his role back, made a couple of touchdowns and won the game, this only remarks how mentally strong was TB since the beginning, everything came down to Bledsoe would be the starting QB, coach thought different, Tom will play the SB.&lt;/p&gt;
-
-&lt;p&gt;As always all odds against Patriots, &lt;strong&gt;however the Pats won being the most underdogs 🏆.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;You gotta be ready when your opportunity presents itself. I don’t think I was physically prepared. Was I mentally and emotionally ready? Absolutely. It’s like anything. Its progress and its evolution. It’s a series of small steps that seem so insignificant.” Tom Brady.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Chapter 2 On team culture.&lt;/p&gt;
-
-&lt;p&gt;TB describes how people, teammates, competitors have been such impactful in his life, on and off the field, those people must help you create the best version of you, if not you gotta move on.&lt;/p&gt;
-
-&lt;p&gt;After winning the SB they lost the next season, it was time to regroup the team, they had to have more consistency; following season Belichick cut the defense leader (L. Malloy, best friend of TB) no one understood that decision which gave room to the media to start creating news about the feelings within the team, thing that TB refused with the next phrase “ignore the noise, focus on tactics”.&lt;/p&gt;
-
-&lt;p&gt;“Patriots is not collecting talent, is building a team” B. Belichick.&lt;/p&gt;
-
-&lt;p&gt;With that being said, TB worked his way to carefully listen to every advice from his coach that gave him structure and confidence, it enabled him to execute selfishness, caring about all his teammates, no one care about who takes the credit.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Winning is probably the outcome but the process of winning was what the culture was all about. What are you willing to commit to be your the very best?” Tom Brady.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;TB learned to study every top player, take the good stuff, fine tune it and put it on practice. He used the next metaphor: “Be the best husband you could be, the best father, the best in your job, because you cannot control everything. If you have perspective in the end nothing bad really happens because out of the bad comes the really good things.”&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;Mental toughness is how you deal with adversity. What’s the attitude of your heart? Embrace challenge? Failure?” Rodney Harrison.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Chapter 3 The edge.&lt;/p&gt;
-
-&lt;p&gt;This episode was on motivational style, TB put a statement about how their mentality was - one game at the time, this was tough to put into practice due to they had more than 20 wins in a row.&lt;/p&gt;
-
-&lt;p&gt;The main responsibility of any leader is to know how to motivate each member of his team, some of them like hard coaching others need just a push and in this sports the QB is the chief; this time Belichick worked to create a competitive environment where all the players wanted to give more, here are some phrases he shares:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;It was not the more you can do it. It was who could do the most.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;You came 6:30 am? I’ve already got a half hour on you.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;I’m getting the edge on you.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;This is what I did. What’d you do?&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;-Are you leaving already?&lt;/p&gt;
-
-&lt;p&gt;-Still not doing the extra, huh? I’m getting the edge on you today&lt;/p&gt;
-
-&lt;p&gt;I think is worth pointing out the good outcome that Belichick achieved by building this environment, it’s only as good as the ability of the players to receive it. The team at that time had a high level cohesiveness and the feedback, communication was on point to keep the culture up.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“You don’t know what kind of culture you have until things aren’t going well.” When you have failure, when you don’t do what you were supposed to do, you’ll define how your culture looks like.” Mike Vrabel.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;TB also mentioned how people think there are going to be more opportunities and that is a mistake because it lowers the bar and keeps you away from doing your best effort, you may miss a chance and will disappoint you next time, it will create fear, you’ll want a lower level to play in order to avoid frustration.
-Chapter 4 The goliaths.&lt;/p&gt;
-
-&lt;p&gt;In this episode you’ll find how the Patriots reached its highest level and passed from being the underdogs to the goliaths. Many new team members Randy Moss, Wes Welker amongst others; they knew they were the team to defeat which I think played against them this time.&lt;/p&gt;
-
-&lt;p&gt;Pats had a first time ever record with 16 wins and 0 loses, no team had accomplished this before, they made football look easy, then the “spygate” got and again TB spoke up with his phrase “ignore the noise”.&lt;/p&gt;
-
-&lt;p&gt;“So much of the success in the life is about that journey and it’s not about whether you win or lose always. It’s about how hard you try and what you put into it, thr relationships, the learnings you develop.” Tom Brady.&lt;/p&gt;
-
-&lt;p&gt;In the end Pats lost the Super Bowl against New York Giants, this time Giants were the weaker.&lt;/p&gt;
-
-&lt;p&gt;Chapter 5 No guarantees.&lt;/p&gt;
-
-&lt;p&gt;This episode covers 4 seasons and Tom describes how are the relationships he was able to develop throughout these years, friendships, the born of his 2 kids, how supportive and stabilizer was Gisselle for him and how you must overcome failure, learn from it and move on.&lt;/p&gt;
-
-&lt;p&gt;Some highlights of this episode are the union of NFL players took place for the first time, they couldn’t attend training however TB convoked to train in one college field without coaches with gave the team an advantage over the others, ultimately the got the conditions they were after.&lt;/p&gt;
-
-&lt;p&gt;And finally Patriots faced Giants in the finale and they lost, after a series of inconvenient events, Eli Manning won the SB.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Challenges are opportunities in disguise”. Gisele Bündchen.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Chapter 6 Stop the bleeding.&lt;/p&gt;
-
-&lt;p&gt;Things were not clear for this season, the media started pressing on TB retirement, a new draft for his position had been picked.&lt;/p&gt;
-
-&lt;p&gt;Pats did a comeback throuthroug the season to reach the SB with a record of 12 - 4 gaining confidence game after game, ignoring the noise and building momentum, they did their job and stop the bleeding; suddenly another scandal arose the “deflategate” just a few days before the SB, they faced the best defense at that time Seattle Seahawks with Richard Sherman.&lt;/p&gt;
-
-&lt;p&gt;Notwithstanding the dire comments about them, the conquered their 4th Super Bowl 🏆&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Greatness come with taking chances”. Vince Wilfork.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Chapter 7 Surrender.&lt;/p&gt;
-
-&lt;p&gt;For this chapter Tom invited his 3 sisters in order to lay out how his childhood was, they were a typical California family, attending all 49’s games, Tom Brady being the youngest felt always protected by his 3 sisters and his parents, they did a pretty well job, until he left to attend Michigan University.&lt;/p&gt;
-
-&lt;p&gt;The season covered here was on year 2017 when Tom had to defend himself against the “deflategate”, he was penalized, suspended and the worst; his mom was detected with cancer, the quimio and radiation started so his mind was cut on two sides.
-Tom depicts this Super Bowl as the greatest game ever played (I didn’t know why until I watched how it unfold); this finale had the biggest difference in points ever, 28 to be precise despite that, Pats did comeback and scored as many touchdowns as needed to defeat Atlanta Falcons (play after play).
-“I think he lives his life to really be the best at something. He is a hundred, a thousand % committed to being the better than he was a day before.” Tom Brady sister.
-​
-Chapter 8 No body’s business.&lt;/p&gt;
-
-&lt;p&gt;Tom introduced his rehab clinic and method along his coach body Alex Guerrero; it seems to be his secret weapon after finishing each game as well as every recovery. From my perspective Alex is an alternative physician who uses natural healing and different methods to prepare the muscles, also he goes over emotional and mental subjects trying to get up to an integral readiness.&lt;/p&gt;
-
-&lt;p&gt;After years working on theses methods and proving they really work, Tom convinced Rob Gronkowski to get to Alex and try out his alternatives methods, thing that Belichick didn’t agree with and sent Tom and the trainer to remain outside each meeting and game.&lt;/p&gt;
-
-&lt;p&gt;These supplemental activities seemed to gained relevance when Tom suffered a dire injury in his thumb days before the AFC final, he needed punctures and the recovery appeared to be beyond Sunday however after several treatments he was able to flex and use his hand for Sunday and passed to the SB LII.&lt;/p&gt;
-
-&lt;p&gt;The super Bowl was fought by the two teams but Pats couldn’t beat the Philadelphia Eagles, another lose for Tom Brady 👎.&lt;/p&gt;
-
-&lt;p&gt;Chapter 9 Maybe.&lt;/p&gt;
-
-&lt;p&gt;Last episode of this series goes over the season 2018 and 2019 where Pats had to face Kansas City and Patrick Mahomes, I think they highlight this game because KC started to show how good they were and the pro football they play, also because some key teammates were out so regular season was not great.&lt;/p&gt;
-
-&lt;p&gt;The Super bowl was against Los Angeles Rams which was meant to be a tough game, very physical, low opportunities, in the end Tom was bearing in mind that it was going to be his last season playing with New England because he didn’t get a new contract.&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“All comes down to the people and relationship what I value the most. Tom Brady.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Conclusion.&lt;/p&gt;
-
-&lt;p&gt;It definitely is a combination of different factors that take you to succeed or to the place you want to be, those factors may be hard work, readiness, persistence and of course luck or how tom said a few times “situacional football” which is when something completely out of your control plays in favor of you, kicker missed the goal, the receiver couldn’t catch the pass, you name them and here is the part of commitment you need to place in every activity, relationship you want to develop because if everything derails and nothing comes to the place you planned was the best; &lt;strong&gt;you must be satisfied that you gave everything you could in order to accomplish but luck this time was not on your side.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Having lost so many SB’s being the most prestigious sports in America has to be tough as well, it’s said very easy, -he won 7 Super Bowls. But how manys he lost?! It’s tough to miss a flight, to be rejected by the company you would have loved to work for, imagine how hard is to lose the most important event in the year, after having practiced and played 9 months in a row without being with your family.&lt;/p&gt;
-
-&lt;p&gt;Tom developed a resilient mentality which was key for his journey, to keep his feet on earth and to overcome those setbacks, never look back and learn the most from them.&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
