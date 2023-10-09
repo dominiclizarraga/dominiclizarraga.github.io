@@ -4,9 +4,9 @@ categories: blog
 layout: post
 ---
 
-**A Dinner Chat with [Chris Oliver](https://twitter.com/excid3) and [Harry Llewelyn](https://twitter.com/mynameisharry)**
+**A Dinner Chat with Chris O. and Harry L.**
 
-Recently, I had the opportunity to have dinner and engage in conversation with Chris Oliver and Harry Llewelyn at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.
+Recently, I had the opportunity to have dinner and engage in conversation with Chris O. and Harry L. at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.
 
 Among the insights shared by [DHH](https://twitter.com/dhh) was "The One-Person Framework" which enables one to achieve remarkable productivity with [Rails](https://rubyonrails.org/). This framework allows for a comprehensive understanding of everything from backend to frontend to deployment, all while Rails navigates through the complexities aiming for simplicity. Inspired by DHH's insights, I'm keen on taking advantage of "The One-Person Framework" to enhance my consulting practice. The discussion unfolded as follows:
 
@@ -34,11 +34,7 @@ Among the insights shared by [DHH](https://twitter.com/dhh) was "The One-Person 
 
 ## Always Work with Contracts
 
-- Include a clause specifying that if you no longer wish to work on the project, you can leave without any penalties. If you either get bored or lose interest, you can stop working on it.
-
-- At the point or progress where you leave the project, the customer must pay for the work done.
-
-- Sometimes projects evolve into something else, and customers may not be worth maintaining a relationship with.
+- Include a clause specifying that if the client tells you not to finish, he has to pay you at the point or progress where you leave the project
 
 ## Work on Building Trust with Clients
 

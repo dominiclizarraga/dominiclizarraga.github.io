@@ -14,9 +14,9 @@
     <item>
       <title>Financial Wisdom Over Forks.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;A Dinner Chat with &lt;a href=&quot;https://twitter.com/excid3&quot;&gt;Chris Oliver&lt;/a&gt; and &lt;a href=&quot;https://twitter.com/mynameisharry&quot;&gt;Harry Llewelyn&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;strong&gt;A Dinner Chat with Chris O. and Harry L.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Recently, I had the opportunity to have dinner and engage in conversation with Chris Oliver and Harry Llewelyn at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.&lt;/p&gt;
+&lt;p&gt;Recently, I had the opportunity to have dinner and engage in conversation with Chris O. and Harry L. at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.&lt;/p&gt;
 
 &lt;p&gt;Among the insights shared by &lt;a href=&quot;https://twitter.com/dhh&quot;&gt;DHH&lt;/a&gt; was “The One-Person Framework” which enables one to achieve remarkable productivity with &lt;a href=&quot;https://rubyonrails.org/&quot;&gt;Rails&lt;/a&gt;. This framework allows for a comprehensive understanding of everything from backend to frontend to deployment, all while Rails navigates through the complexities aiming for simplicity. Inspired by DHH’s insights, I’m keen on taking advantage of “The One-Person Framework” to enhance my consulting practice. The discussion unfolded as follows:&lt;/p&gt;
 
@@ -61,15 +61,7 @@
 &lt;h2 id=&quot;always-work-with-contracts&quot;&gt;Always Work with Contracts&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Include a clause specifying that if you no longer wish to work on the project, you can leave without any penalties. If you either get bored or lose interest, you can stop working on it.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;At the point or progress where you leave the project, the customer must pay for the work done.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sometimes projects evolve into something else, and customers may not be worth maintaining a relationship with.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;Include a clause specifying that if the client tells you not to finish, he has to pay you at the point or progress where you leave the project&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;work-on-building-trust-with-clients&quot;&gt;Work on Building Trust with Clients&lt;/h2&gt;
