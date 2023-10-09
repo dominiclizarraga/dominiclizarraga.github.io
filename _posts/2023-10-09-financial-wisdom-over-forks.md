@@ -10,6 +10,8 @@ Recently, I had the opportunity to have dinner and engage in conversation with C
 
 Among the insights shared by [DHH](https://twitter.com/dhh) was "The One-Person Framework" which enables one to achieve remarkable productivity with [Rails](https://rubyonrails.org/). This framework allows for a comprehensive understanding of everything from backend to frontend to deployment, all while Rails navigates through the complexities aiming for simplicity. Inspired by DHH's insights, I'm keen on taking advantage of "The One-Person Framework" to enhance my consulting practice. The discussion unfolded as follows:
 
+<img src='/images/the_one_person_framwork.jpeg' alt='DHH at Rails World' />
+
 ## Accounting
 
 - Always set aside 30% of each income you receive from consulting to cushion yourself when it's time to pay taxes. 30 is a good figure; it's enough.

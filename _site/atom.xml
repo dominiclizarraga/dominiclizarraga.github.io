@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-10-09T21:11:13+02:00</updated>
+  <updated>2023-10-09T21:17:08+02:00</updated>
   <subtitle>Rails, Ruby, webapps, Hotwire</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -22,6 +22,8 @@
 &lt;p&gt;Recently, I had the opportunity to have dinner and engage in conversation with Chris Oliver and Harry Llewelyn at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.&lt;/p&gt;
 
 &lt;p&gt;Among the insights shared by &lt;a href=&quot;https://twitter.com/dhh&quot;&gt;DHH&lt;/a&gt; was “The One-Person Framework” which enables one to achieve remarkable productivity with &lt;a href=&quot;https://rubyonrails.org/&quot;&gt;Rails&lt;/a&gt;. This framework allows for a comprehensive understanding of everything from backend to frontend to deployment, all while Rails navigates through the complexities aiming for simplicity. Inspired by DHH’s insights, I’m keen on taking advantage of “The One-Person Framework” to enhance my consulting practice. The discussion unfolded as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/the_one_person_framwork.jpeg&quot; alt=&quot;DHH at Rails World&quot; /&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;accounting&quot;&gt;Accounting&lt;/h2&gt;
 
