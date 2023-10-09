@@ -1,5 +1,5 @@
 ---
-title: How to Crack Your Next Code Challenge 🧮
+title: How to crack your next code challenge 🧮
 categories: blog
 layout: post
 ---

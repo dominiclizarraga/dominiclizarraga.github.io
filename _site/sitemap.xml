@@ -3,20 +3,20 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>http://localhost:4000/</loc>
-    <lastmod>2023-09-30T12:50:59-04:00</lastmod>
+    <lastmod>2023-10-09T19:51:15+02:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:4000/about/</loc>
-    <lastmod>2023-09-30T12:50:59-04:00</lastmod>
+    <lastmod>2023-10-09T19:51:15+02:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   
     <url>
       <loc>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</loc>
-      <lastmod>2023-09-30T00:00:00-04:00</lastmod>
+      <lastmod>2023-09-30T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -24,7 +24,7 @@
   
     <url>
       <loc>http://localhost:4000/2023/09/10/search-bar-rails.html</loc>
-      <lastmod>2023-09-10T00:00:00-04:00</lastmod>
+      <lastmod>2023-09-10T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -32,7 +32,7 @@
   
     <url>
       <loc>http://localhost:4000/2023/08/20/chartkick-gem.html</loc>
-      <lastmod>2023-08-20T00:00:00-04:00</lastmod>
+      <lastmod>2023-08-20T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -40,7 +40,7 @@
   
     <url>
       <loc>http://localhost:4000/2023/08/01/llm-langchain-rb.html</loc>
-      <lastmod>2023-08-01T00:00:00-04:00</lastmod>
+      <lastmod>2023-08-01T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -48,7 +48,7 @@
   
     <url>
       <loc>http://localhost:4000/2023/07/24/NYU-startup-summer.html</loc>
-      <lastmod>2023-07-24T00:00:00-04:00</lastmod>
+      <lastmod>2023-07-24T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -56,7 +56,7 @@
   
     <url>
       <loc>http://localhost:4000/2023/06/14/how_i_learned_rspec.html</loc>
-      <lastmod>2023-06-14T00:00:00-04:00</lastmod>
+      <lastmod>2023-06-14T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -64,7 +64,7 @@
   
     <url>
       <loc>http://localhost:4000/2022/03/26/practicing_rails.html</loc>
-      <lastmod>2022-03-26T00:00:00-04:00</lastmod>
+      <lastmod>2022-03-26T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -72,7 +72,7 @@
   
     <url>
       <loc>http://localhost:4000/2022/03/04/testing_waterloo.html</loc>
-      <lastmod>2022-03-04T00:00:00-05:00</lastmod>
+      <lastmod>2022-03-04T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -80,7 +80,7 @@
   
     <url>
       <loc>http://localhost:4000/2022/02/14/test_jason_swett.html</loc>
-      <lastmod>2022-02-14T00:00:00-05:00</lastmod>
+      <lastmod>2022-02-14T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -88,7 +88,7 @@
   
     <url>
       <loc>http://localhost:4000/2022/02/05/the_man_in_the_arena.html</loc>
-      <lastmod>2022-02-05T00:00:00-05:00</lastmod>
+      <lastmod>2022-02-05T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -96,7 +96,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/12/24/how_to_set_right_obj.html</loc>
-      <lastmod>2021-12-24T00:00:00-05:00</lastmod>
+      <lastmod>2021-12-24T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -105,7 +105,7 @@
   
     <url>
       <loc>http://localhost:4000/2023/09/22/apprenticeship-patterns.html</loc>
-      <lastmod>2023-09-22T00:00:00-04:00</lastmod>
+      <lastmod>2023-09-22T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -113,7 +113,7 @@
   
     <url>
       <loc>http://localhost:4000/2022/01/05/minitest_cookbook.html</loc>
-      <lastmod>2022-01-05T00:00:00-05:00</lastmod>
+      <lastmod>2022-01-05T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -121,7 +121,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/09/25/refactoring.html</loc>
-      <lastmod>2021-09-25T00:00:00-04:00</lastmod>
+      <lastmod>2021-09-25T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -129,7 +129,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/06/15/well_grounded_rubyist.html</loc>
-      <lastmod>2021-06-15T00:00:00-04:00</lastmod>
+      <lastmod>2021-06-15T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -137,7 +137,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/05/30/practical_oriented.html</loc>
-      <lastmod>2021-05-30T00:00:00-04:00</lastmod>
+      <lastmod>2021-05-30T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -145,7 +145,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/05/23/eloquent-ruby.html</loc>
-      <lastmod>2021-05-23T00:00:00-04:00</lastmod>
+      <lastmod>2021-05-23T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -153,7 +153,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/04/01/beginning.html</loc>
-      <lastmod>2021-04-01T00:00:00-04:00</lastmod>
+      <lastmod>2021-04-01T00:00:00+02:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -161,7 +161,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/02/21/ruby_way.html</loc>
-      <lastmod>2021-02-21T00:00:00-05:00</lastmod>
+      <lastmod>2021-02-21T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
@@ -169,7 +169,7 @@
   
     <url>
       <loc>http://localhost:4000/2021/01/22/agile.html</loc>
-      <lastmod>2021-01-22T00:00:00-05:00</lastmod>
+      <lastmod>2021-01-22T00:00:00+01:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       
