@@ -4,7 +4,7 @@ categories: blog
 layout: post
 ---
 
-**A Dinner Chat with Chris O. and Harry L.**
+**A Dinner Chat with 2 experienced developers.**
 
 Recently, I had the opportunity to have dinner and engage in conversation with Chris O. and Harry L. at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.
 
