@@ -26,6 +26,8 @@ Among the insights shared by [DHH](https://twitter.com/dhh) was "The One-Person 
 
 ## Sales
 
+- Get with your referals, friends, uncles, cousins, people you were in school with and offer your services, it'd more easy if they own a company or have a decision makier position.
+
 - When it comes to consulting, once you finish a project and haven't worked on securing another project, it's very likely that you'll end up doing nothing.
 
 - Therefore, in the hypothetical case that you finish "Project A" in December, dedicate 80% of your time to the project to get it done, and 20% on sales activities (attending meetups, calls, creating content, follow-ups).
