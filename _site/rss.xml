@@ -14,7 +14,7 @@
     <item>
       <title>Financial Wisdom Over Forks.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;A Dinner Chat with Chris O. and Harry L.&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;strong&gt;A Dinner Chat with 2 experienced developers.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Recently, I had the opportunity to have dinner and engage in conversation with Chris O. and Harry L. at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.&lt;/p&gt;
 
@@ -48,6 +48,9 @@
 
 &lt;ul&gt;
   &lt;li&gt;
+    &lt;p&gt;Get with your referals, friends, uncles, cousins, people you were in school with and offer your services, it’d more easy if they own a company or have a decision makier position.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
     &lt;p&gt;When it comes to consulting, once you finish a project and haven’t worked on securing another project, it’s very likely that you’ll end up doing nothing.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
@@ -68,10 +71,16 @@
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;When you develop for a customer, aim to either cut their operational costs or increase their revenue/productivity to gain their trust.&lt;/p&gt;
+    &lt;p&gt;When you develop for a customer, aim to either cut their costs or increase their revenue/productivity or help them have more control over their business therefore &lt;strong&gt;you’ll gain their trust.&lt;/strong&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;&lt;em&gt;Cut their costs:&lt;/em&gt; “Optimize processes to save your customer money.”&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Increase their revenue or productivity:&lt;/em&gt; “Enhance features to boost customer revenue and efficiency.”&lt;/li&gt;
+      &lt;li&gt;&lt;em&gt;Help them have more control:&lt;/em&gt; “Empower customers with tools for informed business decisions.”&lt;/li&gt;
+    &lt;/ul&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Earned trust will increase like compound interest over the years, as they will share with others how you helped them and how efficient you were.&lt;/p&gt;
+    &lt;p&gt;Earned trust will increase eventually like compound interest over the years, as they will share with others how you helped them and how efficient you are.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
 
@@ -100,7 +109,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <pubDate>Mon, 09 Oct 2023 00:00:00 +0200</pubDate>
+      <pubDate>Mon, 09 Oct 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html</guid>
     </item>
@@ -110,7 +119,7 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes that will help you understand and then solve a code challenge interview.&lt;/strong&gt;&lt;/p&gt;
 </description>
-      <pubDate>Sat, 30 Sep 2023 00:00:00 +0200</pubDate>
+      <pubDate>Sat, 30 Sep 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</guid>
     </item>
@@ -126,7 +135,7 @@
 
 &lt;p&gt;&lt;a href=&quot;https://blog.testdouble.com/posts/2021-09-09-how-to-build-a-search-engine-with-ruby-on-rails/&quot;&gt;Search bar Test double.&lt;/a&gt;&lt;/p&gt;
 </description>
-      <pubDate>Sun, 10 Sep 2023 00:00:00 +0200</pubDate>
+      <pubDate>Sun, 10 Sep 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/09/10/search-bar-rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/10/search-bar-rails.html</guid>
     </item>
@@ -136,7 +145,7 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes from chartkick gem implementation&lt;/strong&gt;&lt;/p&gt;
 </description>
-      <pubDate>Sun, 20 Aug 2023 00:00:00 +0200</pubDate>
+      <pubDate>Sun, 20 Aug 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/08/20/chartkick-gem.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/08/20/chartkick-gem.html</guid>
     </item>
@@ -174,7 +183,7 @@
 
 &lt;p&gt;&lt;a href=&quot;https://learn.deeplearning.ai/langchain/lesson/1/introduction&quot;&gt;LangChain for LLM Application Development from Deep Learning AI&lt;/a&gt;&lt;/p&gt;
 </description>
-      <pubDate>Tue, 01 Aug 2023 00:00:00 +0200</pubDate>
+      <pubDate>Tue, 01 Aug 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/08/01/llm-langchain-rb.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/08/01/llm-langchain-rb.html</guid>
     </item>
@@ -184,7 +193,7 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Notes from NYU clases&lt;/strong&gt;&lt;/p&gt;
 </description>
-      <pubDate>Mon, 24 Jul 2023 00:00:00 +0200</pubDate>
+      <pubDate>Mon, 24 Jul 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/07/24/NYU-startup-summer.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/07/24/NYU-startup-summer.html</guid>
     </item>
@@ -244,7 +253,7 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <pubDate>Wed, 14 Jun 2023 00:00:00 +0200</pubDate>
+      <pubDate>Wed, 14 Jun 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/06/14/how_i_learned_rspec.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/06/14/how_i_learned_rspec.html</guid>
     </item>
@@ -332,7 +341,7 @@
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
-      <pubDate>Sat, 26 Mar 2022 00:00:00 +0100</pubDate>
+      <pubDate>Sat, 26 Mar 2022 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2022/03/26/practicing_rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/26/practicing_rails.html</guid>
     </item>
@@ -804,7 +813,7 @@ page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
 
 &lt;p&gt;https://www.honeybadger.io/blog/minitest-rspec-rails/&lt;/p&gt;
 </description>
-      <pubDate>Fri, 04 Mar 2022 00:00:00 +0100</pubDate>
+      <pubDate>Fri, 04 Mar 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/03/04/testing_waterloo.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/04/testing_waterloo.html</guid>
     </item>
@@ -902,7 +911,7 @@ I tend not to use request specs much because in most cases they would be redunda
 
 &lt;p&gt;If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects&lt;/p&gt;
 </description>
-      <pubDate>Mon, 14 Feb 2022 00:00:00 +0100</pubDate>
+      <pubDate>Mon, 14 Feb 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/02/14/test_jason_swett.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/02/14/test_jason_swett.html</guid>
     </item>

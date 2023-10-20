@@ -40,9 +40,13 @@ Among the insights shared by [DHH](https://twitter.com/dhh) was "The One-Person 
 
 ## Work on Building Trust with Clients
 
-- When you develop for a customer, aim to either cut their operational costs or increase their revenue/productivity to gain their trust.
+- When you develop for a customer, aim to either cut their costs or increase their revenue/productivity or help them have more control over their business therefore **you'll gain their trust.**
 
-- Earned trust will increase like compound interest over the years, as they will share with others how you helped them and how efficient you were.
+    - *Cut their costs:* "Optimize processes to save your customer money."
+    - *Increase their revenue or productivity:* "Enhance features to boost customer revenue and efficiency."
+    - *Help them have more control:* "Empower customers with tools for informed business decisions."
+
+- Earned trust will increase eventually like compound interest over the years, as they will share with others how you helped them and how efficient you are.
 
 ## Where to Find Potential Customers
 
