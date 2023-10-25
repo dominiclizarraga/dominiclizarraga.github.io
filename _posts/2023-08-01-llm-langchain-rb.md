@@ -22,6 +22,10 @@ What is langchain then? 🦜
 
 How LLMs work?
 
+Why are they useful?
+
+Use cases?
+
 
 [Andrei NYC.rb slides](https://docs.google.com/presentation/d/18IkiST1goY2nXA61albDx1WUHCdf9tkaPMYthxLiONQ/edit#slide=id.p)
 
