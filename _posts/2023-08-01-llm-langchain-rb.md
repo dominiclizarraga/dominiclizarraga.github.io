@@ -27,7 +27,7 @@ How LLMs work?
 
 [Main Langchain ruby repo](https://github.com/andreibondarev/langchainrb)
 
-Proof of Concept:
+Chatbot Proof of Concept:
 
 [Multi-Agent Chatbot developed by Flexport member (Ben Zhang)](https://github.com/zben/superchat)
 
