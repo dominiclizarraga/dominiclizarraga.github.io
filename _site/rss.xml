@@ -12,6 +12,20 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Latest tips &amp; tricks | Rails</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;first filter then map&lt;/p&gt;
+
+&lt;p&gt;.all.each vs find_each&lt;/p&gt;
+
+&lt;p&gt;size vs count vs length&lt;/p&gt;
+</description>
+      <pubDate>Thu, 26 Oct 2023 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html</guid>
+    </item>
+    
+    <item>
       <title>Financial Wisdom Over Forks.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;A Dinner Chat with 2 experienced developers.&lt;/strong&gt;&lt;/p&gt;
@@ -171,11 +185,15 @@
 
 &lt;p&gt;How LLMs work?&lt;/p&gt;
 
+&lt;p&gt;Why are they useful?&lt;/p&gt;
+
+&lt;p&gt;Use cases?&lt;/p&gt;
+
 &lt;p&gt;&lt;a href=&quot;https://docs.google.com/presentation/d/18IkiST1goY2nXA61albDx1WUHCdf9tkaPMYthxLiONQ/edit#slide=id.p&quot;&gt;Andrei NYC.rb slides&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/andreibondarev/langchainrb&quot;&gt;Main Langchain ruby repo&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Proof of Concept:&lt;/p&gt;
+&lt;p&gt;Chatbot Proof of Concept:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://github.com/zben/superchat&quot;&gt;Multi-Agent Chatbot developed by Flexport member (Ben Zhang)&lt;/a&gt;&lt;/p&gt;
 
@@ -816,104 +834,6 @@ page.find(:css, ‘a[href=’sign_up_path’]’).click&lt;/p&gt;
       <pubDate>Fri, 04 Mar 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/03/04/testing_waterloo.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/03/04/testing_waterloo.html</guid>
-    </item>
-    
-    <item>
-      <title>The Beginner’s Guide to Rails Testing Jason Swett</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;The eight types of RSpec specs&lt;/p&gt;
-
-&lt;p&gt;• Model specs
-• System specs
-• Request specs
-• Helper specs
-• View specs
-• Routing specs
-• Mailer specs
-• Job specs&lt;/p&gt;
-
-&lt;p&gt;Jason usage:&lt;/p&gt;
-
-&lt;p&gt;• Model specs always
-• System specs always
-• Request specs rarely
-• Helper specs rarely
-• View specs never
-• Routing specs never
-• Mailer specs never
-• Job specs never&lt;/p&gt;
-
-&lt;p&gt;Model spec&lt;/p&gt;
-
-&lt;p&gt;I use model specs to test my models’ methods. When I do so, I tend to use a test-first approach and write a failing test before I add a new line of code so that I’m sure every bit of code in my model is covered by a test.&lt;/p&gt;
-
-&lt;p&gt;System spec&lt;/p&gt;
-
-&lt;p&gt;System specs are the only type of test that give me confidence my whole application really works.&lt;/p&gt;
-
-&lt;p&gt;Even though system specs are indispensable, they’re not without drawbacks. System specs are somewhat “heavy”&lt;/p&gt;
-
-&lt;p&gt;Request spec
-I tend not to use request specs much because in most cases they would be redundant to my system specs. If I have system specs covering all my features, then of course a broken controller would fail one or more of my tests, making tests specifically for my controllers unnecessary.&lt;/p&gt;
-
-&lt;p&gt;I also try to keep my controllers sufficiently simple as to not call for tests of their own.&lt;/p&gt;
-
-&lt;p&gt;There are just three scenarios in which I do use request specs. First: If I’m working on a legacy project with fat controllers, sometimes I’ll use request specs to help me harness and refactor all that controller code. Second: If I’m working on an API-only Rails app, then system specs are physically impossible and I drop down to request specs instead. Lastly, if it’s just too awkward or expensive to use a system spec in a certain case then I’ll use a request spec instead.&lt;/p&gt;
-
-&lt;p&gt;View and routing spec&lt;/p&gt;
-
-&lt;p&gt;I find view specs and routing specs to be redundant to system specs. If something is wrong with one of my views or routes, it’s highly likely that one of my system specs will catch the problem.&lt;/p&gt;
-
-&lt;p&gt;What are all the Rails testing tools and how do I use them?&lt;/p&gt;
-
-&lt;p&gt;RSpec is a test framework. A test framework is what gives us a structure for writing our tests as well as the ability to run our tests.&lt;/p&gt;
-
-&lt;p&gt;One of the challenges of Rails testing is generating test data.&lt;/p&gt;
-
-&lt;p&gt;There are two common ways of generating test data in Rails tests: fixtures and factories.&lt;/p&gt;
-
-&lt;p&gt;Fixtures typically take the form of one or more YAML files with some hardcoded data. The data is translated into database records one time, before any of the tests are run, and then deleted afterward. (This happens in a separate test database instance of course.)&lt;/p&gt;
-
-&lt;p&gt;With factories, database data is generated specifically for each test. Instead of loading all the data once at the beginning and deleting it at the end, data is inserted before each test case and then deleted before the next test case starts.&lt;/p&gt;
-
-&lt;p&gt;One principle of testing is that tests should be deterministic, meaning they run the same way every time no matter what.&lt;/p&gt;
-
-&lt;p&gt;Capybara: Some Rails tests only exercise Ruby code. Other tests actually open up a browser and simulate user clicks and keystrokes.&lt;/p&gt;
-
-&lt;p&gt;VCR and WebMock: One principle of testing is that tests should be deterministic, meaning they run the same way every time no matter what. When an application’s behavior depends on external services (e.g. a thirdparty API like Stripe) it makes it harder to have deterministic tests. The tests can be made to fail by an internet connection failure or a temporary outage of the external service.&lt;/p&gt;
-
-&lt;p&gt;VCR can let us run our tests against the real external service, but capture all the service’s responses in local files so that subsequent test runs don’t talk to the external service but rather just go off of the saved responses. That way, even if the internet connection fails or the service goes down, the tests still work.&lt;/p&gt;
-
-&lt;p&gt;What keeps them (Rails devs) in the habit of writing tests consistently?&lt;/p&gt;
-
-&lt;p&gt;Laziness, fear, and pride.&lt;/p&gt;
-
-&lt;p&gt;Mental energy. If I write a feature without using tests, I’m often juggling the “deciding what to do” work and the “actually doing it” work at the same time, which has a cognitive cost more than twice as much as performing those two jobs separately in serial. When I build a feature with the aid of tests, the tests allow me to separate the “deciding what to do” work from the “actually doing it” work.&lt;/p&gt;
-
-&lt;p&gt;it’s not possible to have clean, understandable code without having automated tests.&lt;/p&gt;
-
-&lt;p&gt;Pains that tell you your test coverage might be insufficient?&lt;/p&gt;
-
-&lt;p&gt;Too many bugs.&lt;/p&gt;
-
-&lt;p&gt;Inability to refactor or make big changes&lt;/p&gt;
-
-&lt;p&gt;When a change has a large footprint, like a Rails version upgrade or a broad refactoring, it’s basically impossible to gain sufficient confidence of the safety of the change without having a solid automated test suite. So on codebases without good test coverage, these types of improvements tend not to happen.&lt;/p&gt;
-
-&lt;p&gt;How do I set up a new Rails project for testing?&lt;/p&gt;
-
-&lt;p&gt;Start rails with template: https://guides.rubyonrails.org/rails_application_templates.html&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my_project&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postgresql&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;\&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:/&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;githubusercontent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;jasonswett&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;testing_application_template&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applicatiOnce&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;How do I add tests to an existing Rails project?&lt;/p&gt;
-
-&lt;p&gt;If you have little testing experience, I would suggest getting some practice on a fresh Rails app before trying to introduce testing to the existing Rails project you want to add tests to. Adding tests to an existing project is a distinct skill from writing tests for new projects&lt;/p&gt;
-</description>
-      <pubDate>Mon, 14 Feb 2022 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2022/02/14/test_jason_swett.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2022/02/14/test_jason_swett.html</guid>
     </item>
     
   </channel>
