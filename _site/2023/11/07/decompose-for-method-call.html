@@ -4,11 +4,8 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="" />
-  <meta name=description content="Dom Lizarraga" />
-  <meta name='twitter:description' content="Dom Lizarraga" />
-  <meta name='og:description' content="Dom Lizarraga" />
-  
+  <meta name='twitter:title' content="Decompose for method calls" />
+  <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
   <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
@@ -500,13 +497,11 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>dominiclizarraga.github.io</title>
-  <link href='https://twitter.com/domlizarraga_' rel=me />
-  <link href='https://github.com/dominiclizarraga' rel=me />
-  <link href='mailto:dominiclizarraga@hotmail.com' rel=me />
-  <link rel="canonical" href="http://localhost:4000/">
+  <title>Decompose for method calls - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2023/11/07/decompose-for-method-call.html">
 </head>
-<body class='post'>
+<body>
   <div class='pad2y' style='position:relative'>
     
     <div class='only-print'>
@@ -526,53 +521,75 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <div class='writing nu'>
+      <h1>Decompose for method calls</h1>
+<div class='body'><p>In Ruby, it is possible to <a href="https://docs.ruby-lang.org/en/3.1/syntax/assignment_rdoc.html#label-Array+Decomposition">decompose the elements</a> of arrays/hashes into distinct variables. Since values appear within arrays in a index order, they are unpacked into variables in the same order.</p>
 
-  <div><a title='#15' href='/2023/11/07/decompose-for-method-call.html'>Decompose for method calls</a></div>
-  <time>2023-11-07</time>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Decompose of an array</span>
+<span class="o">&gt;&gt;</span> fruits <span class="o">=</span> <span class="o">[</span><span class="s2">"apple"</span>, <span class="s2">"banana"</span>, <span class="s2">"cherry"</span><span class="o">]</span>
+<span class="o">&gt;&gt;</span> x, y, z <span class="o">=</span> fruits
+<span class="o">&gt;&gt;</span> x
+<span class="o">=&gt;</span> <span class="s2">"apple"</span>
+</code></pre></div></div>
 
-  <div><a title='#14' href='/2023/11/02/positional-vs-keyword-params.html'>Positional vs Keyword arguments</a></div>
-  <time>2023-11-02</time>
+<p>In this case we are going to use <em>decompose</em> for a method call, <em>(with arrays only one splat needed *)</em>.</p>
 
-  <div><a title='#13' href='/2023/10/26/lastest-tips-and-tricks.html'>Latest tips & tricks | Rails</a></div>
-  <time>2023-10-26</time>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def send_welcome_email<span class="o">(</span>name, email, signup_date<span class="o">)</span>
+  puts <span class="s2">"Sending welcome email to: #{name}"</span>
+  puts <span class="s2">"Email: #{email}"</span>
+  puts <span class="s2">"Signed up on: #{signup_date}"</span>
+end
 
-  <div><a title='#12' href='/2023/10/09/financial-wisdom-over-forks.html'>Financial Wisdom Over Forks.</a></div>
-  <time>2023-10-09</time>
+<span class="c"># Array of user information</span>
+user_data <span class="o">=</span> <span class="o">[</span><span class="s1">'Jane Doe'</span>, <span class="s1">'jane.doe@example.com'</span>, <span class="s1">'2023-04-01'</span><span class="o">]</span>
 
-  <div><a title='#11' href='/2023/09/30/hot-to-crack-you-next-code-challenges.html'>How to crack your next code challenge 🧮</a></div>
-  <time>2023-09-30</time>
+<span class="c"># Using splat to pass an array of elements</span>
+send_welcome_email<span class="o">(</span><span class="k">*</span>user_data<span class="o">)</span> 👈
 
-  <div><a title='#10' href='/2023/09/10/search-bar-rails.html'>Search bar in Rails 🔍</a></div>
-  <time>2023-09-10</time>
+<span class="c"># This code will output:</span>
+Sending welcome email to: Jane Doe
+Email: jane.doe@example.com
+Signed up on: 2023-04-01
+</code></pre></div></div>
 
-  <div><a title='#9' href='/2023/08/20/chartkick-gem.html'>Chartkick gem vs chart.js</a></div>
-  <time>2023-08-20</time>
+<p>Now we are going to <em>decompose</em> for a hash, <em>(two splats needed **)</em>.</p>
 
-  <div><a title='#8' href='/2023/08/01/llm-langchain-rb.html'>LLM Langchain.rb 🦜 | Andrei Bondarev</a></div>
-  <time>2023-08-01</time>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def configure_user<span class="o">(</span>profile:, preferences:, settings:<span class="o">)</span>
+  puts <span class="s2">"Configuring user profile:"</span>
+  puts <span class="s2">"Profile: #{profile}"</span>
+  puts <span class="s2">"Preferences: #{preferences}"</span>
+  puts <span class="s2">"Settings: #{settings}"</span>
+end
 
-  <div><a title='#7' href='/2023/07/24/NYU-startup-summer.html'>NYU Startup Summer program</a></div>
-  <time>2023-07-24</time>
+<span class="c"># Hash of user configuration</span>
+user_configuration <span class="o">=</span> <span class="o">{</span>
+  profile: <span class="o">{</span> username: <span class="s1">'johndoe'</span>, language: <span class="s1">'EN'</span> <span class="o">}</span>,
+  preferences: <span class="o">{</span> theme: <span class="s1">'dark'</span>, notifications: <span class="nb">true</span> <span class="o">}</span>,
+  settings: <span class="o">{</span> privacy: <span class="s1">'high'</span>, location: <span class="s1">'off'</span> <span class="o">}</span>
+<span class="o">}</span>
 
-  <div><a title='#6' href='/2023/06/14/how_i_learned_rspec.html'>How I learned rpsec</a></div>
-  <time>2023-06-14</time>
+<span class="c"># Using 2 splats to pass a hash</span>
+configure_user<span class="o">(</span><span class="k">**</span>user_configuration<span class="o">)</span> 👈
 
-  <div><a title='#5' href='/2022/03/26/practicing_rails.html'>Practicing Rails | Justin Weiss</a></div>
-  <time>2022-03-26</time>
+<span class="c"># This code will output:</span>
+Configuring user profile:
+Profile: <span class="o">{</span>:username<span class="o">=&gt;</span><span class="s2">"johndoe"</span>, :language<span class="o">=&gt;</span><span class="s2">"EN"</span><span class="o">}</span>
+Preferences: <span class="o">{</span>:theme<span class="o">=&gt;</span><span class="s2">"dark"</span>, :notifications<span class="o">=&gt;</span><span class="nb">true</span><span class="o">}</span>
+Settings: <span class="o">{</span>:privacy<span class="o">=&gt;</span><span class="s2">"high"</span>, :location<span class="o">=&gt;</span><span class="s2">"off"</span><span class="o">}</span>
+</code></pre></div></div>
+</div>
 
-  <div><a title='#4' href='/2022/03/04/testing_waterloo.html'>Rails Testing | University of Waterloo</a></div>
-  <time>2022-03-04</time>
+<div class='breaker'></div>
 
-  <div><a title='#3' href='/2022/02/14/test_jason_swett.html'>The Beginner’s Guide to Rails Testing Jason Swett</a></div>
-  <time>2022-02-14</time>
-
-  <div><a title='#2' href='/2022/02/05/the_man_in_the_arena.html'>The man in the arena</a></div>
-  <time>2022-02-05</time>
-
-  <div><a title='#1' href='/2021/12/24/how_to_set_right_obj.html'>How to set the right objectives</a></div>
-  <time>2021-12-24</time>
-
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2023-11-07">
+      November  7, 2023
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
 </div>
 
     </div>
