@@ -525,6 +525,109 @@ blockquote p:last-child {
 <div class='body'><p>When I began programming, I was puzzled by why some parameters were named and others not. <br />
 Seeing <a href="https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Array-2FHash+Argument">*argument_name</a> or <a href="https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Keyword+Arguments">**argument_name</a> threw me for a loop. 😳</p>
 
+<p>Here you’ll find the definitive guide to understand both!</p>
+
+<h2 id="positional-arguments">Positional arguments</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># This method takes any number of user names as positional arguments. 🙋🙋‍♀️</span>
+def greet_users<span class="o">(</span><span class="k">*</span><span class="nb">users</span><span class="o">)</span>
+  users.each <span class="o">{</span> |user| puts <span class="s2">"Hello, #{user}!"</span> <span class="o">}</span>
+end
+
+<span class="c"># Passing individual user names to the method, which are packed into an array.</span>
+greet_users<span class="o">(</span><span class="s2">"Alice"</span>, <span class="s2">"Bob"</span>, <span class="s2">"Carlos"</span><span class="o">)</span>
+<span class="c"># Outputs:</span>
+<span class="c"># Hello, Alice!</span>
+<span class="c"># Hello, Bob!</span>
+<span class="c"># Hello, Carlos!</span>
+
+<span class="c"># This method can take a variable number of fruit names. 🍎🍌</span>
+def list_fruits<span class="o">(</span><span class="k">*</span>fruits<span class="o">)</span>
+  fruits.join<span class="o">(</span><span class="s1">', '</span><span class="o">)</span>
+end
+
+<span class="c"># Passing a list of fruits to the method.</span>
+puts list_fruits<span class="o">(</span><span class="s2">"Apple"</span>, <span class="s2">"Banana"</span>, <span class="s2">"Cherry"</span><span class="o">)</span>
+<span class="c"># Outputs: Apple, Banana, Cherry</span>
+</code></pre></div></div>
+
+<h2 id="keyword-arguments">Keyword arguments</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Usage of ** for keyword arguments: 🙋🙋‍♀️</span>
+def greet_users<span class="o">(</span><span class="k">**</span><span class="nb">users</span><span class="o">)</span>
+  users.each <span class="k">do</span> |identifier, user_info|
+    puts <span class="s2">"Hello, #{user_info[:name]}!"</span>
+  end
+end
+
+<span class="c"># Passing user details as keyword arguments.</span>
+<span class="c"># The keys `:user1`, `:user2`, and `:user3` are identifiers for each user's hash.</span>
+greet_users<span class="o">(</span>
+  user1: <span class="o">{</span> name: <span class="s2">"Alice"</span>, age: 30 <span class="o">}</span>,
+  user2: <span class="o">{</span> name: <span class="s2">"Bob"</span>, age: 22 <span class="o">}</span>,
+  user3: <span class="o">{</span> name: <span class="s2">"Carlos"</span>, age: 25 <span class="o">}</span>
+<span class="o">)</span>
+
+<span class="c"># Outputs:</span>
+<span class="c"># Hello, Alice!</span>
+<span class="c"># Hello, Bob!</span>
+<span class="c"># Hello, Carlos!</span>
+
+<span class="c"># This method takes a variable number of fruit names with details. 🍎🍌</span>
+def list_fruits<span class="o">(</span><span class="k">**</span>fruits_with_details<span class="o">)</span>
+  fruits_with_details.map <span class="o">{</span> |fruit, color| <span class="s2">"#{fruit}: #{color}"</span> <span class="o">}</span>.join<span class="o">(</span><span class="s1">', '</span><span class="o">)</span>
+end
+
+<span class="c"># Passing a hash of fruits with details to the method.</span>
+puts list_fruits<span class="o">(</span>Apple: <span class="s2">"Green"</span>, Banana: <span class="s2">"Yellow"</span>, Cherry: <span class="s2">"Red"</span><span class="o">)</span>
+<span class="c"># Outputs: Apple: Green, Banana: Yellow, Cherry: Red</span>
+
+<span class="c"># More real example of user attributes as keyword arguments.🙋🙋‍♀️</span>
+def create_user_profile<span class="o">(</span><span class="k">**</span>attributes<span class="o">)</span>
+  puts <span class="s2">"Creating a profile for: #{attributes[:name]}"</span>
+  puts <span class="s2">"Email: #{attributes[:email]}"</span> <span class="k">if </span>attributes[:email]
+  puts <span class="s2">"Signup Date: #{attributes[:signup_date]}"</span> <span class="k">if </span>attributes[:signup_date]
+end
+
+<span class="c"># Passing attributes as a hash, packed with a double splat.</span>
+create_user_profile<span class="o">(</span>name: <span class="s2">"Jane Doe"</span>, email: <span class="s2">"jane.doe@example.com"</span>, signup_date: <span class="s2">"2023-04-01"</span><span class="o">)</span>
+<span class="c"># Outputs:</span>
+<span class="c"># Creating a profile for: Jane Doe</span>
+<span class="c"># Email: jane.doe@example.com</span>
+<span class="c"># Signup Date: 2023-04-01</span>
+</code></pre></div></div>
+
+<h2 id="passing-objects-️">Passing objects 🙋🙋‍♀️</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User
+  attr_reader :name
+
+  def initialize<span class="o">(</span>name<span class="o">)</span>
+    @name <span class="o">=</span> name
+  end
+end
+
+<span class="c"># Create an array of User instances</span>
+<span class="nb">users</span> <span class="o">=</span> <span class="o">[</span>
+  User.new<span class="o">(</span><span class="s2">"Alice"</span><span class="o">)</span>,
+  User.new<span class="o">(</span><span class="s2">"Bob"</span><span class="o">)</span>,
+  User.new<span class="o">(</span><span class="s2">"Carlos"</span><span class="o">)</span>
+<span class="o">]</span>
+
+<span class="c"># Define the greet_users method to accept multiple user objects</span>
+def greet_users<span class="o">(</span><span class="k">*</span><span class="nb">users</span><span class="o">)</span>
+  users.each <span class="o">{</span> |user| puts <span class="s2">"Hello, #{user.name}!"</span> <span class="o">}</span>
+end
+
+<span class="c"># Call greet_users with the array of User instances</span>
+greet_users<span class="o">(</span><span class="k">*</span><span class="nb">users</span><span class="o">)</span>
+
+<span class="c"># Outputs:</span>
+<span class="c"># Hello, Alice!</span>
+<span class="c"># Hello, Bob!</span>
+<span class="c"># Hello, Carlos</span>
+</code></pre></div></div>
+
+<p>If you already have a hash with the appropriate keys, you can pass it to the method using the double splat operator **, which will convert the hash into keyword arguments.</p>
+
 <p>Docs for reference:</p>
 
 <p><a href="https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Array-2FHash+Argument">*positional_argument</a></p>
