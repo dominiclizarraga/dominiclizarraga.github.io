@@ -12,6 +12,48 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Shape up 🎢</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;h2 id=&quot;shaping-up-methodology-notes&quot;&gt;Shaping Up Methodology Notes&lt;/h2&gt;
+
+&lt;p&gt;These are some insights I’ve gathered from the “Shaping Up” methodology, which is neither Scrum nor dependent on Kanban boards.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-challenge-of-building-software&quot;&gt;The Challenge of Building Software&lt;/h3&gt;
+&lt;p&gt;In the realm of software development, there’s a substantial element of the unknown, given that what we’re building hasn’t existed before. Waiting six months to realize we’re on the wrong path is excessively long, while a two-week span is typically too brief to produce anything substantial.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-solution-defining-scope-and-time&quot;&gt;The Solution: Defining Scope and Time&lt;/h3&gt;
+&lt;p&gt;The solution lies in defining smaller projects that are actionable and testable. A period of six weeks is sufficient to both complete and deliver a project and short enough to allow for directional changes should they be necessary.&lt;/p&gt;
+
+&lt;h4 id=&quot;key-idea-1-estimate-vs-appetite&quot;&gt;Key Idea #1: Estimate vs. Appetite&lt;/h4&gt;
+&lt;p&gt;Instead of attaching a time estimate to a technical task, we should ask ourselves how much time we actually want to spend on this project. Consider the analogy of setting a budget before choosing a restaurant for dinner; it’s a strategic approach that takes into account the value, urgency, and business context.&lt;/p&gt;
+
+&lt;p&gt;We should strive for an agreement between product teams and technical staff to ensure the time is fixed and the scope is adaptable.&lt;/p&gt;
+
+&lt;h4 id=&quot;key-idea-2-shaping&quot;&gt;Key Idea #2: Shaping&lt;/h4&gt;
+&lt;p&gt;“Shaping” considers two major questions about scope: “What is included?” and “What is excluded?” It also addresses the detail required upfront versus what can be delegated to the team to resolve later. “Latitude” refers to the level of freedom or specificity given to the team.&lt;/p&gt;
+
+&lt;p&gt;A key part of shaping is the willingness to abandon features that are either technically impractical or not critical to the user interface.&lt;/p&gt;
+
+&lt;h4 id=&quot;key-idea-3-autonomy&quot;&gt;Key Idea #3: Autonomy&lt;/h4&gt;
+&lt;p&gt;Teams, consisting of two to three members, collaborate within a six-week cycle to deliver the complete project, not merely pieces of it. These teams maintain their focus without being burdened by unrelated tasks and are self-managed, operating at their own pace.&lt;/p&gt;
+
+&lt;p&gt;Work is distinguished as either planned (strategic) or unplanned (reactive).&lt;/p&gt;
+
+&lt;h3 id=&quot;further-learning&quot;&gt;Further Learning&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=h_8M23wVjXk&quot;&gt;Shaping in a Nutshell&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=mYbxQwQAkes&quot;&gt;Applying Shape Up in the Real World - Rails World 2023&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;Note: The URL for the second video appears to be incomplete.&lt;/em&gt;&lt;/p&gt;
+
+</description>
+      <pubDate>Wed, 08 Nov 2023 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2023/11/08/shape-up.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/11/08/shape-up.html</guid>
+    </item>
+    
+    <item>
       <title>Decompose for method calls</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;In Ruby, it is possible to &lt;a href=&quot;https://docs.ruby-lang.org/en/3.1/syntax/assignment_rdoc.html#label-Array+Decomposition&quot;&gt;decompose the elements&lt;/a&gt; of arrays/hashes into distinct variables. Since values appear within arrays in a index order, they are unpacked into variables in the same order.&lt;/p&gt;
@@ -397,66 +439,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
       <pubDate>Mon, 24 Jul 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/07/24/NYU-startup-summer.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/07/24/NYU-startup-summer.html</guid>
-    </item>
-    
-    <item>
-      <title>How I learned rpsec</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Rspec learning resources&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The best way to get a grasp of testing and &lt;em&gt;rspec&lt;/em&gt; in general is to start from scratch a project and start writing down each test, that way you’ll be able to see what happens if you forget to close either a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;context&lt;/code&gt; block or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;it&lt;/code&gt; block or even more intricate subjects like what’s the difference between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;describe&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;context&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;While developing a freelance project I wanted to add testing as a way to push myself to learn more about testing and also give &lt;em&gt;rspec&lt;/em&gt; a try and by doing it I learned how to use gems like: &lt;a href=&quot;https://github.com/faker-ruby/faker&quot;&gt;faker&lt;/a&gt;, &lt;a href=&quot;https://github.com/thoughtbot/shoulda-matchers&quot;&gt;shoulda-matchers&lt;/a&gt;, &lt;a href=&quot;https://github.com/thoughtbot/factory_bot_rails&quot;&gt;factory_bot&lt;/a&gt; and finally &lt;a href=&quot;rspec-rails&quot;&gt;rspec&lt;/a&gt;. 🎲&lt;/p&gt;
-
-&lt;p&gt;You’ll additionally acquire&lt;/p&gt;
-
-&lt;p&gt;– how to read the output of the test suite in the console.&lt;/p&gt;
-
-&lt;p&gt;– difference between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build&lt;/code&gt; &lt;a href=&quot;https://stackoverflow.com/questions/14098031/whats-the-difference-between-the-build-and-create-methods-in-factorygirl&quot;&gt;more details.&lt;/a&gt;;&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;doesn&apos;t&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;build(:user,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;name:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;expect(user.name).to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;eq(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;John&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;does&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;persist&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; 
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;create(:user,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;name:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Jane&quot;&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;expect(user.persisted?).to&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;err&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;– how to integrate devise with rspec &lt;mark&gt;config.include Devise::Test::ControllerHelpers, type: :requests&lt;/mark&gt; &lt;a href=&quot;https://henrytabima.github.io/rails-setup/docs/devise/test-helpers&quot;&gt;blog&lt;/a&gt;;&lt;/p&gt;
-
-&lt;p&gt;– difference between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fixtures&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;factories&lt;/code&gt;;&lt;/p&gt;
-
-&lt;p&gt;– and finally what does &lt;mark&gt;config.include FactoryBot::Syntax::Methods&lt;/mark&gt; actually do? &lt;a href=&quot;https://github.com/thoughtbot/factory_bot/blob/main/GETTING_STARTED.md#configure-your-test-suite&quot;&gt;link&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;Here are also another resources that I followed in order to cement more my knowledge.&lt;/ins&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;2 hours long video from Type Fast a Youtube channel that makes rails tutorials. The video is very thorough. Covers model, requests, background job testing and system tests.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=BXaMRm1FDa8&amp;amp;list=PPSV&quot;&gt;Fairly comprehensive starter guide to RSpec&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;1 hour long rspec tutorial from Type Fast was well (it’s more on the setup for an app) &lt;a href=&quot;https://www.youtube.com/watch?v=D889P37r3bc&amp;amp;list=PPSV&quot;&gt;testing setup with rspec&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;How to test models &lt;a href=&quot;https://www.youtube.com/watch?v=Spogv4o8haM&amp;amp;list=PPSV&quot;&gt;CJ Avila&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;How to use factory_bot &lt;a href=&quot;https://www.youtube.com/watch?v=7JdyQEcZ7F8&amp;amp;list=PPSV&quot;&gt;Deanin, short tutorial&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Full marathon of rspec tutorial (reading not video) from syntax, how to test a model and installing rspec &lt;a href=&quot;https://remimercier.com/series/rspec/&quot;&gt;Remi rspec tutorials&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;The Complete Guide to Rails Testing by Jason Swett &lt;a href=&quot;The Complete Guide to Rails Testing&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-      <pubDate>Wed, 14 Jun 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/06/14/how_i_learned_rspec.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/06/14/how_i_learned_rspec.html</guid>
     </item>
     
   </channel>
