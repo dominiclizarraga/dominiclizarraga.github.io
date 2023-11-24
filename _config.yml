@@ -17,7 +17,7 @@ include: ["_redirects", ".well-known", "_headers"]
 # and then copy the URL to here.
 # photo_prefix:
 me:
-  description: Rails, Ruby, webapps, Hotwire
+  description: Rails, Ruby, Hotwire, webapps
   name: Dom Lizarraga
   site_name: dominiclizarraga.github.io
   github: dominiclizarraga
