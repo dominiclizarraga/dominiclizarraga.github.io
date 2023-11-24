@@ -5,7 +5,7 @@
   xmlns:webfeeds="http://webfeeds.org/rss/1.0">
   <channel>
     <title>dominiclizarraga.github.io</title>
-    <description>Rails, Ruby, webapps, Hotwire</description>		
+    <description>Rails, Ruby, Hotwire, webapps</description>		
     <link>http://localhost:4000</link>
     <atom:link href="http://localhost:4000/rss.xml" rel="self" type="application/rss+xml" />
     <webfeeds:accentColor>00588F</webfeeds:accentColor>
