@@ -4,11 +4,8 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="" />
-  <meta name=description content="Dom Lizarraga" />
-  <meta name='twitter:description' content="Dom Lizarraga" />
-  <meta name='og:description' content="Dom Lizarraga" />
-  
+  <meta name='twitter:title' content="The Rails and Hotwire Codex 🌀" />
+  <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
   <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
@@ -500,13 +497,11 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>dominiclizarraga.github.io</title>
-  <link href='https://twitter.com/domlizarraga_' rel=me />
-  <link href='https://github.com/dominiclizarraga' rel=me />
-  <link href='mailto:dominiclizarraga@hotmail.com' rel=me />
-  <link rel="canonical" href="http://localhost:4000/">
+  <title>The Rails and Hotwire Codex 🌀 - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2023/11/21/hotwire-codex.html">
 </head>
-<body class='post'>
+<body>
   <div class='pad2y' style='position:relative'>
     
     <div class='only-print'>
@@ -526,59 +521,50 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <div class='writing nu'>
+      <h1>The Rails and Hotwire Codex 🌀</h1>
+<div class='body'><h2 id="notes">Notes</h2>
 
-  <div><a title='#17' href='/2023/11/21/hotwire-codex.html'>The Rails and Hotwire Codex 🌀</a></div>
-  <time>2023-11-21</time>
+<p>Turbo Native is the core of Hotwire’s native extensions. It orchestrates a <strong>native web view</strong> through <strong>multiple screens</strong> within native navigation. This way the app has a native feel, despite all the content being rendered using the same HTML views as the web app.</p>
 
-  <div><a title='#16' href='/2023/11/08/shape-up.html'>Shape up 🎢</a></div>
-  <time>2023-11-08</time>
+<h3 id="native-navigation">Native navigation</h3>
 
-  <div><a title='#15' href='/2023/11/07/decompose-for-method-call.html'>Decompose for method calls</a></div>
-  <time>2023-11-07</time>
+<p><em>Navigation in a Turbo Native app is completely native.</em> When the user taps a link, a native method is called to handle the visit proposal. If a fully native screen is preferred for a given URL, this method is where that choice can be made.</p>
 
-  <div><a title='#14' href='/2023/11/02/positional-vs-keyword-params.html'>Positional vs Keyword arguments</a></div>
-  <time>2023-11-02</time>
+<p>More commonly, we’ll want to visit the destination URL. 1) When a link is tapped, 2) Turbo Native creates a new screen, 3) injects the web view into it, 4) drives the web view to the new location using Turbo, and 5) displays the screen to the user.</p>
 
-  <div><a title='#13' href='/2023/10/26/lastest-tips-and-tricks.html'>Latest tips & tricks | Rails</a></div>
-  <time>2023-10-26</time>
+<h3 id="authentication">Authentication</h3>
 
-  <div><a title='#12' href='/2023/10/09/financial-wisdom-over-forks.html'>Financial Wisdom Over Forks.</a></div>
-  <time>2023-10-09</time>
+<p>Turbo Native apps use <strong>cookie based authentication</strong> for requests originating in a web view. If you have purely native screens and need to make HTTP requests from native code, you’ll need to implement a form of token based authentication on the server.</p>
 
-  <div><a title='#11' href='/2023/09/30/hot-to-crack-you-next-code-challenges.html'>How to crack your next code challenge 🧮</a></div>
-  <time>2023-09-30</time>
+<h3 id="session">Session</h3>
 
-  <div><a title='#10' href='/2023/09/10/search-bar-rails.html'>Search bar in Rails 🔍</a></div>
-  <time>2023-09-10</time>
+<p>A session co-ordinates <strong>a single native web view.</strong> It’s responsible for triggering URL visits using Turbo, and for inserting the web view into new screens when displayed to the user, we’ll use a different session for each tab so the navigation in each tab is totally independent.</p>
 
-  <div><a title='#9' href='/2023/08/20/chartkick-gem.html'>Chartkick gem vs chart.js</a></div>
-  <time>2023-08-20</time>
+<h3 id="path-configuration">Path Configuration</h3>
 
-  <div><a title='#8' href='/2023/08/01/llm-langchain-rb.html'>LLM Langchain.rb 🦜 | Andrei Bondarev</a></div>
-  <time>2023-08-01</time>
+<p>The path configuration is a JSON file stored in the app bundle.</p>
 
-  <div><a title='#7' href='/2023/07/24/NYU-startup-summer.html'>NYU Startup Summer program</a></div>
-  <time>2023-07-24</time>
+<p>This file specifies a set of rules that match URLs, using regex patterns, to a set of properties. These properties define how a URL should be displayed in the app. If a particular URL has a fully native screen, this is where we tell Turbo Native about that.</p>
 
-  <div><a title='#6' href='/2023/06/14/how_i_learned_rspec.html'>How I learned rpsec</a></div>
-  <time>2023-06-14</time>
+<p>Feature flags and other settings can also be defined making it simple to turn features on and off remotely.</p>
 
-  <div><a title='#5' href='/2022/03/26/practicing_rails.html'>Practicing Rails | Justin Weiss</a></div>
-  <time>2022-03-26</time>
+<p>All of this content was taken from book below, they’re personal notes. I encourage you buy it.</p>
 
-  <div><a title='#4' href='/2022/03/04/testing_waterloo.html'>Rails Testing | University of Waterloo</a></div>
-  <time>2022-03-04</time>
+<p><a href="https://railsandhotwirecodex.com/">Book link is here.</a></p>
+</div>
 
-  <div><a title='#3' href='/2022/02/14/test_jason_swett.html'>The Beginner’s Guide to Rails Testing Jason Swett</a></div>
-  <time>2022-02-14</time>
+<div class='breaker'></div>
 
-  <div><a title='#2' href='/2022/02/05/the_man_in_the_arena.html'>The man in the arena</a></div>
-  <time>2022-02-05</time>
-
-  <div><a title='#1' href='/2021/12/24/how_to_set_right_obj.html'>How to set the right objectives</a></div>
-  <time>2021-12-24</time>
-
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2023-11-21">
+      November 21, 2023
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
 </div>
 
     </div>
