@@ -12,6 +12,24 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Debugging libraries for Ruby and Rails</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;&lt;strong&gt;Exploring Ruby Debugging Tools&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Section 1: Pry &lt;a href=&quot;https://github.com/pry/pry&quot;&gt;Pry GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Section 2: Pry-Rails &lt;a href=&quot;https://github.com/pry/pry-rails&quot;&gt;Pry-Rails GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Section 3: Debug &lt;a href=&quot;https://github.com/ruby/debug&quot;&gt;Debug GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Section 4: Byebug &lt;a href=&quot;https://github.com/deivid-rodriguez/byebug&quot;&gt;Byebug GitHub&lt;/a&gt;&lt;/p&gt;
+</description>
+      <pubDate>Fri, 01 Dec 2023 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2023/12/01/debugging-libraries.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/12/01/debugging-libraries.html</guid>
+    </item>
+    
+    <item>
       <title>The Rails and Hotwire Codex 🌀</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
@@ -423,48 +441,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
       <pubDate>Sun, 20 Aug 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/08/20/chartkick-gem.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/08/20/chartkick-gem.html</guid>
-    </item>
-    
-    <item>
-      <title>LLM Langchain.rb 🦜 | Andrei Bondarev</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;While I was in New York I had the opportunity to attend a &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-rb/&quot;&gt;nyc.rb&lt;/a&gt; webinar where the main subject to discuss was going to be LLMs and what is the Ruby community doing about, &lt;a href=&quot;https://twitter.com/rushing_andrei&quot;&gt;Andrei Bondarev&lt;/a&gt; was the speaker.&lt;/p&gt;
-
-&lt;p&gt;I know it was a webinar you can attend it wherever you are! However I found it because I was looking for a monthly meeting in NY, also I found that &lt;a href=&quot;https://www.meetup.com/es-ES/nyc-on-rails/&quot;&gt;NYC on rails&lt;/a&gt; is about to start so folks from NY please support &lt;a href=&quot;https://twitter.com/aviflombaum&quot;&gt;Avi&lt;/a&gt; in this journey 🙏.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://twitter.com/aviflombaum/status/1686015466290991107&quot;&gt;Tweet&lt;/a&gt; where Avi anounces that he is going to take up rails monthly meeting (they were held off since 2016).&lt;/p&gt;
-
-&lt;p&gt;OK moving on from ads here I’ll share with you the resources that I have gone over the last week so I got my feet wet with this new topic called LLMs (Large Language Models).&lt;/p&gt;
-
-&lt;p&gt;What is LLMs?&lt;/p&gt;
-
-&lt;p&gt;It’s a subset of Deep Learning as well as Generative AI, both belong to AI.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=G2fqAlgmoPo&quot;&gt;Google video that explains it very neat&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;What is langchain then? 🦜&lt;/p&gt;
-
-&lt;p&gt;How LLMs work?&lt;/p&gt;
-
-&lt;p&gt;Why are they useful?&lt;/p&gt;
-
-&lt;p&gt;Use cases?&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.google.com/presentation/d/18IkiST1goY2nXA61albDx1WUHCdf9tkaPMYthxLiONQ/edit#slide=id.p&quot;&gt;Andrei NYC.rb slides&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/andreibondarev/langchainrb&quot;&gt;Main Langchain ruby repo&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Chatbot Proof of Concept:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/zben/superchat&quot;&gt;Multi-Agent Chatbot developed by Flexport member (Ben Zhang)&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Courses:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://learn.deeplearning.ai/langchain/lesson/1/introduction&quot;&gt;LangChain for LLM Application Development from Deep Learning AI&lt;/a&gt;&lt;/p&gt;
-</description>
-      <pubDate>Tue, 01 Aug 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/08/01/llm-langchain-rb.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/08/01/llm-langchain-rb.html</guid>
     </item>
     
   </channel>
