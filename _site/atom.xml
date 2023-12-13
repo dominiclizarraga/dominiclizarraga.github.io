@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-12-01T11:17:02-08:00</updated>
+  <updated>2023-12-12T21:51:02-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,35 @@
     <name>Dom Lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>Always have a question to solve in mind.</title>
+    <link href="http://localhost:4000/2023/12/12/always-have-a-question-in-mind.html"/>
+    <updated>2023-12-12T00:00:00-08:00</updated>
+    <id>http://localhost:4000/2023/12/12/always-have-a-question-in-mind</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;I recently explored a new code base, which was challenging, but focusing on a specific question helped me to direct my research more effectively…..&lt;/strong&gt;&lt;/p&gt;
+
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
+    <title>N + 1 queries</title>
+    <link href="http://localhost:4000/2023/12/06/n-+-1-queries.html"/>
+    <updated>2023-12-06T00:00:00-08:00</updated>
+    <id>http://localhost:4000/2023/12/06/n-+-1-queries</id>
+    <content type="html">&lt;p&gt;&lt;strong&gt;I recently had to deal with a n + 1 query and delve into….&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So you need a sort at database level or just with ruby is enough?&lt;/p&gt;
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>Debugging libraries for Ruby and Rails</title>
@@ -22,6 +51,8 @@
 &lt;p&gt;Section 1: Pry &lt;a href=&quot;https://github.com/pry/pry&quot;&gt;Pry GitHub&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Section 2: Pry-Rails &lt;a href=&quot;https://github.com/pry/pry-rails&quot;&gt;Pry-Rails GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Difference between “pry” and “pry-rails” (Stackoverflow response)[https://stackoverflow.com/questions/11709837/difference-between-pry-and-pry-rails#:~:text=The%20pry%2Drails%20gem%20simply,it%20just%20makes%20it%20easier.&amp;amp;text=How%20do%20I%20use%20pry%2Drails%20to%20debug%20Rails%20applications%3F]&lt;/p&gt;
 
 &lt;p&gt;Section 3: Debug &lt;a href=&quot;https://github.com/ruby/debug&quot;&gt;Debug GitHub&lt;/a&gt;&lt;/p&gt;
 
@@ -435,38 +466,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
     <updated>2023-09-30T00:00:00-07:00</updated>
     <id>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Notes that will help you understand and then solve a code challenge interview.&lt;/strong&gt;&lt;/p&gt;
-</content>
-    <author>
-      <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>Search bar in Rails 🔍</title>
-    <link href="http://localhost:4000/2023/09/10/search-bar-rails.html"/>
-    <updated>2023-09-10T00:00:00-07:00</updated>
-    <id>http://localhost:4000/2023/09/10/search-bar-rails</id>
-    <content type="html">&lt;p&gt;&lt;strong&gt;Notes from building a Search bar.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/&quot;&gt;Justin Weiss search bar using scopes.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://web-crunch.com/posts/turbo-charged-real-time-search-ruby-on-rails-7&quot;&gt;Search bar using turbo frames.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://blog.testdouble.com/posts/2021-09-09-how-to-build-a-search-engine-with-ruby-on-rails/&quot;&gt;Search bar Test double.&lt;/a&gt;&lt;/p&gt;
-</content>
-    <author>
-      <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>Chartkick gem vs chart.js</title>
-    <link href="http://localhost:4000/2023/08/20/chartkick-gem.html"/>
-    <updated>2023-08-20T00:00:00-07:00</updated>
-    <id>http://localhost:4000/2023/08/20/chartkick-gem</id>
-    <content type="html">&lt;p&gt;&lt;strong&gt;Notes from chartkick gem implementation&lt;/strong&gt;&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>

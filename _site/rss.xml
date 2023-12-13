@@ -12,6 +12,29 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Always have a question to solve in mind.</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;&lt;strong&gt;I recently explored a new code base, which was challenging, but focusing on a specific question helped me to direct my research more effectively…..&lt;/strong&gt;&lt;/p&gt;
+
+</description>
+      <pubDate>Tue, 12 Dec 2023 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2023/12/12/always-have-a-question-in-mind.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/12/12/always-have-a-question-in-mind.html</guid>
+    </item>
+    
+    <item>
+      <title>N + 1 queries</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;&lt;strong&gt;I recently had to deal with a n + 1 query and delve into….&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;So you need a sort at database level or just with ruby is enough?&lt;/p&gt;
+</description>
+      <pubDate>Wed, 06 Dec 2023 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2023/12/06/n-+-1-queries.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/12/06/n-+-1-queries.html</guid>
+    </item>
+    
+    <item>
       <title>Debugging libraries for Ruby and Rails</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Exploring Ruby Debugging Tools&lt;/strong&gt;&lt;/p&gt;
@@ -19,6 +42,8 @@
 &lt;p&gt;Section 1: Pry &lt;a href=&quot;https://github.com/pry/pry&quot;&gt;Pry GitHub&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Section 2: Pry-Rails &lt;a href=&quot;https://github.com/pry/pry-rails&quot;&gt;Pry-Rails GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Difference between “pry” and “pry-rails” (Stackoverflow response)[https://stackoverflow.com/questions/11709837/difference-between-pry-and-pry-rails#:~:text=The%20pry%2Drails%20gem%20simply,it%20just%20makes%20it%20easier.&amp;amp;text=How%20do%20I%20use%20pry%2Drails%20to%20debug%20Rails%20applications%3F]&lt;/p&gt;
 
 &lt;p&gt;Section 3: Debug &lt;a href=&quot;https://github.com/ruby/debug&quot;&gt;Debug GitHub&lt;/a&gt;&lt;/p&gt;
 
@@ -415,32 +440,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
       <pubDate>Sat, 30 Sep 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</guid>
-    </item>
-    
-    <item>
-      <title>Search bar in Rails 🔍</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Notes from building a Search bar.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://www.justinweiss.com/articles/search-and-filter-rails-models-without-bloating-your-controller/&quot;&gt;Justin Weiss search bar using scopes.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://web-crunch.com/posts/turbo-charged-real-time-search-ruby-on-rails-7&quot;&gt;Search bar using turbo frames.&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://blog.testdouble.com/posts/2021-09-09-how-to-build-a-search-engine-with-ruby-on-rails/&quot;&gt;Search bar Test double.&lt;/a&gt;&lt;/p&gt;
-</description>
-      <pubDate>Sun, 10 Sep 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/09/10/search-bar-rails.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/09/10/search-bar-rails.html</guid>
-    </item>
-    
-    <item>
-      <title>Chartkick gem vs chart.js</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Notes from chartkick gem implementation&lt;/strong&gt;&lt;/p&gt;
-</description>
-      <pubDate>Sun, 20 Aug 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/08/20/chartkick-gem.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/08/20/chartkick-gem.html</guid>
     </item>
     
   </channel>
