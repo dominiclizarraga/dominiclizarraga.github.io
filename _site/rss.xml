@@ -12,6 +12,27 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>How to quickly deep dive into a new code base.</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Utilize the User interface to create domain model objects (post, books, etc), followed by monitoring the server-side Rails logs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Examine the generated SQL and then directly access the database using either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psql&lt;/code&gt; or the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rails dbconsole&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lastly investigate the most recent record that has been saved or added to the database.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+      <pubDate>Thu, 14 Dec 2023 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2023/12/14/how-to-explore-a-new-codebase.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/12/14/how-to-explore-a-new-codebase.html</guid>
+    </item>
+    
+    <item>
       <title>Always have a question to solve in mind.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;I recently explored a new code base, which was challenging, but focusing on a specific question helped me to direct my research more effectively…..&lt;/strong&gt;&lt;/p&gt;
@@ -430,16 +451,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
       <pubDate>Mon, 09 Oct 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html</guid>
-    </item>
-    
-    <item>
-      <title>How to crack your next code challenge 🧮</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Notes that will help you understand and then solve a code challenge interview.&lt;/strong&gt;&lt;/p&gt;
-</description>
-      <pubDate>Sat, 30 Sep 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html</guid>
     </item>
     
   </channel>

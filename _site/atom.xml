@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-12-12T21:51:02-08:00</updated>
+  <updated>2023-12-13T20:41:15-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,30 @@
     <name>Dom Lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>How to quickly deep dive into a new code base.</title>
+    <link href="http://localhost:4000/2023/12/14/how-to-explore-a-new-codebase.html"/>
+    <updated>2023-12-14T00:00:00-08:00</updated>
+    <id>http://localhost:4000/2023/12/14/how-to-explore-a-new-codebase</id>
+    <content type="html">&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Utilize the User interface to create domain model objects (post, books, etc), followed by monitoring the server-side Rails logs.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Examine the generated SQL and then directly access the database using either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psql&lt;/code&gt; or the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rails dbconsole&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lastly investigate the most recent record that has been saved or added to the database.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>Always have a question to solve in mind.</title>
@@ -453,19 +477,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
     &lt;p&gt;Somehow, the customer paid him in advance, and after a few months, rejected the project and asked for a refund. By then, he had already spent the money without setting aside funds for taxes, and found himself having to answer to both the customer and the tax authorities.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
-</content>
-    <author>
-      <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>How to crack your next code challenge 🧮</title>
-    <link href="http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges.html"/>
-    <updated>2023-09-30T00:00:00-07:00</updated>
-    <id>http://localhost:4000/2023/09/30/hot-to-crack-you-next-code-challenges</id>
-    <content type="html">&lt;p&gt;&lt;strong&gt;Notes that will help you understand and then solve a code challenge interview.&lt;/strong&gt;&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
