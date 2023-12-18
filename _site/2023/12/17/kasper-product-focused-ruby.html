@@ -4,11 +4,8 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="" />
-  <meta name=description content="Dom Lizarraga" />
-  <meta name='twitter:description' content="Dom Lizarraga" />
-  <meta name='og:description' content="Dom Lizarraga" />
-  
+  <meta name='twitter:title' content="Product Focused Ruby - Kasper Timm Hansen." />
+  <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
   <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
@@ -500,13 +497,11 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>dominiclizarraga.github.io</title>
-  <link href='https://twitter.com/domlizarraga_' rel=me />
-  <link href='https://github.com/dominiclizarraga' rel=me />
-  <link href='mailto:dominiclizarraga@hotmail.com' rel=me />
-  <link rel="canonical" href="http://localhost:4000/">
+  <title>Product Focused Ruby - Kasper Timm Hansen. - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2023/12/17/kasper-product-focused-ruby.html">
 </head>
-<body class='post'>
+<body>
   <div class='pad2y' style='position:relative'>
     
     <div class='only-print'>
@@ -526,74 +521,41 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <div class='writing nu'>
+      <h1>Product Focused Ruby - Kasper Timm Hansen.</h1>
+<div class='body'><p><strong>Sketching and mental model of programming.</strong></p>
 
-  <div><a title='#22' href='/2023/12/17/kasper-product-focused-ruby.html'>Product Focused Ruby - Kasper Timm Hansen.</a></div>
-  <time>2023-12-17</time>
+<p>1.- Have a problem definition.</p>
 
-  <div><a title='#21' href='/2023/12/14/how-to-explore-a-new-codebase.html'>How to quickly deep dive into a new code base.</a></div>
-  <time>2023-12-14</time>
+<p>2.- In a rails context, start with a controller and start figuring out how to pass stuff to the view (it will give you a lot of constraints already).</p>
 
-  <div><a title='#20' href='/2023/12/12/always-have-a-question-in-mind.html'>Always have a question to solve in mind.</a></div>
-  <time>2023-12-12</time>
+<p>3.- Then sketch stuff out like write methods that reflect “complete” and “uncomplete” (for a todo feature), don’t focus on assigning instance variables, inheritance of the controller (you save this for later).</p>
 
-  <div><a title='#19' href='/2023/12/06/n-+-1-queries.html'>N + 1 queries</a></div>
-  <time>2023-12-06</time>
+<p>4.- At this point we have how routes are going to be. What are going to be the “resources” are they going to be nested?</p>
 
-  <div><a title='#18' href='/2023/12/01/debugging-libraries.html'>Debugging libraries for Ruby and Rails</a></div>
-  <time>2023-12-01</time>
+<p style="text-align: center;">We have figured out the organizational stuff around things. So now we know how to put into business logic and complete it.</p>
 
-  <div><a title='#17' href='/2023/11/21/hotwire-codex.html'>The Rails and Hotwire Codex 🌀</a></div>
-  <time>2023-11-21</time>
+<p>5.- Take a break from it like an outside view of like, okay, can I name this differently because</p>
 
-  <div><a title='#16' href='/2023/11/08/shape-up.html'>Shape up 🎢</a></div>
-  <time>2023-11-08</time>
+<p style="text-align: center;">If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it's something involved with like TCP connections, and we haven't worked with those before.</p>
 
-  <div><a title='#15' href='/2023/11/07/decompose-for-method-call.html'>Decompose for method calls</a></div>
-  <time>2023-11-07</time>
+<p style="text-align: center;">Use method like you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).</p>
 
-  <div><a title='#14' href='/2023/11/02/positional-vs-keyword-params.html'>Positional vs Keyword arguments</a></div>
-  <time>2023-11-02</time>
+<p>6.- Delineate between what’s the feature, and what’s the architecture? User model would be architecture and User::Invite would be the feature.</p>
 
-  <div><a title='#13' href='/2023/10/26/lastest-tips-and-tricks.html'>Latest tips & tricks | Rails</a></div>
-  <time>2023-10-26</time>
+</div>
 
-  <div><a title='#12' href='/2023/10/09/financial-wisdom-over-forks.html'>Financial Wisdom Over Forks.</a></div>
-  <time>2023-10-09</time>
+<div class='breaker'></div>
 
-  <div><a title='#11' href='/2023/09/30/hot-to-crack-you-next-code-challenges.html'>How to crack your next code challenge 🧮</a></div>
-  <time>2023-09-30</time>
-
-  <div><a title='#10' href='/2023/09/10/search-bar-rails.html'>Search bar in Rails 🔍</a></div>
-  <time>2023-09-10</time>
-
-  <div><a title='#9' href='/2023/08/20/chartkick-gem.html'>Chartkick gem vs chart.js</a></div>
-  <time>2023-08-20</time>
-
-  <div><a title='#8' href='/2023/08/01/llm-langchain-rb.html'>LLM Langchain.rb 🦜 | Andrei Bondarev</a></div>
-  <time>2023-08-01</time>
-
-  <div><a title='#7' href='/2023/07/24/NYU-startup-summer.html'>NYU Startup Summer program</a></div>
-  <time>2023-07-24</time>
-
-  <div><a title='#6' href='/2023/06/14/how_i_learned_rspec.html'>How I learned rpsec</a></div>
-  <time>2023-06-14</time>
-
-  <div><a title='#5' href='/2022/03/26/practicing_rails.html'>Practicing Rails | Justin Weiss</a></div>
-  <time>2022-03-26</time>
-
-  <div><a title='#4' href='/2022/03/04/testing_waterloo.html'>Rails Testing | University of Waterloo</a></div>
-  <time>2022-03-04</time>
-
-  <div><a title='#3' href='/2022/02/14/test_jason_swett.html'>The Beginner’s Guide to Rails Testing Jason Swett</a></div>
-  <time>2022-02-14</time>
-
-  <div><a title='#2' href='/2022/02/05/the_man_in_the_arena.html'>The man in the arena</a></div>
-  <time>2022-02-05</time>
-
-  <div><a title='#1' href='/2021/12/24/how_to_set_right_obj.html'>How to set the right objectives</a></div>
-  <time>2021-12-24</time>
-
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2023-12-17">
+      December 17, 2023
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
 </div>
 
     </div>

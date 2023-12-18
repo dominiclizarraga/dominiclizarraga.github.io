@@ -12,6 +12,35 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Product Focused Ruby - Kasper Timm Hansen.</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;&lt;strong&gt;Sketching and mental model of programming.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;1.- Have a problem definition.&lt;/p&gt;
+
+&lt;p&gt;2.- In a rails context, start with a controller and start figuring out how to pass stuff to the view (it will give you a lot of constraints already).&lt;/p&gt;
+
+&lt;p&gt;3.- Then sketch stuff out like write methods that reflect “complete” and “uncomplete” (for a todo feature), don’t focus on assigning instance variables, inheritance of the controller (you save this for later).&lt;/p&gt;
+
+&lt;p&gt;4.- At this point we have how routes are going to be. What are going to be the “resources” are they going to be nested?&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;We have figured out the organizational stuff around things. So now we know how to put into business logic and complete it.&lt;/p&gt;
+
+&lt;p&gt;5.- Take a break from it like an outside view of like, okay, can I name this differently because&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it&apos;s something involved with like TCP connections, and we haven&apos;t worked with those before.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Use method like you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).&lt;/p&gt;
+
+&lt;p&gt;6.- Delineate between what’s the feature, and what’s the architecture? User model would be architecture and User::Invite would be the feature.&lt;/p&gt;
+
+</description>
+      <pubDate>Sun, 17 Dec 2023 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2023/12/17/kasper-product-focused-ruby.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2023/12/17/kasper-product-focused-ruby.html</guid>
+    </item>
+    
+    <item>
       <title>How to quickly deep dive into a new code base.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;ol&gt;
@@ -348,109 +377,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
       <pubDate>Thu, 26 Oct 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html</guid>
-    </item>
-    
-    <item>
-      <title>Financial Wisdom Over Forks.</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;A Dinner Chat with 2 experienced developers.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Recently, I had the opportunity to have dinner and engage in conversation with Chris O. and Harry L. at Rails World. Eager to delve into the nitty-gritty of consulting, I was particularly interested in uncovering the secrets of how to increase chances of success in this field.&lt;/p&gt;
-
-&lt;p&gt;Among the insights shared by &lt;a href=&quot;https://twitter.com/dhh&quot;&gt;DHH&lt;/a&gt; was “The One-Person Framework” which enables one to achieve remarkable productivity with &lt;a href=&quot;https://rubyonrails.org/&quot;&gt;Rails&lt;/a&gt;. This framework allows for a comprehensive understanding of everything from backend to frontend to deployment, all while Rails navigates through the complexities aiming for simplicity. Inspired by DHH’s insights, I’m keen on taking advantage of “The One-Person Framework” to enhance my consulting practice. The discussion unfolded as follows:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/the_one_person_framwork.jpeg&quot; alt=&quot;DHH at Rails World&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;accounting&quot;&gt;Accounting&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Always set aside 30% of each income you receive from consulting to cushion yourself when it’s time to pay taxes. 30 is a good figure; it’s enough.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Hire an accountant; don’t do it yourself, as it can become difficult.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;accounts&quot;&gt;Accounts&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;The money that a business generates is one thing, and it must be in an exclusive account. Separate it from everything else (LLC or whatever structure).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Create a personal account for personal expenses, and avoid mixing expenses. It might seem easy initially, but it can become difficult to handle.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;sales&quot;&gt;Sales&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Get with your referals, friends, uncles, cousins, people you were in school with and offer your services, it’d more easy if they own a company or have a decision makier position.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;When it comes to consulting, once you finish a project and haven’t worked on securing another project, it’s very likely that you’ll end up doing nothing.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Therefore, in the hypothetical case that you finish “Project A” in December, dedicate 80% of your time to the project to get it done, and 20% on sales activities (attending meetups, calls, creating content, follow-ups).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Then, as you get closer to finishing the project, switch to spending 80% of your time on selling and 20% on the project so that when you finish “Project A” in December, you have “Project B” waiting in January.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;always-work-with-contracts&quot;&gt;Always Work with Contracts&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Include a clause specifying that if the client tells you not to finish, he has to pay you at the point or progress where you leave the project&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;work-on-building-trust-with-clients&quot;&gt;Work on Building Trust with Clients&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;When you develop for a customer, aim to either cut their costs or increase their revenue/productivity or help them have more control over their business therefore &lt;strong&gt;you’ll gain their trust.&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;&lt;em&gt;Cut their costs:&lt;/em&gt; “Optimize processes to save your customer money.”&lt;/li&gt;
-      &lt;li&gt;&lt;em&gt;Increase their revenue or productivity:&lt;/em&gt; “Enhance features to boost customer revenue and efficiency.”&lt;/li&gt;
-      &lt;li&gt;&lt;em&gt;Help them have more control:&lt;/em&gt; “Empower customers with tools for informed business decisions.”&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Earned trust will increase eventually like compound interest over the years, as they will share with others how you helped them and how efficient you are.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;where-to-find-potential-customers&quot;&gt;Where to Find Potential Customers&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;One approach is to get in touch with local marketing agencies and offer to outsource their work to you, whether it’s web apps or web pages. This is beneficial as it’s easier to secure payments from organizations than individuals, and it also enhances your portfolio and reputation.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;For the point above 👆, show up! Don’t just email them; meet them in person, attend meetups, even those not related to tech.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Another approach is to reconnect with previous customers and inquire if there’s another department you can assist; this should happen naturally if you’ve had a good working relationship.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;dont-convince-customers-to-have-a-rails-app-when-they-dont-really-need-it-avoid-this-&quot;&gt;Don’t Convince Customers to Have a Rails App When They Don’t Really Need It (Avoid This 🚫)&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;One individual secured a contract where the customer apparently needed a WordPress management system, but he kept pushing for a Rails application.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Somehow, the customer paid him in advance, and after a few months, rejected the project and asked for a refund. By then, he had already spent the money without setting aside funds for taxes, and found himself having to answer to both the customer and the tax authorities.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-</description>
-      <pubDate>Mon, 09 Oct 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/10/09/financial-wisdom-over-forks.html</guid>
     </item>
     
   </channel>
