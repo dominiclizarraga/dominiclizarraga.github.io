@@ -16,7 +16,7 @@ layout: post
 
 <p style="text-align: center;">We have figured out the organizational stuff around things. So now we know how to put into business logic and complete it.</p>
 
-5.- Take a break from it like an outside view of like, okay, can I name this differently because
+5.- Take a break from it like an outside view of like, okay, can I name this differently because.
 
 <p style="text-align: center;">If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it's something involved with like TCP connections, and we haven't worked with those before.</p>
 
