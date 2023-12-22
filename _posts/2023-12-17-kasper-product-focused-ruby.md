@@ -8,7 +8,7 @@ layout: post
 
 I recently attended a live session with Kasper Timm Hansen, he unfolded his approach to product-focused development, blending technical prowess with real-world problem solving.
 
-Here are my notes:
+1st session notes:
 
 1.- Have a problem definition.
 
@@ -28,10 +28,13 @@ Here are my notes:
 
 6.- Delineate between what's the feature, and what's the architecture? User model would be architecture and User::Invite would be the feature.
 
+2nd session notes:
 
+1.- At the very start of the feature cycle, what you essentially do is a deep dive. You try to keep going for about half an hour, maybe an hour, if you have something really good going or if you're just trying to fire off ideas.
 
+2.- Try to take full advantage of the fact that Ruby reads somewhat like pseudocode. It's a case of 'first thought, best thought', allowing for a more rapid-fire approach.
 
-
+3.- What you actually want is to quickly formulate a hypothesis. Figure out how to disprove or prove it, at least, and then keep making rapid changes.
 
 
 
