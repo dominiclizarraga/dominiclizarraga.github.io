@@ -6,6 +6,10 @@ layout: post
 
 **Sketching and mental model of programming.**
 
+I recently attended a live session with Kasper Timm Hansen, he unfolded his approach to product-focused development, blending technical prowess with real-world problem solving.
+
+Here are my notes:
+
 1.- Have a problem definition.
 
 2.- In a rails context, start with a controller and start figuring out how to pass stuff to the view (it will give you a lot of constraints already).
