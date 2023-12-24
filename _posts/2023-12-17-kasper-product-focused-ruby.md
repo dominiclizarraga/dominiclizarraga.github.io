@@ -28,7 +28,7 @@ I recently attended a live session with Kasper Timm Hansen, he unfolded his appr
 
 6.- Delineate between what's the feature, and what's the architecture? User model would be architecture and User::Invite would be the feature.
 
-2nd session notes:
+2nd session notes (more hands-on):
 
 1.- At the very start of the feature cycle, what you essentially do is a deep dive. You try to keep going for about half an hour, maybe an hour, if you have something really good going or if you're just trying to fire off ideas.
 
