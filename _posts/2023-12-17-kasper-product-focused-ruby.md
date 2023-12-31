@@ -24,9 +24,20 @@ I recently attended a live session with Kasper Timm Hansen, he unfolded his appr
 
 <p style="text-align: center;">If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it's something involved with like TCP connections, and we haven't worked with those before.</p>
 
-<p style="text-align: center;">Use method like you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).</p>
+<p style="text-align: center;">Use method you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).</p>
 
 6.- Delineate between what's the feature, and what's the architecture? User model would be architecture and User::Invite would be the feature.
+
+***
+
+Making abstractions by finding concepts through 'naming'.
+
+1.- Now that you have a sense of concept and know how things fit together.
+
+2.- You can build solid blocks of knowledged that you can later use.
+
+
+***
 
 2nd session notes (more hands-on):
 

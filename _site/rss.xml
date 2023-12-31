@@ -16,23 +16,45 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Sketching and mental model of programming.&lt;/strong&gt;&lt;/p&gt;
 
+&lt;p&gt;I recently attended a live session with Kasper Timm Hansen, he unfolded his approach to product-focused development, blending technical prowess with real-world problem solving.&lt;/p&gt;
+
+&lt;p&gt;1st session notes:&lt;/p&gt;
+
 &lt;p&gt;1.- Have a problem definition.&lt;/p&gt;
 
 &lt;p&gt;2.- In a rails context, start with a controller and start figuring out how to pass stuff to the view (it will give you a lot of constraints already).&lt;/p&gt;
 
-&lt;p&gt;3.- Then sketch stuff out like write methods that reflect “complete” and “uncomplete” (for a todo feature), don’t focus on assigning instance variables, inheritance of the controller (you save this for later).&lt;/p&gt;
+&lt;p&gt;3.- Then sketch stuff out like write methods that reflect “complete” and “uncomplete” (for a Todo app and task feature), don’t focus on assigning instance variables, inheritance of the controller (you save this for later).&lt;/p&gt;
 
 &lt;p&gt;4.- At this point we have how routes are going to be. What are going to be the “resources” are they going to be nested?&lt;/p&gt;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;We have figured out the organizational stuff around things. So now we know how to put into business logic and complete it.&lt;/p&gt;
 
-&lt;p&gt;5.- Take a break from it like an outside view of like, okay, can I name this differently because&lt;/p&gt;
+&lt;p&gt;5.- Take a break from it like an outside view of like, okay, can I name this differently because.&lt;/p&gt;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it&apos;s something involved with like TCP connections, and we haven&apos;t worked with those before.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;Use method like you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;Use method you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).&lt;/p&gt;
 
 &lt;p&gt;6.- Delineate between what’s the feature, and what’s the architecture? User model would be architecture and User::Invite would be the feature.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Making abstractions by finding concepts through ‘naming’.&lt;/p&gt;
+
+&lt;p&gt;1.- Now that you have a sense of concept and know how things fit together.&lt;/p&gt;
+
+&lt;p&gt;2.- You can build solid blocks of knowledged that you can later use.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;2nd session notes (more hands-on):&lt;/p&gt;
+
+&lt;p&gt;1.- At the very start of the feature cycle, what you essentially do is a deep dive. You try to keep going for about half an hour, maybe an hour, if you have something really good going or if you’re just trying to fire off ideas.&lt;/p&gt;
+
+&lt;p&gt;2.- Try to take full advantage of the fact that Ruby reads somewhat like pseudocode. It’s a case of ‘first thought, best thought’, allowing for a more rapid-fire approach.&lt;/p&gt;
+
+&lt;p&gt;3.- What you actually want is to quickly formulate a hypothesis. Figure out how to disprove or prove it, at least, and then keep making rapid changes.&lt;/p&gt;
 
 </description>
       <pubDate>Sun, 17 Dec 2023 00:00:00 -0800</pubDate>
