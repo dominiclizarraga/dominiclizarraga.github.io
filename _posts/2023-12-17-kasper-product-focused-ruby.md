@@ -10,6 +10,8 @@ I recently attended a live session with Kasper Timm Hansen, he unfolded his appr
 
 1st session notes:
 
+***How to start sketching out a new feature development.***
+
 1.- Have a problem definition.
 
 2.- In a rails context, start with a controller and start figuring out how to pass stuff to the view (it will give you a lot of constraints already).
@@ -28,13 +30,15 @@ I recently attended a live session with Kasper Timm Hansen, he unfolded his appr
 
 6.- Delineate between what's the feature, and what's the architecture? User model would be architecture and User::Invite would be the feature.
 
-***
 
-Making abstractions by finding concepts through 'naming'.
+
+***Making abstractions by finding concepts through 'naming'.***
 
 1.- Now that you have a sense of concept and know how things fit together.
 
-2.- You can build solid blocks of knowledged that you can later use.
+2.- You can build solid blocks of knowledged that you can later use. 
+
+<p style="text-align: center;">In example, how a AssociationObject works and you find more similar cases in the rest of the app.</p>
 
 
 ***
