@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2023-12-30T22:44:33-08:00</updated>
+  <updated>2024-01-01T19:59:25-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -37,17 +37,23 @@
 
 &lt;p&gt;5.- Take a break from it like an outside view of like, okay, can I name this differently because.&lt;/p&gt;
 
+&lt;p style=&quot;text-align: center;&quot;&gt;So far, it&apos;s just more meant to have a direct communication with what I intend to code and my own mental model rather than the code that I&apos;m ending up generating.&lt;/p&gt;
+
 &lt;p style=&quot;text-align: center;&quot;&gt;If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it&apos;s something involved with like TCP connections, and we haven&apos;t worked with those before.&lt;/p&gt;
 
-&lt;p style=&quot;text-align: center;&quot;&gt;Use method you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).&lt;/p&gt;
+&lt;p style=&quot;text-align: center;&quot;&gt;Use method you know how they work to keep sketching things out (inheritance from ApplicationController or RESTful methods).&lt;/p&gt;
 
-&lt;p&gt;6.- Delineate between what’s the feature, and what’s the architecture? User model would be architecture and User::Invite would be the feature.&lt;/p&gt;
+&lt;p&gt;6.- Delineate between what’s the feature, and what’s the architecture? User model would be architecture and User and its Invite (User::Invite) would be the feature.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;This prorcess should be really flexible, really fluid, like having a conversation and not to be attached to the code you&apos;ve written.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Also play around with `irb`, read the Ruby docs and seek.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;Making abstractions by finding concepts through ‘naming’.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;1.- Now that you have a sense of concept and know how things fit together.&lt;/p&gt;
+&lt;p&gt;1.- Now that you have a sense of the concept and know how things fit together.&lt;/p&gt;
 
-&lt;p&gt;2.- You can build solid blocks of knowledged that you can later use.&lt;/p&gt;
+&lt;p&gt;2.- You can build solid blocks of knowledge that you can later use.&lt;/p&gt;
 
 &lt;p style=&quot;text-align: center;&quot;&gt;In example, how a AssociationObject works and you find more similar cases in the rest of the app.&lt;/p&gt;
 

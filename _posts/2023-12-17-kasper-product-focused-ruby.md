@@ -24,19 +24,23 @@ I recently attended a live session with Kasper Timm Hansen, he unfolded his appr
 
 5.- Take a break from it like an outside view of like, okay, can I name this differently because.
 
+<p style="text-align: center;">So far, it's just more meant to have a direct communication with what I intend to code and my own mental model rather than the code that I'm ending up generating.</p>
+
 <p style="text-align: center;">If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it's something involved with like TCP connections, and we haven't worked with those before.</p>
 
-<p style="text-align: center;">Use method you know how they work to keep sketching things out (Inheritance from ApplicationController or RESTful methods).</p>
+<p style="text-align: center;">Use method you know how they work to keep sketching things out (inheritance from ApplicationController or RESTful methods).</p>
 
-6.- Delineate between what's the feature, and what's the architecture? User model would be architecture and User::Invite would be the feature.
+6.- Delineate between what's the feature, and what's the architecture? User model would be architecture and User and its Invite (User::Invite) would be the feature.
 
+<p style="text-align: center;">This prorcess should be really flexible, really fluid, like having a conversation and not to be attached to the code you've written.</p>
 
+<p style="text-align: center;">Also play around with `irb`, read the Ruby docs and seek.</p>
 
 ***Making abstractions by finding concepts through 'naming'.***
 
-1.- Now that you have a sense of concept and know how things fit together.
+1.- Now that you have a sense of the concept and know how things fit together.
 
-2.- You can build solid blocks of knowledged that you can later use. 
+2.- You can build solid blocks of knowledge that you can later use. 
 
 <p style="text-align: center;">In example, how a AssociationObject works and you find more similar cases in the rest of the app.</p>
 
