@@ -49,7 +49,7 @@ I recently attended a live session with Kasper Timm Hansen, he unfolded his appr
 
 2nd session notes (more hands-on):
 
-1.- At the very start of the feature cycle, what you essentially do is a deep dive. You try to keep going for about half an hour, maybe an hour, if you have something really good going or if you're just trying to fire off ideas.
+1.- At the very start of the feature cycle, what you essentially do is a deep dive. You try to keep going for about half an hour, maybe an hour and you're just trying to fire off ideas.
 
 2.- Try to take full advantage of the fact that Ruby reads somewhat like pseudocode. It's a case of 'first thought, best thought', allowing for a more rapid-fire approach.
 
