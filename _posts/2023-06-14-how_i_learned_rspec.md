@@ -8,7 +8,7 @@ layout: post
 
 The best way to get a grasp of testing and *rspec* in general is to start from scratch a project and start writing down each test, that way you'll be able to see what happens if you forget to close either a `context` block or `it` block or even more intricate subjects like what's the difference between `describe` and `context`.
 
-While developing a freelance project I wanted to add testing as a way to push myself to learn more about testing and also give *rspec* a try and by doing it I learned how to use gems like: [faker](https://github.com/faker-ruby/faker), [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers), [factory_bot](https://github.com/thoughtbot/factory_bot_rails) and finally [rspec](rspec-rails). 🎲
+While developing a freelance project I wanted to add testing as a way to push myself to learn more about testing and also give *rspec* a try and by doing it I learned how to use gems like: [faker](https://github.com/faker-ruby/faker), [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers), [factory_bot](https://github.com/thoughtbot/factory_bot_rails) and finally [rspec](https://github.com/rspec/rspec-rails). 🎲
 
 You'll additionally acquire 
 
