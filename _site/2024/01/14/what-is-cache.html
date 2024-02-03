@@ -4,7 +4,7 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="Conferences" />
+  <meta name='twitter:title' content="What is cache? 💵 💰" />
   <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
@@ -497,9 +497,9 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>Conferences - dominiclizarraga.github.io</title>
+  <title>What is cache? 💵 💰 - dominiclizarraga.github.io</title>
   
-  <link rel="canonical" href="http://localhost:4000/confs/">
+  <link rel="canonical" href="http://localhost:4000/2024/01/14/what-is-cache.html">
 </head>
 <body>
   <div class='pad2y' style='position:relative'>
@@ -512,56 +512,89 @@ blockquote p:last-child {
       <div class='header nu limiter no-print'>
         <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>Dom Lizarraga</h1>
         <ul style='list-style:none;padding:0;margin:0;'>
-          <li><a href='/'>Notes</a></li>
+          <li><a href='/'>Notes</a>⇠</li>
           <li><a href='/reading/'>Reading</a></li>
           <li><a href='/projects/'>Projects</a></li>
-          <li><a href='/confs/'>Confs</a>⇠</li>
+          <li><a href='/confs/'>Confs</a></li>
           <li><a href='/about/'>About</a></li>
         </ul>
       </div>
     </nav>
-    <div class='pad2y limiter content notitle'>
-      <div class='body'><h3 style="color:rgb(54, 54, 59);margin-bottom:1.5rem;">Here you'll find the confs that I have attended or will be attending in the future.</h3>
+    <div class='pad2y limiter content '>
+      <h1>What is cache? 💵 💰</h1>
+<div class='body'><p>Currently, I’m focusing on enhancing the performance of an application, and one of the key areas I’ve explored in-depth is caching. Although I was aware of caching before, I didn’t fully grasp its concept or have the opportunity to apply it, so I never felt compelled to delve into it.</p>
 
-<div class='project-box'>
+<p>If you find yourself in a similar position, here are some initial steps to build a strong understanding of caching :)</p>
 
-<a href='/2022/10/04/conf-1.html' class='project'>
-  <strong>Rails Saas | Oct 2022.</strong> <span>Description pending.</span>
-</a>
+<p><strong>What is cache?</strong></p>
 
-<a href='/2023/04/24/conf-2.html' class='project'>
-  <strong>Rails Conf ATL | Apr 2023.</strong> <span>Description pending.</span>
-</a>
+<p>The term <a href="https://dictionary.cambridge.org/us/dictionary/english/cache">‘cache’ is an English word</a> meaning a secure place where items are stored and hidden. Now this concept will make more sense in computing.</p>
 
-<a href='/2023/06/05/conf-3.html' class='project'>
-  <strong>Blue Ridge Ruby | Jun 2023.</strong> <span>Description pending.</span>
-</a>
+<p>Cache is a method of storing frequently accessed data in fast memory to keep it closer to the user.</p>
 
-<a href='/2023/07/27/conf-4.html' class='project'>
-  <strong>Ruby For Good | Jul 2023.</strong> <span>Description pending.</span>
-</a>
+<p>This fast memory can be found either on hard drives, processors (like CPUs and GPUs) or web browser, web server, databases, client-side, CDNs and it goes from KBs to MBs and in different layers (L1, L2, etc).</p>
 
-<a href='/2023/09/15/conf-5.html' class='project'>
-  <strong>Rails Camp | Sep 2023.</strong> <span>Description pending.</span>
-</a>
+<p>In browser for example, the first time you visit a web site it will download the HTML, CSS and images then computer will save a copy of those files. The next time you visit that page, it will retrieve a local copy instead of requesting a web server, which speeds up the process.</p>
 
-<a href='/2023/10/05/conf-6.html' class='project'>
-  <strong>Rails world | Oct 2023.</strong> <span>Description pending.</span>
-</a>
+<p style="text-align: center;">Think of a coffee shop where the barista keeps commonly used items like milk and sugar at hand, rather than going to the storage room for each order. This is like 'caching', where frequently used data is kept readily accessible. ☕️</p>
 
-<a href='/2023/11/13/conf-7.html' class='project'>
-  <strong>Ruby Conf SD | Nov 2023.</strong> <span>Description pending.</span>
-</a>
+<p>Fun fact: The concept of caching was originally proposed in 1965 by Maurice Wilkes. <a href="https://www.historyofinformation.com/detail.php?id=834">Paper</a></p>
 
-<a href='https://www.sincityruby.com/' class='project'>
-  <strong>Sin City Ruby | Mar 2024.</strong> <span>Coming soon 🤗</span>
-</a>
+<p><strong>When is it useful?</strong></p>
 
-<a href='https://blueridgeruby.com/' class='project'>
-  <strong>Blue Ridge Ruby | May 2024.</strong> <span>Coming soon 🤗</span>
-</a>
+<p>There are 2 main ways so far to implement with Ruby on Rails app.</p>
+
+<ol>
+  <li>
+    <p>HTTP Caching - Web browser can cache HTTP responses to enable faster retrieval data. It improves response time and reduce load on back-end. By storing copies of frequently accessed data, caching reduces the need for repeated requests to the server, thereby enhancing overall performance and user experience. (Mostly for Static assets and JSON APIs and AJAX endpoints.)</p>
+  </li>
+  <li>
+    <p>This involves caching within the application itself and can be tailored to the specific needs of your Rails application. Rails provides several caching techniques like page caching, action caching, and fragment caching.</p>
+  </li>
+</ol>
+
+<p><strong>How to use it in rails?</strong></p>
+
+<p>Rails has 3 ways of caching data: page, action and fragment. Each of them has different purposes.</p>
+
+<ul>
+  <li>
+    <p><a href="https://guides.rubyonrails.org/caching_with_rails.html#page-caching">Page caching</a> stores the entire HTML response, serving it directly from the web server without hitting the Rails stack.</p>
+  </li>
+  <li>
+    <p><a href="https://guides.rubyonrails.org/caching_with_rails.html#action-caching">Action caching</a> caches the output of controller actions.</p>
+  </li>
+  <li>
+    <p><a href="https://guides.rubyonrails.org/caching_with_rails.html#fragment-caching">Fragment caching</a> is more granular and caches smaller pieces of a view.</p>
+  </li>
+</ul>
+
+<p>Also there are different techniques as well like Russian Doll Caching, Shared partial caching, Low-Level Caching and Key-based cache expiration.</p>
+
+<p><strong>Extra tools you need. 🛠️</strong></p>
+
+<p>Redis: Advanced in-memory data store, supports complex structures, ensures data persistence, replication, and integrity.</p>
+
+<p>Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.</p>
+
+<p><strong>Is it Truly Beneficial for Your App?</strong></p>
+
+<p>Currently in the implementation phase, the improvements are evident on the pages where it has been applied. It is advisable to compare response times before and after implementing these changes. If feasible, establish a Maximum Average Response Time (MART) as a benchmark.</p>
 
 </div>
+
+<div class='breaker'></div>
+
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2024-01-14">
+      January 14, 2024
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
 </div>
 
     </div>

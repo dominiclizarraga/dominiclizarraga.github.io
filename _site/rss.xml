@@ -12,6 +12,74 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>What is cache? 💵 💰</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;Currently, I’m focusing on enhancing the performance of an application, and one of the key areas I’ve explored in-depth is caching. Although I was aware of caching before, I didn’t fully grasp its concept or have the opportunity to apply it, so I never felt compelled to delve into it.&lt;/p&gt;
+
+&lt;p&gt;If you find yourself in a similar position, here are some initial steps to build a strong understanding of caching :)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What is cache?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The term &lt;a href=&quot;https://dictionary.cambridge.org/us/dictionary/english/cache&quot;&gt;‘cache’ is an English word&lt;/a&gt; meaning a secure place where items are stored and hidden. Now this concept will make more sense in computing.&lt;/p&gt;
+
+&lt;p&gt;Cache is a method of storing frequently accessed data in fast memory to keep it closer to the user.&lt;/p&gt;
+
+&lt;p&gt;This fast memory can be found either on hard drives, processors (like CPUs and GPUs) or web browser, web server, databases, client-side, CDNs and it goes from KBs to MBs and in different layers (L1, L2, etc).&lt;/p&gt;
+
+&lt;p&gt;In browser for example, the first time you visit a web site it will download the HTML, CSS and images then computer will save a copy of those files. The next time you visit that page, it will retrieve a local copy instead of requesting a web server, which speeds up the process.&lt;/p&gt;
+
+&lt;p style=&quot;text-align: center;&quot;&gt;Think of a coffee shop where the barista keeps commonly used items like milk and sugar at hand, rather than going to the storage room for each order. This is like &apos;caching&apos;, where frequently used data is kept readily accessible. ☕️&lt;/p&gt;
+
+&lt;p&gt;Fun fact: The concept of caching was originally proposed in 1965 by Maurice Wilkes. &lt;a href=&quot;https://www.historyofinformation.com/detail.php?id=834&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;When is it useful?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;There are 2 main ways so far to implement with Ruby on Rails app.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;HTTP Caching - Web browser can cache HTTP responses to enable faster retrieval data. It improves response time and reduce load on back-end. By storing copies of frequently accessed data, caching reduces the need for repeated requests to the server, thereby enhancing overall performance and user experience. (Mostly for Static assets and JSON APIs and AJAX endpoints.)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This involves caching within the application itself and can be tailored to the specific needs of your Rails application. Rails provides several caching techniques like page caching, action caching, and fragment caching.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;How to use it in rails?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Rails has 3 ways of caching data: page, action and fragment. Each of them has different purposes.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://guides.rubyonrails.org/caching_with_rails.html#page-caching&quot;&gt;Page caching&lt;/a&gt; stores the entire HTML response, serving it directly from the web server without hitting the Rails stack.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://guides.rubyonrails.org/caching_with_rails.html#action-caching&quot;&gt;Action caching&lt;/a&gt; caches the output of controller actions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;a href=&quot;https://guides.rubyonrails.org/caching_with_rails.html#fragment-caching&quot;&gt;Fragment caching&lt;/a&gt; is more granular and caches smaller pieces of a view.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Also there are different techniques as well like Russian Doll Caching, Shared partial caching, Low-Level Caching and Key-based cache expiration.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Extra tools you need. 🛠️&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Redis: Advanced in-memory data store, supports complex structures, ensures data persistence, replication, and integrity.&lt;/p&gt;
+
+&lt;p&gt;Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Is it Truly Beneficial for Your App?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Currently in the implementation phase, the improvements are evident on the pages where it has been applied. It is advisable to compare response times before and after implementing these changes. If feasible, establish a Maximum Average Response Time (MART) as a benchmark.&lt;/p&gt;
+
+</description>
+      <pubDate>Sun, 14 Jan 2024 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2024/01/14/what-is-cache.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/14/what-is-cache.html</guid>
+    </item>
+    
+    <item>
       <title>Product Focused Ruby - Kasper Timm Hansen.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;Sketching and mental model of programming.&lt;/strong&gt;&lt;/p&gt;
@@ -393,20 +461,6 @@ greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&
       <pubDate>Thu, 02 Nov 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/11/02/positional-vs-keyword-params.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/11/02/positional-vs-keyword-params.html</guid>
-    </item>
-    
-    <item>
-      <title>Latest tips &amp; tricks | Rails</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;first filter then map&lt;/p&gt;
-
-&lt;p&gt;.all.each vs find_each&lt;/p&gt;
-
-&lt;p&gt;size vs count vs length&lt;/p&gt;
-</description>
-      <pubDate>Thu, 26 Oct 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html</guid>
     </item>
     
   </channel>
