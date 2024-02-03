@@ -30,8 +30,6 @@ There are 2 main ways so far to implement with Ruby on Rails app.
 
 2. This involves caching within the application itself and can be tailored to the specific needs of your Rails application. Rails provides several caching techniques like page caching, action caching, and fragment caching. 
 
-
-
 **How to use it in rails?**
 
 Rails has 3 ways of caching data: page, action and fragment. Each of them has different purposes.
@@ -50,7 +48,8 @@ Redis: Advanced in-memory data store, supports complex structures, ensures data 
 
 Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.
 
-**Is it Truly Beneficial for Your App?**
+**Is it truly beneficial for your App?**
 
 Currently in the implementation phase, the improvements are evident on the pages where it has been applied. It is advisable to compare response times before and after implementing these changes. If feasible, establish a Maximum Average Response Time (MART) as a benchmark.
 
+More when we complete this process!
