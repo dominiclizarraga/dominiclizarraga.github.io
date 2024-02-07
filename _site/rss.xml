@@ -12,6 +12,18 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>The `where` clause in ActiveRecord</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;When optimizing an app I just learned to look at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.where&lt;/code&gt; because they can be potentially candidate for a associations preloading.&lt;/p&gt;
+
+&lt;p&gt;Let’s see how it works.&lt;/p&gt;
+</description>
+      <pubDate>Thu, 18 Jan 2024 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2024/01/18/the-where-clause.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/18/the-where-clause.html</guid>
+    </item>
+    
+    <item>
       <title>What is cache? 💵 💰</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;Currently, I’m focusing on enhancing the performance of an application, and one of the key areas I’ve explored in-depth is caching. Although I was aware of caching before, I didn’t fully grasp its concept or have the opportunity to apply it, so I never felt compelled to delve into it.&lt;/p&gt;
@@ -69,10 +81,11 @@
 
 &lt;p&gt;Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Is it Truly Beneficial for Your App?&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Is it truly beneficial for your App?&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Currently in the implementation phase, the improvements are evident on the pages where it has been applied. It is advisable to compare response times before and after implementing these changes. If feasible, establish a Maximum Average Response Time (MART) as a benchmark.&lt;/p&gt;
 
+&lt;p&gt;More when we complete this process!&lt;/p&gt;
 </description>
       <pubDate>Sun, 14 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/14/what-is-cache.html</link>
@@ -173,7 +186,21 @@
     <item>
       <title>N + 1 queries</title>
       <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;I recently had to deal with a n + 1 query and delve into….&lt;/strong&gt;&lt;/p&gt;
+      <description>&lt;p&gt;&lt;strong&gt;I recently had to deal with a n + 1 query….&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Firstly let’s understand why does this happen?&lt;/p&gt;
+
+&lt;p&gt;Data to recreate a small excercise:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;joins&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;includes&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;preload&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eager_load&lt;/code&gt;:&lt;/p&gt;
+
+&lt;p&gt;Conclusion:&lt;/p&gt;
 
 &lt;p&gt;So you need a sort at database level or just with ruby is enough?&lt;/p&gt;
 </description>
@@ -341,126 +368,6 @@ Settings: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;:privacy&lt;span class=&
       <pubDate>Tue, 07 Nov 2023 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2023/11/07/decompose-for-method-call.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/11/07/decompose-for-method-call.html</guid>
-    </item>
-    
-    <item>
-      <title>Positional vs Keyword arguments</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;When I began programming, I was puzzled by why some parameters were named and others not. &lt;br /&gt;
-Seeing &lt;a href=&quot;https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Array-2FHash+Argument&quot;&gt;*argument_name&lt;/a&gt; or &lt;a href=&quot;https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Keyword+Arguments&quot;&gt;**argument_name&lt;/a&gt; threw me for a loop. 😳&lt;/p&gt;
-
-&lt;p&gt;Here you’ll find the definitive guide to understand both!&lt;/p&gt;
-
-&lt;h2 id=&quot;positional-arguments&quot;&gt;Positional arguments&lt;/h2&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# This method takes any number of user names as positional arguments. 🙋🙋‍♀️&lt;/span&gt;
-def greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  users.each &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; |user| puts &lt;span class=&quot;s2&quot;&gt;&quot;Hello, #{user}!&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-end
-
-&lt;span class=&quot;c&quot;&gt;# Passing individual user names to the method, which are packed into an array.&lt;/span&gt;
-greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Alice&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;Bob&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;Carlos&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Outputs:&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Alice!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Bob!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Carlos!&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# This method can take a variable number of fruit names. 🍎🍌&lt;/span&gt;
-def list_fruits&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;fruits&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  fruits.join&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;, &apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-end
-
-&lt;span class=&quot;c&quot;&gt;# Passing a list of fruits to the method.&lt;/span&gt;
-puts list_fruits&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Apple&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;Banana&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;Cherry&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Outputs: Apple, Banana, Cherry&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;keyword-arguments&quot;&gt;Keyword arguments&lt;/h2&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Usage of ** for keyword arguments: 🙋🙋‍♀️&lt;/span&gt;
-def greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  users.each &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; |identifier, user_info|
-    puts &lt;span class=&quot;s2&quot;&gt;&quot;Hello, #{user_info[:name]}!&quot;&lt;/span&gt;
-  end
-end
-
-&lt;span class=&quot;c&quot;&gt;# Passing user details as keyword arguments.&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# The keys `:user1`, `:user2`, and `:user3` are identifiers for each user&apos;s hash.&lt;/span&gt;
-greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
-  user1: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; name: &lt;span class=&quot;s2&quot;&gt;&quot;Alice&quot;&lt;/span&gt;, age: 30 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-  user2: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; name: &lt;span class=&quot;s2&quot;&gt;&quot;Bob&quot;&lt;/span&gt;, age: 22 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-  user3: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; name: &lt;span class=&quot;s2&quot;&gt;&quot;Carlos&quot;&lt;/span&gt;, age: 25 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Outputs:&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Alice!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Bob!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Carlos!&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# This method takes a variable number of fruit names with details. 🍎🍌&lt;/span&gt;
-def list_fruits&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;fruits_with_details&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  fruits_with_details.map &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; |fruit, color| &lt;span class=&quot;s2&quot;&gt;&quot;#{fruit}: #{color}&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;.join&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;, &apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-end
-
-&lt;span class=&quot;c&quot;&gt;# Passing a hash of fruits with details to the method.&lt;/span&gt;
-puts list_fruits&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Apple: &lt;span class=&quot;s2&quot;&gt;&quot;Green&quot;&lt;/span&gt;, Banana: &lt;span class=&quot;s2&quot;&gt;&quot;Yellow&quot;&lt;/span&gt;, Cherry: &lt;span class=&quot;s2&quot;&gt;&quot;Red&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Outputs: Apple: Green, Banana: Yellow, Cherry: Red&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# More real example of user attributes as keyword arguments.🙋🙋‍♀️&lt;/span&gt;
-def create_user_profile&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;attributes&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Creating a profile for: #{attributes[:name]}&quot;&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Email: #{attributes[:email]}&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;attributes[:email]
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Signup Date: #{attributes[:signup_date]}&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;attributes[:signup_date]
-end
-
-&lt;span class=&quot;c&quot;&gt;# Passing attributes as a hash, packed with a double splat.&lt;/span&gt;
-create_user_profile&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;name: &lt;span class=&quot;s2&quot;&gt;&quot;Jane Doe&quot;&lt;/span&gt;, email: &lt;span class=&quot;s2&quot;&gt;&quot;jane.doe@example.com&quot;&lt;/span&gt;, signup_date: &lt;span class=&quot;s2&quot;&gt;&quot;2023-04-01&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Outputs:&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Creating a profile for: Jane Doe&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Email: jane.doe@example.com&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Signup Date: 2023-04-01&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;passing-objects-️&quot;&gt;Passing objects 🙋🙋‍♀️&lt;/h2&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class User
-  attr_reader :name
-
-  def initialize&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;name&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-    @name &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; name
-  end
-end
-
-&lt;span class=&quot;c&quot;&gt;# Create an array of User instances&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;
-  User.new&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Alice&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,
-  User.new&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Bob&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;,
-  User.new&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Carlos&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Define the greet_users method to accept multiple user objects&lt;/span&gt;
-def greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  users.each &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; |user| puts &lt;span class=&quot;s2&quot;&gt;&quot;Hello, #{user.name}!&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-end
-
-&lt;span class=&quot;c&quot;&gt;# Call greet_users with the array of User instances&lt;/span&gt;
-greet_users&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;users&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Outputs:&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Alice!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Bob!&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;# Hello, Carlos&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If you already have a hash with the appropriate keys, you can pass it to the method using the double splat operator **, which will convert the hash into keyword arguments.&lt;/p&gt;
-
-&lt;p&gt;Docs for reference:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Array-2FHash+Argument&quot;&gt;*positional_argument&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://docs.ruby-lang.org/en/3.1/syntax/methods_rdoc.html#label-Keyword+Arguments&quot;&gt;**keyword_argument&lt;/a&gt;&lt;/p&gt;
-</description>
-      <pubDate>Thu, 02 Nov 2023 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2023/11/02/positional-vs-keyword-params.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/11/02/positional-vs-keyword-params.html</guid>
     </item>
     
   </channel>

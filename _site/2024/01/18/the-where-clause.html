@@ -4,7 +4,7 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="How I learned rpsec" />
+  <meta name='twitter:title' content="The `where` clause in ActiveRecord" />
   <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
@@ -497,9 +497,9 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>How I learned rpsec - dominiclizarraga.github.io</title>
+  <title>The `where` clause in ActiveRecord - dominiclizarraga.github.io</title>
   
-  <link rel="canonical" href="http://localhost:4000/2023/06/14/how_i_learned_rspec.html">
+  <link rel="canonical" href="http://localhost:4000/2024/01/18/the-where-clause.html">
 </head>
 <body>
   <div class='pad2y' style='position:relative'>
@@ -521,79 +521,18 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <h1>How I learned rpsec</h1>
-<div class='body'><p><strong>Rspec learning resources</strong></p>
+      <h1>The `where` clause in ActiveRecord</h1>
+<div class='body'><p>When optimizing an app I just learned to look at the <code class="language-plaintext highlighter-rouge">.where</code> because they can be potentially candidate for a associations preloading.</p>
 
-<p>The best way to get a grasp of testing  in general and <em>rspec</em> is to start from scratch a project and start writing down each test, that way you’ll be able to see what happens if you forget to close either a <code class="language-plaintext highlighter-rouge">context</code> block or an <code class="language-plaintext highlighter-rouge">it</code> block or even more intricate subjects like what’s the difference between <code class="language-plaintext highlighter-rouge">describe</code> and <code class="language-plaintext highlighter-rouge">context</code>.</p>
-
-<p>While developing a freelance project I wanted to add testing as a way to push myself to learn more about testing and also give <em>rspec</em> a try and by doing it I learned how to use gems like: <a href="https://github.com/faker-ruby/faker">faker</a>, <a href="https://github.com/thoughtbot/shoulda-matchers">shoulda-matchers</a>, <a href="https://github.com/thoughtbot/factory_bot_rails">factory_bot</a> and finally <a href="https://github.com/rspec/rspec-rails">rspec</a>. 🎲</p>
-
-<p>You’ll additionally acquire:</p>
-
-<p>– how to read the output of the test suite in the console.</p>
-
-<p>– difference between <code class="language-plaintext highlighter-rouge">create</code> and <code class="language-plaintext highlighter-rouge">build</code> <a href="https://stackoverflow.com/questions/14098031/whats-the-difference-between-the-build-and-create-methods-in-factorygirl">more details.</a>;</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">#</span><span class="w"> </span><span class="err">build</span><span class="w"> </span><span class="err">doesn't</span><span class="w"> </span><span class="err">persist</span><span class="w"> 
-</span><span class="err">user</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">build(:user,</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="s2">"John"</span><span class="err">)</span><span class="w">
-</span><span class="err">expect(user.name).to</span><span class="w"> </span><span class="err">eq(</span><span class="s2">"John"</span><span class="err">)</span><span class="w">
-
-</span><span class="err">#</span><span class="w"> </span><span class="err">create</span><span class="w"> </span><span class="err">does</span><span class="w"> </span><span class="err">persist</span><span class="w"> 
-</span><span class="err">user</span><span class="w"> </span><span class="err">=</span><span class="w"> </span><span class="err">create(:user,</span><span class="w"> </span><span class="err">name:</span><span class="w"> </span><span class="s2">"Jane"</span><span class="err">)</span><span class="w">
-</span><span class="err">expect(user.persisted?).to</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></code></pre></div></div>
-<p>– How to include Devise’s test helpers</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">class</span><span class="w"> </span><span class="err">PostsControllerTest</span><span class="w"> </span><span class="err">&lt;</span><span class="w"> </span><span class="err">ActionController::TestCase</span><span class="w">
-  </span><span class="err">config.include</span><span class="w"> </span><span class="err">Devise::Test::ControllerHelpers,</span><span class="w"> </span><span class="err">type:</span><span class="w"> </span><span class="err">:requests</span><span class="w">
-</span><span class="err">end</span><span class="w">
-
-</span></code></pre></div></div>
-<p><a href="https://henrytabima.github.io/rails-setup/docs/devise/test-helpers">blog</a>;</p>
-
-<p>– difference between <code class="language-plaintext highlighter-rouge">fixtures</code> and <code class="language-plaintext highlighter-rouge">factories</code>;</p>
-
-<p>– and finally learn how to integrate FactoryBot with RSpec <a href="https://github.com/thoughtbot/factory_bot/blob/main/GETTING_STARTED.md#configure-your-test-suite">link</a>.</p>
-
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">class</span><span class="w"> </span><span class="err">Test::Unit::TestCase</span><span class="w">
-  </span><span class="err">include</span><span class="w"> </span><span class="err">FactoryBot::Syntax::Methods</span><span class="w">
-</span><span class="err">end</span><span class="w">
-</span></code></pre></div></div>
-
-<p><ins>Here are also another resources that I followed in order to cement more my knowledge.</ins></p>
-
-<ul>
-  <li>
-    <p>2 hours long video from Type Fast a Youtube channel that makes rails tutorials. The video is very thorough. Covers model, requests, background job testing and system tests. <a href="https://www.youtube.com/watch?v=BXaMRm1FDa8&amp;list=PPSV">Fairly comprehensive starter guide to RSpec</a></p>
-  </li>
-  <li>
-    <p>1 hour long rspec tutorial from Type Fast was well (it’s more on the setup for an app) <a href="https://www.youtube.com/watch?v=D889P37r3bc&amp;list=PPSV">testing setup with rspec</a></p>
-  </li>
-  <li>
-    <p>How to test models <a href="https://www.youtube.com/watch?v=Spogv4o8haM&amp;list=PPSV">CJ Avila</a></p>
-  </li>
-  <li>
-    <p>How to use factory_bot <a href="https://www.youtube.com/watch?v=7JdyQEcZ7F8&amp;list=PPSV">Deanin, short tutorial</a></p>
-  </li>
-  <li>
-    <p>Full marathon of rspec tutorial (reading not video) from syntax, how to test a model and installing rspec <a href="https://remimercier.com/series/rspec/">Remi rspec tutorials</a></p>
-  </li>
-  <li>
-    <p>The Complete Guide to Rails Testing by Jason Swett <a href="The Complete Guide to Rails Testing">link</a></p>
-  </li>
-</ul>
-
-<p>Learn by doing is the best way to learn rspec DSL, development stack, learn what to test and why it’s important to test and avoid technical debt.</p>
-
-<p>So give it a try, it wont be difficult at all.</p>
+<p>Let’s see how it works.</p>
 </div>
 
 <div class='breaker'></div>
 
 <div class='pad2y'>
   <p>
-    <postamble datetime="2023-06-14">
-      June 14, 2023
+    <postamble datetime="2024-01-18">
+      January 18, 2024
     </postamble>
     &nbsp;
     <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">

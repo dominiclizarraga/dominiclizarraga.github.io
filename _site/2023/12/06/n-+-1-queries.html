@@ -522,7 +522,21 @@ blockquote p:last-child {
     </nav>
     <div class='pad2y limiter content '>
       <h1>N + 1 queries</h1>
-<div class='body'><p><strong>I recently had to deal with a n + 1 query and delve into….</strong></p>
+<div class='body'><p><strong>I recently had to deal with a n + 1 query….</strong></p>
+
+<p>Firstly let’s understand why does this happen?</p>
+
+<p>Data to recreate a small excercise:</p>
+
+<p><code class="language-plaintext highlighter-rouge">joins</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">includes</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">preload</code>:</p>
+
+<p><code class="language-plaintext highlighter-rouge">eager_load</code>:</p>
+
+<p>Conclusion:</p>
 
 <p>So you need a sort at database level or just with ruby is enough?</p>
 </div>
