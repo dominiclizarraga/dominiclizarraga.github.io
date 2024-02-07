@@ -12,6 +12,20 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>When you see the `.count` in a Rails view 👀</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;I’ve been working on improving the app performance and have learnt about how&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.count&lt;/code&gt;works and how it can slow down the app.&lt;/p&gt;
+
+&lt;p&gt;As a solution we have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter_cache&lt;/code&gt;provided by default by rails and also something more advance like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter_culture&lt;/code&gt;gem!&lt;/p&gt;
+
+&lt;p&gt;Let’s see how it can improve you app as well!&lt;/p&gt;
+</description>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2024/01/22/when-you-see-the-count.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/22/when-you-see-the-count.html</guid>
+    </item>
+    
+    <item>
       <title>The `where` clause in ActiveRecord</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;When optimizing an app I just learned to look at the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.where&lt;/code&gt; because they can be potentially candidate for a associations preloading.&lt;/p&gt;
@@ -305,69 +319,6 @@
       <pubDate>Wed, 08 Nov 2023 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2023/11/08/shape-up.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/11/08/shape-up.html</guid>
-    </item>
-    
-    <item>
-      <title>Decompose for method calls</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;In Ruby, it is possible to &lt;a href=&quot;https://docs.ruby-lang.org/en/3.1/syntax/assignment_rdoc.html#label-Array+Decomposition&quot;&gt;decompose the elements&lt;/a&gt; of arrays/hashes into distinct variables. Since values appear within arrays in a index order, they are unpacked into variables in the same order.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# Decompose of an array&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; fruits &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;apple&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;banana&quot;&lt;/span&gt;, &lt;span class=&quot;s2&quot;&gt;&quot;cherry&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; x, y, z &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; fruits
-&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; x
-&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;apple&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In this case we are going to use &lt;em&gt;decompose&lt;/em&gt; for a method call, &lt;em&gt;(with arrays only one splat needed *)&lt;/em&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def send_welcome_email&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;name, email, signup_date&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Sending welcome email to: #{name}&quot;&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Email: #{email}&quot;&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Signed up on: #{signup_date}&quot;&lt;/span&gt;
-end
-
-&lt;span class=&quot;c&quot;&gt;# Array of user information&lt;/span&gt;
-user_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Jane Doe&apos;&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;&apos;jane.doe@example.com&apos;&lt;/span&gt;, &lt;span class=&quot;s1&quot;&gt;&apos;2023-04-01&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Using splat to pass an array of elements&lt;/span&gt;
-send_welcome_email&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;user_data&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 👈
-
-&lt;span class=&quot;c&quot;&gt;# This code will output:&lt;/span&gt;
-Sending welcome email to: Jane Doe
-Email: jane.doe@example.com
-Signed up on: 2023-04-01
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we are going to &lt;em&gt;decompose&lt;/em&gt; for a hash, &lt;em&gt;(two splats needed **)&lt;/em&gt;.&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;def configure_user&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;profile:, preferences:, settings:&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Configuring user profile:&quot;&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Profile: #{profile}&quot;&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Preferences: #{preferences}&quot;&lt;/span&gt;
-  puts &lt;span class=&quot;s2&quot;&gt;&quot;Settings: #{settings}&quot;&lt;/span&gt;
-end
-
-&lt;span class=&quot;c&quot;&gt;# Hash of user configuration&lt;/span&gt;
-user_configuration &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  profile: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; username: &lt;span class=&quot;s1&quot;&gt;&apos;johndoe&apos;&lt;/span&gt;, language: &lt;span class=&quot;s1&quot;&gt;&apos;EN&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-  preferences: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; theme: &lt;span class=&quot;s1&quot;&gt;&apos;dark&apos;&lt;/span&gt;, notifications: &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;,
-  settings: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; privacy: &lt;span class=&quot;s1&quot;&gt;&apos;high&apos;&lt;/span&gt;, location: &lt;span class=&quot;s1&quot;&gt;&apos;off&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;c&quot;&gt;# Using 2 splats to pass a hash&lt;/span&gt;
-configure_user&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;**&lt;/span&gt;user_configuration&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; 👈
-
-&lt;span class=&quot;c&quot;&gt;# This code will output:&lt;/span&gt;
-Configuring user profile:
-Profile: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;:username&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;johndoe&quot;&lt;/span&gt;, :language&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;EN&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-Preferences: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;:theme&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dark&quot;&lt;/span&gt;, :notifications&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-Settings: &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;:privacy&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;high&quot;&lt;/span&gt;, :location&lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;off&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-</description>
-      <pubDate>Tue, 07 Nov 2023 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2023/11/07/decompose-for-method-call.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/11/07/decompose-for-method-call.html</guid>
     </item>
     
   </channel>
