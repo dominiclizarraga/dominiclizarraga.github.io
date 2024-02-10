@@ -44,9 +44,15 @@ Also there are different techniques as well like Russian Doll Caching, Shared pa
 
 **Extra tools you need. 🛠️**
 
+Rails caching is designed to be backend agnostic. This means you can implement custom caching solutions or adapters for other storage mechanisms.
+
 Redis: Advanced in-memory data store, supports complex structures, ensures data persistence, replication, and integrity.
 
 Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.
+
+Memory Store: Caches data in the Rails server's memory. This is a good option for single-server setups and development environments.
+
+File Store: Caches data as files on the disk. This can be useful in environments where memory is limited.
 
 **Is it truly beneficial for your App?**
 
