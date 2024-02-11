@@ -3,16 +3,24 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>http://localhost:4000/</loc>
-    <lastmod>2024-02-06T21:22:22-08:00</lastmod>
+    <lastmod>2024-02-10T17:56:11-08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:4000/about/</loc>
-    <lastmod>2024-02-06T21:22:22-08:00</lastmod>
+    <lastmod>2024-02-10T17:56:11-08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024/01/26/action-policy-cache.html</loc>
+      <lastmod>2024-01-26T00:00:00-08:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+      
+    </url>
   
     <url>
       <loc>http://localhost:4000/2024/01/22/when-you-see-the-count.html</loc>
@@ -25,6 +33,14 @@
     <url>
       <loc>http://localhost:4000/2024/01/18/the-where-clause.html</loc>
       <lastmod>2024-01-18T00:00:00-08:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+      
+    </url>
+  
+    <url>
+      <loc>http://localhost:4000/2024/01/16/cache-and-redis.html</loc>
+      <lastmod>2024-01-16T00:00:00-08:00</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.5</priority>
       

@@ -4,7 +4,7 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="Latest tips &amp; tricks | Rails" />
+  <meta name='twitter:title' content="Latest tips &amp; tricks | Ruby &amp; Rails" />
   <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
@@ -497,7 +497,7 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>Latest tips & tricks | Rails - dominiclizarraga.github.io</title>
+  <title>Latest tips & tricks | Ruby & Rails - dominiclizarraga.github.io</title>
   
   <link rel="canonical" href="http://localhost:4000/2023/10/26/lastest-tips-and-tricks.html">
 </head>
@@ -521,12 +521,175 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <h1>Latest tips & tricks | Rails</h1>
-<div class='body'><p>first filter then map</p>
+      <h1>Latest tips & tricks | Ruby & Rails</h1>
+<div class='body'><h4 id="first-filter-then-map">First <code class="language-plaintext highlighter-rouge">filter</code> then <code class="language-plaintext highlighter-rouge">map</code></h4>
 
-<p>.all.each vs find_each</p>
+<p>When you first filter a collection, you’re reducing its size by selecting only the elements that meet a certain condition. This step inherently decreases the number of items that will subsequently be processed by the map operation.</p>
 
-<p>size vs count vs length</p>
+<p>Imagine you have an array of user records, and you’re only interested in processing active users with an age above 18, where the processing involves a complex calculation.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">users</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">all</span>
+<span class="n">active_adult_users</span> <span class="o">=</span> <span class="n">users</span><span class="p">.</span><span class="nf">filter</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">.</span><span class="nf">active?</span> <span class="o">&amp;&amp;</span> <span class="n">user</span><span class="p">.</span><span class="nf">age</span> <span class="o">&gt;</span> <span class="mi">18</span> <span class="p">}</span>
+<span class="n">processed_users</span> <span class="o">=</span> <span class="n">active_adult_users</span><span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">complex_calculation</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<p>In this case, filtering out inactive users or those under 18 before applying the complex calculation minimizes the number of calculations, thus improving the performance.</p>
+
+<p>If you were to map first and then filter, every element in the collection, this means potentially performing a lot of unnecessary work.</p>
+
+<p>Remember: <a href="https://rubyapi.org/3.3/o/enumerable#method-i-select">.select</a>, <a href="https://rubyapi.org/3.3/o/enumerable#method-i-filter">.filter</a> and <a href="https://rubyapi.org/3.3/o/enumerable#method-i-find_all">find_all</a> are Enumerable methods that do the same thing!</p>
+
+<p>Similar methods are <a href="https://rubyapi.org/3.3/o/enumerable#method-i-collect">.collect</a> and <a href="https://rubyapi.org/3.3/o/enumerable#method-i-map">.map</a>!</p>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="filter_map-vs-filter--map"><code class="language-plaintext highlighter-rouge">filter_map</code> vs <code class="language-plaintext highlighter-rouge">filter</code> + <code class="language-plaintext highlighter-rouge">map</code></h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">filter_map</code> method iterates over an enumerable, applying a block to each element.</p>
+
+<p>This approach eliminates the need to iterate over a collection twice (once for filtering and once for mapping).</p>
+
+<p>Performance Benefits</p>
+
+<p><code class="language-plaintext highlighter-rouge">filter_map</code> is more efficient than using <code class="language-plaintext highlighter-rouge">filter</code> and <code class="language-plaintext highlighter-rouge">map</code> separately because:</p>
+
+<ul>
+  <li>It reduces the number of iterations over the collection to just one.</li>
+  <li>It avoids creating an intermediate array that would result from the first operation (filter or map) before passing it to the second operation.</li>
+</ul>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'apple'</span><span class="p">,</span> <span class="s1">'pear'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'cherry'</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s1">'fig'</span><span class="p">,</span> <span class="s1">'grape'</span><span class="p">]</span>
+
+<span class="n">uppercase_fruits</span> <span class="o">=</span> <span class="n">fruits</span><span class="p">.</span><span class="nf">filter_map</span> <span class="p">{</span> <span class="o">|</span><span class="n">fruit</span><span class="o">|</span> <span class="n">fruit</span><span class="p">.</span><span class="nf">upcase</span> <span class="k">if</span> <span class="n">fruit</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">length</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="p">}</span>
+
+<span class="nb">puts</span> <span class="n">uppercase_fruits</span> <span class="c1"># Output: ["APPLE", "BANANA", "CHERRY", "GRAPE"]</span>
+</code></pre></div></div>
+
+<p>With both methods separate <code class="language-plaintext highlighter-rouge">filter</code> + <code class="language-plaintext highlighter-rouge">map</code></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fruits</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'apple'</span><span class="p">,</span> <span class="s1">'pear'</span><span class="p">,</span> <span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'cherry'</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s1">'fig'</span><span class="p">,</span> <span class="s1">'grape'</span><span class="p">]</span>
+
+<span class="c1"># First, filter out the fruits with more than 4 letters, excluding nil values</span>
+<span class="n">filtered_fruits</span> <span class="o">=</span> <span class="n">fruits</span><span class="p">.</span><span class="nf">filter</span> <span class="p">{</span> <span class="o">|</span><span class="n">fruit</span><span class="o">|</span> <span class="n">fruit</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">length</span> <span class="o">&gt;</span> <span class="mi">4</span> <span class="p">}</span>
+
+<span class="c1"># Then, map the filtered fruits to uppercase</span>
+<span class="n">uppercase_fruits</span> <span class="o">=</span> <span class="n">filtered_fruits</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:upcase</span><span class="p">)</span>
+
+<span class="nb">puts</span> <span class="n">uppercase_fruits</span> <span class="c1"># Output: ["APPLE", "BANANA", "CHERRY", "GRAPE"]</span>
+
+</code></pre></div></div>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="find_each-vs-all--each">find_each vs all + each</h4>
+
+<p>When dealing with ActiveRecord objects, understanding the difference between find_each and using all followed by each is crucial for optimizing database interactions and memory usage.</p>
+
+<p>Using <code class="language-plaintext highlighter-rouge">all</code> followed by <code class="language-plaintext highlighter-rouge">each</code> is a straightforward way to iterate over a collection of records from the database. <code class="language-plaintext highlighter-rouge">all</code> retrieves all the records and loads them into memory, and <code class="language-plaintext highlighter-rouge">each</code> then iterates over these records one by one.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Student</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">student</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">student</span><span class="p">.</span><span class="nf">name</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Things to consider:</p>
+
+<ul>
+  <li>Memory Usage: If the students table contains a large number of records, loading all of them with all can consume a significant amount of memory,</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">find_each</code></p>
+
+<p><code class="language-plaintext highlighter-rouge">find_each</code> is specifically designed to manage memory consumption and efficiency when processing large numbers of records. Instead of loading all records into memory at once, <code class="language-plaintext highlighter-rouge">find_each</code> retrieves and loads records in batches, processing each batch before moving on to the next. <strong>By default, the batch size is 1000 records, but you can specify a different batch size if needed.</strong></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Students records are proccesed in batches of 100, significantly reducing memory usage.</span>
+<span class="no">Student</span><span class="p">.</span><span class="nf">find_each</span><span class="p">(</span><span class="ss">batch_size: </span><span class="mi">100</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">student</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">student</span><span class="p">.</span><span class="nf">name</span> 
+<span class="k">end</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">find_each</code> has different options to apply <a href="https://api.rubyonrails.org/classes/ActiveRecord/Batches.html#method-i-find_each">more details.</a></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Student</span><span class="p">.</span><span class="nf">find_each</span><span class="p">(</span><span class="ss">batch_size: </span><span class="mi">200</span><span class="p">,</span> <span class="ss">start: </span><span class="mi">1000</span><span class="p">,</span> <span class="ss">finish: </span><span class="mi">5000</span><span class="p">,</span> <span class="ss">order: :desc</span><span class="p">,</span> <span class="ss">error_on_ignore: </span><span class="kp">true</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">student</span><span class="o">|</span>
+  <span class="c1"># Your processing logic here</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="count-vs-length-vs-size">.count vs .length vs .size</h4>
+
+<p><strong><code class="language-plaintext highlighter-rouge">count</code></strong> directly translates to a <code class="language-plaintext highlighter-rouge">SELECT COUNT(*) SQL</code> query against the database. It asks the database to count the number of entries that match the query and does not load the objects into memory. This makes it very efficient for large datasets.</p>
+
+<p>Every time you call <code class="language-plaintext highlighter-rouge">count</code>, it performs a database query, which could be a downside if called repeatedly without a need for real-time accuracy. It will make an SQL COUNT regardless of the state of the collection in memory. <a href="https://dominiclizarraga.github.io/2024/01/22/when-you-see-the-count.html">(See this article to know how to tackle <code class="language-plaintext highlighter-rouge">count</code> efficiently)</a></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">book</span> <span class="o">=</span> <span class="no">Book</span><span class="p">.</span><span class="nf">first</span>
+<span class="c1"># Book Load ...</span>
+<span class="n">book</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">load</span>
+<span class="c1"># Comment Load (0.3ms) SELECT "comments".* FROM "comments" WHERE "comments"."book_id" = $1 [["book_id", 1]]</span>
+<span class="n">book</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">count</span>
+<span class="c1"># Comment Count (0.5ms) SELECT COUNT(*) FROM "comments" WHERE "comments"."book_id" = $1 [["book_id", 1]]</span>
+</code></pre></div></div>
+
+<p><strong><code class="language-plaintext highlighter-rouge">length</code></strong> loads the entire collection of objects into memory and then counts the number of elements. This can be memory-intensive for large datasets because it initializes all the objects. It does not trigger an extra database query if the collection is already loaded.</p>
+
+<p><code class="language-plaintext highlighter-rouge">ActiveRecord</code> loads the comments from the database (if they haven’t been loaded already) to count them. The count is done by Ruby in memory after loading the records.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">blogpost</span> <span class="o">=</span> <span class="no">BlogPost</span><span class="p">.</span><span class="nf">first</span>
+<span class="c1"># BlogPost Load ...</span>
+<span class="n">blogpost</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">to_a</span> 
+<span class="c1"># Comment Load (0.2ms) SELECT "comments".* FROM "comments" WHERE "comments"."blog_post_id" = $1 [["blog_post_id", 1]]</span>
+ <span class="p">[[</span><span class="s2">"blog_post_id"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="n">blogpost</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">length</span>
+<span class="c1"># (no additional database query is executed, comments are already loaded into memory.)</span>
+</code></pre></div></div>
+
+<p><strong>size</strong> combines the behaviors of both <code class="language-plaintext highlighter-rouge">count</code> and <code class="language-plaintext highlighter-rouge">length</code>. If the collection has already been loaded, size will calculate the number of elements in-memory, avoiding a database query.</p>
+
+<p>If the collection has not been loaded, it will perform a <code class="language-plaintext highlighter-rouge">SELECT COUNT(*) query</code>, similar to <code class="language-plaintext highlighter-rouge">count</code>.</p>
+
+<p>When a counter cache is implemented, <code class="language-plaintext highlighter-rouge">.size</code> uses the cached value for the count, eliminating the need for database queries to count the records.</p>
+
+<p>With data loaded:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># `size` if loaded, calculates the length with Ruby</span>
+<span class="n">blogpost</span> <span class="o">=</span> <span class="no">BlogPost</span><span class="p">.</span><span class="nf">first</span>
+<span class="c1"># BlogPost Load ...</span>
+<span class="n">blogpost</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">load</span>
+<span class="c1"># Comment Load (0.5ms) SELECT "comments".* FROM "comments" WHERE "comments"."blog_post_id" = $1 [["blog_post_id", 1]]</span>
+<span class="nb">puts</span> <span class="n">blogpost</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">size</span>
+<span class="c1"># (no db hit) - Uses Ruby to calculate the size from the loaded collection</span>
+</code></pre></div></div>
+
+<p>Without data loaded:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># `size` if not loaded, performs an SQL COUNT query</span>
+<span class="n">blogpost</span> <span class="o">=</span> <span class="no">BlogPost</span><span class="p">.</span><span class="nf">first</span>
+<span class="c1"># BlogPost Load ...</span>
+<span class="nb">puts</span> <span class="n">blogpost</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">size</span>
+<span class="c1"># Comment Count (0.4ms) SELECT COUNT(*) FROM "comments" WHERE "comments"."blog_post_id" = $1 [["blog_post_id", 1]]</span>
+</code></pre></div></div>
+<p>With counter cache:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Scenario 6: `size` if there is a counter cache, uses the cached count</span>
+<span class="n">blogpost</span> <span class="o">=</span> <span class="no">BlogPost</span><span class="p">.</span><span class="nf">first</span>
+<span class="c1"># BlogPost Load ...</span>
+<span class="nb">puts</span> <span class="n">blogpost</span><span class="p">.</span><span class="nf">likes</span><span class="p">.</span><span class="nf">size</span>
+<span class="c1"># (no db hit) - Uses counter cache</span>
+<span class="nb">puts</span> <span class="n">blogpost</span><span class="p">.</span><span class="nf">likes</span><span class="p">.</span><span class="nf">size</span>
+<span class="c1"># (no db hit) - Uses counter cache again without additional queries</span>
+</code></pre></div></div>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="sort_by-vs-order">sort_by vs order</h4>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<p>Try to make the calculations and queries even if they become big in controllers or models and in view just sort them in memory</p>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="shuffle--in-memory-vs-modelorderrandom--in-db">shuffle =&gt; in memory vs @model.order(‘random()’) =&gt; in db</h4>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="any--exist-vs-present--in-memory">any? =&gt; exist? vs present? =&gt; in memory</h4>
 </div>
 
 <div class='breaker'></div>

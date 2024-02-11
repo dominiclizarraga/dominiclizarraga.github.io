@@ -12,6 +12,18 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Cache + Action policy gem</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;Recently I worked with an app that was usgin Action Policy, I noticed that those policies were being called everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
+
+&lt;p&gt;Let’s dive in with Redis and how policies are saved in memory.&lt;/p&gt;
+</description>
+      <pubDate>Fri, 26 Jan 2024 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2024/01/26/action-policy-cache.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/26/action-policy-cache.html</guid>
+    </item>
+    
+    <item>
       <title>When you see the `.count` in a Rails view 👀</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;I’ve been working on improving the app performance and have learnt about how&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.count&lt;/code&gt;works and how it can slow down the app.&lt;/p&gt;
@@ -35,6 +47,28 @@
       <pubDate>Thu, 18 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/18/the-where-clause.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/18/the-where-clause.html</guid>
+    </item>
+    
+    <item>
+      <title>Key concepts for Redis and cache 💽</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;Expire&lt;/p&gt;
+
+&lt;p&gt;Bust&lt;/p&gt;
+
+&lt;p&gt;Cache hit&lt;/p&gt;
+
+&lt;p&gt;Cache miss&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user.touch&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Setting up redis in production since developers want a slower app in development&lt;/p&gt;
+
+&lt;p&gt;rails dev:cache&lt;/p&gt;
+</description>
+      <pubDate>Tue, 16 Jan 2024 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2024/01/16/cache-and-redis.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/16/cache-and-redis.html</guid>
     </item>
     
     <item>
@@ -91,9 +125,15 @@
 
 &lt;p&gt;&lt;strong&gt;Extra tools you need. 🛠️&lt;/strong&gt;&lt;/p&gt;
 
+&lt;p&gt;Rails caching is designed to be backend agnostic. This means you can implement custom caching solutions or adapters for other storage mechanisms.&lt;/p&gt;
+
 &lt;p&gt;Redis: Advanced in-memory data store, supports complex structures, ensures data persistence, replication, and integrity.&lt;/p&gt;
 
 &lt;p&gt;Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.&lt;/p&gt;
+
+&lt;p&gt;Memory Store: Caches data in the Rails server’s memory. This is a good option for single-server setups and development environments.&lt;/p&gt;
+
+&lt;p&gt;File Store: Caches data as files on the disk. This can be useful in environments where memory is limited.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Is it truly beneficial for your App?&lt;/strong&gt;&lt;/p&gt;
 
@@ -241,84 +281,6 @@
       <pubDate>Fri, 01 Dec 2023 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2023/12/01/debugging-libraries.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/12/01/debugging-libraries.html</guid>
-    </item>
-    
-    <item>
-      <title>The Rails and Hotwire Codex 🌀</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;h2 id=&quot;notes&quot;&gt;Notes&lt;/h2&gt;
-
-&lt;p&gt;Turbo Native is the core of Hotwire’s native extensions. It orchestrates a &lt;strong&gt;native web view&lt;/strong&gt; through &lt;strong&gt;multiple screens&lt;/strong&gt; within native navigation. This way the app has a native feel, despite all the content being rendered using the same HTML views as the web app.&lt;/p&gt;
-
-&lt;h3 id=&quot;native-navigation&quot;&gt;Native navigation&lt;/h3&gt;
-
-&lt;p&gt;&lt;em&gt;Navigation in a Turbo Native app is completely native.&lt;/em&gt; When the user taps a link, a native method is called to handle the visit proposal. If a fully native screen is preferred for a given URL, this method is where that choice can be made.&lt;/p&gt;
-
-&lt;p&gt;More commonly, we’ll want to visit the destination URL. 1) When a link is tapped, 2) Turbo Native creates a new screen, 3) injects the web view into it, 4) drives the web view to the new location using Turbo, and 5) displays the screen to the user.&lt;/p&gt;
-
-&lt;h3 id=&quot;authentication&quot;&gt;Authentication&lt;/h3&gt;
-
-&lt;p&gt;Turbo Native apps use &lt;strong&gt;cookie based authentication&lt;/strong&gt; for requests originating in a web view. If you have purely native screens and need to make HTTP requests from native code, you’ll need to implement a form of token based authentication on the server.&lt;/p&gt;
-
-&lt;h3 id=&quot;session&quot;&gt;Session&lt;/h3&gt;
-
-&lt;p&gt;A session co-ordinates &lt;strong&gt;a single native web view.&lt;/strong&gt; It’s responsible for triggering URL visits using Turbo, and for inserting the web view into new screens when displayed to the user, we’ll use a different session for each tab so the navigation in each tab is totally independent.&lt;/p&gt;
-
-&lt;h3 id=&quot;path-configuration&quot;&gt;Path Configuration&lt;/h3&gt;
-
-&lt;p&gt;The path configuration is a JSON file stored in the app bundle.&lt;/p&gt;
-
-&lt;p&gt;This file specifies a set of rules that match URLs, using regex patterns, to a set of properties. These properties define how a URL should be displayed in the app. If a particular URL has a fully native screen, this is where we tell Turbo Native about that.&lt;/p&gt;
-
-&lt;p&gt;Feature flags and other settings can also be defined making it simple to turn features on and off remotely.&lt;/p&gt;
-
-&lt;p&gt;All of this content was taken from book below, they’re personal notes. I encourage you buy it.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://railsandhotwirecodex.com/&quot;&gt;Book link is here.&lt;/a&gt;&lt;/p&gt;
-</description>
-      <pubDate>Tue, 21 Nov 2023 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2023/11/21/hotwire-codex.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/11/21/hotwire-codex.html</guid>
-    </item>
-    
-    <item>
-      <title>Shape up 🎢</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;h2 id=&quot;shaping-up-methodology-notes&quot;&gt;Shaping Up Methodology Notes&lt;/h2&gt;
-
-&lt;p&gt;These are some insights I’ve gathered from the “Shaping Up” methodology, which is neither Scrum nor dependent on Kanban boards.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-challenge-of-building-software&quot;&gt;The Challenge of Building Software&lt;/h3&gt;
-&lt;p&gt;In the realm of software development, there’s a substantial element of the unknown, given that what we’re building hasn’t existed before. Waiting six months to realize we’re on the wrong path is excessively long, while a two-week span is typically too brief to produce anything substantial.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-solution-defining-scope-and-time&quot;&gt;The Solution: Defining Scope and Time&lt;/h3&gt;
-&lt;p&gt;The solution lies in defining smaller projects that are actionable and testable. A period of six weeks is sufficient to both complete and deliver a project and short enough to allow for directional changes should they be necessary.&lt;/p&gt;
-
-&lt;h4 id=&quot;key-idea-1-estimate-vs-appetite&quot;&gt;Key Idea #1: Estimate vs. Appetite&lt;/h4&gt;
-&lt;p&gt;Instead of attaching a time estimate to a technical task, we should ask ourselves how much time we actually want to spend on this project. Consider the analogy of setting a budget before choosing a restaurant for dinner; it’s a strategic approach that takes into account the value, urgency, and business context.&lt;/p&gt;
-
-&lt;p&gt;We should strive for an agreement between product teams and technical staff to ensure the time is fixed and the scope is adaptable.&lt;/p&gt;
-
-&lt;h4 id=&quot;key-idea-2-shaping&quot;&gt;Key Idea #2: Shaping&lt;/h4&gt;
-&lt;p&gt;“Shaping” considers two major questions about scope: “What is included?” and “What is excluded?” It also addresses the detail required upfront versus what can be delegated to the team to resolve later. “Latitude” refers to the level of freedom or specificity given to the team.&lt;/p&gt;
-
-&lt;p&gt;A key part of shaping is the willingness to abandon features that are either technically impractical or not critical to the user interface.&lt;/p&gt;
-
-&lt;h4 id=&quot;key-idea-3-autonomy&quot;&gt;Key Idea #3: Autonomy&lt;/h4&gt;
-&lt;p&gt;Teams, consisting of two to three members, collaborate within a six-week cycle to deliver the complete project, not merely pieces of it. These teams maintain their focus without being burdened by unrelated tasks and are self-managed, operating at their own pace.&lt;/p&gt;
-
-&lt;p&gt;Work is distinguished as either planned (strategic) or unplanned (reactive).&lt;/p&gt;
-
-&lt;h3 id=&quot;further-learning&quot;&gt;Further Learning&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=h_8M23wVjXk&quot;&gt;Shaping in a Nutshell&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=mYbxQwQAkes&quot;&gt;Applying Shape Up in the Real World - Rails World 2023&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-</description>
-      <pubDate>Wed, 08 Nov 2023 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2023/11/08/shape-up.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/11/08/shape-up.html</guid>
     </item>
     
   </channel>
