@@ -153,7 +153,7 @@ blogpost = BlogPost.first
 puts blogpost.comments.size
 # Comment Count (0.4ms) SELECT COUNT(*) FROM "comments" WHERE "comments"."blog_post_id" = $1 [["blog_post_id", 1]]
 ```
-With counter cache:
+With <strong>counter cache</strong>:
 ```ruby
 # Scenario 6: `size` if there is a counter cache, uses the cached count
 blogpost = BlogPost.first
@@ -166,16 +166,52 @@ puts blogpost.likes.size
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;"/>
 
-#### sort_by vs order
+#### order vs sort_by
+
+`order` method is used with ActiveRecord relations to specify the order of records returned by a query. It translates directly into an `SQL ORDER BY clause`, meaning the sorting is done by the database before the records are returned to your Rails application.
+
+Since `order` operates at the database level, it is generally more efficient for large datasets. Databases are optimized for sorting operations, especially when working with indexes.
+
+```ruby
+Book.order(publication_year: :desc)
+```
+When you use `sort_by` (Ruby Enumerable), the entire collection needs to be loaded into memory first. Only then does sort_by reorder the collection based on the specified attributes or criteria.
+
+Use `sort_by` for smaller datasets or when you need to sort based on computed values. 
+
+Here, the trick is to work on a ActiveRecord relation otherwhise Rails loads the entire collection into memory. This is because `.sort_by` is an Enumerable method that operates on arrays, not on database queries. 
+
+So, the first step is converting the ActiveRecord relation into an array of model instances and after loading, `.sort_by` then iterates over the in-memory array:
+
+```ruby
+posts = Post.where(published: true)
+# This line implicitly loads all published posts into memory and then sorts them by title
+sorted_posts = posts.sort_by(&:title)
+```
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;"/>
 
-Try to make the calculations and queries even if they become big in controllers or models and in view just sort them in memory
+This is just an advice I got and wanted to keep it here.
+
+> Try to make the calculations and queries even if they become big in controllers or models and in view just sort them in memory.
+
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;"/>
 
-#### shuffle => in memory vs @model.order('random()') => in db
+#### @books.shuffle (in-memory)
+
+The `.shuffle` method is a Ruby Array method that randomly reorders the elements of the array. It operates in memory, meaning the entire array needs to be loaded.
+
+Ideal for situations where you have a relatively small dataset already loaded. [Ruby API.](https://rubyapi.org/3.3/o/array#method-i-shuffle)
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;"/>
+
+#### @books.order('random()') (in db)
+
+`random()` operation is performed by the database engine, which means it does not require loading all the data into your application's memory to shuffle it. [More details.](https://stackoverflow.com/questions/2752231/random-record-in-activerecord
+)
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;"/>
 
 #### any? => exist? vs present? => in memory
+

@@ -12,7 +12,7 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
-      <title>Cache + Action policy gem</title>
+      <title>Action policy gem + Cache</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;Recently I worked with an app that was usgin Action Policy, I noticed that those policies were being called everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
 
@@ -210,13 +210,16 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;ol&gt;
   &lt;li&gt;
-    &lt;p&gt;Utilize the User interface to create domain model objects (post, books, etc), followed by monitoring the server-side Rails logs.&lt;/p&gt;
+    &lt;p&gt;Utilize the user interface (UI) to create domain model objects (Posts, Books, Reservations, etc), followed by monitoring the server-side Rails logs.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Examine the generated SQL and then directly access the database using either &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;psql&lt;/code&gt; or the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rails dbconsole&lt;/code&gt;.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Lastly investigate the most recent record that has been saved or added to the database.&lt;/p&gt;
+    &lt;p&gt;Read the Models file (book.rb), search for associations, callbacks, scopes.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lastly look up the most recent record that has been saved or added to the database &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rails c&lt;/code&gt; and play with it.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 

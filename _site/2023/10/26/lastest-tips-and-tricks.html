@@ -665,7 +665,7 @@ blockquote p:last-child {
 <span class="nb">puts</span> <span class="n">blogpost</span><span class="p">.</span><span class="nf">comments</span><span class="p">.</span><span class="nf">size</span>
 <span class="c1"># Comment Count (0.4ms) SELECT COUNT(*) FROM "comments" WHERE "comments"."blog_post_id" = $1 [["blog_post_id", 1]]</span>
 </code></pre></div></div>
-<p>With counter cache:</p>
+<p>With <strong>counter cache</strong>:</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Scenario 6: `size` if there is a counter cache, uses the cached count</span>
 <span class="n">blogpost</span> <span class="o">=</span> <span class="no">BlogPost</span><span class="p">.</span><span class="nf">first</span>
 <span class="c1"># BlogPost Load ...</span>
@@ -677,19 +677,53 @@ blockquote p:last-child {
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
 
-<h4 id="sort_by-vs-order">sort_by vs order</h4>
+<h4 id="order-vs-sort_by">order vs sort_by</h4>
+
+<p><code class="language-plaintext highlighter-rouge">order</code> method is used with ActiveRecord relations to specify the order of records returned by a query. It translates directly into an <code class="language-plaintext highlighter-rouge">SQL ORDER BY clause</code>, meaning the sorting is done by the database before the records are returned to your Rails application.</p>
+
+<p>Since <code class="language-plaintext highlighter-rouge">order</code> operates at the database level, it is generally more efficient for large datasets. Databases are optimized for sorting operations, especially when working with indexes.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Book</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="ss">publication_year: :desc</span><span class="p">)</span>
+</code></pre></div></div>
+<p>When you use <code class="language-plaintext highlighter-rouge">sort_by</code> (Ruby Enumerable), the entire collection needs to be loaded into memory first. Only then does sort_by reorder the collection based on the specified attributes or criteria.</p>
+
+<p>Use <code class="language-plaintext highlighter-rouge">sort_by</code> for smaller datasets or when you need to sort based on computed values.</p>
+
+<p>Here, the trick is to work on a ActiveRecord relation otherwhise Rails loads the entire collection into memory. This is because <code class="language-plaintext highlighter-rouge">.sort_by</code> is an Enumerable method that operates on arrays, not on database queries.</p>
+
+<p>So, the first step is converting the ActiveRecord relation into an array of model instances and after loading, <code class="language-plaintext highlighter-rouge">.sort_by</code> then iterates over the in-memory array:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">published: </span><span class="kp">true</span><span class="p">)</span>
+<span class="c1"># This line implicitly loads all published posts into memory and then sorts them by title</span>
+<span class="n">sorted_posts</span> <span class="o">=</span> <span class="n">posts</span><span class="p">.</span><span class="nf">sort_by</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:title</span><span class="p">)</span>
+</code></pre></div></div>
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
 
-<p>Try to make the calculations and queries even if they become big in controllers or models and in view just sort them in memory</p>
+<p>This is just an advice I got and wanted to keep it here.</p>
+
+<blockquote>
+  <p>Try to make the calculations and queries even if they become big in controllers or models and in view just sort them in memory.</p>
+</blockquote>
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
 
-<h4 id="shuffle--in-memory-vs-modelorderrandom--in-db">shuffle =&gt; in memory vs @model.order(‘random()’) =&gt; in db</h4>
+<h4 id="booksshuffle-in-memory">@books.shuffle (in-memory)</h4>
+
+<p>The <code class="language-plaintext highlighter-rouge">.shuffle</code> method is a Ruby Array method that randomly reorders the elements of the array. It operates in memory, meaning the entire array needs to be loaded.</p>
+
+<p>Ideal for situations where you have a relatively small dataset already loaded. <a href="https://rubyapi.org/3.3/o/array#method-i-shuffle">Ruby API.</a></p>
+
+<hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
+
+<h4 id="booksorderrandom-in-db">@books.order(‘random()’) (in db)</h4>
+
+<p><code class="language-plaintext highlighter-rouge">random()</code> operation is performed by the database engine, which means it does not require loading all the data into your application’s memory to shuffle it. <a href="https://stackoverflow.com/questions/2752231/random-record-in-activerecord">More details.</a></p>
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;" />
 
 <h4 id="any--exist-vs-present--in-memory">any? =&gt; exist? vs present? =&gt; in memory</h4>
+
 </div>
 
 <div class='breaker'></div>

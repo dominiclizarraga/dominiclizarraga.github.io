@@ -1,5 +1,5 @@
 ---
-title: Cache + Action policy gem
+title: Action policy gem + Cache
 categories: blog
 layout: post
 ---

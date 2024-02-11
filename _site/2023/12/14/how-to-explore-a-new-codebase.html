@@ -524,13 +524,16 @@ blockquote p:last-child {
       <h1>How to quickly deep dive into a new code base.</h1>
 <div class='body'><ol>
   <li>
-    <p>Utilize the User interface to create domain model objects (post, books, etc), followed by monitoring the server-side Rails logs.</p>
+    <p>Utilize the user interface (UI) to create domain model objects (Posts, Books, Reservations, etc), followed by monitoring the server-side Rails logs.</p>
   </li>
   <li>
     <p>Examine the generated SQL and then directly access the database using either <code class="language-plaintext highlighter-rouge">psql</code> or the <code class="language-plaintext highlighter-rouge">rails dbconsole</code>.</p>
   </li>
   <li>
-    <p>Lastly investigate the most recent record that has been saved or added to the database.</p>
+    <p>Read the Models file (book.rb), search for associations, callbacks, scopes.</p>
+  </li>
+  <li>
+    <p>Lastly look up the most recent record that has been saved or added to the database <code class="language-plaintext highlighter-rouge">rails c</code> and play with it.</p>
   </li>
 </ol>
 
