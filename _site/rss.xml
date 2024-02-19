@@ -12,6 +12,16 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Beginner guide to Docker 🐳</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 28 Jan 2024 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2024/01/28/beginner-guide-docker.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/28/beginner-guide-docker.html</guid>
+    </item>
+    
+    <item>
       <title>Action policy gem + Cache</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;Recently I worked with an app that was usgin Action Policy, I noticed that those policies were being called everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
@@ -241,13 +251,48 @@
     </item>
     
     <item>
-      <title>N + 1 queries</title>
+      <title>N + 1 queries and how to fix them.</title>
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;&lt;strong&gt;I recently had to deal with a n + 1 query….&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;Firstly let’s understand why does this happen?&lt;/p&gt;
 
 &lt;p&gt;Data to recreate a small excercise:&lt;/p&gt;
+
+&lt;p&gt;Let’s create a small app so we can in detail what is being produced by each active record method.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Create app with name `preload_demo_app`&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;preload_demo_app&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Go to `preload_demo_app` dir&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;preload_demo_app&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Then let’s create models and add the associations we need needed.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Create `Event` model&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;location&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start_time&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:datetime&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Create `Attendee` model&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Attendee&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:string&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# Create `Registration` model&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Registration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:references&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;attendee&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:references&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Active Record Associations 👇&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# app/models/event.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:registrations&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:attendees&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;through: :registrations&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# app/models/attendee.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Attendee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:registrations&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;has_many&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:events&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;through: :registrations&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# app/models/registration.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Registration&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:event&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;belongs_to&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:attendee&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;With this in place we can start playing with the model by opening &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rails c&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;joins&lt;/code&gt;:&lt;/p&gt;
 
@@ -264,26 +309,6 @@
       <pubDate>Wed, 06 Dec 2023 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2023/12/06/n-+-1-queries.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/12/06/n-+-1-queries.html</guid>
-    </item>
-    
-    <item>
-      <title>Debugging libraries for Ruby and Rails</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Exploring Ruby Debugging Tools&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Section 1: Pry &lt;a href=&quot;https://github.com/pry/pry&quot;&gt;Pry GitHub&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Section 2: Pry-Rails &lt;a href=&quot;https://github.com/pry/pry-rails&quot;&gt;Pry-Rails GitHub&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Difference between “pry” and “pry-rails” &lt;a href=&quot;https://stackoverflow.com/questions/11709837/difference-between-pry-and-pry-rails#:~:text=The%20pry%2Drails%20gem%20simply,it%20just%20makes%20it%20easier.&amp;amp;text=How%20do%20I%20use%20pry%2Drails%20to%20debug%20Rails%20applications%3F&quot;&gt;Stackoverflow response&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Section 3: Debug &lt;a href=&quot;https://github.com/ruby/debug&quot;&gt;Debug GitHub&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Section 4: Byebug &lt;a href=&quot;https://github.com/deivid-rodriguez/byebug&quot;&gt;Byebug GitHub&lt;/a&gt;&lt;/p&gt;
-</description>
-      <pubDate>Fri, 01 Dec 2023 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2023/12/01/debugging-libraries.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2023/12/01/debugging-libraries.html</guid>
     </item>
     
   </channel>
