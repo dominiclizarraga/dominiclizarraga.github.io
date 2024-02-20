@@ -526,9 +526,48 @@ blockquote p:last-child {
 
 <p>Firstly let’s understand why does this happen?</p>
 
+<p>The N+1 query problem is like inviting friends to a party and then calling each one separately to ask if they’re coming. If you have 10 friends, you make 1 call to decide to invite them and then 10 more calls to each friend. So, for 10 friends, you make 11 calls in total.</p>
+
+<p>In databases, this is like fetching a list of items (like blog posts), and then for each item, making another query to fetch related data (like comments on each post). If you have 10 posts and you fetch comments for each one by one, you end up making 1 query to get all posts plus 10 more queries for comments, leading to 11 queries.</p>
+
+<p>But why in db happens this??</p>
+
+<p>The First Query (N): When you ask for the list of posts, the ORM makes one query to fetch all posts. This is your “N” part of the problem, where “N” is the number of posts.</p>
+
+<p>The Plus One (+1) Part: For each post, when you try to access its comments, the ORM realizes it hasn’t fetched those yet. So, it makes a new query for each post to fetch its comments. If you have 10 posts, this approach results in 10 additional queries - one for each post to get its comments.</p>
+
+<p>The ORM’s default behavior is to load data on demand (lazy loading). It avoids fetching related data until you explicitly access it, which can be efficient in scenarios where the related data is not needed. However, when you do need related data for each item in a list, it leads to multiple queries, creating the N+1 problem.</p>
+
+<p>Example:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># rails console</span>
+<span class="vi">@events</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">all</span>
+  <span class="no">Event</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.5</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"events"</span><span class="p">.</span><span class="nf">*</span> 
+  <span class="no">FROM</span> <span class="s2">"events"</span> <span class="o">/*</span> <span class="n">loading</span> <span class="k">for</span> <span class="n">pp</span> <span class="o">*</span><span class="sr">/ LIMIT ?  [["LIMIT", 11]]
+
+# Each call to `event.attendees` for an `event` triggers a separate query to fetch the `attendees` for just that `event`.
+
+@events.each do |event|
+  puts "Event: </span><span class="si">#{</span><span class="n">event</span><span class="p">.</span><span class="nf">name</span><span class="si">}</span><span class="sr">"
+  👉event.attendees.each do |attendee|
+    puts "  Attendee: </span><span class="si">#{</span><span class="n">attendee</span><span class="p">.</span><span class="nf">name</span><span class="si">}</span><span class="sr">"
+  end
+end
+# Logs:
+👉Event Load (0.2ms)  SELECT "events".* FROM "events"
+  Event: Tech Conference
+  👉Attendee Load (0.1ms)  SELECT "attendees".* FROM "attendees" INNER JOIN "registrations" ON "attendees"."id" = "registrations"."attendee_id" WHERE "registrations"."event_id" = ?  [["event_id", 1]]
+    Attendee: Alice
+    Attendee: Bob
+    Attendee: Charlie
+  Event: Music Festival
+  👉Attendee Load (0.0ms)  SELECT "attendees".* FROM "attendees" INNER JOIN "registrations" ON "attendees"."id" = "registrations"."attendee_id" WHERE "registrations"."event_id" = ?  [["event_id", 2]]
+    Attendee: Bob
+    Attendee: Dana
+</span></code></pre></div></div>
+
 <p>Data to recreate a small excercise:</p>
 
-<p>Let’s create a small app so we can in detail what is being produced by each active record method.</p>
+<p>Let’s create a small app so we can see in detail what is being produced by each active record method.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create app with name `preload_demo_app`</span>
 <span class="n">rails</span> <span class="n">new</span> <span class="n">preload_demo_app</span>
@@ -561,17 +600,69 @@ blockquote p:last-child {
   <span class="n">belongs_to</span> <span class="ss">:attendee</span>
 <span class="k">end</span>
 </code></pre></div></div>
-<p>With this in place we can start playing with the model by opening <code class="language-plaintext highlighter-rouge">rails c</code></p>
+<p>One last step, we need some data to play with:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># events</span>
+<span class="n">event1</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tech Conference"</span><span class="p">,</span> <span class="ss">location: </span><span class="s2">"Conference Center"</span><span class="p">,</span> <span class="ss">start_time: </span><span class="no">DateTime</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+<span class="n">event2</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Music Festival"</span><span class="p">,</span> <span class="ss">location: </span><span class="s2">"Outdoor Park"</span><span class="p">,</span> <span class="ss">start_time: </span><span class="no">DateTime</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 
-<p><code class="language-plaintext highlighter-rouge">joins</code>:</p>
+<span class="c1"># attendees</span>
+<span class="n">attendee1</span> <span class="o">=</span> <span class="no">Attendee</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Alice"</span><span class="p">)</span>
+<span class="n">attendee2</span> <span class="o">=</span> <span class="no">Attendee</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Bob"</span><span class="p">)</span>
+<span class="n">attendee3</span> <span class="o">=</span> <span class="no">Attendee</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Charlie"</span><span class="p">)</span>
+<span class="n">attendee4</span> <span class="o">=</span> <span class="no">Attendee</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Dana"</span><span class="p">)</span>
 
-<p><code class="language-plaintext highlighter-rouge">includes</code>:</p>
+<span class="c1"># registrations </span>
+<span class="no">Registration</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">event: </span><span class="n">event1</span><span class="p">,</span> <span class="ss">attendee: </span><span class="n">attendee1</span><span class="p">)</span>
+<span class="no">Registration</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">event: </span><span class="n">event1</span><span class="p">,</span> <span class="ss">attendee: </span><span class="n">attendee2</span><span class="p">)</span>
+<span class="no">Registration</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">event: </span><span class="n">event1</span><span class="p">,</span> <span class="ss">attendee: </span><span class="n">attendee3</span><span class="p">)</span>
+<span class="no">Registration</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">event: </span><span class="n">event2</span><span class="p">,</span> <span class="ss">attendee: </span><span class="n">attendee2</span><span class="p">)</span>
+<span class="no">Registration</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">event: </span><span class="n">event2</span><span class="p">,</span> <span class="ss">attendee: </span><span class="n">attendee4</span><span class="p">)</span>
+</code></pre></div></div>
+<p>With this in place we can start playing with the model by opening ‘<code class="language-plaintext highlighter-rouge">rails c</code>’</p>
 
-<p><code class="language-plaintext highlighter-rouge">preload</code>:</p>
+<p>Let’s see <code class="language-plaintext highlighter-rouge">includes</code> behavior:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># `.includes` is designed to minimize the number of queries and the overall load on the database by preloading associated data</span>
+<span class="no">Event</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:attendees</span><span class="p">)</span>
+  <span class="c1"># See the `IN` SQL keyword in the query for both `registrations` and `attendees`</span>
+  <span class="no">Event</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"events"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"events"</span> <span class="o">/*</span> <span class="n">loading</span> <span class="k">for</span> <span class="n">pp</span> <span class="o">*</span><span class="sr">/ LIMIT ?  [["LIMIT", 11]]
+    Registration Load (0.4ms)  SELECT "registrations".* FROM "registrations" 
+      WHERE "registrations"."event_id" IN (?, ?)  [["event_id", 1], ["event_id", 2]]
+    Attendee Load (0.1ms)  SELECT "attendees".* FROM "attendees" 
+      WHERE "attendees"."id" IN (?, ?, ?, ?)  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+</span></code></pre></div></div>
+
+<p>Now <code class="language-plaintext highlighter-rouge">preload</code>:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">preload</span><span class="p">(</span><span class="ss">:attendees</span><span class="p">)</span>
+  <span class="c1"># See the `IN` SQL keyword as well</span>
+  <span class="no">Event</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"events"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"events"</span> <span class="o">/*</span> <span class="n">loading</span> <span class="k">for</span> <span class="n">pp</span> <span class="o">*</span><span class="sr">/ LIMIT ?  [["LIMIT", 11]]
+  Registration Load (0.3ms)  SELECT "registrations".* FROM "registrations" 
+  WHERE "registrations"."event_id" IN (?, ?)  [["event_id", 1], ["event_id", 2]]
+  Attendee Load (0.1ms)  SELECT "attendees".* FROM "attendees" 
+  WHERE "attendees"."id" IN (?, ?, ?, ?)  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+</span></code></pre></div></div>
 
 <p><code class="language-plaintext highlighter-rouge">eager_load</code>:</p>
 
+<p>What happens with <code class="language-plaintext highlighter-rouge">.joins</code>:</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">event</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"Tech Conference"</span><span class="p">)</span>
+<span class="no">Event</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.1</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"events"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"events"</span> <span class="no">WHERE</span> <span class="s2">"events"</span><span class="o">.</span><span class="s2">"name"</span> <span class="o">=</span> <span class="p">?</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">"Tech Conference"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="c1"># Usage of `.joins`</span>
+<span class="no">Attendee</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:registrations</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">registrations: </span><span class="p">{</span><span class="ss">event_id: </span><span class="n">event</span><span class="p">.</span><span class="nf">id</span><span class="p">})</span>
+  <span class="c1"># an `INNER JOIN` is performed between `attendees` and `registrations`. </span>
+  <span class="c1"># It uses the association named `registrations` defined in the `Attendee` model.</span>
+  <span class="no">Attendee</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.2</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"attendees"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"attendees"</span> 
+  <span class="no">INNER</span> <span class="no">JOIN</span> <span class="s2">"registrations"</span> <span class="no">ON</span> <span class="s2">"registrations"</span><span class="o">.</span><span class="s2">"attendee_id"</span> <span class="o">=</span> <span class="s2">"attendees"</span><span class="o">.</span><span class="s2">"id"</span> 
+  <span class="no">WHERE</span> <span class="s2">"registrations"</span><span class="o">.</span><span class="s2">"event_id"</span> <span class="o">=</span> <span class="p">?</span> <span class="sr">/* loading for pp */</span> <span class="no">LIMIT</span> <span class="p">?</span>  <span class="p">[[</span><span class="s2">"event_id"</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">"LIMIT"</span><span class="p">,</span> <span class="mi">11</span><span class="p">]]</span>
+
+<span class="no">Event</span><span class="p">.</span><span class="nf">joins</span><span class="p">(:</span><span class="n">registrations</span><span class="p">).</span><span class="nf">distinct</span>
+  <span class="c1"># See the `DISTINCT` in the `SELECT` statement (ensures that events are listed uniquely).</span>
+  <span class="no">SELECT</span> <span class="no">DISTINCT</span> <span class="s2">"events"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"events"</span> 
+  <span class="no">INNER</span> <span class="no">JOIN</span> <span class="s2">"registrations"</span> <span class="no">ON</span> <span class="s2">"registrations"</span><span class="o">.</span><span class="s2">"event_id"</span> <span class="o">=</span> <span class="s2">"events"</span><span class="o">.</span><span class="s2">"id"</span> 
+</code></pre></div></div>
+
 <p>Conclusion:</p>
+
+<div><img src="/graphics/projects/n_+_1.png" alt="n + 1 table" style="width:900px;" /></div>
 
 <p>So you need a sort at database level or just with ruby is enough?</p>
 </div>
