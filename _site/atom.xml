@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-02-19T20:41:28-08:00</updated>
+  <updated>2024-02-19T20:47:22-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -438,7 +438,15 @@ end
 
 &lt;div&gt;&lt;img src=&quot;/graphics/projects/n_+_1.png&quot; alt=&quot;n + 1 table&quot; style=&quot;width:900px;&quot; /&gt;&lt;/div&gt;
 
-&lt;p&gt;So you need a sort at database level or just with ruby is enough?&lt;/p&gt;
+&lt;p&gt;Hope you get more understanding on this topic!&lt;/p&gt;
+
+&lt;p&gt;More blog posts here: 👇&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://theleafnode.com/active-record-includes-and-n-plus-1-query-problem-2/&quot;&gt;Bhumi’s N + 1 blog post&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://codedecoder.wordpress.com/2014/07/23/eager-loading-eager_load-preload-includes/&quot;&gt;arunyadav N + 1&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://bhserna.gumroad.com/l/fix-n-1-queries-on-rails?layout=profile&amp;amp;recommended_by=library&quot;&gt;Benito Serna N + 1 ebook&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;
+So you need a sort at database level or just with ruby is enough?&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
