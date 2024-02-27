@@ -195,6 +195,8 @@ This is just an advice I got and wanted to keep it here.
 
 > Try to make the calculations and queries even if they become big in controllers or models and in view just sort them in memory.
 
+> Better to ship the wrong thing today than the right thing in 2 weeks! Because then you can get feedback and learn 14 things in 2 weeks instead of 1 thing. And you are as useful as the code you ship. So try to ship every day, multiple times if possible :smile:
+
 
 <hr style="height: 4px; border-width: 0; color: gray; background-color: blue; opacity: 0.5;"/>
 
