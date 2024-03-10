@@ -6,6 +6,8 @@ layout: post
 
 In this blog post I'll share my findings when developing a Follow model (User can follow another User, Post, Comapny) with a polymorphic property.
 
+With the next models you can create a 'Following' feature that can be applied to almost any model you want, just add one line of code.
+
 ```ruby
 class User < ApplicationRecord
   # Users that follow this user 'Followers'
@@ -19,12 +21,14 @@ class Follow < ApplicationRecord
   belongs_to :user # who is making/pushing the button "Follow" (doing the following)
   belongs_to :followable, polymorphic: true
 
+  # This validation doesn't allow that user_1 follow user_2 twice
   validates :user_id, uniqueness: { scope: [:followable_type, :followable_id] }
 end
 ```
-```ruby
+Let's try out the code in rails console
 
-rails console ⌨️
+```ruby
+rails console
 
 u1 = User.first
 u2 = User.last
@@ -48,6 +52,11 @@ Follow.count
 
 u1.following.create(followable: u2)
 => TRANSACTION (0.8ms)  ROLLBACK (due to model validation)
+
+# class User
+# def follows?(user)
+#   following.exists?(followable: user)
+# end
 
 u1.follows? u2
 => true
@@ -73,7 +82,7 @@ u1.following
  ...]
 ```
 
-And it workd for other models like (Post, Company, etc)
+And it worked for other models like (Post, Company, etc)
 
 ```ruby
 class Post < ApplicationRecord

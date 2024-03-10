@@ -624,6 +624,7 @@ end
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># `.includes` is designed to minimize the number of queries and the overall load on the database by preloading associated data</span>
 <span class="no">Event</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:attendees</span><span class="p">)</span>
   <span class="c1"># See the `IN` SQL keyword in the query for both `registrations` and `attendees`</span>
+  <span class="c1"># A single SQL query that retrieves both in a single database roundtrip.</span>
   <span class="no">Event</span> <span class="no">Load</span> <span class="p">(</span><span class="mf">0.3</span><span class="n">ms</span><span class="p">)</span>  <span class="no">SELECT</span> <span class="s2">"events"</span><span class="p">.</span><span class="nf">*</span> <span class="no">FROM</span> <span class="s2">"events"</span> <span class="o">/*</span> <span class="n">loading</span> <span class="k">for</span> <span class="n">pp</span> <span class="o">*</span><span class="sr">/ LIMIT ?  [["LIMIT", 11]]
     Registration Load (0.4ms)  SELECT "registrations".* FROM "registrations" 
       WHERE "registrations"."event_id" IN (?, ?)  [["event_id", 1], ["event_id", 2]]

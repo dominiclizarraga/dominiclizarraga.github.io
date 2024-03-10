@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang=en>
+<head>
+  <meta charset=utf-8>
+  <meta name=author content='Dom Lizarraga' />
+  <meta name='theme-color' content='#fff' />
+  <meta name='twitter:title' content="Follow as Polymorphic" />
+  <meta name=description content="" />
+  <meta name=viewport content='width=device-width,minimum-scale=1'>
+  <meta property='og:site_name' content="dominiclizarraga.github.io"/>
+  <meta property='og:email' content="dominiclizarraga@hotmail.com"/>
+  <meta property='og:type' content=blog />
+  <meta property='twitter:account_id' content=domlizarraga_ />
+  
+  
+  <script type='application/ld+json'>{"@context": "http://schema.org","@type": "CreativeWork","author": "Dom Lizarraga"}</script>
+  
+    <link rel=alternate type='application/rss+xml' title="dominiclizarraga.github.io" href="http://localhost:4000/rss.xml" />
+    <link rel=alternate type='application/atom+xml' title="dominiclizarraga.github.io" href="http://localhost:4000/atom.xml" />
+  
+  <link rel=icon type=image/x-icon href=/css/favicon.png />
+  <style>:root {
+  --mono-font: San Francisco Mono, Monaco, "Consolas", "Lucida Console",
+    "DejaVu Sans Mono", "Bitstream Vera Sans Mono", monospace;
+  --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
+    helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial,
+    sans-serif;
+}
+
+.star {
+  width: 13px;
+  height: 12px;
+  display: inline-block;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTMiIGhlaWdodD0iMTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTYuMzA5IDkuMjJMMi40MDkgMTJsMS40NC00LjU2N0wwIDQuNTgzbDQuNzg4LS4wNDJMNi4zMDggMCA3LjgzIDQuNTRsNC43ODkuMDQ0LTMuODUgMi44NDlMMTAuMjA5IDEyeiIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+");
+}
+
+body {
+  color: #111;
+  margin: 0px auto;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.6;
+  font-size: 1rem;
+  font-family: var(--sans-font);
+}
+
+/* Print tweaks ------------------------------------------------------------- */
+.only-print {
+  display: none;
+}
+
+.notitle .body p:first-child {
+  margin-top: 0.25rem;
+}
+
+.body img {
+  width: 100%;
+  max-width: 640px;
+}
+
+/* Element styles ----------------------------------------------------------- */
+sup,
+sub {
+  vertical-align: baseline;
+  position: relative;
+  top: -0.4em;
+}
+
+sub {
+  top: 0.4em;
+}
+
+a {
+  color: #000;
+  text-decoration-skip-ink: auto;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: #333;
+}
+
+ol,
+ul {
+  margin: 1rem 0;
+}
+
+ul ul {
+  margin: 0;
+}
+
+ol li ul {
+  margin: 5px 10px;
+}
+
+iframe {
+  border: 0;
+}
+
+small,
+.small {
+  font-size: 14px;
+}
+
+br {
+  line-height: 1em;
+}
+
+h1 a {
+  color: #111;
+}
+
+em {
+  font-style: italic;
+}
+
+h1 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.004em;
+}
+
+h2 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 0.009em;
+}
+
+h3 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: 0.009em;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+h5 {
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+blockquote {
+  font-size: 16px;
+  line-height: 25px;
+}
+
+td {
+  vertical-align: top;
+}
+
+hr {
+  background: #000;
+  height: 1px;
+  border: 0;
+}
+
+summary {
+  cursor: pointer;
+}
+
+.body table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.body th {
+  text-align: left;
+}
+
+.body td,
+.body th {
+  padding: 0.5rem;
+}
+
+.body td {
+  border: 1px solid #cfcfcf;
+}
+
+.limiter {
+  max-width: 640px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Padding --------------------------------------- */
+.pad2y {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+span.image-credit {
+  float: right;
+  margin: 0 0 10px 10px;
+  font-size: 12px;
+}
+
+span.image-credit:before {
+  content: "↑";
+  margin-right: 5px;
+}
+
+figcaption {
+  font-size: 11px;
+  text-align: center;
+  font-size: 0.8rem;
+  margin-top: -1.2rem;
+}
+
+div.post blockquote p {
+  margin: 0;
+}
+
+/** Writing ----------------------------------------------------------------- */
+.writing,
+.books {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+}
+
+.writing {
+  grid-template-columns: 1fr min-content;
+}
+
+.books {
+  grid-template-columns: 1fr 0.75fr min-content 70px;
+}
+
+.writing a,
+.books a {
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+
+.writing > div,
+.books > div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.writing time,
+.books time {
+  padding-right: 0.25em;
+  color: #333;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.012em;
+  white-space: pre;
+}
+
+.project-box {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+}
+
+.project-box a.project {
+  text-decoration: none;
+  color: #666;
+}
+.project-box a.project:hover {
+  color: #000;
+}
+.project-box a.project img {
+  display: block;
+  margin-bottom: 10px;
+}
+
+/** Responsive -------------------------------------------------------------- */
+
+@media screen and (max-width: 480px) {
+  .project-box {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .limiter {
+    width: auto;
+  }
+  .project-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .writing,
+  .books {
+    grid-template-columns: 1fr;
+    grid-row-gap: 0px;
+  }
+
+  .writing div,
+  .books div {
+    white-space: normal;
+  }
+
+  .writing time,
+  .books div:nth-child(4n) {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .nu a {
+    text-decoration: none;
+  }
+
+  .nu a:hover {
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .header-wrap {
+    border-bottom: 1px solid #000;
+    padding-bottom: 20px;
+  }
+  .sigil {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1025px) {
+  .header {
+    position: absolute;
+    top: 40px;
+    right: 50%;
+    margin-right: 340px !important;
+    letter-spacing: -0.009em;
+  }
+  .content h1:first-child {
+    margin-top: 0;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+  .only-print {
+    display: block;
+  }
+  body {
+    margin: 0;
+  }
+  .limiter {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/** Code highlighting ------------------------------------------------------- */
+p code,
+pre code,
+li code,
+g.highlight,
+.code {
+  font-family: var(--mono-font);
+}
+
+p code {
+  font-size: 90%;
+}
+
+pre code {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.highlight,
+blockquote {
+  overflow-x: auto;
+  padding: 10px 20px;
+  margin: 0;
+  background: #fff;
+}
+
+blockquote {
+  font-style: italic;
+}
+
+blockquote p:first-child {
+  margin-top: 0;
+}
+
+blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* pygments theme. does not support generics. .highlight class omitted */
+.highlight {
+  margin: 10px 0;
+}
+
+.highlight .hll {
+  background-color: #ffffcc;
+}
+
+.c, /* Comment */
+.cm, /* Comment.Multiline */
+.cp, /* Comment.Preproc */
+.cs, /* Comment.Special */
+.c1 {
+  color: #999988;
+} /* Comment.Single */
+
+.o, /* Operator */
+.ow, /* Operator.Word */
+.ge {
+  color: #000000;
+} /* Generic.Emph */
+
+.kc, /* Keyword.Constant */
+.kd, /* Keyword.Declaration */
+.kn, /* Keyword.Namespace */
+.kp, /* Keyword.Pseudo */
+.kr, /* Keyword.Reserved */
+.kt {
+  color: #445588;
+} /* Keyword.Type */
+
+.err {
+  color: #a61717;
+} /* Error */
+
+.m {
+  color: #007f7f;
+} /* Literal.Number */
+.s {
+  color: #d01040;
+} /* Literal.String */
+
+.na, /* Name.Attribute */
+.nb, /* Name.Builtin */
+.nc, /* Name.Class */
+.no, /* Name.Constant */
+.nd, /* Name.Decorator */
+.ni, /* Name.Entity */
+.ne, /* Name.Exception */
+.nf, /* Name.Function */
+.nn, /* Name.Namespace */
+.nt, /* Name.Tag */
+.nl {
+  color: #990000;
+} /* Name.Label */
+
+.k, /* Keyword */
+.nv {
+  color: #008080;
+} /* Name.Variable */
+
+.mf, /* Literal.Number.Float */
+.mh, /* Literal.Number.Hex */
+.mi, /* Literal.Number.Integer */
+.mo {
+  color: #009999;
+} /* Literal.Number.Oct */
+
+.sb, /* Literal.String.Backtick */
+.sc, /* Literal.String.Char */
+.sd, /* Literal.String.Doc */
+.s2, /* Literal.String.Double */
+.se, /* Literal.String.Escape */
+.sh, /* Literal.String.Heredoc */
+.s1, /* Literal.String.Single */
+.si, /* Literal.String.Interpol */
+.ss, /* Literal.String.Symbol */
+.bp, /* Name.Builtin.Pseudo */
+.sx {
+  color: #d01040;
+} /* Literal.String.Other */
+
+.sr, /* Literal.String.Regex */
+.vc, /* Name.Variable.Class */
+.vg, /* Name.Variable.Global */
+.vi, /* Name.Variable.Instance */
+.il {
+  color: #009999;
+} /* Literal.Number.Integer.Long */
+</style>
+  <title>Follow as Polymorphic - dominiclizarraga.github.io</title>
+  
+  <link rel="canonical" href="http://localhost:4000/2024/02/07/follow-as-polymorphic.html">
+</head>
+<body>
+  <div class='pad2y' style='position:relative'>
+    
+    <div class='only-print'>
+      <h2>Dom Lizarraga</h2>
+      <div style='margin-top:0;'>dominiclizarraga@hotmail.com</div>
+    </div>
+    <nav class='header-wrap'>
+      <div class='header nu limiter no-print'>
+        <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>Dom Lizarraga</h1>
+        <ul style='list-style:none;padding:0;margin:0;'>
+          <li><a href='/'>Notes</a>⇠</li>
+          <li><a href='/reading/'>Reading</a></li>
+          <li><a href='/projects/'>Projects</a></li>
+          <li><a href='/confs/'>Confs</a></li>
+          <li><a href='/about/'>About</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class='pad2y limiter content '>
+      <h1>Follow as Polymorphic</h1>
+<div class='body'><p>In this blog post I’ll share my findings when developing a Follow model (User can follow another User, Post, Comapny) with a polymorphic property.</p>
+
+<p>With the next models you can create a ‘Following’ feature that can be applied to almost any model you want, just add one line of code.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="c1"># Users that follow this user 'Followers'</span>
+  <span class="n">has_many</span> <span class="ss">:followers</span><span class="p">,</span> <span class="ss">class_name: </span><span class="s1">'Follow'</span><span class="p">,</span> <span class="ss">as: :followable</span>
+
+  <span class="c1"># Entities this user follows 'Following'</span>
+  <span class="n">has_many</span> <span class="ss">:following</span><span class="p">,</span> <span class="ss">class_name: </span><span class="s1">'Follow'</span><span class="p">,</span> <span class="ss">foreign_key: </span><span class="s1">'user_id'</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">Follow</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">belongs_to</span> <span class="ss">:user</span> <span class="c1"># who is making/pushing the button "Follow" (doing the following)</span>
+  <span class="n">belongs_to</span> <span class="ss">:followable</span><span class="p">,</span> <span class="ss">polymorphic: </span><span class="kp">true</span>
+
+  <span class="c1"># This validation doesn't allow that user_1 follow user_2 twice</span>
+  <span class="n">validates</span> <span class="ss">:user_id</span><span class="p">,</span> <span class="ss">uniqueness: </span><span class="p">{</span> <span class="ss">scope: </span><span class="p">[</span><span class="ss">:followable_type</span><span class="p">,</span> <span class="ss">:followable_id</span><span class="p">]</span> <span class="p">}</span>
+<span class="k">end</span>
+</code></pre></div></div>
+<p>Let’s try out the code in rails console</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rails</span> <span class="n">console</span>
+
+<span class="n">u1</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">first</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">last</span>
+
+<span class="n">follow</span> <span class="o">=</span> <span class="n">u1</span><span class="p">.</span><span class="nf">following</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">followable: </span><span class="n">u2</span><span class="p">)</span>
+
+<span class="no">Follow</span> <span class="no">Create</span> <span class="p">(</span><span class="mf">3.8</span><span class="n">ms</span><span class="p">)</span>  <span class="no">INSERT</span> <span class="no">INTO</span> <span class="s2">"follows"</span> <span class="p">(</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="s2">"followable_type"</span><span class="p">,</span> <span class="s2">"followable_id"</span><span class="p">,</span> <span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"updated_at"</span><span class="p">)</span> 
+<span class="no">VALUES</span> <span class="p">(</span><span class="vg">$1</span><span class="p">,</span> <span class="vg">$2</span><span class="p">,</span> <span class="vg">$3</span><span class="p">,</span> <span class="vg">$4</span><span class="p">,</span> <span class="vg">$5</span><span class="p">)</span> <span class="no">RETURNING</span> <span class="s2">"id"</span>  <span class="p">[[</span><span class="s2">"user_id"</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">"followable_type"</span><span class="p">,</span> <span class="s2">"User"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"followable_id"</span><span class="p">,</span> <span class="mi">18</span><span class="p">],</span> 
+<span class="p">[</span><span class="s2">"created_at"</span><span class="p">,</span> <span class="s2">"2024-02-29 05:25:28.228037"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"updated_at"</span><span class="p">,</span> <span class="s2">"2024-02-29 05:25:28.228037"</span><span class="p">]]</span>
+  <span class="no">TRANSACTION</span> <span class="p">(</span><span class="mf">0.6</span><span class="n">ms</span><span class="p">)</span>  <span class="no">COMMIT</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Follow:0x0000000102d226e0</span>
+ <span class="ss">id: </span><span class="mi">6</span><span class="p">,</span>
+ <span class="ss">user_id: </span><span class="mi">1</span><span class="p">,</span>
+ <span class="ss">followable_type: </span><span class="s2">"User"</span><span class="p">,</span>
+ <span class="ss">followable_id: </span><span class="mi">18</span><span class="p">,</span>
+ <span class="ss">created_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mf">28.228037000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
+ <span class="ss">updated_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">25</span><span class="p">:</span><span class="mf">28.228037000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span>
+
+<span class="no">Follow</span><span class="p">.</span><span class="nf">count</span>
+<span class="o">=&gt;</span> <span class="mi">1</span>
+
+<span class="n">u1</span><span class="p">.</span><span class="nf">following</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">followable: </span><span class="n">u2</span><span class="p">)</span>
+<span class="o">=&gt;</span> <span class="no">TRANSACTION</span> <span class="p">(</span><span class="mf">0.8</span><span class="n">ms</span><span class="p">)</span>  <span class="no">ROLLBACK</span> <span class="p">(</span><span class="n">due</span> <span class="n">to</span> <span class="n">model</span> <span class="n">validation</span><span class="p">)</span>
+
+<span class="c1"># class User</span>
+<span class="c1"># def follows?(user)</span>
+<span class="c1">#   following.exists?(followable: user)</span>
+<span class="c1"># end</span>
+
+<span class="n">u1</span><span class="p">.</span><span class="nf">follows?</span> <span class="n">u2</span>
+<span class="o">=&gt;</span> <span class="kp">true</span>
+
+<span class="n">u2</span><span class="p">.</span><span class="nf">followers</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="c1">#&lt;Follow:0x000000012eb126d0</span>
+  <span class="ss">id: </span><span class="mi">6</span><span class="p">,</span>
+  <span class="ss">user_id: </span><span class="mi">1</span><span class="p">,</span>
+  <span class="ss">followable_type: </span><span class="s2">"User"</span><span class="p">,</span>
+  <span class="ss">followable_id: </span><span class="mi">18</span><span class="p">,</span>
+  <span class="ss">created_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">17.215129000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
+  <span class="ss">updated_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">17.215129000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span><span class="p">]</span>
+
+<span class="n">u1</span><span class="p">.</span><span class="nf">following</span>
+<span class="p">[</span><span class="c1">#&lt;Follow:0x0000000102b63fc0</span>
+  <span class="ss">id: </span><span class="mi">6</span><span class="p">,</span>
+  <span class="ss">user_id: </span><span class="mi">1</span><span class="p">,</span>
+  <span class="ss">followable_type: </span><span class="s2">"User"</span><span class="p">,</span>
+  <span class="ss">followable_id: </span><span class="mi">18</span><span class="p">,</span>
+  <span class="ss">created_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">17.215129000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
+  <span class="ss">updated_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mf">17.215129000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span><span class="p">,</span>
+ <span class="c1">#&lt;Follow:0x0000000102d226e0</span>
+ <span class="o">...</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>And it worked for other models like (Post, Company, etc)</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Post</span> <span class="o">&lt;</span> <span class="no">ApplicationRecord</span>
+  <span class="n">has_many</span> <span class="ss">:followers</span><span class="p">,</span> <span class="ss">class_name: </span><span class="s1">'Follow'</span><span class="p">,</span> <span class="ss">as: :followable</span>
+<span class="k">end</span>
+<span class="n">user</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+<span class="n">post</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">find</span><span class="p">(</span><span class="n">post_id</span><span class="p">)</span>
+
+<span class="n">user</span><span class="p">.</span><span class="nf">following</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">followable: </span><span class="n">post</span><span class="p">)</span>
+  <span class="no">TRANSACTION</span> <span class="p">(</span><span class="mf">0.6</span><span class="n">ms</span><span class="p">)</span>  <span class="no">COMMIT</span>
+<span class="o">=&gt;</span> 
+<span class="c1">#&lt;Follow:0x0000000150038080</span>
+ <span class="ss">id: </span><span class="mi">8</span><span class="p">,</span>
+ <span class="ss">user_id: </span><span class="mi">1</span><span class="p">,</span>
+ <span class="ss">followable_type: </span><span class="s2">"Post"</span><span class="p">,</span>
+ <span class="ss">followable_id: </span><span class="mi">92</span><span class="p">,</span>
+ <span class="ss">created_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mf">29.921783000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">,</span>
+ <span class="ss">updated_at: </span><span class="no">Thu</span><span class="p">,</span> <span class="mi">29</span> <span class="no">Feb</span> <span class="mi">2024</span> <span class="mo">05</span><span class="p">:</span><span class="mi">56</span><span class="p">:</span><span class="mf">29.921783000</span> <span class="no">UTC</span> <span class="o">+</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="o">&gt;</span>
+
+</code></pre></div></div>
+<p>We’ve explored creating a follower system in Rails, showcasing the flexibility of polymorphic associations and the importance of validations. This guide provides a solid foundation for adding social functionalities to your Rails applications, ensuring a robust and scalable feature set.</p>
+</div>
+
+<div class='breaker'></div>
+
+<div class='pad2y'>
+  <p>
+    <postamble datetime="2024-02-07">
+      February  7, 2024
+    </postamble>
+    &nbsp;
+    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
+      @domlizarraga_
+    </a>
+  </p>
+</div>
+
+    </div>
+  </div>
+</body>
+</html>
