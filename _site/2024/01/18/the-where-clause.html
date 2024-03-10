@@ -4,7 +4,7 @@
   <meta charset=utf-8>
   <meta name=author content='Dom Lizarraga' />
   <meta name='theme-color' content='#fff' />
-  <meta name='twitter:title' content="The `where` clause in ActiveRecord" />
+  <meta name='twitter:title' content="Avoiding N+1 Queries 🚓" />
   <meta name=description content="" />
   <meta name=viewport content='width=device-width,minimum-scale=1'>
   <meta property='og:site_name' content="dominiclizarraga.github.io"/>
@@ -497,7 +497,7 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 </style>
-  <title>The `where` clause in ActiveRecord - dominiclizarraga.github.io</title>
+  <title>Avoiding N+1 Queries 🚓 - dominiclizarraga.github.io</title>
   
   <link rel="canonical" href="http://localhost:4000/2024/01/18/the-where-clause.html">
 </head>
@@ -521,10 +521,65 @@ blockquote p:last-child {
       </div>
     </nav>
     <div class='pad2y limiter content '>
-      <h1>The `where` clause in ActiveRecord</h1>
-<div class='body'><p>When optimizing an app I just learned to look at the <code class="language-plaintext highlighter-rouge">.where</code> because they can be potentially candidate for a associations preloading.</p>
+      <h1>Avoiding N+1 Queries 🚓</h1>
+<div class='body'><p>When optimizing an app, I recently learned to pay attention to the <code class="language-plaintext highlighter-rouge">.where</code> or <code class="language-plaintext highlighter-rouge">.find</code> methods inside <code class="language-plaintext highlighter-rouge">.each</code> loops because they can be potential candidates for association preloading.</p>
+
+<p>The reason is that for each element we iterate over, another operation will be executed, in this case <code class="language-plaintext highlighter-rouge">.where</code> or <code class="language-plaintext highlighter-rouge">.find</code>, which can lead to an N+1 query problem.</p>
 
 <p>Let’s see how it works.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Controller action</span>
+<span class="k">def</span> <span class="nf">index</span>
+  <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">all</span>
+<span class="k">end</span>
+
+<span class="c1"># View template</span>
+<span class="o">&lt;</span><span class="sx">% @posts.each </span><span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span> <span class="sx">%&gt;
+  &lt;h2&gt;</span><span class="o">&lt;</span><span class="sx">%= post.title %&gt;&lt;/h2&gt;
+  # This will trigger separate query for each post to fetch the author
+  &lt;p&gt;Author: &lt;%=</span> <span class="n">post</span><span class="p">.</span><span class="nf">author</span><span class="p">.</span><span class="nf">name</span> <span class="sx">%&gt;&lt;/p&gt;</span>
+  <span class="c1"># This will trigger separate query for each post to fetch the comments</span>
+  <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">Comments</span><span class="p">:</span> <span class="o">&lt;</span><span class="sx">%= post.comments.count %&gt;&lt;/p&gt;
+&lt;% end %&gt;
+</span></code></pre></div></div>
+<p>SQL produced:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 1 for Post.all</span>
+<span class="k">SELECT</span> <span class="nv">"posts"</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="nv">"posts"</span>
+<span class="c1">-- 2 for each post's author and comments count, this can get really worse</span>
+<span class="k">SELECT</span> <span class="nv">"authors"</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="nv">"authors"</span> <span class="k">WHERE</span> <span class="nv">"authors"</span><span class="p">.</span><span class="nv">"id"</span> <span class="o">=</span> <span class="o">?</span> <span class="k">LIMIT</span> <span class="mi">1</span>  <span class="p">[[</span><span class="nv">"id"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+<span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">FROM</span> <span class="nv">"comments"</span> <span class="k">WHERE</span> <span class="nv">"comments"</span><span class="p">.</span><span class="nv">"post_id"</span> <span class="o">=</span> <span class="o">?</span>  <span class="p">[[</span><span class="nv">"post_id"</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>To avoid this we can use <code class="language-plaintext highlighter-rouge">.includes</code></p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Controller action</span>
+<span class="k">def</span> <span class="nf">index</span>
+  <span class="c1"># we eagerly load the author and comments for all the posts in a single query</span>
+  <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:author</span><span class="p">,</span> <span class="ss">:comments</span><span class="p">).</span><span class="nf">all</span>
+<span class="k">end</span>
+
+<span class="c1"># View template</span>
+<span class="o">&lt;</span><span class="sx">% @posts.each </span><span class="k">do</span> <span class="o">|</span><span class="n">post</span><span class="o">|</span> <span class="sx">%&gt;
+  &lt;h2&gt;</span><span class="o">&lt;</span><span class="sx">%= post.title %&gt;&lt;/h2&gt;
+  &lt;p&gt;Author: &lt;%=</span> <span class="n">post</span><span class="p">.</span><span class="nf">author</span><span class="p">.</span><span class="nf">name</span> <span class="sx">%&gt;&lt;/p&gt;</span>
+  <span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;</span><span class="no">Comments</span><span class="p">:</span> <span class="o">&lt;</span><span class="sx">%= post.comments.count %&gt;&lt;/p&gt;
+&lt;% end %&gt;
+</span></code></pre></div></div>
+<p>SQL produced:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">-- 1 for Post.includes(:author, :comments), which eagerly loads the associated author and comments</span>
+<span class="c1">-- The number of queries is reduced to 3 (1 for posts, 1 for authors, 1 for comments), regardless of the number of posts.</span>
+<span class="k">SELECT</span> <span class="nv">"posts"</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="nv">"posts"</span>
+<span class="k">SELECT</span> <span class="nv">"authors"</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="nv">"authors"</span> <span class="k">WHERE</span> <span class="nv">"authors"</span><span class="p">.</span><span class="nv">"id"</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="k">SELECT</span> <span class="nv">"comments"</span><span class="p">.</span><span class="o">*</span> <span class="k">FROM</span> <span class="nv">"comments"</span> <span class="k">WHERE</span> <span class="nv">"comments"</span><span class="p">.</span><span class="nv">"post_id"</span> <span class="k">IN</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Another alternative is to use <code class="language-plaintext highlighter-rouge">.eager_load</code> instead of <code class="language-plaintext highlighter-rouge">.includes</code>. The difference is that <code class="language-plaintext highlighter-rouge">.includes</code> uses separate queries to load the associations, while <code class="language-plaintext highlighter-rouge">.eager_load </code>uses a single query with a LEFT_OUTER_JOIN.</p>
+
+<p><a href="/2023/12/06/n-+-1-queries.html">Here I have a deeper blog about it!</a></p>
+
+<p>Just wanted to highlight that you must be careful of those <code class="language-plaintext highlighter-rouge">where</code>, <code class="language-plaintext highlighter-rouge">find</code> and <code class="language-plaintext highlighter-rouge">find_by</code> inside of loops!</p>
 </div>
 
 <div class='breaker'></div>
