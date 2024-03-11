@@ -1,5 +1,5 @@
 ---
-title: What's the difference behing button_to link_to form_with
+title: Write the opposite to test your methods
 categories: blog
 layout: post
 ---
