@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-03-09T21:37:25-08:00</updated>
+  <updated>2024-03-14T13:12:04-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -13,13 +13,60 @@
   </author>
   
   <entry>
-    <title>What&apos;s the difference behing button_to link_to form_with</title>
-    <link href="http://localhost:4000/2024/02/17/write-the-opposite-to-test-your-methods.html"/>
+    <title>Refactoring and testing a long method in Ruby on Rails</title>
+    <link href="http://localhost:4000/2024/02/17/refactoring-and-testing.html"/>
     <updated>2024-02-17T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/02/17/write-the-opposite-to-test-your-methods</id>
-    <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Like model and how I got to find these differences very particular.&lt;/p&gt;
+    <id>http://localhost:4000/2024/02/17/refactoring-and-testing</id>
+    <content type="html">&lt;p&gt;Recently, we had the opportunity to refactor a lengthy method in a Ruby on Rails project. The method had multiple conditional statements (around 6) that checked various aspects of a project, such as whether it was discarded, on time, accepting entries, and more. Refactoring this method required careful planning and testing to ensure that the functionality remained intact while improving the code’s maintainability and readability.&lt;/p&gt;
 
-&lt;p&gt;remote: true&lt;/p&gt;
+&lt;p&gt;Before diving into the refactoring process, we first focused on writing tests that covered all the edge and corner cases. To do this, we wrote tests that checked the opposite of what the method was currently doing. For each conditional statement, we created a test that verified the expected behavior when the condition was met and when it was not.&lt;/p&gt;
+
+&lt;p&gt;Here’s an example of how we tested a condition that checked if a project was able to receive entries using FactoryBot:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# In the test file&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Project entries&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;should not accept entries when the project is not set to receive entries&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FactoryBot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;receive_entries: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Assert that the project does not accept entries&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;accept_entries?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_falsey&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;should accept entries when the project is set to receive entries&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FactoryBot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;receive_entries: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# Assert that the project accepts entries&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;accept_entries?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_truthy&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By writing tests for both scenarios (project accepting entries and not accepting entries), we ensured that the refactored method would handle these cases correctly.&lt;/p&gt;
+
+&lt;p&gt;Once we had a comprehensive test suite in place and all the tests were passing, we started the refactoring process. It’s important to remember that refactoring aims to modify the internal structure of the code without changing its external behavior. The goal is to improve performance, maintainability, and readability while adhering to the DRY (Don’t Repeat Yourself) principle.&lt;/p&gt;
+
+&lt;p&gt;During the refactoring, we focused on breaking down the long method into smaller, more manageable chunks. we extracted common functionality into separate methods and aimed to reduce the complexity of the conditional statements. Here’s a simplified example of how the refactored method might look:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;process_project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;discarded?&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;on_time?&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;project&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;accept_entries?&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# Process the project&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# ...&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;By separating the conditions into individual guard clauses, the method becomes more readable and easier to understand.&lt;/p&gt;
+
+&lt;p&gt;Throughout the refactoring process, we continuously ran the tests to ensure that the functionality remained intact and that we didn’t introduce any unintended changes.&lt;/p&gt;
+
+&lt;p&gt;Refactoring a long method can be a challenging task, especially for beginners. However, by following a systematic approach of writing comprehensive tests, breaking down the method into smaller parts, and focusing on improving maintainability and readability, you can successfully refactor your code and make it more manageable for future changes.&lt;/p&gt;
+
+&lt;p&gt;Remember 🎗️, refactoring is an iterative process, and it’s okay to take small steps and gradually improve your code over time. By consistently applying good coding practices and seeking feedback from more experienced developers, you can continuously enhance your refactoring skills and write cleaner, more maintainable code.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Breaking down the method into smaller, more manageable pieces.&lt;/li&gt;
+  &lt;li&gt;Applying the DRY (Don’t Repeat Yourself) principle to eliminate redundancy.&lt;/li&gt;
+  &lt;li&gt;Enhancing performance and maintainability to ensure the code could be easily modified in the future.&lt;/li&gt;
+&lt;/ul&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
@@ -28,11 +75,13 @@
   </entry>
   
   <entry>
-    <title>Write the opposite to test your methods</title>
+    <title>What&apos;s the difference behing button_to link_to form_with</title>
     <link href="http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html"/>
     <updated>2024-02-14T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith</id>
-    <content type="html">
+    <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Like model and how I got to find these differences very particular.&lt;/p&gt;
+
+&lt;p&gt;remote: true&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
