@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Dom Lizarraga</title>
-  <link href="http://localhost:4000/atom.xml" rel="self"/>
-  <link href="http://localhost:4000/"/>
-  <updated>2024-04-25T09:09:06-07:00</updated>
+  <link href="https://dominiclizarraga.github.io//atom.xml" rel="self"/>
+  <link href="https://dominiclizarraga.github.io//"/>
+  <updated>2024-04-25T09:27:34-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
-  <icon>http://localhost:4000/css/favicon.png</icon>
-  <id>http://localhost:4000/</id>
+  <icon>https://dominiclizarraga.github.io//css/favicon.png</icon>
+  <id>https://dominiclizarraga.github.io//</id>
   <author>
     <name>Dom Lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
@@ -14,9 +14,9 @@
   
   <entry>
     <title>Refactoring and testing a long method in Ruby on Rails</title>
-    <link href="http://localhost:4000/2024/02/17/refactoring-and-testing.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/02/17/refactoring-and-testing.html"/>
     <updated>2024-02-17T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/02/17/refactoring-and-testing</id>
+    <id>https://dominiclizarraga.github.io//2024/02/17/refactoring-and-testing</id>
     <content type="html">&lt;p&gt;Recently, we had the opportunity to refactor a lengthy method in a Ruby on Rails project. The method had multiple conditional statements (around 6) that checked various aspects of a project, such as whether it was discarded, on time, accepting entries, and more. Refactoring this method required careful planning and testing to ensure that the functionality remained intact while improving the code’s maintainability and readability.&lt;/p&gt;
 
 &lt;p&gt;Before diving into the refactoring process, we first focused on writing tests that covered all the edge and corner cases. To do this, we wrote tests that checked the opposite of what the method was currently doing. For each conditional statement, we created a test that verified the expected behavior when the condition was met and when it was not.&lt;/p&gt;
@@ -70,30 +70,30 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>What&apos;s the difference behing button_to link_to form_with</title>
-    <link href="http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/02/14/difference-between-buttonto-linkto-formwith.html"/>
     <updated>2024-02-14T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith</id>
+    <id>https://dominiclizarraga.github.io//2024/02/14/difference-between-buttonto-linkto-formwith</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Like model and how I got to find these differences very particular.&lt;/p&gt;
 
 &lt;p&gt;remote: true&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>Follow as Polymorphic</title>
-    <link href="http://localhost:4000/2024/02/07/follow-as-polymorphic.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/02/07/follow-as-polymorphic.html"/>
     <updated>2024-02-07T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/02/07/follow-as-polymorphic</id>
+    <id>https://dominiclizarraga.github.io//2024/02/07/follow-as-polymorphic</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Follow model (User can follow another User, Post, Comapny) with a polymorphic property.&lt;/p&gt;
 
 &lt;p&gt;With the next models you can create a ‘Following’ feature that can be applied to almost any model you want, just add one line of code.&lt;/p&gt;
@@ -194,28 +194,28 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>Beginner guide to Docker 🐳</title>
-    <link href="http://localhost:4000/2024/01/28/beginner-guide-docker.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/01/28/beginner-guide-docker.html"/>
     <updated>2024-01-28T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/28/beginner-guide-docker</id>
+    <id>https://dominiclizarraga.github.io//2024/01/28/beginner-guide-docker</id>
     <content type="html">&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>Action policy gem + Cache</title>
-    <link href="http://localhost:4000/2024/01/26/action-policy-cache.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/01/26/action-policy-cache.html"/>
     <updated>2024-01-26T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/26/action-policy-cache</id>
+    <id>https://dominiclizarraga.github.io//2024/01/26/action-policy-cache</id>
     <content type="html">&lt;p&gt;Recently I worked with an app that was using Action Policy, I noticed that those policies were being called almost everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
 
 &lt;p&gt;Let’s dive in with Redis and how policies are saved in memory.&lt;/p&gt;
@@ -224,15 +224,15 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>When you see the `.count` in a Rails view 👀</title>
-    <link href="http://localhost:4000/2024/01/22/when-you-see-the-count.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/01/22/when-you-see-the-count.html"/>
     <updated>2024-01-22T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/22/when-you-see-the-count</id>
+    <id>https://dominiclizarraga.github.io//2024/01/22/when-you-see-the-count</id>
     <content type="html">&lt;p&gt;I’ve been working on improving the app performance and have learnt about how&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.count&lt;/code&gt; works and how it can slow down the app.&lt;/p&gt;
 
 &lt;p&gt;As a solution we have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter_cache&lt;/code&gt;provided by default by rails and also something more advance like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter_culture&lt;/code&gt;gem!&lt;/p&gt;
@@ -241,15 +241,15 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>Avoiding N+1 Queries 🚓</title>
-    <link href="http://localhost:4000/2024/01/18/the-where-clause.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/01/18/the-where-clause.html"/>
     <updated>2024-01-18T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/18/the-where-clause</id>
+    <id>https://dominiclizarraga.github.io//2024/01/18/the-where-clause</id>
     <content type="html">&lt;p&gt;When optimizing an app, I recently learned to pay attention to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.where&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.find&lt;/code&gt; methods inside &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.each&lt;/code&gt; loops because they can be potential candidates for association preloading.&lt;/p&gt;
 
 &lt;p&gt;The reason is that for each element we iterate over, another operation will be executed, in this case &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.where&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.find&lt;/code&gt;, which can lead to an N+1 query problem.&lt;/p&gt;
@@ -311,15 +311,15 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>Key concepts for Redis and cache 💽</title>
-    <link href="http://localhost:4000/2024/01/16/cache-and-redis.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/01/16/cache-and-redis.html"/>
     <updated>2024-01-16T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/16/cache-and-redis</id>
+    <id>https://dominiclizarraga.github.io//2024/01/16/cache-and-redis</id>
     <content type="html">&lt;p&gt;Expire&lt;/p&gt;
 
 &lt;p&gt;Bust&lt;/p&gt;
@@ -336,15 +336,15 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>What is cache? 💵 💰</title>
-    <link href="http://localhost:4000/2024/01/14/what-is-cache.html"/>
+    <link href="https://dominiclizarraga.github.io//2024/01/14/what-is-cache.html"/>
     <updated>2024-01-14T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/14/what-is-cache</id>
+    <id>https://dominiclizarraga.github.io//2024/01/14/what-is-cache</id>
     <content type="html">&lt;p&gt;Currently, I’m focusing on enhancing the performance of an application, and one of the key areas I’ve explored in-depth is caching. Although I was aware of caching before, I didn’t fully grasp its concept or have the opportunity to apply it, so I never felt compelled to delve into it.&lt;/p&gt;
 
 &lt;p&gt;If you find yourself in a similar position, here are some initial steps to build a strong understanding of caching :)&lt;/p&gt;
@@ -414,15 +414,15 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
   <entry>
     <title>Product Focused Ruby - Kasper Timm Hansen.</title>
-    <link href="http://localhost:4000/2023/12/17/kasper-product-focused-ruby.html"/>
+    <link href="https://dominiclizarraga.github.io//2023/12/17/kasper-product-focused-ruby.html"/>
     <updated>2023-12-17T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2023/12/17/kasper-product-focused-ruby</id>
+    <id>https://dominiclizarraga.github.io//2023/12/17/kasper-product-focused-ruby</id>
     <content type="html">&lt;p&gt;&lt;strong&gt;Sketching and mental model of programming.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;I recently attended a live session with Kasper Timm Hansen, he unfolded his approach to product-focused development, blending technical prowess with real-world problem solving.&lt;/p&gt;
@@ -476,7 +476,7 @@
 </content>
     <author>
       <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
+      <uri>https://dominiclizarraga.github.io//about/</uri>
     </author>
   </entry>
   
