@@ -6,10 +6,20 @@
   <channel>
     <title>dominiclizarraga.github.io</title>
     <description>Rails, Ruby, Hotwire, webapps</description>		
-    <link>https://dominiclizarraga.github.io/</link>
-    <atom:link href="https://dominiclizarraga.github.io//rss.xml" rel="self" type="application/rss+xml" />
+    <link>http://localhost:4000</link>
+    <atom:link href="http://localhost:4000/rss.xml" rel="self" type="application/rss+xml" />
     <webfeeds:accentColor>00588F</webfeeds:accentColor>
-    <webfeeds:icon>https://dominiclizarraga.github.io//css/logo-simple.svg</webfeeds:icon>
+    <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
+    
+    <item>
+      <title>Stimulus controller - life cycle</title>
+      <dc:creator>Dom Lizarraga</dc:creator>
+      <description>
+</description>
+      <pubDate>Tue, 12 Mar 2024 00:00:00 -0600</pubDate>
+      <link>http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html</guid>
+    </item>
     
     <item>
       <title>Refactoring and testing a long method in Ruby on Rails</title>
@@ -65,9 +75,9 @@
   &lt;li&gt;Enhancing performance and maintainability to ensure the code could be easily modified in the future.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <pubDate>Sat, 17 Feb 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/02/17/refactoring-and-testing.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/02/17/refactoring-and-testing.html</guid>
+      <pubDate>Sat, 17 Feb 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/02/17/refactoring-and-testing.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/02/17/refactoring-and-testing.html</guid>
     </item>
     
     <item>
@@ -77,9 +87,9 @@
 
 &lt;p&gt;remote: true&lt;/p&gt;
 </description>
-      <pubDate>Wed, 14 Feb 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/02/14/difference-between-buttonto-linkto-formwith.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/02/14/difference-between-buttonto-linkto-formwith.html</guid>
+      <pubDate>Wed, 14 Feb 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html</guid>
     </item>
     
     <item>
@@ -183,9 +193,9 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We’ve explored creating a follower system in Rails, showcasing the flexibility of polymorphic associations and the importance of validations. This guide provides a solid foundation for adding social functionalities to your Rails applications, ensuring a robust and scalable feature set.&lt;/p&gt;
 </description>
-      <pubDate>Wed, 07 Feb 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/02/07/follow-as-polymorphic.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/02/07/follow-as-polymorphic.html</guid>
+      <pubDate>Wed, 07 Feb 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/02/07/follow-as-polymorphic.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/02/07/follow-as-polymorphic.html</guid>
     </item>
     
     <item>
@@ -193,9 +203,9 @@
       <dc:creator>Dom Lizarraga</dc:creator>
       <description>&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 28 Jan 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/01/28/beginner-guide-docker.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/01/28/beginner-guide-docker.html</guid>
+      <pubDate>Sun, 28 Jan 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/01/28/beginner-guide-docker.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/28/beginner-guide-docker.html</guid>
     </item>
     
     <item>
@@ -207,9 +217,9 @@
 
 &lt;p&gt;Here are the official (docs)[https://actionpolicy.evilmartians.io/#/caching] for combinig action policy + cache.&lt;/p&gt;
 </description>
-      <pubDate>Fri, 26 Jan 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/01/26/action-policy-cache.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/01/26/action-policy-cache.html</guid>
+      <pubDate>Fri, 26 Jan 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/01/26/action-policy-cache.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/26/action-policy-cache.html</guid>
     </item>
     
     <item>
@@ -221,9 +231,9 @@
 
 &lt;p&gt;Let’s see how it can improve you app as well!&lt;/p&gt;
 </description>
-      <pubDate>Mon, 22 Jan 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/01/22/when-you-see-the-count.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/01/22/when-you-see-the-count.html</guid>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/01/22/when-you-see-the-count.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/22/when-you-see-the-count.html</guid>
     </item>
     
     <item>
@@ -288,9 +298,9 @@
 
 &lt;p&gt;Just wanted to highlight that you must be careful of those &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;where&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find_by&lt;/code&gt; inside of loops!&lt;/p&gt;
 </description>
-      <pubDate>Thu, 18 Jan 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/01/18/the-where-clause.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/01/18/the-where-clause.html</guid>
+      <pubDate>Thu, 18 Jan 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/01/18/the-where-clause.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/18/the-where-clause.html</guid>
     </item>
     
     <item>
@@ -310,9 +320,9 @@
 
 &lt;p&gt;rails dev:cache&lt;/p&gt;
 </description>
-      <pubDate>Tue, 16 Jan 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/01/16/cache-and-redis.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/01/16/cache-and-redis.html</guid>
+      <pubDate>Tue, 16 Jan 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/01/16/cache-and-redis.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/16/cache-and-redis.html</guid>
     </item>
     
     <item>
@@ -385,68 +395,9 @@
 
 &lt;p&gt;More when we complete this process!&lt;/p&gt;
 </description>
-      <pubDate>Sun, 14 Jan 2024 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2024/01/14/what-is-cache.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2024/01/14/what-is-cache.html</guid>
-    </item>
-    
-    <item>
-      <title>Product Focused Ruby - Kasper Timm Hansen.</title>
-      <dc:creator>Dom Lizarraga</dc:creator>
-      <description>&lt;p&gt;&lt;strong&gt;Sketching and mental model of programming.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;I recently attended a live session with Kasper Timm Hansen, he unfolded his approach to product-focused development, blending technical prowess with real-world problem solving.&lt;/p&gt;
-
-&lt;p&gt;1st session notes:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;How to start sketching out a new feature development.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;1.- Have a problem definition.&lt;/p&gt;
-
-&lt;p&gt;2.- In a rails context, start with a controller and start figuring out how to pass stuff to the view (it will give you a lot of constraints already).&lt;/p&gt;
-
-&lt;p&gt;3.- Then sketch stuff out like write methods that reflect “complete” and “uncomplete” (for a Todo app and task feature), don’t focus on assigning instance variables, inheritance of the controller (you save this for later).&lt;/p&gt;
-
-&lt;p&gt;4.- At this point we have how routes are going to be. What are going to be the “resources” are they going to be nested?&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;We have figured out the organizational stuff around things. So now we know how to put into business logic and complete it.&lt;/p&gt;
-
-&lt;p&gt;5.- Take a break from it like an outside view of like, okay, can I name this differently because.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;So far, it&apos;s just more meant to have a direct communication with what I intend to code and my own mental model rather than the code that I&apos;m ending up generating.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;If the problem definition has a known unknown that would be one thing to start tackling, or it can help reveal unknown unknowns. And and then figure out, if it&apos;s something involved with like TCP connections, and we haven&apos;t worked with those before.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;Use method you know how they work to keep sketching things out (inheritance from ApplicationController or RESTful methods).&lt;/p&gt;
-
-&lt;p&gt;6.- Delineate between what’s the feature, and what’s the architecture? User model would be architecture and User and its Invite (User::Invite) would be the feature.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;This prorcess should be really flexible, really fluid, like having a conversation and not to be attached to the code you&apos;ve written.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;Also play around with `irb`, read the Ruby docs and seek.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;Making abstractions by finding concepts through ‘naming’.&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;1.- Now that you have a sense of the concept and know how things fit together.&lt;/p&gt;
-
-&lt;p&gt;2.- You can build solid blocks of knowledge that you can later use.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;In example, how a AssociationObject works and you find more similar cases in the rest of the app.&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;2nd session notes (more hands-on):&lt;/p&gt;
-
-&lt;p&gt;1.- At the very start of the feature cycle, what you essentially do is a deep dive. You try to keep going for about half an hour, maybe an hour and you’re just trying to fire off ideas.&lt;/p&gt;
-
-&lt;p&gt;2.- Try to take full advantage of the fact that Ruby reads somewhat like pseudocode. It’s a case of ‘first thought, best thought’, allowing for a more rapid-fire approach.&lt;/p&gt;
-
-&lt;p&gt;3.- What you actually want is to quickly formulate a hypothesis. Figure out how to disprove or prove it, at least, and then keep making rapid changes.&lt;/p&gt;
-
-</description>
-      <pubDate>Sun, 17 Dec 2023 00:00:00 -0800</pubDate>
-      <link>https://dominiclizarraga.github.io//2023/12/17/kasper-product-focused-ruby.html</link>
-      <guid isPermaLink="true">https://dominiclizarraga.github.io//2023/12/17/kasper-product-focused-ruby.html</guid>
+      <pubDate>Sun, 14 Jan 2024 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2024/01/14/what-is-cache.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2024/01/14/what-is-cache.html</guid>
     </item>
     
   </channel>
