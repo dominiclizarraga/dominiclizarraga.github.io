@@ -1,5 +1,5 @@
 ---
-title: "This is a test"
+title: "UTF-8, bits, bytes and binary numbers!"
 categories: computer-science
 layout: post
 ---

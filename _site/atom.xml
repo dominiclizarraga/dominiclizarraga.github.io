@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-05-05T23:10:04-06:00</updated>
+  <updated>2024-05-16T12:47:05-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -15,7 +15,7 @@
   <entry>
     <title>Stimulus controller - life cycle</title>
     <link href="http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html"/>
-    <updated>2024-03-12T00:00:00-06:00</updated>
+    <updated>2024-03-12T00:00:00-07:00</updated>
     <id>http://localhost:4000/2024/03/12/stimulus-controller-life-cycle</id>
     <content type="html">
 </content>
@@ -28,7 +28,7 @@
   <entry>
     <title>Refactoring and testing a long method in Ruby on Rails</title>
     <link href="http://localhost:4000/2024/02/17/refactoring-and-testing.html"/>
-    <updated>2024-02-17T00:00:00-07:00</updated>
+    <updated>2024-02-17T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/17/refactoring-and-testing</id>
     <content type="html">&lt;p&gt;Recently, we had the opportunity to refactor a lengthy method in a Ruby on Rails project. The method had multiple conditional statements (around 6) that checked various aspects of a project, such as whether it was discarded, on time, accepting entries, and more. Refactoring this method required careful planning and testing to ensure that the functionality remained intact while improving the code’s maintainability and readability.&lt;/p&gt;
 
@@ -90,7 +90,7 @@
   <entry>
     <title>What&apos;s the difference behing button_to link_to form_with</title>
     <link href="http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html"/>
-    <updated>2024-02-14T00:00:00-07:00</updated>
+    <updated>2024-02-14T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Like model and how I got to find these differences very particular.&lt;/p&gt;
 
@@ -105,7 +105,7 @@
   <entry>
     <title>Follow as Polymorphic</title>
     <link href="http://localhost:4000/2024/02/07/follow-as-polymorphic.html"/>
-    <updated>2024-02-07T00:00:00-07:00</updated>
+    <updated>2024-02-07T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/07/follow-as-polymorphic</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Follow model (User can follow another User, Post, Comapny) with a polymorphic property.&lt;/p&gt;
 
@@ -214,7 +214,7 @@
   <entry>
     <title>Beginner guide to Docker 🐳</title>
     <link href="http://localhost:4000/2024/01/28/beginner-guide-docker.html"/>
-    <updated>2024-01-28T00:00:00-07:00</updated>
+    <updated>2024-01-28T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/28/beginner-guide-docker</id>
     <content type="html">&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </content>
@@ -227,7 +227,7 @@
   <entry>
     <title>Action policy gem + Cache</title>
     <link href="http://localhost:4000/2024/01/26/action-policy-cache.html"/>
-    <updated>2024-01-26T00:00:00-07:00</updated>
+    <updated>2024-01-26T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/26/action-policy-cache</id>
     <content type="html">&lt;p&gt;Recently I worked with an app that was using Action Policy, I noticed that those policies were being called almost everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
 
@@ -244,7 +244,7 @@
   <entry>
     <title>When you see the `.count` in a Rails view 👀</title>
     <link href="http://localhost:4000/2024/01/22/when-you-see-the-count.html"/>
-    <updated>2024-01-22T00:00:00-07:00</updated>
+    <updated>2024-01-22T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/22/when-you-see-the-count</id>
     <content type="html">&lt;p&gt;I’ve been working on improving the app performance and have learnt about how&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.count&lt;/code&gt; works and how it can slow down the app.&lt;/p&gt;
 
@@ -261,7 +261,7 @@
   <entry>
     <title>Avoiding N+1 Queries 🚓</title>
     <link href="http://localhost:4000/2024/01/18/the-where-clause.html"/>
-    <updated>2024-01-18T00:00:00-07:00</updated>
+    <updated>2024-01-18T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/18/the-where-clause</id>
     <content type="html">&lt;p&gt;When optimizing an app, I recently learned to pay attention to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.where&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.find&lt;/code&gt; methods inside &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.each&lt;/code&gt; loops because they can be potential candidates for association preloading.&lt;/p&gt;
 
@@ -331,7 +331,7 @@
   <entry>
     <title>Key concepts for Redis and cache 💽</title>
     <link href="http://localhost:4000/2024/01/16/cache-and-redis.html"/>
-    <updated>2024-01-16T00:00:00-07:00</updated>
+    <updated>2024-01-16T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/16/cache-and-redis</id>
     <content type="html">&lt;p&gt;Expire&lt;/p&gt;
 
@@ -356,7 +356,7 @@
   <entry>
     <title>What is cache? 💵 💰</title>
     <link href="http://localhost:4000/2024/01/14/what-is-cache.html"/>
-    <updated>2024-01-14T00:00:00-07:00</updated>
+    <updated>2024-01-14T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/14/what-is-cache</id>
     <content type="html">&lt;p&gt;Currently, I’m focusing on enhancing the performance of an application, and one of the key areas I’ve explored in-depth is caching. Although I was aware of caching before, I didn’t fully grasp its concept or have the opportunity to apply it, so I never felt compelled to delve into it.&lt;/p&gt;
 
