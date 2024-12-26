@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-07-11T20:37:34-07:00</updated>
+  <updated>2024-12-26T13:34:32-06:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -13,9 +13,102 @@
   </author>
   
   <entry>
+    <title>Intercom Off Scripts note</title>
+    <link href="http://localhost:4000/2024/10/12/intercom-off-scripts.html"/>
+    <updated>2024-10-12T00:00:00-06:00</updated>
+    <id>http://localhost:4000/2024/10/12/intercom-off-scripts</id>
+    <content type="html">&lt;p&gt;Here I wrote down some notes after watcihng the Intercom Off-script series about how they are facing the AI age and how the see it &lt;a href=&quot;https://www.youtube.com/watch?v=Gcj7mVY3fJs&amp;amp;list=PLlCIldMZCaFppymtNp4dUWmlkgyCbGEHh&quot;&gt;playlit&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Video #1&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;technology comes and goes,you gotta fall in love with the problem&lt;/li&gt;
+  &lt;li&gt;think of the core problem of your business, not the tech stack or framework&lt;/li&gt;
+  &lt;li&gt;work is always the same, if you want to send something you used to send it on a horse, now you use ups or fedex, want to entertain people? first it was newspaper now it’s smartphones.&lt;/li&gt;
+  &lt;li&gt;the quickest to adapt, not the strongest&lt;/li&gt;
+  &lt;li&gt;does AI would change something in my process?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;It will blow up the total address of all Market because it will and I will customers or users who know what they want to do however they don’t know how to do it for instance in Excel or monday.com, salesforce who are great product very robust products but not so many people know how to use them, AI  will enable them to use them at its maximum&lt;/p&gt;
+
+&lt;p&gt;We need to rebuild our products our societies around this new technology and it is day one&lt;/p&gt;
+
+&lt;p&gt;Video #2&lt;/p&gt;
+
+&lt;p&gt;Being disturbing pollution change and reshape our society because before that everything was made by hand and after that breakthrough moment we were able to have houses cars clothing&lt;/p&gt;
+
+&lt;p&gt;Also technology is like a one-way street that once you go and cross that door you never look back before for instance once we had the iPhone in our hands we did not think about the traditional phone call or mail post&lt;/p&gt;
+
+&lt;p&gt;What matters the most is that customers and businesses get greater experiences, it boils down to it&lt;/p&gt;
+
+&lt;p&gt;Video #3&lt;/p&gt;
+
+&lt;p&gt;Attention algorithm and then wrap up with a Transformer machine learning technique Then the Transformer was trained with the huge amount of data that never before And finally it seems like it is understanding and it is capable to do some summarizing words follow some instructions&lt;/p&gt;
+
+&lt;p&gt;An example of what AI needs was when governments increase their budget in order to roll out new highways because they saw that as much highways and streets interconnected you have the more trade Commerce and tourist activity you will get in this case AI needs more compute infrastructure and so on (Things happen fast when the value is there and apparently AI is delivering some value)&lt;/p&gt;
+
+&lt;p&gt;Apparently it is learning because it is paying attention to the important things&lt;/p&gt;
+
+&lt;p&gt;It’s got some limitations but you can’t work around those limitations&lt;/p&gt;
+
+&lt;p&gt;People say that it is just a talking prediction like predicting the next word on the sentence&lt;/p&gt;
+
+&lt;p&gt;RAG Is given the llm more context in order to make it understand the current situation therefore it will provide a more accurate answer&lt;/p&gt;
+
+&lt;p&gt;Take a small series of tasks That you can really over-delivery on, not too broad.&lt;/p&gt;
+
+&lt;p&gt;We have used openAI models as building blocks, Maybe five or 10 different prompts Underneath the hood, Each of them doing a specific task like search for this customer in the db,  then get their last order, then disambiguate this question&lt;/p&gt;
+
+&lt;p&gt;From an engineering perspective take five things your product should do and isolate them And get AI to do that task separately&lt;/p&gt;
+
+&lt;p&gt;Video #4&lt;/p&gt;
+
+&lt;p&gt;Mother sauce and software in general seems to be very complicated and clunky because they serve a broad amount of users, It’s like cities in general they are designed for a general audience not for cyclist or pet owners or car drivers&lt;/p&gt;
+
+&lt;p&gt;Now with AI you can have UI design that is generated on the Fly based on the user request instead of having a form where users submits email phone number number order it will go and retrieve those data from the database and make up a new form just to confirm that the information is correct and it will be completely Custom Tailor to each requested and even to each user&lt;/p&gt;
+
+&lt;p&gt;It raises the floor for the designers, the human touch becomes more valued&lt;/p&gt;
+
+&lt;p&gt;If you wear a drummer in the 80s and you see that a rhythm controller has come out you would thought that you are cooked but it happened all the opposite more drummers came to play their songs (democratizacion of music) So you don’t need to become a master at your craft in order to make music&lt;/p&gt;
+
+&lt;p&gt;however there still need of people who are a master at the craft even when AI provides shortcuts&lt;/p&gt;
+
+&lt;p&gt;Embrace the squiggle (process of designing something, converge, diverge ideas, discussions, etc)&lt;/p&gt;
+
+&lt;p&gt;Video #5&lt;/p&gt;
+
+&lt;p&gt;Better, faster cheaper on online business&lt;/p&gt;
+
+&lt;p&gt;Customer service in businesses prior the war was more personal they made individual transactions,  and then as the business expanded they needed to hire more customer service in order to make it more Global more professional and then after that the 01800  phone lines came up and that was the time that the call centers started then with computers and internet the email and then the CRM too, chatbots, etc,  also how customers leave feedback from the service they got and that was a time where you needed a quality customer service.&lt;/p&gt;
+
+&lt;p&gt;Easiest decision is to cut people in order to make profit…&lt;br /&gt;
+So in order to increase the quality of your customer service at the internet scale is very difficult&lt;/p&gt;
+
+&lt;p&gt;Video #6&lt;/p&gt;
+
+&lt;p&gt;Big boys and small are no longer selling software seats to humans, but software doing the work.&lt;/p&gt;
+
+&lt;p&gt;We don’t pay for CS, we pay what’s in the receipt, and CS is all around.&lt;/p&gt;
+
+&lt;p&gt;Having a internet business bring the benefits of scales which is selling around the clock, around the globe&lt;/p&gt;
+
+&lt;p&gt;Heretofore (before now, new word)&lt;/p&gt;
+
+&lt;p&gt;Agents gen1 (conversation, text boxes) and gen 2 (more familiar, proactive and take action)&lt;/p&gt;
+
+&lt;p&gt;Cannibalize themselves if they want to survive and Netflix did with their shipping DVD business before streaming.&lt;/p&gt;
+
+</content>
+    <author>
+      <name>Dom Lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
     <title>Stimulus controller - life cycle</title>
     <link href="http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html"/>
-    <updated>2024-03-12T00:00:00-07:00</updated>
+    <updated>2024-03-12T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/03/12/stimulus-controller-life-cycle</id>
     <content type="html">
 </content>
@@ -28,7 +121,7 @@
   <entry>
     <title>Refactoring and testing a long method in Ruby on Rails</title>
     <link href="http://localhost:4000/2024/02/17/refactoring-and-testing.html"/>
-    <updated>2024-02-17T00:00:00-08:00</updated>
+    <updated>2024-02-17T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/02/17/refactoring-and-testing</id>
     <content type="html">&lt;p&gt;Recently, we had the opportunity to refactor a lengthy method in a Ruby on Rails project. The method had multiple conditional statements (around 6) that checked various aspects of a project, such as whether it was discarded, on time, accepting entries, and more. Refactoring this method required careful planning and testing to ensure that the functionality remained intact while improving the code’s maintainability and readability.&lt;/p&gt;
 
@@ -90,7 +183,7 @@
   <entry>
     <title>What&apos;s the difference behing button_to link_to form_with</title>
     <link href="http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html"/>
-    <updated>2024-02-14T00:00:00-08:00</updated>
+    <updated>2024-02-14T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Like model and how I got to find these differences very particular.&lt;/p&gt;
 
@@ -105,7 +198,7 @@
   <entry>
     <title>Follow as Polymorphic</title>
     <link href="http://localhost:4000/2024/02/07/follow-as-polymorphic.html"/>
-    <updated>2024-02-07T00:00:00-08:00</updated>
+    <updated>2024-02-07T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/02/07/follow-as-polymorphic</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Follow model (User can follow another User, Post, Comapny) with a polymorphic property.&lt;/p&gt;
 
@@ -214,7 +307,7 @@
   <entry>
     <title>Beginner guide to Docker 🐳</title>
     <link href="http://localhost:4000/2024/01/28/beginner-guide-docker.html"/>
-    <updated>2024-01-28T00:00:00-08:00</updated>
+    <updated>2024-01-28T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/01/28/beginner-guide-docker</id>
     <content type="html">&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </content>
@@ -227,7 +320,7 @@
   <entry>
     <title>Action policy gem + Cache</title>
     <link href="http://localhost:4000/2024/01/26/action-policy-cache.html"/>
-    <updated>2024-01-26T00:00:00-08:00</updated>
+    <updated>2024-01-26T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/01/26/action-policy-cache</id>
     <content type="html">&lt;p&gt;Recently I worked with an app that was using Action Policy, I noticed that those policies were being called almost everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
 
@@ -244,7 +337,7 @@
   <entry>
     <title>When you see the `.count` in a Rails view 👀</title>
     <link href="http://localhost:4000/2024/01/22/when-you-see-the-count.html"/>
-    <updated>2024-01-22T00:00:00-08:00</updated>
+    <updated>2024-01-22T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/01/22/when-you-see-the-count</id>
     <content type="html">&lt;p&gt;I’ve been working on improving the app performance and have learnt about how&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.count&lt;/code&gt; works and how it can slow down the app.&lt;/p&gt;
 
@@ -261,7 +354,7 @@
   <entry>
     <title>Avoiding N+1 Queries 🚓</title>
     <link href="http://localhost:4000/2024/01/18/the-where-clause.html"/>
-    <updated>2024-01-18T00:00:00-08:00</updated>
+    <updated>2024-01-18T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/01/18/the-where-clause</id>
     <content type="html">&lt;p&gt;When optimizing an app, I recently learned to pay attention to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.where&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.find&lt;/code&gt; methods inside &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.each&lt;/code&gt; loops because they can be potential candidates for association preloading.&lt;/p&gt;
 
@@ -331,7 +424,7 @@
   <entry>
     <title>Key concepts for Redis and cache 💽</title>
     <link href="http://localhost:4000/2024/01/16/cache-and-redis.html"/>
-    <updated>2024-01-16T00:00:00-08:00</updated>
+    <updated>2024-01-16T00:00:00-06:00</updated>
     <id>http://localhost:4000/2024/01/16/cache-and-redis</id>
     <content type="html">&lt;p&gt;Expire&lt;/p&gt;
 
@@ -346,84 +439,6 @@
 &lt;p&gt;Setting up redis in production since developers want a slower app in development&lt;/p&gt;
 
 &lt;p&gt;rails dev:cache&lt;/p&gt;
-</content>
-    <author>
-      <name>Dom Lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>What is cache? 💵 💰</title>
-    <link href="http://localhost:4000/2024/01/14/what-is-cache.html"/>
-    <updated>2024-01-14T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/14/what-is-cache</id>
-    <content type="html">&lt;p&gt;Currently, I’m focusing on enhancing the performance of an application, and one of the key areas I’ve explored in-depth is caching. Although I was aware of caching before, I didn’t fully grasp its concept or have the opportunity to apply it, so I never felt compelled to delve into it.&lt;/p&gt;
-
-&lt;p&gt;If you find yourself in a similar position, here are some initial steps to build a strong understanding of caching :)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;What is cache?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;The term &lt;a href=&quot;https://dictionary.cambridge.org/us/dictionary/english/cache&quot;&gt;‘cache’ is an English word&lt;/a&gt; meaning a secure place where items are stored and hidden. Now this concept will make more sense in computing.&lt;/p&gt;
-
-&lt;p&gt;Cache is a method of storing frequently accessed data in fast memory to keep it closer to the user.&lt;/p&gt;
-
-&lt;p&gt;This fast memory can be found either on hard drives, processors (like CPUs and GPUs) or web browser, web server, databases, client-side, CDNs and it goes from KBs to MBs and in different layers (L1, L2, etc).&lt;/p&gt;
-
-&lt;p&gt;In browser for example, the first time you visit a web site it will download the HTML, CSS and images then computer will save a copy of those files. The next time you visit that page, it will retrieve a local copy instead of requesting a web server, which speeds up the process.&lt;/p&gt;
-
-&lt;p style=&quot;text-align: center;&quot;&gt;Think of a coffee shop where the barista keeps commonly used items like milk and sugar at hand, rather than going to the storage room for each order. This is like &apos;caching&apos;, where frequently used data is kept readily accessible. ☕️&lt;/p&gt;
-
-&lt;p&gt;Fun fact: The concept of caching was originally proposed in 1965 by Maurice Wilkes. &lt;a href=&quot;https://www.historyofinformation.com/detail.php?id=834&quot;&gt;Paper&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;When is it useful?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;There are 2 main ways so far to implement with Ruby on Rails app.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;HTTP Caching - Web browser can cache HTTP responses to enable faster retrieval data. It improves response time and reduce load on back-end. By storing copies of frequently accessed data, caching reduces the need for repeated requests to the server, thereby enhancing overall performance and user experience. (Mostly for Static assets and JSON APIs and AJAX endpoints.)&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;This involves caching within the application itself and can be tailored to the specific needs of your Rails application. Rails provides several caching techniques like page caching, action caching, and fragment caching.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;strong&gt;How to use it in rails?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Rails has 3 ways of caching data: page, action and fragment. Each of them has different purposes.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://guides.rubyonrails.org/caching_with_rails.html#page-caching&quot;&gt;Page caching&lt;/a&gt; stores the entire HTML response, serving it directly from the web server without hitting the Rails stack.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://guides.rubyonrails.org/caching_with_rails.html#action-caching&quot;&gt;Action caching&lt;/a&gt; caches the output of controller actions.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://guides.rubyonrails.org/caching_with_rails.html#fragment-caching&quot;&gt;Fragment caching&lt;/a&gt; is more granular and caches smaller pieces of a view.&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Also there are different techniques as well like Russian Doll Caching, Shared partial caching, Low-Level Caching and Key-based cache expiration.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Extra tools you need. 🛠️&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Rails caching is designed to be backend agnostic. This means you can implement custom caching solutions or adapters for other storage mechanisms.&lt;/p&gt;
-
-&lt;p&gt;Redis: Advanced in-memory data store, supports complex structures, ensures data persistence, replication, and integrity.&lt;/p&gt;
-
-&lt;p&gt;Memcached: Efficient, simple key-value store, ideal for caching static data, quick setup.&lt;/p&gt;
-
-&lt;p&gt;Memory Store: Caches data in the Rails server’s memory. This is a good option for single-server setups and development environments.&lt;/p&gt;
-
-&lt;p&gt;File Store: Caches data as files on the disk. This can be useful in environments where memory is limited.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Is it truly beneficial for your App?&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Currently in the implementation phase, the improvements are evident on the pages where it has been applied. It is advisable to compare response times before and after implementing these changes. If feasible, establish a Maximum Average Response Time (MART) as a benchmark.&lt;/p&gt;
-
-&lt;p&gt;More when we complete this process!&lt;/p&gt;
 </content>
     <author>
       <name>Dom Lizarraga</name>

@@ -3,7 +3,7 @@
   <title>Dom Lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-07-11T20:37:34-07:00</updated>
+  <updated>2024-12-26T13:34:32-06:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -15,7 +15,7 @@
   <entry>
     <title>Apprenticeship Patterns 🌌 by David H. Hoover &amp; Adewale Oshineye.</title>
     <link href="http://localhost:4000/2023/09/22/apprenticeship-patterns.html"/>
-    <updated>2023-09-22T00:00:00-07:00</updated>
+    <updated>2023-09-22T00:00:00-06:00</updated>
     <id>http://localhost:4000/2023/09/22/apprenticeship-patterns</id>
     <content type="html">
 </content>
@@ -28,7 +28,7 @@
   <entry>
     <title>The Minitest Cookbook by Chris Kottom</title>
     <link href="http://localhost:4000/2022/01/05/minitest_cookbook.html"/>
-    <updated>2022-01-05T00:00:00-08:00</updated>
+    <updated>2022-01-05T00:00:00-06:00</updated>
     <id>http://localhost:4000/2022/01/05/minitest_cookbook</id>
     <content type="html">&lt;p&gt;Today though, the separation between development and testing has largely disappeared - at least in the universe that most Ruby and Rails programmers occupy.&lt;/p&gt;
 
@@ -528,7 +528,7 @@ them to:
   <entry>
     <title>Refactoring by Jay Fields, Shane Harvie, Martin Fowler &amp; Kent Beck.</title>
     <link href="http://localhost:4000/2021/09/25/refactoring.html"/>
-    <updated>2021-09-25T00:00:00-07:00</updated>
+    <updated>2021-09-25T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/09/25/refactoring</id>
     <content type="html">&lt;p&gt;This book will take you from beginner to advanced in terms of refactoring.&lt;/p&gt;
 
@@ -778,7 +778,7 @@ level as a series of comments.&lt;/p&gt;
   <entry>
     <title>The Well-Grounded Rubyist by David A. Black &amp; Joseph Leo III.</title>
     <link href="http://localhost:4000/2021/06/15/well_grounded_rubyist.html"/>
-    <updated>2021-06-15T00:00:00-07:00</updated>
+    <updated>2021-06-15T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/06/15/well_grounded_rubyist</id>
     <content type="html">&lt;p&gt;The book is on its 3rd edition and it’s comprised of 3 parts and 16 chapters:&lt;/p&gt;
 
@@ -946,7 +946,7 @@ Numerators are closely related to eaters, but they are not the same thing period
   <entry>
     <title>Practical Object-Oriented Design (POODR) by Sandi Metz</title>
     <link href="http://localhost:4000/2021/05/30/practical_oriented.html"/>
-    <updated>2021-05-30T00:00:00-07:00</updated>
+    <updated>2021-05-30T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/05/30/practical_oriented</id>
     <content type="html">&lt;p&gt;This book is the second edition that Sandi Metz publishes and it’s even considered as a must-read by the RoR community, give it a shot you won’t regret at all no matter what language you’re coming from.&lt;/p&gt;
 
@@ -1115,7 +1115,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
   <entry>
     <title>Eloquent Ruby by Russ Olsen.</title>
     <link href="http://localhost:4000/2021/05/23/eloquent-ruby.html"/>
-    <updated>2021-05-23T00:00:00-07:00</updated>
+    <updated>2021-05-23T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/05/23/eloquent-ruby</id>
     <content type="html">&lt;p&gt;This is book is not for learning the very basics of Ruby, it’s more for people who have played with the language, the console and maybe built simple web app, I say this because it assumes you know what is an array, how you can manipulate or work with it therefore the book only shows shortcuts for instance methods on arrays, the correct usage of bang (!).&lt;/p&gt;
 
@@ -1175,7 +1175,7 @@ There is also a chapter that teaches you how to modify normal operators (&amp;lt
   <entry>
     <title>Beginning Rails 6 🚇 by Brady Somerville, Adam Gamble.</title>
     <link href="http://localhost:4000/2021/04/01/beginning.html"/>
-    <updated>2021-04-01T00:00:00-07:00</updated>
+    <updated>2021-04-01T00:00:00-06:00</updated>
     <id>http://localhost:4000/2021/04/01/beginning</id>
     <content type="html">&lt;p&gt;This book takes you from the straightforward “rails new blog –d=postgrsql” to adding active jobs and sending automated emails; it goes step by step so that you can see gradually the app development, it has more than 500 pages with 18 chapters; it touches the very basics of Ruby in the 4th just in case the reader has no experience with this language however Rails is very intuitive and easy to follow along.&lt;/p&gt;
 
@@ -1322,7 +1322,7 @@ The chapters of Active Storage, how to implement Ajax (was implemented for creat
   <entry>
     <title>The Ruby Way by Hal Fulton with André Arko</title>
     <link href="http://localhost:4000/2021/02/21/ruby_way.html"/>
-    <updated>2021-02-21T00:00:00-08:00</updated>
+    <updated>2021-02-21T00:00:00-06:00</updated>
     <id>http://localhost:4000/2021/02/21/ruby_way</id>
     <content type="html">&lt;p&gt;The book is on its third edition, it has had plenty of space as the must-read for every Ruby programmer, many great personalities in the software development community have commented, praised, written about this book (including Yukihiro “Matz” Matsumoto, the creator of Ruby) because a few years after Ruby was conceived the first edition was published, and as everything evolved, the book has done as well.&lt;/p&gt;
 
@@ -1418,7 +1418,7 @@ The child can override or redefine any of the attributes and methods of the pare
   <entry>
     <title>Agile web Development with Rails 6 🛤 by Sam Ruby, David B Copeland, Dave Thomas.</title>
     <link href="http://localhost:4000/2021/01/22/agile.html"/>
-    <updated>2021-01-22T00:00:00-08:00</updated>
+    <updated>2021-01-22T00:00:00-06:00</updated>
     <id>http://localhost:4000/2021/01/22/agile</id>
     <content type="html">&lt;p&gt;This was the first Rails book I read and caught me with the real example it takes you through, you’ll be building an online shop and the author goes from installing Rails, ruby and other libraries to finally code some automations and uploading to Heroku, you can either follow the book or at the beginning of each chapter you can download the final version of the app so that you will never lose track of what is being presented, also, brings a summary after lesson and has a playtime section where you can push yourself to do a bit more of the exercises.&lt;/p&gt;
 
