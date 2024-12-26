@@ -477,3 +477,21 @@ blockquote p:last-child {
 .il {
   color: #009999;
 } /* Literal.Number.Integer.Long */
+
+.mobile-only-button {
+  display: none;
+}
+
+@media screen and (max-width: 480px) {
+  .mobile-only-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  
+  /* Style for the generated iframe */
+  .mobile-only-button iframe {
+    margin: 0 auto;
+  }
+}
