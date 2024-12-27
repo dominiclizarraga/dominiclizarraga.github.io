@@ -18,7 +18,7 @@ include: ["_redirects", ".well-known", "_headers"]
 # photo_prefix:
 me:
   description: Rails, Ruby, Hotwire, webapps
-  name: Dom Lizarraga
+  name: dom lizarraga
   site_name: dominiclizarraga.github.io
   github: dominiclizarraga
   twitter: domlizarraga_

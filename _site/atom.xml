@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Dom Lizarraga</title>
+  <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-12-26T13:51:50-06:00</updated>
+  <updated>2024-12-26T15:50:58-06:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
   <author>
-    <name>Dom Lizarraga</name>
+    <name>dom lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
   
@@ -100,7 +100,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -113,7 +113,7 @@ So in order to increase the quality of your customer service at the internet sca
     <content type="html">
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -175,7 +175,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;/ul&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -190,7 +190,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;remote: true&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -299,7 +299,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;We’ve explored creating a follower system in Rails, showcasing the flexibility of polymorphic associations and the importance of validations. This guide provides a solid foundation for adding social functionalities to your Rails applications, ensuring a robust and scalable feature set.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -312,7 +312,7 @@ So in order to increase the quality of your customer service at the internet sca
     <content type="html">&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -329,7 +329,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;Here are the official (docs)[https://actionpolicy.evilmartians.io/#/caching] for combinig action policy + cache.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -346,7 +346,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;Let’s see how it can improve you app as well!&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -416,7 +416,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;Just wanted to highlight that you must be careful of those &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;where&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find_by&lt;/code&gt; inside of loops!&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -441,7 +441,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;rails dev:cache&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>

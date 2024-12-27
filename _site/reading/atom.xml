@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Dom Lizarraga</title>
+  <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2024-12-26T13:51:50-06:00</updated>
+  <updated>2024-12-26T15:50:58-06:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
   <author>
-    <name>Dom Lizarraga</name>
+    <name>dom lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
   
@@ -20,7 +20,7 @@
     <content type="html">
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -520,7 +520,7 @@ them to:
 	◦ Instance variables passed to the view&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -770,7 +770,7 @@ level as a series of comments.&lt;/p&gt;
 &lt;p&gt;Book examples: https://github.com/DominicLizarraga/refactoring_ruby_edition&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -938,7 +938,7 @@ Numerators are closely related to eaters, but they are not the same thing period
 
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1107,7 +1107,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
 &lt;p&gt;These are notes I took from the book, nothing is mine.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1167,7 +1167,7 @@ There is also a chapter that teaches you how to modify normal operators (&amp;lt
 &lt;p&gt;Updating existing classes, fixing broken classes, what is the monkey patching? Dealing with DSL and XML, what are the Gems package, how to consume them, nuts and bolts of gems, where are they located and also how to build a gem publish them and make it public.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1314,7 +1314,7 @@ The chapters of Active Storage, how to implement Ajax (was implemented for creat
 &lt;p&gt;The last 3 chapters covers testing, internationalization and the upload to Heroku, the first on them emphasize the importance of always test after each small change, and why the didn’t apply test to follow along, they bring up the technical debt, refactoring. what tools are outside to automate the testing like Unit::Test, fixtures, validations and lastly the 4 types of tests, for models, for controllers, mailers and system, it doesn’t go deep into the weeds, it only explain what they are.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1410,7 +1410,7 @@ The child can override or redefine any of the attributes and methods of the pare
 &lt;p&gt;Every time you invoke a method, you are sending a message to an object.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1501,7 +1501,7 @@ The database schema in a rails application constantly evolves as we progress thr
 &lt;p&gt;With rails, each of those steps is made possible through the use of migration. A migration is simply a Ruby source file in your applications and You can modify column types, renaming columns, changing columns, defining indices, renaming tables, the usage of primary keys, and even using native SQL and always you can rollback their migrations when they go bad.&lt;/p&gt;
 </content>
     <author>
-      <name>Dom Lizarraga</name>
+      <name>dom lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
