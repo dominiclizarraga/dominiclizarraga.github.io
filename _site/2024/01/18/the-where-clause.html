@@ -515,6 +515,12 @@ blockquote p:last-child {
   .mobile-only-button iframe {
     margin: 0 auto;
   }
+}
+
+.reading-time {
+  color: #475569;
+  text-align: right;
+  font-style: italic;
 }</style>
   <title>Avoiding N+1 Queries 🚓 - dominiclizarraga.github.io</title>
   
@@ -543,6 +549,19 @@ blockquote p:last-child {
     </nav>
     <div class='pad2y limiter content '>
       <h1>Avoiding N+1 Queries 🚓</h1>
+
+<div class="reading-time">
+  
+
+
+  
+  
+    3 minutes to read
+  
+
+
+</div>
+
 <div class='body'><p>When optimizing an app, I recently learned to pay attention to the <code class="language-plaintext highlighter-rouge">.where</code> or <code class="language-plaintext highlighter-rouge">.find</code> methods inside <code class="language-plaintext highlighter-rouge">.each</code> loops because they can be potential candidates for association preloading.</p>
 
 <p>The reason is that for each element we iterate over, another operation will be executed, in this case <code class="language-plaintext highlighter-rouge">.where</code> or <code class="language-plaintext highlighter-rouge">.find</code>, which can lead to an N+1 query problem.</p>

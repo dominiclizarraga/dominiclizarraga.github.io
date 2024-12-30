@@ -1,0 +1,14 @@
+{% capture word_count %}
+{{ content | number_of_words }}
+{% endcapture %}
+
+{% if word_count | plus: 0 > 0 %}
+  {% assign reading_time = word_count | divided_by: 150 %}
+  {% if reading_time < 1 %}
+    Less than 1 minute to read
+  {% else %}
+    {{ reading_time | ceil }} minutes to read
+  {% endif %}
+{% else %}
+  No content available
+{% endif %}

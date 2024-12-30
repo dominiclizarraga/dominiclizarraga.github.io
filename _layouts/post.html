@@ -4,6 +4,11 @@ class: post
 ---
 
 {% if page.notitle != true %}<h1>{{ page.title }}</h1>{% endif %}
+
+<div class="reading-time">
+  {% include reading-time.html %}
+</div>
+
 <div class='body'>{{ content }}</div>
 
 <div class='breaker'></div>

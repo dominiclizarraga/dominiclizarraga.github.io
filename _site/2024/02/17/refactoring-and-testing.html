@@ -515,6 +515,12 @@ blockquote p:last-child {
   .mobile-only-button iframe {
     margin: 0 auto;
   }
+}
+
+.reading-time {
+  color: #475569;
+  text-align: right;
+  font-style: italic;
 }</style>
   <title>Refactoring and testing a long method in Ruby on Rails - dominiclizarraga.github.io</title>
   
@@ -543,6 +549,19 @@ blockquote p:last-child {
     </nav>
     <div class='pad2y limiter content '>
       <h1>Refactoring and testing a long method in Ruby on Rails</h1>
+
+<div class="reading-time">
+  
+
+
+  
+  
+    4 minutes to read
+  
+
+
+</div>
+
 <div class='body'><p>Recently, we had the opportunity to refactor a lengthy method in a Ruby on Rails project. The method had multiple conditional statements (around 6) that checked various aspects of a project, such as whether it was discarded, on time, accepting entries, and more. Refactoring this method required careful planning and testing to ensure that the functionality remained intact while improving the code’s maintainability and readability.</p>
 
 <p>Before diving into the refactoring process, we first focused on writing tests that covered all the edge and corner cases. To do this, we wrote tests that checked the opposite of what the method was currently doing. For each conditional statement, we created a test that verified the expected behavior when the condition was met and when it was not.</p>

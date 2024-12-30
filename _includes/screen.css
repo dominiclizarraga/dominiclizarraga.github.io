@@ -495,3 +495,9 @@ blockquote p:last-child {
     margin: 0 auto;
   }
 }
+
+.reading-time {
+  color: #475569;
+  text-align: right;
+  font-style: italic;
+}
