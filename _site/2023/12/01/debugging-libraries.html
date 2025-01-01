@@ -499,7 +499,10 @@ blockquote p:last-child {
   color: #009999;
 } /* Literal.Number.Integer.Long */
 
+/** Code for buy me a coffe mobile version ------------------------------------------------------- */
+
 .mobile-only-button {
+  margin-top: 30px;
   display: none;
 }
 
@@ -517,10 +520,28 @@ blockquote p:last-child {
   }
 }
 
+/** Code for styling reading time ------------------------------------------------------- */
+
 .reading-time {
   color: #475569;
   text-align: right;
   font-style: italic;
+}
+
+/** Code for footer + RSS svg ------------------------------------------------------- */
+
+.personal-elements-container, a[rel="nofollow"], .rss-text {
+  color:rgb(71, 95, 105);
+  font-style: italic;
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rss-link {
+  display: flex;
+  align-items: flex-end;
 }</style>
   <title>Debugging libraries for Ruby and Rails - dominiclizarraga.github.io</title>
   
@@ -577,16 +598,30 @@ blockquote p:last-child {
 
 <div class='breaker'></div>
 
-<div class='pad2y'>
-  <p>
-    <postamble datetime="2023-12-01">
-      December  1, 2023
-    </postamble>
-    &nbsp;
-    <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" rel="nofollow" rel="noopener" target="_blank" title="Follow me on Twitter">
-      @domlizarraga_
-    </a>
-  </p>
+
+<div class="personal-elements-container">
+  <postamble datetime="2023-12-01">
+    December  1, 2023
+  </postamble>
+  <a href="https://twitter.com/intent/follow?screen_name=domlizarraga_&user_id=domlizarraga_" 
+      rel="nofollow" rel="noopener"
+      target="_blank"
+      title="Follow me on Twitter">
+    @domlizarraga_
+  </a>
+  <a href="/rss.xml" class="rss-link" title="RSS feed">
+    <span class="rss-text">Find the RSS link</span>
+    <svg height="32" width="32" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-45.57 -45.57 546.87 546.87" xml:space="preserve">
+      <g>
+        <rect x="0" y="0" style="fill:#F78422;" width="455.731" height="455.731"/>
+        <g>
+          <path style="fill:#FFFFFF;" d="M296.208,159.16C234.445,97.397,152.266,63.382,64.81,63.382v64.348 c70.268,0,136.288,27.321,185.898,76.931c49.609,49.61,76.931,115.63,76.931,185.898h64.348 C391.986,303.103,357.971,220.923,296.208,159.16z"/>
+          <path style="fill:#FFFFFF;" d="M64.143,172.273v64.348c84.881,0,153.938,69.056,153.938,153.939h64.348 C282.429,270.196,184.507,172.273,64.143,172.273z"/>
+          <circle style="fill:#FFFFFF;" cx="109.833" cy="346.26" r="46.088"/>
+        </g>
+      </g>
+    </svg>
+  </a>
 </div>
 
 <div class="mobile-only-button">

@@ -96,7 +96,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;Cannibalize themselves if they want to survive and Netflix did with their shipping DVD business before streaming.&lt;/p&gt;
 
 </description>
-      <pubDate>Sat, 12 Oct 2024 00:00:00 -0600</pubDate>
+      <pubDate>Sat, 12 Oct 2024 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2024/10/12/intercom-off-scripts.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/10/12/intercom-off-scripts.html</guid>
     </item>
@@ -106,7 +106,7 @@ So in order to increase the quality of your customer service at the internet sca
       <dc:creator>dom lizarraga</dc:creator>
       <description>
 </description>
-      <pubDate>Tue, 12 Mar 2024 00:00:00 -0600</pubDate>
+      <pubDate>Tue, 12 Mar 2024 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html</guid>
     </item>
@@ -165,7 +165,7 @@ So in order to increase the quality of your customer service at the internet sca
   &lt;li&gt;Enhancing performance and maintainability to ensure the code could be easily modified in the future.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <pubDate>Sat, 17 Feb 2024 00:00:00 -0600</pubDate>
+      <pubDate>Sat, 17 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/17/refactoring-and-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/17/refactoring-and-testing.html</guid>
     </item>
@@ -177,7 +177,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;remote: true&lt;/p&gt;
 </description>
-      <pubDate>Wed, 14 Feb 2024 00:00:00 -0600</pubDate>
+      <pubDate>Wed, 14 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html</guid>
     </item>
@@ -283,7 +283,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We’ve explored creating a follower system in Rails, showcasing the flexibility of polymorphic associations and the importance of validations. This guide provides a solid foundation for adding social functionalities to your Rails applications, ensuring a robust and scalable feature set.&lt;/p&gt;
 </description>
-      <pubDate>Wed, 07 Feb 2024 00:00:00 -0600</pubDate>
+      <pubDate>Wed, 07 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/07/follow-as-polymorphic.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/07/follow-as-polymorphic.html</guid>
     </item>
@@ -293,7 +293,7 @@ So in order to increase the quality of your customer service at the internet sca
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 28 Jan 2024 00:00:00 -0600</pubDate>
+      <pubDate>Sun, 28 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/28/beginner-guide-docker.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/28/beginner-guide-docker.html</guid>
     </item>
@@ -307,7 +307,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;Here are the official (docs)[https://actionpolicy.evilmartians.io/#/caching] for combinig action policy + cache.&lt;/p&gt;
 </description>
-      <pubDate>Fri, 26 Jan 2024 00:00:00 -0600</pubDate>
+      <pubDate>Fri, 26 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/26/action-policy-cache.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/26/action-policy-cache.html</guid>
     </item>
@@ -321,7 +321,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;Let’s see how it can improve you app as well!&lt;/p&gt;
 </description>
-      <pubDate>Mon, 22 Jan 2024 00:00:00 -0600</pubDate>
+      <pubDate>Mon, 22 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/22/when-you-see-the-count.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/22/when-you-see-the-count.html</guid>
     </item>
@@ -388,7 +388,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;Just wanted to highlight that you must be careful of those &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;where&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find_by&lt;/code&gt; inside of loops!&lt;/p&gt;
 </description>
-      <pubDate>Thu, 18 Jan 2024 00:00:00 -0600</pubDate>
+      <pubDate>Thu, 18 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/18/the-where-clause.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/18/the-where-clause.html</guid>
     </item>
@@ -410,7 +410,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;rails dev:cache&lt;/p&gt;
 </description>
-      <pubDate>Tue, 16 Jan 2024 00:00:00 -0600</pubDate>
+      <pubDate>Tue, 16 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/16/cache-and-redis.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/16/cache-and-redis.html</guid>
     </item>
