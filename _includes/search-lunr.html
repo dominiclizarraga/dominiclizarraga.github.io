@@ -62,10 +62,19 @@ function lunr_search(term) {
     .lunrsearchresult a:hover .title {text-decoration: underline;}
 </style>
 
-
 <form onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
-    <p><input type="text" class="form-control" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Search via Lunr.js" /></p>
+  <div class="search-input-container">
+    <input
+      type="text"
+      class="search-input"
+      id="lunrsearch"
+      name="q"
+      maxlength="120"
+      placeholder="Search"
+    />
+  </div>
 </form>
+
 <div id="lunrsearchresults">
     <ul></ul>
 </div>
