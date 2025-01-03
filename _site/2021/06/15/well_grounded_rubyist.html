@@ -544,6 +544,8 @@ blockquote p:last-child {
   align-items: flex-end;
 }
 
+/** Code for search bar ------------------------------------------------------- */
+
 .search-bar-desktop {
   display: flex;
   flex-direction: column;
@@ -575,6 +577,7 @@ blockquote p:last-child {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
 }
 
+/** Code for search bar RESULTS ------------------------------------------------------- */
 
 #lunrsearchresults {
   padding-top: 0.2rem;
@@ -593,8 +596,11 @@ blockquote p:last-child {
 
 .lunrsearchresult {
   padding-bottom: 1rem;
-  border-bottom: 1px solid #eee;
   margin-bottom: 1rem;
+}
+
+.lunrsearchresult a:hover .title {
+  text-underline-offset: 3px;
 }</style>
   <title>The Well-Grounded Rubyist - dominiclizarraga.github.io</title>
   
@@ -927,7 +933,7 @@ function lunr_search(term) {
                 var ref = results[i]['ref'];
                 var url = documents[ref]['url'];
                 var title = documents[ref]['title'];
-                var body = documents[ref]['body'].substring(0,160)+'...';
+                var body = documents[ref]['body'].substring(0,120)+'...';
                 document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML + "<li class='lunrsearchresult'><a href='" + url + "'><span class='title'>" + title + "</span><br /><span class='body'>"+ body +"</span><br /><span class='url'>"+ url +"</span></a></li>";
             }
         } else {
@@ -942,10 +948,10 @@ function lunr_search(term) {
     #lunrsearchresults {padding-top: 0.2rem;}
     .lunrsearchresult {padding-bottom: 1rem;}
     .lunrsearchresult .title {color: #0f4fd9;}
-    .lunrsearchresult .url {color: silver;}
-    .lunrsearchresult a {display: block; color: #777;}
+    .lunrsearchresult .url {color: rgb(149, 165, 169);}
+    .lunrsearchresult a {display: block; color: #4f4d4d; text-decoration: none;}
     .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
-    .lunrsearchresult a:hover .title {text-decoration: underline;}
+    .lunrsearchresult a:hover .title {text-decoration: underline dotted;}
 </style>
 
 <form onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
