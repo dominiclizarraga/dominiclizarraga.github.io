@@ -44,7 +44,10 @@
   <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="domlizarrraga" data-description="Support me on Buy me a coffee!" data-message="" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </head>
 <body{% if page.class %} class='{{page.class}}'{% endif %}>
-  <div class='pad2y' style='position:relative'>
+  <div class="search-bar-desktop">
+    {% include search-lunr.html %}
+  </div>
+  <div class='' style='position:relative'>
     {% if page.topimage %}<img style='width:100%;' src='{{page.topimage}}' />{% endif %}
     <div class='only-print'>
       <h2>{{ site.me.name }}</h2>
@@ -63,7 +66,7 @@
         </ul>
       </div>
     </nav>
-    <div class='pad2y limiter content {% if page.notitle %}notitle{% endif %}'>
+    <div class='limiter content {% if page.notitle %}notitle{% endif %}'>
       {{ content }}
     </div>
   </div>

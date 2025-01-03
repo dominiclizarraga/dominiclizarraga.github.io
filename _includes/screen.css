@@ -321,7 +321,7 @@ div.post blockquote p {
 @media screen and (min-width: 1025px) {
   .header {
     position: absolute;
-    top: 40px;
+    /* top: 40px; */
     right: 50%;
     margin-right: 340px !important;
     letter-spacing: -0.009em;
@@ -521,4 +521,10 @@ blockquote p:last-child {
 .rss-link {
   display: flex;
   align-items: flex-end;
+}
+
+.search-bar-desktop {
+  display: flex;
+  justify-content: center;
+  margin: auto;
 }
