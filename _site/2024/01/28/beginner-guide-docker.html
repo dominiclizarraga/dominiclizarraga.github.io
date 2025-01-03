@@ -546,13 +546,14 @@ blockquote p:last-child {
 
 .search-bar-desktop {
   display: flex;
-  justify-content: end;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .search-input-container {
   max-width: 600px;
   margin-top: 10px;
-  margin-bottom: 10px;
+  margin-right: 40px;
 }
 
 .search-input {
@@ -573,7 +574,28 @@ blockquote p:last-child {
   outline: none;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
 }
-</style>
+
+
+#lunrsearchresults {
+  padding-top: 0.2rem;
+  width: 100%;
+}
+
+.limiter #lunrsearchresults {
+  margin-top: 1rem;
+  margin-right: 177px;
+}
+
+.limiter #lunrsearchresults ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+.lunrsearchresult {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+}</style>
   <title>Beginner guide to Docker 🐳 - dominiclizarraga.github.io</title>
   
   <link rel="canonical" href="http://localhost:4000/2024/01/28/beginner-guide-docker.html">
@@ -915,6 +937,7 @@ function lunr_search(term) {
     return false;
 }
 </script>
+
 <style>
     #lunrsearchresults {padding-top: 0.2rem;}
     .lunrsearchresult {padding-bottom: 1rem;}
@@ -938,8 +961,10 @@ function lunr_search(term) {
   </div>
 </form>
 
-<div id="lunrsearchresults">
+<div class="limiter">
+  <div id="lunrsearchresults">
     <ul></ul>
+  </div>
 </div>
   </div>
   <div class='' style='position:relative'>
