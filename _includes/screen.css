@@ -563,9 +563,9 @@ blockquote p:last-child {
   width: 100%;
 }
 
-.limiter #lunrsearchresults {
+.limiter > #lunrsearchresults {
   margin-top: 1rem;
-  margin-right: 177px;
+  margin-left: -20px !important;
 }
 
 .limiter #lunrsearchresults ul {
@@ -574,7 +574,7 @@ blockquote p:last-child {
 }
 
 .lunrsearchresult {
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   margin-bottom: 1rem;
 }
 
