@@ -24,7 +24,7 @@ I'm currently working on a [Ruby for good](https://rubyforgood.org/) project cal
         
 I consider myself as very resilient and resourceful also I have learnt how to manage my emotional state and communicate efficiently and on time. 🔑
 
-Here you may find my [resume](https://standardresume.co/r/YcQ-LtWoMGJlQFJz4IvH5), [LinkedIn](https://www.linkedin.com/in/dominiclizarraga/), [GitHub](https://github.com/dominiclizarraga) or if you want to [drop me a line](mailto:domi@hey.com) :)  
+Here you may find my [resume](https://standardresume.co/r/dominic-lizarraga){:target="_blank"}, [LinkedIn](https://www.linkedin.com/in/dominiclizarraga/){:target="_blank"}, [GitHub](https://github.com/dominiclizarraga){:target="_blank"} or if you want to [drop me a line](mailto:domi@hey.com) :) 
 
 **Tech stack**
 
