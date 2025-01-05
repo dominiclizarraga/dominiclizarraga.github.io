@@ -1,10 +1,10 @@
 ---
-title: Intercom Off Scripts note
+title: Intercom Off Script series | notes
 categories: blog
 layout: post
 ---
 
-Here I wrote down some notes after watcihng the Intercom Off-script series about how they are facing the AI age and how the see it [playlit](https://www.youtube.com/watch?v=Gcj7mVY3fJs&list=PLlCIldMZCaFppymtNp4dUWmlkgyCbGEHh)
+Here I wrote down some notes after watcihng the Intercom Off-script series about how they are facing the AI age and how the see it [Youtube playlist](https://www.youtube.com/watch?v=Gcj7mVY3fJs&list=PLlCIldMZCaFppymtNp4dUWmlkgyCbGEHh)
 
 Video #1
 
