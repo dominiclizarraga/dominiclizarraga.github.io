@@ -612,6 +612,11 @@ blockquote p:last-child {
 
 .lunrsearchresult a:hover .title {
   text-underline-offset: 3px;
+}
+
+strong {
+  margin-bottom:1rem;
+  display:block;
 }</style>
   <title>Conferences - dominiclizarraga.github.io</title>
   
@@ -638,7 +643,7 @@ var documents = [{
     "id": 2,
     "url": "http://localhost:4000/confs/index.html",
     "title": "Conferences",
-    "body": "Here you'll find the confs that I have attended or will be attending in the future. :  Rails Saas | Oct 2022. Description pending.  Rails Conf | Apr 2023. Description pending.  Blue Ridge Ruby | Jun 2023. Description pending.  Ruby For Good | Jul 2023. Description pending.  Rails Camp | Sep 2023. Description pending.  Rails world | Oct 2023. Description pending.  Ruby Conf | Nov 2023. Description pending.  Sin City Ruby | Mar 2024. Coming soon 🤗 Rails conf | May 2024. Coming soon 🤗 Blue Ridge Ruby | May 2024. Coming soon 🤗"
+    "body": " Here you’ll find the confs that I have attended or will be attending in the future.  Rails Saas | Oct 2022. Description pending.  Rails Conf | Apr 2023. Description pending.  Blue Ridge Ruby | Jun 2023. Description pending.  Ruby For Good | Jul 2023. Description pending.  Rails Camp | Sep 2023. Description pending.  Rails world | Oct 2023. Description pending.  Ruby Conf | Nov 2023. Description pending.  Sin City Ruby | Mar 2024. Coming soon 🤗 Rails conf | May 2024. Coming soon 🤗 Blue Ridge Ruby | May 2024. Coming soon 🤗"
     }, {
     "id": 3,
     "url": "http://localhost:4000/",
@@ -648,7 +653,7 @@ var documents = [{
     "id": 4,
     "url": "http://localhost:4000/computer_science/",
     "title": "Computer Science Notes",
-    "body": " I've committed to gaining depth in computer science, and here are the notes I'm taking along with the lessons on csprimer. com. :  1st module: Computes Systems.  {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com.  1st module: Computes Systems.  {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 5,
     "url": "http://localhost:4000/projects/index.html",
@@ -1002,7 +1007,9 @@ function lunr_search(term) {
       </div>
     </nav>
     <div class='limiter content notitle'>
-      <div class='body'><h3 style="color:rgb(54, 54, 59);margin-bottom:1.5rem;">Here you'll find the confs that I have attended or will be attending in the future.</h3>
+      <div class='body'><strong>
+  Here you'll find the confs that I have attended or will be attending in the future.
+</strong>
 
 <div class='project-box'>
 

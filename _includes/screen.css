@@ -592,3 +592,8 @@ blockquote p:last-child {
 .lunrsearchresult a:hover .title {
   text-underline-offset: 3px;
 }
+
+strong {
+  margin-bottom:1rem;
+  display:block;
+}

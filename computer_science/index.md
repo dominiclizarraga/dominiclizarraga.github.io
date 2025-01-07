@@ -5,9 +5,9 @@ permalink: /computer_science/
 description: 'Your collection of Computer Science notes'
 ---
 
-<h3 style="color:rgb(54, 54, 59);margin-bottom:1.5rem;">
+<strong>
   I've committed to gaining depth in computer science, and here are the notes I'm taking along with the lessons on csprimer.com.
-</h3>
+</strong>
 
 
 <p style="color:rgb(54, 54, 59);">

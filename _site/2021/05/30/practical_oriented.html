@@ -612,6 +612,11 @@ blockquote p:last-child {
 
 .lunrsearchresult a:hover .title {
   text-underline-offset: 3px;
+}
+
+strong {
+  margin-bottom:1rem;
+  display:block;
 }</style>
   <title>Practical Object-Oriented Design (POODR) - dominiclizarraga.github.io</title>
   
@@ -638,7 +643,7 @@ var documents = [{
     "id": 2,
     "url": "http://localhost:4000/confs/index.html",
     "title": "Conferences",
-    "body": "Here you'll find the confs that I have attended or will be attending in the future. : {% for conf in page. confs %} {{conf. name}} {{conf. description}}{% endfor %}"
+    "body": " Here you’ll find the confs that I have attended or will be attending in the future. {% for conf in page. confs %} {{conf. name}} {{conf. description}}{% endfor %}"
     }, {
     "id": 3,
     "url": "http://localhost:4000/",
@@ -648,7 +653,7 @@ var documents = [{
     "id": 4,
     "url": "http://localhost:4000/computer_science/",
     "title": "Computer Science Notes",
-    "body": " I've committed to gaining depth in computer science, and here are the notes I'm taking along with the lessons on csprimer. com. :  1st module: Computes Systems.  {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com.  1st module: Computes Systems.  {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 5,
     "url": "http://localhost:4000/projects/index.html",
