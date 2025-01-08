@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-01-07T22:14:14-08:00</updated>
+  <updated>2025-01-08T14:16:01-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,109 @@
     <name>dom lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>UML inventor interview (Grady Booch) | notes</title>
+    <link href="http://localhost:4000/2024/12/15/uml-inventor.html"/>
+    <updated>2024-12-15T00:00:00-08:00</updated>
+    <id>http://localhost:4000/2024/12/15/uml-inventor</id>
+    <content type="html">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=u7WaC429YcU&amp;amp;t=1144s&quot;&gt;Full interview&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Unified_Modeling_Language&quot;&gt;UML&lt;/a&gt; creator defines UML as reason tool, not coding! Also invented object oriented analysis and design.&lt;/p&gt;
+
+&lt;p&gt;IBM fellow is a distinguished role where he seeks to do improvements for the next 5-10 days, as Alan Kay said: The best way to predict the future is to invent it.&lt;/p&gt;
+
+&lt;p&gt;He was after automating discovery patterns in legacy code way before LLM’s (didn’t continue the project).&lt;/p&gt;
+
+&lt;p&gt;The moment you write a code it becomes “legacy” until you throw it away, even when it’s very small, it has a cost, has to be maintainable, tech debt, etc.&lt;/p&gt;
+
+&lt;p&gt;~60s IRS population increased and paperwork was too much that was not able to be done by hand so a new process of automation with Fortran came (they used to close earlier in order to reconcile accounts) that code is still running, mostly business rules plus the government still issuing more rules YOY.&lt;/p&gt;
+
+&lt;p&gt;Complex systems started with the defense department (&lt;a href=&quot;https://en.wikipedia.org/wiki/Semi-Automatic_Ground_Environment&quot;&gt;SAGE&lt;/a&gt; 50s-80s) before satellites and radars, around this time NATO was created and they aimed to fix this problem. (Golden age of software)&lt;/p&gt;
+
+&lt;p&gt;The premise back in the day was to build monolith systems that were sustainable over time with algorithmic languages (Cobol, Fortran).&lt;/p&gt;
+
+&lt;p&gt;The transition from monoliths to distributed systems initially with &lt;a href=&quot;https://en.wikipedia.org/wiki/DARPA&quot;&gt;DARPA&lt;/a&gt; was funded by the government and having an email was pretty difficult only a thousand people had.&lt;/p&gt;
+
+&lt;p&gt;The issue started to be more noticeable when they wanted to scale the system with algorithmic decomposition, they needed software that work in a variety of computers, multi-lingual, distributed and real time.&lt;/p&gt;
+
+&lt;p&gt;Late 70s &lt;a href=&quot;https://en.wikipedia.org/wiki/Smalltalk&quot;&gt;Smalltalk&lt;/a&gt; arose and the government had an issue that all their systems were using different languages so they wanted to unify them to only one, which was &lt;a href=&quot;https://en.wikipedia.org/wiki/Ada_(programming_language)&quot;&gt;Ada&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ada was far ahead of its time, it used the ideas of abstract data types, which was extremely new back in the day.&lt;/p&gt;
+
+&lt;p&gt;This new Ada wave brought the &lt;a href=&quot;https://en.wikipedia.org/wiki/Booch_method&quot;&gt;Booch method&lt;/a&gt; (1979) this is the 2nd golden era of software where they dealt with system distributed problems not only algorithms.&lt;/p&gt;
+
+&lt;p&gt;Grady came up with the Booch method by reading many sources but one that caught his attention was Plato and his quote “how one should best see the world? As processes or as atoms” the latter was more inclined to OOP (classes and objects, behavior). (among other philosophical sources)&lt;/p&gt;
+
+&lt;p&gt;~1950 subroutines were considered a bad practice/controversial because doing a function call added 2 or 3 more instructions, now is seen normal, this was before the Booch method and thinking in classes and objects, now we take that for granted!&lt;/p&gt;
+
+&lt;p&gt;The goal of UML was to look at the software from multiple points of view.&lt;/p&gt;
+
+&lt;p&gt;Before data orientation, people who write COBOL used to print every day a document called “common data” as a matter of practice not due to language so that the whole team had the abstractions on a daily basis.&lt;/p&gt;
+
+&lt;p&gt;Grady and his partners after spending some years in defense they moved to commercial space and built &lt;a href=&quot;https://en.wikipedia.org/wiki/IBM_Rational_Rose&quot;&gt;ROSE&lt;/a&gt; which helped the teams to write UML diagrams easily, only as a design tool.&lt;/p&gt;
+
+&lt;p&gt;The market then asked “now we have an arpanet and these personal computers, how do we keep building software?”  and that was the time that the concept of “use-cases” was conceived, it was very strange to look through it back in the day.&lt;/p&gt;
+
+&lt;p&gt;UML helped people along Microsoft VScode to drive more complex software because now they have these two that most people can use and write code depicting entities relationships responsibilities and that increase the complexity on the systems (maybe LLM will enable us to develop more complex software?)&lt;/p&gt;
+
+&lt;p&gt;After the.com hype people realized that the companies or products that were developed we’re not economically sustainable (maybe all the microapps we currently have?)&lt;/p&gt;
+
+&lt;p&gt;Why u m l is not longer used in modern software?&lt;/p&gt;
+
+&lt;p&gt;Grady’s outlooks&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Big companies have exposed their apis therefore there is no much architectural thinking and company keeps building on top of it&lt;/li&gt;
+  &lt;li&gt;Startups for instance they just built with others people money and if it fails it doesn’t matter so I don’t have formality I just want to build something&lt;/li&gt;
+  &lt;li&gt;Another example if I build an airplane software I want more discipline and I want more ceremony so uml is going to be part of&lt;/li&gt;
+  &lt;li&gt;Also if I’m building a defense software and someone may die i want formality&lt;/li&gt;
+  &lt;li&gt;Also if I’m going to build something that people have built in the past again and again I don’t need uml for instance the users profiles or liking a post I just prompted the LLM&lt;/li&gt;
+  &lt;li&gt;On the other hand if I’m going to build something that I have never seen before something really complex that’s the sweet spot for UML&lt;/li&gt;
+  &lt;li&gt;James Webb space telescope uses UML.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Economicals on software has changed, back in the day a computer was more expensive than a human so you have to spend more time thinking about the algorithm before trying it out now that has changed and you take that for granted but the competitional resources were very scarce&lt;/p&gt;
+
+&lt;p&gt;Regarding the role of software architect: “All architecture is designed but to all design is architecture” It represents significant design decisions that shape the form and shape of the system where significant is measured by cost of change.&lt;/p&gt;
+
+&lt;p&gt;The above paragraph reminded me of:&lt;/p&gt;
+
+&lt;p&gt;“Successful (working) but undesigned applications carry the seeds of their own destruction; they are easy to write, but gradually become impossible to change.”
+― Sandi Metz&lt;/p&gt;
+
+&lt;p&gt;The entire history of software engineering is rising levels of  abstraction, and that’s what we are currently seeing at very high level of abstraction that does not require any more the system decision which back in the day was bread and butter&lt;/p&gt;
+
+&lt;p&gt;Now the decisions that have to be made are what cloud service I use? What message system do I use or what platform? Which are economic decisions, should I use AWS for this?&lt;/p&gt;
+
+&lt;p&gt;A very interesting comment from Grady was that if you are a startup you’re going to hire someone who has done this before because they know the caveats of these new “architectural decision” in this case let’s say AWS because this guy has work on it before and he already knows it’s limitations and how far it can go, the costs and so forth therefore they can accelerate your development because they have more expertise on this and now these are “systemic decisions” because they have economic impact (even on the long term)&lt;/p&gt;
+
+&lt;p&gt;Another bite from Grady Regarding why migrations are very hard to carry out  is that you aim to build economically feasible software but technology is changing out of you so you that makes you think that you need to change either a new framework or where is the background jobs for the calculations being done either on the server or the mobile for instance&lt;/p&gt;
+
+&lt;p&gt;“The code is is the truth but the code is not the whole truth” this quote again is for design decisions and sits around that you cannot just focus on what’s the best approach to this problem where is the most optimized solution for this because it involves hardware and even society, even culture.&lt;/p&gt;
+
+&lt;p&gt;A comparable change in history like that recent AI has brought can be when software went from being developed just to one monolith across different computers like a distributed systems systems,  that forced us to rethink how we design systems because now you are able to have it either on your mobile or your PC (lates 70s)&lt;/p&gt;
+
+&lt;p&gt;By this time many changes came for instance &lt;a href=&quot;https://en.wikipedia.org/wiki/Time-sharing&quot;&gt;time-sharing&lt;/a&gt;, &lt;a href=&quot;https://timeline.ll.mit.edu/timeline/&quot;&gt;whirlwind computers&lt;/a&gt; then mini computers (digital) with help of semiconductors.&lt;/p&gt;
+
+&lt;p&gt;The rise of distributed systems can be like new LLMS.
+The perfect storm for AI was having Andrew NG discovering that the matrix multiplication that the NVIDIA GPU us were doing for more realistic game development was the ones that they need for deep learning&lt;/p&gt;
+
+&lt;p&gt;Grady’s take on LLM: based on his vast experience on AI and now that he has 6 years researching the brain and its parts, he concludes that LLMs are unreliable narrators based on their architecture, they allow us to build scale bullshit generators, like stochastic parrots. The result is coherent though.&lt;/p&gt;
+
+&lt;p&gt;We are not going to hit AGI by scaling.&lt;/p&gt;
+
+&lt;p&gt;For new folks joining the market: -You will always need people to make informed decisions, tools change, it’s another level of abstraction.&lt;/p&gt;
+
+&lt;p&gt;Find a place yourself where no one else is there and make your name there. There are plenty of spaces in the computer field, lastly have fun!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.amazon.com/Software-Architecture-Perspectives-Emerging-Discipline/dp/0131829572&quot;&gt;Books recommendations&lt;/a&gt;&lt;/p&gt;
+</content>
+    <author>
+      <name>dom lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>Intercom Off Script series | notes</title>
@@ -414,31 +517,6 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;&lt;a href=&quot;/2023/12/06/n-+-1-queries.html&quot;&gt;Here I have a deeper blog about it!&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;Just wanted to highlight that you must be careful of those &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;where&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;find_by&lt;/code&gt; inside of loops!&lt;/p&gt;
-</content>
-    <author>
-      <name>dom lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>Key concepts for Redis and cache 💽</title>
-    <link href="http://localhost:4000/2024/01/16/cache-and-redis.html"/>
-    <updated>2024-01-16T00:00:00-08:00</updated>
-    <id>http://localhost:4000/2024/01/16/cache-and-redis</id>
-    <content type="html">&lt;p&gt;Expire&lt;/p&gt;
-
-&lt;p&gt;Bust&lt;/p&gt;
-
-&lt;p&gt;Cache hit&lt;/p&gt;
-
-&lt;p&gt;Cache miss&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user.touch&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Setting up redis in production since developers want a slower app in development&lt;/p&gt;
-
-&lt;p&gt;rails dev:cache&lt;/p&gt;
 </content>
     <author>
       <name>dom lizarraga</name>
