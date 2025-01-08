@@ -5,8 +5,8 @@ permalink: /computer_science/
 description: 'Your collection of Computer Science notes'
 ---
 
-<strong>
-  I've committed to gaining depth in computer science, and here are the notes I'm taking along with the lessons on csprimer.com.
+<strong style="margin-top:-1rem;">
+  I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer.com.
 </strong>
 
 
