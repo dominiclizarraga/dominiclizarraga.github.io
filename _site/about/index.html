@@ -292,11 +292,15 @@ div.post blockquote p {
 
 /** Responsive -------------------------------------------------------------- */
 
+/* Screen width:  0px -------- 480px -------- 640px -------- 1024px -------- ∞ */
+/* max-width: 480px:  |←――――――| */
+/* max-width: 640px:  |←―――――――――――――| */
+/* min-width: 640px:                    |――――――――――――――――――――――――――――→| */
+/* max-width: 1024px: |←――――――――――――――――――――――――――| */
+
 @media screen and (max-width: 480px) {
   .project-box {
     grid-template-columns: repeat(1, 1fr);
-    margin-top: 20px;
-    margin-bottom: 20px;
   }
 }
 
@@ -347,6 +351,15 @@ div.post blockquote p {
   #lunrsearchresults {
     width: 350px !important;
     overflow-x: hidden;
+  }
+
+  .about-image{
+    margin-top: 5px;
+  }
+
+  .project-box {
+    margin-top: 5px;
+    margin-bottom: 20px;
   }
 }
 
@@ -1012,7 +1025,7 @@ function lunr_search(term) {
       </div>
     </nav>
     <div class='limiter content '>
-      <div class='body'><div><img src="/images/blue_ridge.jpg" alt="Blue Ridge Mountains" /></div>
+      <div class='body'><div><img src="/images/blue_ridge.jpg" alt="Blue Ridge Mountains" class="about-image" style="border-radius:0.375rem;" /></div>
 
 <!-- above is a tiny little tweak! p tags have a little of top space.
 if you want your image on the about page to be flush with the name
