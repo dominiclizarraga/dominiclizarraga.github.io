@@ -7,7 +7,7 @@ layout: post
 
 [UML](https://en.wikipedia.org/wiki/Unified_Modeling_Language) creator defines UML as reason tool, not coding! Also invented object oriented analysis and design.
 
-IBM fellow is a distinguished role where he seeks to do improvements for the next 5-10 days, as Alan Kay said: The best way to predict the future is to invent it.
+IBM fellow is a distinguished role where he seeks to do improvements for the next 5-10 years, as Alan Kay said: The best way to predict the future is to invent it.
 
 He was after automating discovery patterns in legacy code way before LLM’s (didn’t continue the project).
 
