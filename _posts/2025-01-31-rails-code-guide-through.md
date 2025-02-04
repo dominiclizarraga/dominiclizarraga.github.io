@@ -16,6 +16,7 @@ I've always been curious how callbacks and model validations work in Rails, so I
 5. [`super` keyword for `.save`](#super-save)
 6. [Ruby call stack](#inheritance)
 7. [Recap with flow chart](#recap)
+8. [Shortcut for Ruby method lookup](#shorcut)
 
 Always have a question in mind that you want to answer otherwise it may be pretty easy to get lost.💡
 
@@ -72,18 +73,18 @@ Pretty standard, now what does trigger ‘active_record_callbacks’? Was it aft
 
 ### Possible error with bundle {#bundle-error}
 
-Let’s go and open active_record library with '`bundle open activerecord`', it might throw you an error, I fixed it in VScode by adding:
+Let’s go and open active_record library with '`bundle open activerecord`', it might throw you an error, I fixed it by typing:
 
 ```shell
-# in your console
-code ~/.zshrc
-# add the next code to your ‘.zshrc’ file
-export EDITOR="code --wait"
-# close it and run
+# in your console, it will work for one session
+EDITOR=code bundle open activerecord
+# or permanently set it in your .zshrc file
+export BUNDLER_EDITOR=code
+# close the .zshrc file
 source ~/.zshrc
 ```
 
-[Docs for 'bundle open'](https://bundler.io/man/bundle-open.1.html) 🪄
+[Docs for 'bundle open'](https://bundler.io/man/bundle-open.1.html){:target="_blank"} and [setting your editor for opening gems](https://stackoverflow.com/questions/25084035/setting-editor-or-bundler-editor-environment-variable){:target="_blank"} 🪄
 
 ### First exploration with ActiveRecord lib {#active-record}
 
@@ -236,6 +237,61 @@ Here a flow chart as recap of what we explored:
 
 <div><img src='/graphics/projects/validations_rails_4.png' alt='validations_rails_flow_cart' class="" style="border-radius:0.375rem;"/></div>
 
+### Shorcut - Ruby method lookup {#shorcut}
 
+I got some feeback from Kasper and he suggested the following commands as alternatives, they seem to be more efficient than looking up the code in the gem.
 
+The code will tell you where the method is defined, and you can keep chaining `.super_method` to go up the inheritance chain.
+
+```ruby
+➜  callbacks git:(main) rc
+Loading development environment (Rails 8.0.1)
+callbacks(dev)> Post.instance_method(:save).super_method
+=> #<UnboundMethod: ActiveRecord::Transactions#save(**) /Users/dominiclizarraga/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/activerecord-8.0.1/lib/active_record/transactions.rb:361>
+
+# 2 times '.super_method'
+callbacks(dev)> Post.instance_method(:save).super_method.super_method
+=> #<UnboundMethod: ActiveRecord::Validations#save(**options) /Users/dominiclizarraga/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/activerecord-8.0.1/lib/active_record/validations.rb:47>
+
+# 3 times '.super_method'
+callbacks(dev)> Post.instance_method(:save).super_method.super_method.super_method
+=> #<UnboundMethod: ActiveRecord::Persistence#save(**options, &block) /Users/dominiclizarraga/.rbenv/versions/3.4.1/lib/ruby/gems/3.4.0/gems/activerecord-8.0.1/lib/active_record/persistence.rb:390>
+
+```
+
+And also for seeing the module hierarchy and suplerclasses you can use the following command:
+
+```ruby
+Post.ancestors
+=> 
+[Post (call 'Post.load_schema' to load schema informations),
+ Post::GeneratedAssociationMethods,
+ Post::GeneratedAttributeMethods,
+ ApplicationRecord(abstract),
+ ApplicationRecord::GeneratedAssociationMethods,
+ ApplicationRecord::GeneratedAttributeMethods,
+ ActionText::Encryption,
+ ActiveRecord::Base,
+ Turbo::Broadcastable, 🤯
+ ActionText::Attribute,
+ ActiveStorage::Reflection::ActiveRecordExtensions,
+ ActiveStorage::Attached::Model,
+ GlobalID::Identification,
+ ActiveRecord::Marshalling::Methods,
+ ...
+ ...
+ ...
+ ActiveRecord::ReadonlyAttributes,
+ ActiveRecord::Persistence, 👈
+ ActiveSupport::Callbacks, 👈
+ ActiveModel::Validations, 👈
+ ActiveSupport::Dependencies::RequireDependency,
+ Object,
+ PP::ObjectMixin,
+ ActiveSupport::ToJsonWithActiveSupportEncoder,
+ ActiveSupport::Tryable,
+ JSON::Ext::Generator::GeneratorMethods::Object,
+ Kernel,
+ BasicObject]
+```
 
