@@ -16,7 +16,7 @@
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;Next session with Kasper &lt;a href=&quot;https://lu.ma/8a8clh9b&quot; target=&quot;_blank&quot;&gt;(luma link)&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;Last Friday I attended a session with &lt;a href=&quot;@kaspth.bsky.social&quot;&gt;Kasper&lt;/a&gt; where he shared with us how he usually explores Rails codebase, he’s got a lot of expereince doing this and applying what I learned here is the result.&lt;/p&gt;
+&lt;p&gt;Last Friday I attended a session with &lt;a href=&quot;@kaspth.bsky.social&quot;&gt;Kasper&lt;/a&gt; where he shared with us how he usually explores Rails codebase, he’s got a lot of experience doing this therefore I applied what I learned here.&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#setting-up&quot;&gt;Setting up the app&lt;/a&gt;&lt;/li&gt;
@@ -24,21 +24,45 @@
   &lt;li&gt;&lt;a href=&quot;#active-record&quot;&gt;First exploration with ActiveRecord lib&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#super-valid&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super&lt;/code&gt; keyword for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.valid?&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#super-save&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super&lt;/code&gt; keyword for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.save&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#inheritance&quot;&gt;Ruby call stack&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#recap&quot;&gt;Recap with flow chart&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;p&gt;Always have a question in mind that you want to answer otherwise it may be pretty easy to get lost.💡&lt;/p&gt;
 
 &lt;h3 id=&quot;setting-up&quot;&gt;Setting up the app&lt;/h3&gt;
-&lt;p&gt;[Here will go some ruby script to build a rails 8, with Post model scaffolded and adding callbacks and model validations]&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# create a new rails app&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cd&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# create a new model&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;g&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;model&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Post&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;rails&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;db&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:migrate&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# add the following code to the model&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Post&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ApplicationRecord&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;validates&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;presence: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;allow_nil: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
 
-&lt;p&gt;After settingup a very basic app with 2 callbacks, and one validation, we can see that both callbacks are running corrrectly.&lt;/p&gt;
+  &lt;span class=&quot;n&quot;&gt;before_validation&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:titleize_title&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;after_create&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:print_out_title&lt;/span&gt;
+
+  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;titleize_title&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;present?&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;downcase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;titleize&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;before_validation- Title changed to &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;print_out_title&lt;/span&gt;
+      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;after_create- Title was saved as: &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After setting up a very basic app with 2 callbacks, and one validation, we can see that both callbacks are running corrrectly.&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;✗&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rc&lt;/span&gt;
 &lt;span class=&quot;no&quot;&gt;Loading&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;development&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;environment&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;8.0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#&amp;lt;Post:0x00000001205322c8 id: nil, title: nil, created_at: nil, updated_at: nil&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;valid?&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;are&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;calling&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;valid?&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;👈&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;full_messages&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Title can&apos;t be blank&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -59,28 +83,28 @@ after_create- Title was saved as: Hola 👈
 
 &lt;p&gt;Let’s go and open active_record library with ‘&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle open activerecord&lt;/code&gt;’, it might throw you an error, I fixed it in VScode by adding:&lt;/p&gt;
 
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# in your console&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;code&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/.zshrc
-# add the next code to your ‘.zshrc’ file
-export EDITOR=&quot;code --wait&quot;
-# close it and run
-source ~/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;zshrc&lt;/span&gt;
+&lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;# in your console&lt;/span&gt;
+code ~/.zshrc
+&lt;span class=&quot;c&quot;&gt;# add the next code to your ‘.zshrc’ file&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;EDITOR&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;code --wait&quot;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# close it and run&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;source&lt;/span&gt; ~/.zshrc
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://bundler.io/man/bundle-open.1.html&quot;&gt;Docs for ‘bundle open’&lt;/a&gt; 🪄&lt;/p&gt;
 
 &lt;h3 id=&quot;active-record&quot;&gt;First exploration with ActiveRecord lib&lt;/h3&gt;
 
-&lt;p&gt;Within &lt;a href=&quot;https://github.com/rails/rails/blob/main/activerecord/lib/active_record/validations.rb#L69&quot;&gt;lib/active_record/validations.rb:69&lt;/a&gt; we can see the following chain of method calls:&lt;/p&gt;
+&lt;p&gt;Within &lt;a href=&quot;https://github.com/rails/rails/blob/main/activerecord/lib/active_record/validations.rb#L69&quot; target=&quot;_blank&quot;&gt;lib/active_record/validations.rb:69&lt;/a&gt; and after reading a bit we can see the following chain of method calls:&lt;/p&gt;
 
 &lt;p align=&quot;center&quot;&gt;&lt;strong&gt;save → perform_validations → valid?.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;Let’s add a puts statement and try it out.&lt;/p&gt;
+&lt;p&gt;Let’s add a puts statement and test it out.&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;valid?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;you are calling &apos;valid?&apos; :)&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 👈&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;you are calling &apos;valid?&apos; :)&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# added for testing 👈&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;default_validation_context&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;super&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;--- calls ActiveModel::Validations#valid? (parent method)&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;empty?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;output&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -114,33 +138,37 @@ after_create- Title was saved as: Hola!
 
 &lt;p&gt;Let’s open the gem with ‘&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle open activemodel&lt;/code&gt;’.&lt;/p&gt;
 
-&lt;p&gt;‘.valid?’ will invoke ActiveModel::Validations#valid? &lt;a href=&quot;https://github.com/rails/rails/blob/main/activemodel/lib/active_model/validations.rb#L361&quot;&gt;lib/active_model/validations.rb:361&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;‘.valid?’ will invoke ActiveModel::Validations#valid? &lt;a href=&quot;https://github.com/rails/rails/blob/main/activemodel/lib/active_model/validations.rb#L361&quot; target=&quot;_blank&quot;&gt;lib/active_model/validations.rb:361&lt;/a&gt; this method will call ‘run_validations!’ which is defined in &lt;a href=&quot;https://github.com/rails/rails/blob/main/activemodel/lib/active_model/validations.rb#L459&quot;&gt;lib/active_model/validations.rb:459&lt;/a&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;valid?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;current_context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;validation_context&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;context_for_validation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;errors&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;clear&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;run_validations!&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run_validations!&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;--- calls all validation callbacks (returns true if the record is valid, false otherwise)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;ensure&lt;/span&gt;
   &lt;span class=&quot;n&quot;&gt;context_for_validation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;current_context&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;strong&gt;run_validations! → _run_validate_callbacks&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The latter comes from ActiveSupport::Callbacks, it is dynamically generated via &lt;a href=&quot;https://github.com/rails/rails/blob/main/activesupport/lib/active_support/callbacks.rb#L901&quot; target=&quot;_blank&quot;&gt;‘define_callbacks’,&lt;/a&gt; inside of this ActiveSupport module you’ll find very interesting classes as Before, After, Around, CallbackSequence, CallbackChain (where the callbacks are stored.)&lt;/p&gt;
 
 &lt;h3 id=&quot;super-save&quot;&gt;‘&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super&lt;/code&gt;’ keyword for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.save&lt;/code&gt;&lt;/h3&gt;
 
-&lt;p&gt;The second keyword is in ‘save’ and goes up to ActiveRecord::Persistence module&lt;/p&gt;
+&lt;p&gt;The second ‘super’ keyword is in ‘.save’ and goes up to ActiveRecord::Persistence module.&lt;/p&gt;
 
-&lt;p&gt;Just for making this more practical I have added a puts statement to &lt;a href=&quot;https://github.com/rails/rails/blob/main/activerecord/lib/active_record/persistence.rb#L390&quot;&gt;lib/active_record/persistence.rb:390&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Just for making this more practical I have added a puts statement to &lt;a href=&quot;https://github.com/rails/rails/blob/main/activerecord/lib/active_record/persistence.rb#L390&quot; target=&quot;_blank&quot;&gt;lib/active_record/persistence.rb:390&lt;/a&gt;&lt;/p&gt;
 
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;create_or_update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;you saved it :)&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RecordInvalid&lt;/span&gt;
-      &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;create_or_update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;you saved it :)&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# added for testing 👈&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;rescue&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RecordInvalid&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;rails console 🎮&lt;/p&gt;
+
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#&amp;lt;Post:0x000000011d5b92a8 id: nil, title: nil, created_at: nil, updated_at: nil&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;callbacks&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;HOLA?&quot;&lt;/span&gt;
@@ -159,46 +187,73 @@ you saved it :) 👈
   TRANSACTION (0.0ms)  ROLLBACK TRANSACTION /&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Callbacks&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/
 =&amp;gt; nil
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;‘.save’ will call &lt;a href=&quot;https://github.com/rails/rails/blob/main/activerecord/lib/active_record/persistence.rb#L899&quot; target=&quot;_blank&quot;&gt;‘create_or_update’&lt;/a&gt; and then depending on whether the object is new or not, it can be about an ‘insert’ or ‘update’ operation.&lt;/p&gt;
 
-&lt;p&gt;Something that was difficult to wrap my head around was why ‘valid?’ and ‘save’ point to different modules and get overridden? After some lookups I figured that this is because in lib/active_record/base.rb we have:&lt;/p&gt;
+&lt;h3 id=&quot;inheritance&quot;&gt;How ruby call up its ancestor objects&lt;/h3&gt;
+
+&lt;p&gt;Something that was difficult to wrap my head around was why ‘valid?’ and ‘save’ point to different modules and how they get overridden? After some lookups I figured that this is because in ‘lib/active_record/base.rb’ we have the following:&lt;/p&gt;
+
+&lt;p&gt;Since Validations is included after Persistence, it overrides ‘save’, adding validation checks before calling ‘super’ to go back to ‘Persistence#save’.&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Module&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;
  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Base&lt;/span&gt;
-   &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Persistence&lt;/span&gt;
+   &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Persistence&lt;/span&gt; 
    &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Validations&lt;/span&gt;
+   &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Callbacks&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;For the method ‘.save’, ‘super’ calls the next method in the method lookup chain, which will be ActiveRecord::Persistence#save:390 which in turn will determine if it’s a new_object call create or update alternatively&lt;/p&gt;
+&lt;p&gt;Also within lib/active_record/callbacks.rb we see that ActiveModel::Callbacks is included.&lt;/p&gt;
 
-&lt;p&gt;lib/active_model/validations/callbacks.rb&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ActiveRecord&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Callbacks&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ClassMethods&lt;/span&gt;
+      &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveModel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Callbacks&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;included&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveModel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Validations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Callbacks&lt;/span&gt;
 
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Callbacks&lt;/span&gt;
-      &lt;span class=&quot;kp&quot;&gt;extend&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Concern&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;included&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-        &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveSupport&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Callbacks&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;define_callbacks&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:validation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                         &lt;span class=&quot;ss&quot;&gt;skip_after_callbacks_if_terminated: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-                         &lt;span class=&quot;ss&quot;&gt;scope: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:kind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;define_model_callbacks&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:touch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;only: :after&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;define_model_callbacks&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:destroy&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;lib/active_record/callbacks.rb&lt;/p&gt;
+&lt;!-- For the method ‘.save’, ‘super’ calls the next method in the method lookup chain, which will be [ActiveRecord::Persistence#save:390](https://github.com/rails/rails/blob/main/activerecord/lib/active_record/persistence.rb#L390){:target=&quot;_blank&quot;} which in turn will determine if it’s a new_object call create or update alternatively --&gt;
 
-&lt;p&gt;module ClassMethods
-      include ActiveModel::Callbacks
-   included do
-      include ActiveModel::Validations::Callbacks&lt;/p&gt;
+&lt;!-- lib/active_model/validations/callbacks.rb --&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  define_model_callbacks :initialize, :find, :touch, only: :after
-  define_model_callbacks :save, :create, :update, :destroy
-End
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;!-- ```ruby 
+module Callbacks
+  extend ActiveSupport::Concern
+
+  included do
+    include ActiveSupport::Callbacks
+    define_callbacks :validation,
+                      skip_after_callbacks_if_terminated: true,
+                      scope: [:kind, :name]
+  end
+```
+ --&gt;
+
+&lt;h3 id=&quot;recap&quot;&gt;Recap with visual aid&lt;/h3&gt;
+
+&lt;p&gt;When we call ‘.save’, Ruby follows this lookup order:&lt;/p&gt;
+
+&lt;p&gt;First, it checks the model’s own class (Post in your case).&lt;/p&gt;
+
+&lt;p&gt;Your Post model does not define save, so Ruby looks in the included modules.
+Second, it checks ActiveRecord::Validations#save.&lt;/p&gt;
+
+&lt;p&gt;Since this method exists, it runs, calling perform_validations.
+If validation passes, it calls super, which means “find the next save method in the lookup chain.”
+Third, super calls ActiveRecord::Persistence#save.&lt;/p&gt;
+
+&lt;p&gt;This method handles inserting/updating the record.&lt;/p&gt;
 
 &lt;p&gt;Here a flow chart as recap of what we explored&lt;/p&gt;
-
-&lt;p&gt;https://excalidraw.com/&lt;/p&gt;
 
 </description>
       <pubDate>Fri, 31 Jan 2025 00:00:00 -0800</pubDate>
