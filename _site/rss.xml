@@ -18,6 +18,8 @@
 
 &lt;p&gt;Last Friday I attended a session with &lt;a href=&quot;@kaspth.bsky.social&quot;&gt;Kasper&lt;/a&gt; where he shared with us how he usually explores Rails codebase, he’s got a lot of experience doing this therefore I applied what I learned here.&lt;/p&gt;
 
+&lt;p&gt;I’ve always been curious how callbacks and model validations work in Rails, so I decided to explore this topic.&lt;/p&gt;
+
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#setting-up&quot;&gt;Setting up the app&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#bundle-error&quot;&gt;Possible error with bundle&lt;/a&gt;&lt;/li&gt;
@@ -151,7 +153,7 @@ after_create- Title was saved as: Hola!
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p align=&quot;center&quot;&gt;&lt;strong&gt;run_validations! → _run_validate_callbacks&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;The latter comes from ActiveSupport::Callbacks, it is dynamically generated via &lt;a href=&quot;https://github.com/rails/rails/blob/main/activesupport/lib/active_support/callbacks.rb#L901&quot; target=&quot;_blank&quot;&gt;‘define_callbacks’,&lt;/a&gt; inside of this ActiveSupport module you’ll find very interesting classes as Before, After, Around, CallbackSequence, CallbackChain (where the callbacks are stored.)&lt;/p&gt;
+&lt;p&gt;The latter comes from ActiveSupport::Callbacks, it is dynamically generated via &lt;a href=&quot;https://github.com/rails/rails/blob/main/activesupport/lib/active_support/callbacks.rb#L901&quot; target=&quot;_blank&quot;&gt;‘define_callbacks’,&lt;/a&gt; inside of this ActiveSupport module you’ll find very interesting classes as Before, After, Around, CallbackSequence, CallbackChain (where the callbacks are stored in a [])&lt;/p&gt;
 
 &lt;h3 id=&quot;super-save&quot;&gt;‘&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;super&lt;/code&gt;’ keyword for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.save&lt;/code&gt;&lt;/h3&gt;
 
@@ -191,9 +193,7 @@ you saved it :) 👈
 
 &lt;h3 id=&quot;inheritance&quot;&gt;How ruby call up its ancestor objects&lt;/h3&gt;
 
-&lt;p&gt;Something that was difficult to wrap my head around was why ‘valid?’ and ‘save’ point to different modules and how they get overridden? After some lookups I figured that this is because in ‘lib/active_record/base.rb’ we have the following:&lt;/p&gt;
-
-&lt;p&gt;Since Validations is included after Persistence, it overrides ‘save’, adding validation checks before calling ‘super’ to go back to ‘Persistence#save’.&lt;/p&gt;
+&lt;p&gt;Something that was difficult to wrap my head around was why ‘valid?’ and ‘save’ point to different modules and how they get overridden? After some lookups I figured that this is because in &lt;a href=&quot;https://github.com/rails/rails/blob/main/activerecord/lib/active_record.rb&quot; target=&quot;_blank&quot;&gt;‘lib/active_record/base.rb’&lt;/a&gt; we have the following:&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Module&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;
  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Base&lt;/span&gt;
@@ -204,56 +204,39 @@ you saved it :) 👈
  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;Also within lib/active_record/callbacks.rb we see that ActiveModel::Callbacks is included.&lt;/p&gt;
-
-&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ActiveRecord&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;Callbacks&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ClassMethods&lt;/span&gt;
-      &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveModel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Callbacks&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;included&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
-      &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveModel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Validations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Callbacks&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;define_model_callbacks&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:touch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;only: :after&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;define_model_callbacks&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:save&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:update&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:destroy&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;!-- For the method ‘.save’, ‘super’ calls the next method in the method lookup chain, which will be [ActiveRecord::Persistence#save:390](https://github.com/rails/rails/blob/main/activerecord/lib/active_record/persistence.rb#L390){:target=&quot;_blank&quot;} which in turn will determine if it’s a new_object call create or update alternatively --&gt;
-
-&lt;!-- lib/active_model/validations/callbacks.rb --&gt;
-
-&lt;!-- ```ruby 
-module Callbacks
-  extend ActiveSupport::Concern
-
-  included do
-    include ActiveSupport::Callbacks
-    define_callbacks :validation,
-                      skip_after_callbacks_if_terminated: true,
-                      scope: [:kind, :name]
-  end
-```
- --&gt;
+&lt;p&gt;Since Validations is included after Persistence, it overrides ‘save’, adding validation checks before calling ‘super’ to go back to ‘Persistence#save’.&lt;/p&gt;
 
 &lt;h3 id=&quot;recap&quot;&gt;Recap with visual aid&lt;/h3&gt;
 
 &lt;p&gt;When we call ‘.save’, Ruby follows this lookup order:&lt;/p&gt;
 
-&lt;p&gt;First, it checks the model’s own class (Post in your case).&lt;/p&gt;
+&lt;p&gt;First, it checks the model’s own class (Post in this case).
+The Post model does not define ‘save’, so Ruby looks in the included modules.&lt;/p&gt;
 
-&lt;p&gt;Your Post model does not define save, so Ruby looks in the included modules.
-Second, it checks ActiveRecord::Validations#save.&lt;/p&gt;
+&lt;p&gt;If not found, it looks in Callbacks, which does not define ‘save’ either.&lt;/p&gt;
 
-&lt;p&gt;Since this method exists, it runs, calling perform_validations.
-If validation passes, it calls super, which means “find the next save method in the lookup chain.”
-Third, super calls ActiveRecord::Persistence#save.&lt;/p&gt;
+&lt;p&gt;Third, it checks ‘ActiveRecord::Validations#save’.
+Since this method exists, it runs, calling ‘perform_validations’.
+If validation passes, it calls ‘super’, which means “find the next save method in the lookup chain.”&lt;/p&gt;
 
-&lt;p&gt;This method handles inserting/updating the record.&lt;/p&gt;
+&lt;p&gt;Finally, super calls ‘ActiveRecord::Persistence#save’.
+This method handles inserting/updating the record.&lt;/p&gt;
 
-&lt;p&gt;Here a flow chart as recap of what we explored&lt;/p&gt;
+&lt;div style=&quot;display: flex; justify-content: center; align-items: center; height: 200px; text-align: center;&quot;&gt;
+  &lt;strong&gt;
+    Persistence &lt;br /&gt;
+    ↑ &lt;br /&gt;
+    Validations &lt;br /&gt;
+    ↑ &lt;br /&gt;
+    Callbacks &lt;br /&gt;
+    ↑ &lt;br /&gt;
+    First, Ruby looks in the Post class itself
+  &lt;/strong&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Here a flow chart as recap of what we explored:&lt;/p&gt;
+
+&lt;div&gt;&lt;img src=&quot;/graphics/projects/validations_rails_4.png&quot; alt=&quot;validations_rails_flow_cart&quot; class=&quot;&quot; style=&quot;border-radius:0.375rem;&quot; /&gt;&lt;/div&gt;
 
 </description>
       <pubDate>Fri, 31 Jan 2025 00:00:00 -0800</pubDate>

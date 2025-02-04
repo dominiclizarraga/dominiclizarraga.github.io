@@ -5,7 +5,9 @@ layout: post
 ---
 Next session with Kasper [(luma link)](https://lu.ma/8a8clh9b){:target="_blank"}
 
-Last Friday I attended a session with [Kasper](@kaspth.bsky.social) where he shared with us how he usually explores Rails codebase, he’s got a lot of experience doing this therefore I applied what I learned here. 
+Last Friday I attended a session with [Kasper](@kaspth.bsky.social) where he shared with us how he usually explores Rails codebase, he’s got a lot of experience doing this therefore I applied what I learned here.
+
+I've always been curious how callbacks and model validations work in Rails, so I decided to explore this topic.
 
 1. [Setting up the app](#setting-up)
 2. [Possible error with bundle](#bundle-error)
@@ -146,7 +148,7 @@ end
 <p align="center"><strong>run_validations! → _run_validate_callbacks</strong></p>
 
 
-The latter comes from ActiveSupport::Callbacks, it is dynamically generated via ['define_callbacks',](https://github.com/rails/rails/blob/main/activesupport/lib/active_support/callbacks.rb#L901){:target="_blank"} inside of this ActiveSupport module you'll find very interesting classes as Before, After, Around, CallbackSequence, CallbackChain (where the callbacks are stored.)
+The latter comes from ActiveSupport::Callbacks, it is dynamically generated via ['define_callbacks',](https://github.com/rails/rails/blob/main/activesupport/lib/active_support/callbacks.rb#L901){:target="_blank"} inside of this ActiveSupport module you'll find very interesting classes as Before, After, Around, CallbackSequence, CallbackChain (where the callbacks are stored in a [])
 
 ### '`super`' keyword for `.save` {#super-save}
 
@@ -188,9 +190,7 @@ you saved it :) 👈
 
 ### How ruby call up its ancestor objects {#inheritance}
 
-Something that was difficult to wrap my head around was why ‘valid?’ and ‘save’ point to different modules and how they get overridden? After some lookups I figured that this is because in 'lib/active_record/base.rb' we have the following:
-
-Since Validations is included after Persistence, it overrides 'save', adding validation checks before calling 'super' to go back to 'Persistence#save'.
+Something that was difficult to wrap my head around was why ‘valid?’ and ‘save’ point to different modules and how they get overridden? After some lookups I figured that this is because in ['lib/active_record/base.rb'](https://github.com/rails/rails/blob/main/activerecord/lib/active_record.rb){:target="_blank"} we have the following:
 
 ```ruby
 Module ActiveRecord
@@ -202,62 +202,39 @@ Module ActiveRecord
  end
 end
 ```
-Also within lib/active_record/callbacks.rb we see that ActiveModel::Callbacks is included.
-
-```ruby
-module ActiveRecord
-  module Callbacks
-    module ClassMethods
-      include ActiveModel::Callbacks
-    end
-    included do
-      include ActiveModel::Validations::Callbacks
-
-      define_model_callbacks :initialize, :find, :touch, only: :after
-      define_model_callbacks :save, :create, :update, :destroy
-    end
-  end
-end
-```
-
-
-
-<!-- For the method ‘.save’, ‘super’ calls the next method in the method lookup chain, which will be [ActiveRecord::Persistence#save:390](https://github.com/rails/rails/blob/main/activerecord/lib/active_record/persistence.rb#L390){:target="_blank"} which in turn will determine if it’s a new_object call create or update alternatively -->
-
-<!-- lib/active_model/validations/callbacks.rb -->
-
-
-
-<!-- ```ruby 
-module Callbacks
-  extend ActiveSupport::Concern
-
-  included do
-    include ActiveSupport::Callbacks
-    define_callbacks :validation,
-                      skip_after_callbacks_if_terminated: true,
-                      scope: [:kind, :name]
-  end
-```
- -->
+Since Validations is included after Persistence, it overrides 'save', adding validation checks before calling 'super' to go back to 'Persistence#save'.
 
 ### Recap with visual aid {#recap}
 
 When we call '.save', Ruby follows this lookup order:
 
-First, it checks the model's own class (Post in your case).
+First, it checks the model's own class (Post in this case).
+The Post model does not define 'save', so Ruby looks in the included modules.
 
-Your Post model does not define save, so Ruby looks in the included modules.
-Second, it checks ActiveRecord::Validations#save.
+If not found, it looks in Callbacks, which does not define 'save' either.
 
-Since this method exists, it runs, calling perform_validations.
-If validation passes, it calls super, which means “find the next save method in the lookup chain.”
-Third, super calls ActiveRecord::Persistence#save.
+Third, it checks 'ActiveRecord::Validations#save'.
+Since this method exists, it runs, calling 'perform_validations'.
+If validation passes, it calls 'super', which means “find the next save method in the lookup chain.”
 
+Finally, super calls 'ActiveRecord::Persistence#save'.
 This method handles inserting/updating the record.
 
+<div style="display: flex; justify-content: center; align-items: center; height: 200px; text-align: center;">
+  <strong>
+    Persistence <br>
+    ↑ <br>
+    Validations <br>
+    ↑ <br>
+    Callbacks <br>
+    ↑ <br>
+    First, Ruby looks in the Post class itself
+  </strong>
+</div>
 
-Here a flow chart as recap of what we explored
+Here a flow chart as recap of what we explored:
+
+<div><img src='/graphics/projects/validations_rails_4.png' alt='validations_rails_flow_cart' class="" style="border-radius:0.375rem;"/></div>
 
 
 
