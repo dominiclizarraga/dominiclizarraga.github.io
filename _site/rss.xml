@@ -231,6 +231,8 @@ This method handles inserting/updating the record.&lt;/p&gt;
     ↑ &lt;br /&gt;
     Callbacks &lt;br /&gt;
     ↑ &lt;br /&gt;
+    Transactions &lt;br /&gt;
+    ↑ &lt;br /&gt;
     First, Ruby looks in the Post class itself
   &lt;/strong&gt;
 &lt;/div&gt;

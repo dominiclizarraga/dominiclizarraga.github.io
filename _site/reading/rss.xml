@@ -12,6 +12,16 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Professional Rails Testing by Jason Swett. (5.0)</title>
+      <dc:creator>dom lizarraga</dc:creator>
+      <description>
+</description>
+      <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
+      <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2025/02/05/professional-rails-testing.html</guid>
+    </item>
+    
+    <item>
       <title>Apprenticeship Patterns 🌌 by David H. Hoover &amp; Adewale Oshineye. (5.0)</title>
       <dc:creator>dom lizarraga</dc:creator>
       <description>

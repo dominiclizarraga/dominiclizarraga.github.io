@@ -3,13 +3,13 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>http://localhost:4000/</loc>
-    <lastmod>2025-02-04T12:55:23-08:00</lastmod>
+    <lastmod>2025-02-06T21:54:23-08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:4000/about/</loc>
-    <lastmod>2025-02-04T12:55:23-08:00</lastmod>
+    <lastmod>2025-02-06T21:54:23-08:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -294,6 +294,14 @@
       
     </url>
   
+  
+    <url>
+      <loc>http://localhost:4000/2025/02/05/professional-rails-testing.html</loc>
+      <lastmod>2025-02-05T00:00:00-08:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+      
+    </url>
   
     <url>
       <loc>http://localhost:4000/2023/09/22/apprenticeship-patterns.html</loc>

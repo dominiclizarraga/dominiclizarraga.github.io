@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-02-04T12:55:23-08:00</updated>
+  <updated>2025-02-06T21:54:23-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,19 @@
     <name>dom lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>Professional Rails Testing by Jason Swett.</title>
+    <link href="http://localhost:4000/2025/02/05/professional-rails-testing.html"/>
+    <updated>2025-02-05T00:00:00-08:00</updated>
+    <id>http://localhost:4000/2025/02/05/professional-rails-testing</id>
+    <content type="html">
+</content>
+    <author>
+      <name>dom lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>Apprenticeship Patterns 🌌 by David H. Hoover &amp; Adewale Oshineye.</title>
