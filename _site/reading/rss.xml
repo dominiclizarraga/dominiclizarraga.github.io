@@ -14,7 +14,79 @@
     <item>
       <title>Professional Rails Testing by Jason Swett. (5.0)</title>
       <dc:creator>dom lizarraga</dc:creator>
-      <description>
+      <description>&lt;p&gt;This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.&lt;/p&gt;
+
+&lt;p&gt;The first chapter is about what you can expect from the book, why the author chose Rspec over Minitest and the ways you can reach out to Jason Swett.&lt;/p&gt;
+
+&lt;p&gt;The 2nd chapter aims to lay out what a test is, in this case the author rejects the idea that tests are verifications, rather they are specifications and with this definition the objective of testing goes from “make sure the code worked” to “enforce the code behave as specified”.&lt;/p&gt;
+
+&lt;p&gt;He also provides an example of a manufacturing site where all of its finished products behave the same way because they meet their design specifications due to its production system therefore it produces that same throughput always.&lt;/p&gt;
+
+&lt;p&gt;He also shares that the main challenge is to switch developer’s mindset from verification to a specification, this will entail moving from “capabilities” to “scenarios”.&lt;/p&gt;
+
+&lt;p&gt;the next examples are going to be capabilities:&lt;/p&gt;
+
+&lt;p&gt;the user can update their email address
+ the user can sign in
+ the user can reset their password&lt;/p&gt;
+
+&lt;p&gt;on the other hand we have scenarios, for instance:
+ when the user signs in with a valid credentials, the dashboard page will show up
+ when the user attempts to sign in with invalid credentials and error message is shown&lt;/p&gt;
+
+&lt;p&gt;A specification is a statement of how some aspect of a software product should behave. Again departing from the scenario point of view and we can break it down to the following:&lt;/p&gt;
+
+&lt;p&gt;Scenario:  when a user enters a valid email and password combination into the email and password fields, then clicks ‘sign in’&lt;/p&gt;
+
+&lt;p&gt;Expectation: the user dashboards page is shown&lt;/p&gt;
+
+&lt;p&gt;This is a style that the author has conceived and he denotes that it makes sense to him but it is not a golden rule, in other words “under such-and-such a scenario, we expect such-and-such behavior”&lt;/p&gt;
+
+&lt;p&gt;The author describes with an example of a parser program the same pattern of a scenario and expectation and it goes step by step from creating the file, adding some boilerplate, starting with some comments in order to remove the writer’s block and finally he quotes the ‘arrange act and assert’ phases.&lt;/p&gt;
+
+&lt;p&gt;Small recap:
+Scenario (what to test, we can remember this with words like “when” or “given”)
+Expectation (We can remember with the keyword “then”)
+Setup, exercise and assertion ( arrange act and assert)&lt;/p&gt;
+
+&lt;div&gt;
+  &lt;img src=&quot;/graphics/projects/arrange_act_assert.jpg&quot; alt=&quot;arrange, act, assert&quot; style=&quot;border-radius: 0.375rem; height: 350px; width: 350px; display: block; margin: auto;&quot; /&gt;
+  &lt;p style=&quot;text-align: center; font-size: 14px;&quot;&gt;
+    Source: &lt;a href=&quot;https://miro.medium.com/v2/resize:fit:1024/1*LydRMERQr4qGAV9MggoxOw.jpeg&quot; target=&quot;_blank&quot;&gt;Medium&lt;/a&gt;
+  &lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Chapter 3 is about TTD (test driven development) he briefly describes what it is, pointing out why it is often called the ‘red, green, refactor loop’,  what do those colors mean? and finally the importance of refactoring the code you wrote.&lt;/p&gt;
+
+&lt;p&gt;Red: Firstly we start with deciding “what to do” and then “doing it” (this reduces cognitive load) keeping in mind that a test is an executable and “specification”. 
+We first write the test so we set out the ‘specification’ and then we write the code to fulfill given a specification.
+Something important here is to run the test so we can clear out any false positives on the code, by running it and getting the red color we make sure that it is failing.&lt;/p&gt;
+
+&lt;p&gt;Importance of the green color and as the author quotes ‘Kent Beck’ you can make any ‘sins code’ in order to make the code pass, this means to write crappy code but make sure that you pass from red color to green color.&lt;/p&gt;
+
+&lt;p&gt;Also the author describes that if the whole system is covered by testing, we can refactor the system code as much as we want without too much fear that refactoring will introduce regressions. It is not an absolute warranty but it provides high degree of well justified confidence.&lt;/p&gt;
+
+&lt;p&gt;The author also said that he focuses on writing just enough code to make the current failure message go away, maybe not passing the whole test but just a small bit of it.&lt;/p&gt;
+
+&lt;p&gt;And finally ‘refactor’ this is where all the mess is cleaned up, duplication is removed  maybe some optimization is added and here the author again shares one of his personal exercises that once he have passed the testing he hold off and give himself sometime to forget about the problem because it is very embedded in his brain and the refactor is not going to be very effective, instead he takes some time and then comes back and address the exact pain&lt;/p&gt;
+
+&lt;p&gt;Here is one statement about TDD  that I liked “ the main reason for practicing TDD  is to go faster and be more productive in simpler terms you want to decrease the radio of effort invested to Value produced”&lt;/p&gt;
+
+&lt;p&gt;TTD also encourages modular, loosely coupled design,  less mental effort,  more enjoyable workflow, fewer bugs, documentation,  feedback loops (most important I personally think!)&lt;/p&gt;
+
+&lt;p&gt;Here is the feedback loop that TDD can create:
+ specify an objective
+ devise a test that can be performed to see if #1 is done
+ perform the test device in step 2
+ do some work toward the objective ( wright a line of code)
+ repeat steps three and four until the test passes
+ repeat from step one with a new objective&lt;/p&gt;
+
+&lt;p&gt;Some notes from the author that I think are worth is when you write a line of code it is going to help us the message failure to go away so we can avoid coding speculatively and this will help us lower the mental burden in each step of this feedback loop,&lt;/p&gt;
+
+&lt;p&gt;Lastly the author closes this chapter by comparing the ‘manual testing‘ versus the TDD that as much as you practice it, you’ll get more fluent and it will become a great time saver&lt;/p&gt;
+
+&lt;p&gt;chapter 4 is about writing manifold tests&lt;/p&gt;
 </description>
       <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
