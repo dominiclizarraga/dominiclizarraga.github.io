@@ -86,4 +86,39 @@ Some notes from the author that I think are worth is when you write a line of co
 
 Lastly the author closes this chapter by comparing the ‘manual testing‘ versus the TDD that as much as you practice it, you'll get more fluent and it will become a great time saver
 
- chapter 4 is about writing manifold tests 
+Chapter 4 is about writing meaningful tests. The author states that having tests is better than not having tests but not always writing tests are equally good tests are more valuable when they are meaningful.
+
+A test is Meaningful if it tests not just means to ends but ends themselves.
+
+When we are testing something we can focus either on means or ends, for example if we test a staple by just examining if it has all the right parts and just trying to staple 3 sheets of paper.  By making sure that it has all the right parts it doesn't mean we are testing the ends. On the contrary, if we staple 3, then 12, 20 and we can affirm that we can continually do this activity, that's when we test the ends.
+
+When it comes to testing model associations it would be more meaningful to make assertions on the behaviors that these associations enable.
+
+Another great example is that airplanes engines can be tested even without attaching the engines to an airplane.
+
+How to decide what kind of test drive, here we only have cost and benefits, we want to achieve satisfactory test coverage while incurring the smallest cost possible.
+
+System tests are the only type of test that proves that all the parts of your system are successfully working together without system tests. We could theoretically have a web application with a fully passing suite of unit tests even if the application is unable to successfully serve a single request.
+
+Something that I have seen has always been trivial is % of test coverage and the author suggests the following:
+
+	 What if we use a minimum number of system tests, perhaps one for the happy path and one or two more for the failure cases and then use fast unit tests for all the edge cases?  This way we will get a reasonable level of confidence that our system works as a whole.
+
+Then we have: how to test models (POROs),  requests, background jobs, mailer specs, helper specs, view specs and view components.
+
+Also we have a very important question “when to write a test and went to not”, remember that testing is not about right or wrong but about cost and benefits here are five questions:
+
+1.  Is the behavior likely to ever break?
+2.  If the behavior were to fail, would it fail silently?
+3.  if the behavior were to fail, would it fail frequently?
+4.  if the behavior were to fail, would the consequence be severe?
+5.  Is the test easy to write?
+
+ If any of the answers to these questions is a yes, I write the test. If and only if all of the answers are negative I do skip the test.
+
+The aggregate benefit of tests. It is common to want to get some sort of 80/20  benefit by only covering the most important 20% of the codebase tests.  I think this way of thinking focuses on the benefit of individual tests while missing the aggregate benefit of tests. Remember cost and benefits of testing can be refactoring with no fear, gaining speed for development without even thinking Dusty's part of the code base is tested well enough? 
+
+In a model do we need to test every method,  again remember that we covered every Behavior not every method.
+
+Chapter 5 is writing understandable tests 
+
