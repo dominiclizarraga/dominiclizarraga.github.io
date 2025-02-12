@@ -120,5 +120,132 @@ The aggregate benefit of tests. It is common to want to get some sort of 80/20  
 
 In a model do we need to test every method,  again remember that we covered every Behavior not every method.
 
-Chapter 5 is writing understandable tests 
+Chapter 5. Writing understandable tests.
+
+Tests are more than just a safety net to catch regressions. A test suite can serve as a guidebook to a system, showing what the system’s parts are, how the parts relate to each other, which ideas are more and less important, and of course, how are the parts of the system are supposed to behave
+
+ A test suite is a structured collection of behavior specifications, and can also serve as the backbone for a systems design.
+
+ It is common to think of a system's code as its essence and the tests as something secondary.  I invite you to think of it the other way around. A system’s code shows what the system does, but the system's application code does not have the last word.  Because an application tests are specifications, whatever the test specifies is, by definition, correct.
+
+ So far we have mostly focused on writing new tests and writing them. but in a production application, in addition to being written and run, tests often need to be understood and modified. 
+
+Abstraction is the art of hiding distracting details and emphasizing essential information.
+
+Test code is responsible for jobs that vary widely in the relevance to the high level meaning of the test.
+1 test data has to be created.
+2 dependencies have to be initialized.
+3 code has to be finagled into the right state.
+4 assertions have to be made, etc.
+
+Here is a testing code example:
+
+Before:
+
+RSpec.describe "Creating Comment", type: :feature, js: true do
+  let(:user) { create(:user) }
+  let(:raw_comment) { Faker::Lorem.paragraph }
+let(:article) do
+  create(:article, user_id: user.id, show_comments: true)
+end
+  
+  before { sign_in user }
+  
+  it "User replies to a comment" do
+    create(:comment, commentable_id: article.id, user_id: user.id)
+    
+    visit article.path.to_s
+    
+    find(".toggle-reply-form").click
+    find(
+      :xpath, 
+        “//div[@class=’actions’]/form[@class=’new_comment’]/textarea”).set(raw_comment)
+
+    find(
+      :xpath, 
+        “//div[contains(@class, ’reply-actions’)]/input[@name=’commit’]).click
+
+    expect(page).to have_text(raw_comment)
+  end
+end
+
+The “it” block should describe how it (the system) should behave. To me the way this test description is written is a sign that this test is not the result of a clearly thought out specification
+
+The next step is to think about the one or the given,  in this case when user submits a reply to a comment or not article ( a scenario)  the body of the reply shows up on the article's page ( expectation)
+
+After (with better description):
+
+```ruby 
+RSpec.describe “Creating Comment”, type: :feature, js: true do 
+  context "user submits a reply to a comment on an article” do
+    it “shows the reply on the article’s page” do
+    end
+  end
+end
+```
+
+
+If an abstraction does not give you the slightest clue of what it is doing without looking at its content, Then it is a pretty poor abstraction. When a test is full of distracting details, simply moving the details behind methods is not necessarily an improvement; careful thought must be given to what abstractions the methods represent and why they are helpful. 
+
+```ruby 
+RSpec.describe "Creating Comment", type: :feature, js: true do
+  before { sign_in user }
+
+  it "User replies to a comment" do
+    create_setup_data
+    submit_comment
+    expect_correct_comment
+  end
+
+  def create_setup_data
+    let(:user) { create(:user) }
+    let(:raw_comment) { Faker::Lorem.paragraph }
+    let(:article) do
+      create(:article, user_id: user.id, show_comments: true)
+    end
+  end
+
+  def submit_comment
+    create(:comment, commentable_id: article.id, user_id: user.id)
+    visit article_path.to_s
+    find(".toggle-reply-form").click
+    
+    find(
+      :xpath,
+      "//div[@class='actions']/form[@class='new_comment']/textarea"
+    ).set(raw_comment)
+    
+    find(
+      :xpath,
+      "//div[contains(@class, 'reply-actions')]/input[@name='commit']"
+    ).click
+  end
+
+  def expect_correct_comment
+    expect(page).to have_text(raw_comment)
+  end
+end
+```
+
+The author also speaks about scoping (arranging app’s files) and gives a relevant example of an appointment model 
+
+```ruby
+ls -1 spec/models
+appointment_spec.rb
+invoice_spec.rb
+patient_spec.rb
+user_spec.rb
+
+ls -1 app/models
+appointment.rb
+invoice.rb
+patient.rb
+user.rb
+```
+The `rails g scaffold appointment` command gave the developers to containers to put stuff in, one called app/models/appointment.rband another called spec/models/appointment.rb Slowly over time, each of these containers group, a few lines of code at a time, into a monster.
+How do we fix this? by slicing up the model code into a smaller, more cohesive pieces for instance: 
+The recurrence logic moved into an object called `RecurrenceRule` which lives in `app/models/recurrence_rule.rb` or even better with namespace `Schedule::RecurrenceRule` and lives at `app/models/schedule/recurrence_rule.rb`
+
+Cohesion
+
 
