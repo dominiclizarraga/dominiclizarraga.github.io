@@ -122,6 +122,10 @@ In a model do we need to test every method,  again remember that we covered ever
 
 Chapter 5. Writing understandable tests.
 
+I think this is the longest chapter but is the one that has more meat I think because it touches topics as code quality in tests, in thi case “abstractism”, ( we always hear about quality code but not in tests),  it revisits the what, the wind, the given, then as a structure for the test. Also how to accommodate the different files you need in the rails app, when to use helper when those are helpful, what about concerns,  when is a good practice to create a model without inheriting from active record,  how to preserve cohesion,  also AR spec future which is shared examples,  what may cause obfuscation in the tests,  whether you use subject or let in our spec, Plus the author gives a very useful opinion about how duplication ( he shares that duplication is okay when it comes to testing).
+
+Something that I truly liked is when the author brings up that a codebase is like a story book so each file has to be seen as a chapter, where you see essential points and it remains on those essentials topics and also incidental/distracting things that may go on the footnote or appendix.
+
 Tests are more than just a safety net to catch regressions. A test suite can serve as a guidebook to a system, showing what the system’s parts are, how the parts relate to each other, which ideas are more and less important, and of course, how are the parts of the system are supposed to behave
 
  A test suite is a structured collection of behavior specifications, and can also serve as the backbone for a systems design.
@@ -142,6 +146,7 @@ Here is a testing code example:
 
 Before:
 
+```ruby 
 RSpec.describe "Creating Comment", type: :feature, js: true do
   let(:user) { create(:user) }
   let(:raw_comment) { Faker::Lorem.paragraph }
@@ -168,6 +173,7 @@ end
     expect(page).to have_text(raw_comment)
   end
 end
+```
 
 The “it” block should describe how it (the system) should behave. To me the way this test description is written is a sign that this test is not the result of a clearly thought out specification
 
@@ -242,10 +248,38 @@ invoice.rb
 patient.rb
 user.rb
 ```
+
 The `rails g scaffold appointment` command gave the developers to containers to put stuff in, one called app/models/appointment.rband another called spec/models/appointment.rb Slowly over time, each of these containers group, a few lines of code at a time, into a monster.
+
 How do we fix this? by slicing up the model code into a smaller, more cohesive pieces for instance: 
 The recurrence logic moved into an object called `RecurrenceRule` which lives in `app/models/recurrence_rule.rb` or even better with namespace `Schedule::RecurrenceRule` and lives at `app/models/schedule/recurrence_rule.rb`
 
 Cohesion
 
+If a code base is like a story, a file in a code base is perhaps like a chapter in a book. A well-written chapter will clearly let the reader know what the most important points are and will feature those important points most prominently. A chapter is most understandable when it principally sticks to just one topic.
 
+If a detail would pose too much of a distraction or an interruption, it gets moved to a footnote or appendix or parenthetical clause.
+
+A piece of code is cohesive if a) everything in it shares one single idea and b) it doesn't mix into incidental details with essential points.
+
+How cohesion gets lost
+
+Fresh new projects are usually pretty easy to work with because when you don't have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.
+
+Things get tougher as the project grows. Entropy is the tendency for all things to decline to disorder unavoidably sets in.
+
+A common manifestation of entropy is when I developer is tasked with adding a new behavior. he or she goes looking for the object that seems like the most fitting home for that new behavior. he or she adds the new behavior, which does not perfectly fit the object where it was placed, but the code only makes the object say 5% less cohesive, the result of all these changes in aggregate is a surprisingly bad mass.
+
+How cohesion can be preserved?
+
+The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's essential and what's incidental.
+
+Let's say that I have for example a class called `Appointment`. The concerns of `Appointment` include among other things, start time, a client and some matters related to caching.
+
+I would say that the start time and client are essential concerns of an appointment and that the caching is probably incidental.
+
+Here is another example of a `Customer` object with certain method including one called `balance`.  Over time the `balance` calculation becomes increasingly complicated to the point that it causes `Customer` to lose cohesion. I can just move the guts of the `balance` method into a new object (a PORO) called `CustomerBalance` and delegate all the gory details of `balance`  calculation to that object. Now the `Customer` object once again focuses on the essential points and forget about the incidental details.
+
+In the case that we cannot extract the incidental details of an object we can use a ‘mixin’ instead. I view ‘mixin’  as a good way to hold a bit of code which has cohesion with itself but which does not quite qualify as an abstraction and so does not make sense as an object. For me, ‘mixins’ usually don't have a standalone value, and they are usually only ever “mixed in” to one object as supposed to be reusable.
+
+I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don't want to bring into the picture here 
