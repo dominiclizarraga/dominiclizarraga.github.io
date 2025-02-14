@@ -122,7 +122,7 @@ In a model do we need to test every method,  again remember that we covered ever
 
 Chapter 5. Writing understandable tests.
 
-I think this is the longest chapter but is the one that has more meat I think because it touches topics as code quality in tests, in thi case “abstractism”, ( we always hear about quality code but not in tests),  it revisits the what, the wind, the given, then as a structure for the test. Also how to accommodate the different files you need in the rails app, when to use helper when those are helpful, what about concerns,  when is a good practice to create a model without inheriting from active record,  how to preserve cohesion,  also AR spec future which is shared examples,  what may cause obfuscation in the tests,  whether you use subject or let in our spec, Plus the author gives a very useful opinion about how duplication ( he shares that duplication is okay when it comes to testing).
+I think this is the longest chapter but is the one that has more meat  because it touches topics as code quality in tests, in this case “abstraction”, (we always hear about quality code of the app itself but not in tests), it revisits the what the ‘when’, the ‘given’, ‘then’ as a structure for the test. Also how to accommodate the different files you need in the rails app, when to use helper when those are helpful, what about concerns, when is a good practice to create a model without inheriting from `ActiveRecord`,  how to preserve ‘cohesion’,  also Rspec feature which is ‘shared examples’,  what may cause obfuscation in the tests, whether you use ‘subject’ or ‘let’ in our specs, plus the author gives a very useful opinion about code duplication (he shares that duplication is okay when it comes to testing).
 
 Something that I truly liked is when the author brings up that a codebase is like a story book so each file has to be seen as a chapter, where you see essential points and it remains on those essentials topics and also incidental/distracting things that may go on the footnote or appendix.
 
@@ -146,7 +146,6 @@ Here is a testing code example:
 
 Before:
 
-```ruby 
 RSpec.describe "Creating Comment", type: :feature, js: true do
   let(:user) { create(:user) }
   let(:raw_comment) { Faker::Lorem.paragraph }
@@ -173,7 +172,6 @@ end
     expect(page).to have_text(raw_comment)
   end
 end
-```
 
 The “it” block should describe how it (the system) should behave. To me the way this test description is written is a sign that this test is not the result of a clearly thought out specification
 
@@ -248,8 +246,7 @@ invoice.rb
 patient.rb
 user.rb
 ```
-
-The `rails g scaffold appointment` command gave the developers to containers to put stuff in, one called app/models/appointment.rband another called spec/models/appointment.rb Slowly over time, each of these containers group, a few lines of code at a time, into a monster.
+The `rails g scaffold appointment` command gave the developers to containers to put stuff in, one called app/models/appointment.rband another called spec/models/appointment.rb. Slowly over time, each of these containers group, a few lines of code at a time, into a monster.
 
 How do we fix this? by slicing up the model code into a smaller, more cohesive pieces for instance: 
 The recurrence logic moved into an object called `RecurrenceRule` which lives in `app/models/recurrence_rule.rb` or even better with namespace `Schedule::RecurrenceRule` and lives at `app/models/schedule/recurrence_rule.rb`
@@ -264,7 +261,7 @@ A piece of code is cohesive if a) everything in it shares one single idea and b)
 
 How cohesion gets lost
 
-Fresh new projects are usually pretty easy to work with because when you don't have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.
+ Fresh new projects are usually pretty easy to work with because when you don't have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.
 
 Things get tougher as the project grows. Entropy is the tendency for all things to decline to disorder unavoidably sets in.
 
@@ -272,14 +269,97 @@ A common manifestation of entropy is when I developer is tasked with adding a ne
 
 How cohesion can be preserved?
 
-The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's essential and what's incidental.
+ The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's <strong>essential</strong> and what's <strong>incidental</strong>.
 
 Let's say that I have for example a class called `Appointment`. The concerns of `Appointment` include among other things, start time, a client and some matters related to caching.
 
 I would say that the start time and client are essential concerns of an appointment and that the caching is probably incidental.
 
+Now where to put these newly sprouted files. The rationale here is that cashing logic will only ever be relevant to a scheduling whereas an appointment might be viewed in multiple contexts, for example sometimes scheduling and sometimes billing.
+
+```ruby
+app/models/appointment.rb
+app/models/scheduling/appointment_caching.rb
+```
+
 Here is another example of a `Customer` object with certain method including one called `balance`.  Over time the `balance` calculation becomes increasingly complicated to the point that it causes `Customer` to lose cohesion. I can just move the guts of the `balance` method into a new object (a PORO) called `CustomerBalance` and delegate all the gory details of `balance`  calculation to that object. Now the `Customer` object once again focuses on the essential points and forget about the incidental details.
+
+```ruby
+app/models/customer.rb
+app/models/billing/customer_balance.rb
+```
 
 In the case that we cannot extract the incidental details of an object we can use a ‘mixin’ instead. I view ‘mixin’  as a good way to hold a bit of code which has cohesion with itself but which does not quite qualify as an abstraction and so does not make sense as an object. For me, ‘mixins’ usually don't have a standalone value, and they are usually only ever “mixed in” to one object as supposed to be reusable.
 
-I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don't want to bring into the picture here 
+ I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don't want to bring into the picture here.
+
+Jason believes in organizing files by meaning rather than type.
+
+Shared examples from our spec is something that at first glance seems to be a good idea however it provides obfuscation because it is difficult for the programmer to know where the values and variables come from https://rspec.info/features/3-13/rspec-core/example-groups/shared-examples/ 
+
+<div style="text-align: center;">Duplication code only for testing.</div>
+
+Duplication is mainly bad when it passes a risk of two or more pieces of behavior getting out of sync due to a mistake, leaving one copy of the behavior correct and the other one incorrect. Since tests are not behavior, they are not always susceptible to the same kinds of duplication mistakes as application code.
+
+Test helpers on DRY
+
+That DRY principle does not apply to test code in the same way that it applies to application code, since application code is behavior whereas the test code is a specification.
+Helpers are not tested and they do not contain specifications. They simply help with gruntwork. online test code a helper does benefit from being DRY just like application code does.
+
+Managing setup data
+
+Most tests require some setup data, the more setup data there is, the harder it is to keep the test code understandable.
+
+It's important for tests to be <strong>deterministic</strong>, meaning that they behave the same way every time. if a test is not deterministic, it may pass sometimes and fail sometimes, giving false negatives and causing numbness to legitimate failures.
+
+A key ingredient in making a test stick is to start with the same state every time. If a test is allowed to pollute its environment by changing for example environmental variables, configuration settings or database data, then the test that runs after it will run in a fould environment instead of a clean slate.
+
+For this reason, Rails by default runs every test inside of the database transaction, before the test finishes, the transaction gets aborted so that any data created inside the test never gets committed to the database.
+
+Every piece of data that's in the database when test starts, we will call this data “background data”, has the potential to influence how the test behaves. the less background data there is, the fewer headaches it can cause.
+
+Naming.
+
+The author lays out a test that has three values: 'user’, ‘token’, ‘mismatch_token’.  He states that the last one is pretty clear, however after reading the whole test he suggested changing from ‘token’ to ‘valid_token’ in order to make it clearer.
+
+A good rule of thumb for naming is to call things <strong>what they are</strong>.  This rule may sound obvious, but how many times have you encountered a variable method, class or database table that's named according to something other than what it actually is?
+
+Because code is read many more times than it is written, the cost of a poor name is often many times more than the cost saved by skipping the effort of giving it a clear name.
+
+One topic per test.
+
+Some testers believe that each test should have just one assertion, others believe that this rule is hogwash, and that a test should have as many assertions as it needs. The significant thing about the test is not how many assertions it contains but rather <strong>how many topics it contains</strong>.
+
+A test with just one topic – a test that's only about one thing– it's going to be easier to understand than a test that conflates multiple topics.
+
+It is common for developers to stuff several assertions into one test out of a desire for performance efficiency, especially in system specs, which are expensive to run. That I think this is usually a false economy. Yes, a performance benefit is cheap but at expense of understandably but the savings in CPU time is paid for by engineer time and we of course know which of the two is more expensive.
+
+ The phases of a test
+
+Every test has four phases:  <strong>set up, exercise, assertions and tear down</strong>. in Rails the tear down usually happens automatically, so we only need to think about the ‘setup’, ‘exercise’ and ‘assertion’  steps done. They are also known as a range, act, assert.
+
+Organizing your test Suite.
+
+As we saw at the beginning of this chapter, a test suite, when thought of as a structure set of <strong>behavior specifications</strong>, can serve as the backbone of a systems design.
+The files and folders in a test suit should be laid out in an orderly and logically fashion so that when one needs to find something, it can be found easily.
+
+ Instead of organizing tests by test type, which in a sense is an incidental detail, I find it more logical to organize my test <strong>by domain concept</strong>.
+Each folder in a test suite can be thought of as having two dimensions: to what domain concept it belongs and to what type of test it pertains.
+
+Traditional Rspec way to order files
+
+          | billing         | schedule        | clinical        
+----------|----------------|----------------|----------------
+models    | models/billing | models/schedule | models/clinical
+requests  | requests/billing | requests/schedule | requests/clinical
+system    | system/billing | system/schedule | system/clinical
+
+Jason suggests the following by meaning (domain-specific) and then type
+
+          | models         | requests        | system        
+----------|---------------|----------------|---------------
+billing   | billing/models  | billing/requests  | billing/system
+schedule  | schedule/models | schedule/requests | schedule/system
+clinical  | clinical/models | clinical/requests | clinical/system
+
+Lastly, something helpful that this new approach helps is to catch regressions, when tests are organized by the main concept, the search for regressions can be conducted much more logically and efficiently. Once you get for instance `spec/schedule/appointments/system/cancel _appointment.rb` passing, you can then locally run all the tests in that parent folder `spec/schedule/appointment`.
