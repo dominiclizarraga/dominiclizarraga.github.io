@@ -11,7 +11,18 @@ rating: 5.0
 
 This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.
 
+1. [Chapter 1. Introduction.](#chapter-1)
+2. [Chapter 2. Tests as specifications.](#chapter-2)
+3. [Chapter 3. Test driven development.](#chapter-3)
+4. [Chapter 4. Writing meaningful tests.](#chapter-4)
+5. [Chapter 5. Writing understandable tests.](#chapter-5)
+6. [Chapter 6. Duplication in test code.](#chapter-6)
+
+### Chapter 1. Introduction. {#chapter-1}
+
 The first chapter is about what you can expect from the book, why the author chose Rspec over Minitest and the ways you can reach out to Jason Swett.
+
+### Chapter 2. Tests as specifications. {#chapter-2}
 
 The 2nd chapter aims to lay out what a test is, in this case the author rejects the idea that tests are verifications, rather they are specifications and with this definition the objective of testing goes from “make sure the code worked” to “enforce the code behave as specified”.
 
@@ -56,6 +67,8 @@ Setup, exercise and assertion ( arrange act and assert)
   </p>
 </div>
 
+### Chapter 3. Test driven development. {#chapter-3}
+
 Chapter 3 is about TTD (test driven development) he briefly describes what it is, pointing out why it is often called the ‘red, green, refactor loop’,  what do those colors mean? and finally the importance of refactoring the code you wrote.
 
 Red: Firstly we start with deciding “what to do” and then “doing it” (this reduces cognitive load) keeping in mind that a test is an executable and “specification”. 
@@ -86,7 +99,9 @@ Some notes from the author that I think are worth is when you write a line of co
 
 Lastly the author closes this chapter by comparing the ‘manual testing‘ versus the TDD that as much as you practice it, you'll get more fluent and it will become a great time saver
 
-Chapter 4 is about writing meaningful tests. The author states that having tests is better than not having tests but not always writing tests are equally good tests are more valuable when they are meaningful.
+### Chapter 4. Writing meaningful tests. {#chapter-4}
+
+The author states that having tests is better than not having tests but not always writing tests are equally good tests are more valuable when they are meaningful.
 
 A test is Meaningful if it tests not just means to ends but ends themselves.
 
@@ -101,7 +116,6 @@ How to decide what kind of test drive, here we only have cost and benefits, we w
 System tests are the only type of test that proves that all the parts of your system are successfully working together without system tests. We could theoretically have a web application with a fully passing suite of unit tests even if the application is unable to successfully serve a single request.
 
 Something that I have seen has always been trivial is % of test coverage and the author suggests the following:
-
 
 > What if we use a minimum number of system tests, perhaps one for the happy path and one or two more for the failure cases and then use fast unit tests for all the edge cases?  This way we will get a reasonable level of confidence that our system works as a whole.
 
@@ -121,7 +135,7 @@ The aggregate benefit of tests. It is common to want to get some sort of 80/20  
 
 In a model do we need to test every method,  again remember that we covered every Behavior not every method.
 
-Chapter 5. Writing understandable tests.
+### Chapter 5. Writing understandable tests. {#chapter-5}
 
 I think this is the longest chapter but is the one that has more meat  because it touches topics as code quality in tests, in this case “abstraction”, (we always hear about quality code of the app itself but not in tests), it revisits the what the ‘when’, the ‘given’, ‘then’ as a structure for the test. Also how to accommodate the different files you need in the rails app, when to use helper when those are helpful, what about concerns, when is a good practice to create a model without inheriting from `ActiveRecord`,  how to preserve ‘cohesion’,  also Rspec feature which is ‘shared examples’,  what may cause obfuscation in the tests, whether you use ‘subject’ or ‘let’ in our specs, plus the author gives a very useful opinion about code duplication (he shares that duplication is okay when it comes to testing).
 
@@ -264,7 +278,7 @@ A piece of code is cohesive if a) everything in it shares one single idea and b)
 
 How cohesion gets lost
 
- Fresh new projects are usually pretty easy to work with because when you don't have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.
+> Fresh new projects are usually pretty easy to work with because when you don't have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.
 
 Things get tougher as the project grows. Entropy is the tendency for all things to decline to disorder unavoidably sets in.
 
@@ -272,7 +286,7 @@ A common manifestation of entropy is when I developer is tasked with adding a ne
 
 How cohesion can be preserved?
 
- The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's <b>essential</b> and what's <b>incidental</b>.
+>The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's <b>essential</b> and what's <b>incidental</b>.
 
 Let's say that I have for example a class called `Appointment`. The concerns of `Appointment` include among other things, start time, a client and some matters related to caching.
 
@@ -294,7 +308,7 @@ app/models/billing/customer_balance.rb
 
 In the case that we cannot extract the incidental details of an object we can use a ‘mixin’ instead. I view ‘mixin’  as a good way to hold a bit of code which has cohesion with itself but which does not quite qualify as an abstraction and so does not make sense as an object. For me, ‘mixins’ usually don't have a standalone value, and they are usually only ever “mixed in” to one object as supposed to be reusable.
 
- I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don't want to bring into the picture here.
+>I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don't want to bring into the picture here.
 
 Jason believes in organizing files by meaning rather than type.
 

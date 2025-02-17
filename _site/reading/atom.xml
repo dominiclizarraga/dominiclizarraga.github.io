@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-02-16T20:32:31-08:00</updated>
+  <updated>2025-02-16T21:25:39-08:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -19,7 +19,20 @@
     <id>http://localhost:4000/2025/02/05/professional-rails-testing</id>
     <content type="html">&lt;p&gt;This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.&lt;/p&gt;
 
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Chapter 1. Introduction.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;Chapter 2. Tests as specifications.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;Chapter 3. Test driven development.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;Chapter 4. Writing meaningful tests.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;Chapter 5. Writing understandable tests.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-6&quot;&gt;Chapter 6. Duplication in test code.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;chapter-1&quot;&gt;Chapter 1. Introduction.&lt;/h3&gt;
+
 &lt;p&gt;The first chapter is about what you can expect from the book, why the author chose Rspec over Minitest and the ways you can reach out to Jason Swett.&lt;/p&gt;
+
+&lt;h3 id=&quot;chapter-2&quot;&gt;Chapter 2. Tests as specifications.&lt;/h3&gt;
 
 &lt;p&gt;The 2nd chapter aims to lay out what a test is, in this case the author rejects the idea that tests are verifications, rather they are specifications and with this definition the objective of testing goes from “make sure the code worked” to “enforce the code behave as specified”.&lt;/p&gt;
 
@@ -59,6 +72,8 @@ Setup, exercise and assertion ( arrange act and assert)&lt;/p&gt;
   &lt;/p&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&quot;chapter-3&quot;&gt;Chapter 3. Test driven development.&lt;/h3&gt;
+
 &lt;p&gt;Chapter 3 is about TTD (test driven development) he briefly describes what it is, pointing out why it is often called the ‘red, green, refactor loop’,  what do those colors mean? and finally the importance of refactoring the code you wrote.&lt;/p&gt;
 
 &lt;p&gt;Red: Firstly we start with deciding “what to do” and then “doing it” (this reduces cognitive load) keeping in mind that a test is an executable and “specification”. 
@@ -89,7 +104,9 @@ Something important here is to run the test so we can clear out any false positi
 
 &lt;p&gt;Lastly the author closes this chapter by comparing the ‘manual testing‘ versus the TDD that as much as you practice it, you’ll get more fluent and it will become a great time saver&lt;/p&gt;
 
-&lt;p&gt;Chapter 4 is about writing meaningful tests. The author states that having tests is better than not having tests but not always writing tests are equally good tests are more valuable when they are meaningful.&lt;/p&gt;
+&lt;h3 id=&quot;chapter-4&quot;&gt;Chapter 4. Writing meaningful tests.&lt;/h3&gt;
+
+&lt;p&gt;The author states that having tests is better than not having tests but not always writing tests are equally good tests are more valuable when they are meaningful.&lt;/p&gt;
 
 &lt;p&gt;A test is Meaningful if it tests not just means to ends but ends themselves.&lt;/p&gt;
 
@@ -127,7 +144,7 @@ Something important here is to run the test so we can clear out any false positi
 
 &lt;p&gt;In a model do we need to test every method,  again remember that we covered every Behavior not every method.&lt;/p&gt;
 
-&lt;p&gt;Chapter 5. Writing understandable tests.&lt;/p&gt;
+&lt;h3 id=&quot;chapter-5&quot;&gt;Chapter 5. Writing understandable tests.&lt;/h3&gt;
 
 &lt;p&gt;I think this is the longest chapter but is the one that has more meat  because it touches topics as code quality in tests, in this case “abstraction”, (we always hear about quality code of the app itself but not in tests), it revisits the what the ‘when’, the ‘given’, ‘then’ as a structure for the test. Also how to accommodate the different files you need in the rails app, when to use helper when those are helpful, what about concerns, when is a good practice to create a model without inheriting from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ActiveRecord&lt;/code&gt;,  how to preserve ‘cohesion’,  also Rspec feature which is ‘shared examples’,  what may cause obfuscation in the tests, whether you use ‘subject’ or ‘let’ in our specs, plus the author gives a very useful opinion about code duplication (he shares that duplication is okay when it comes to testing).&lt;/p&gt;
 
@@ -265,7 +282,9 @@ The recurrence logic moved into an object called &lt;code class=&quot;language-p
 
 &lt;p&gt;How cohesion gets lost&lt;/p&gt;
 
-&lt;p&gt;Fresh new projects are usually pretty easy to work with because when you don’t have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;Fresh new projects are usually pretty easy to work with because when you don’t have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;Things get tougher as the project grows. Entropy is the tendency for all things to decline to disorder unavoidably sets in.&lt;/p&gt;
 
@@ -273,7 +292,9 @@ The recurrence logic moved into an object called &lt;code class=&quot;language-p
 
 &lt;p&gt;How cohesion can be preserved?&lt;/p&gt;
 
-&lt;p&gt;The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what’s &lt;b&gt;essential&lt;/b&gt; and what’s &lt;b&gt;incidental&lt;/b&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what’s &lt;b&gt;essential&lt;/b&gt; and what’s &lt;b&gt;incidental&lt;/b&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;Let’s say that I have for example a class called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Appointment&lt;/code&gt;. The concerns of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Appointment&lt;/code&gt; include among other things, start time, a client and some matters related to caching.&lt;/p&gt;
 
@@ -293,7 +314,9 @@ The recurrence logic moved into an object called &lt;code class=&quot;language-p
 
 &lt;p&gt;In the case that we cannot extract the incidental details of an object we can use a ‘mixin’ instead. I view ‘mixin’  as a good way to hold a bit of code which has cohesion with itself but which does not quite qualify as an abstraction and so does not make sense as an object. For me, ‘mixins’ usually don’t have a standalone value, and they are usually only ever “mixed in” to one object as supposed to be reusable.&lt;/p&gt;
 
-&lt;p&gt;I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don’t want to bring into the picture here.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don’t want to bring into the picture here.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;Jason believes in organizing files by meaning rather than type.&lt;/p&gt;
 
