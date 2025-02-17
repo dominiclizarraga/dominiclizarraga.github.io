@@ -33,7 +33,7 @@ A specification is a statement of how some aspect of a software product should b
 
 Scenario:  when a user enters a valid email and password combination into the email and password fields, then clicks ‘sign in’
 
-Expectation: the user dashboards page is shown
+Expectation: the user dashboards page is shown.
 
 This is a style that the author has conceived and he denotes that it makes sense to him but it is not a golden rule, in other words “under such-and-such a scenario, we expect such-and-such behavior”
 
@@ -102,7 +102,8 @@ System tests are the only type of test that proves that all the parts of your sy
 
 Something that I have seen has always been trivial is % of test coverage and the author suggests the following:
 
-	 What if we use a minimum number of system tests, perhaps one for the happy path and one or two more for the failure cases and then use fast unit tests for all the edge cases?  This way we will get a reasonable level of confidence that our system works as a whole.
+
+> What if we use a minimum number of system tests, perhaps one for the happy path and one or two more for the failure cases and then use fast unit tests for all the edge cases?  This way we will get a reasonable level of confidence that our system works as a whole.
 
 Then we have: how to test models (POROs),  requests, background jobs, mailer specs, helper specs, view specs and view components.
 
@@ -146,6 +147,7 @@ Here is a testing code example:
 
 Before:
 
+```ruby
 RSpec.describe "Creating Comment", type: :feature, js: true do
   let(:user) { create(:user) }
   let(:raw_comment) { Faker::Lorem.paragraph }
@@ -172,6 +174,7 @@ end
     expect(page).to have_text(raw_comment)
   end
 end
+```
 
 The “it” block should describe how it (the system) should behave. To me the way this test description is written is a sign that this test is not the result of a clearly thought out specification
 
@@ -269,7 +272,7 @@ A common manifestation of entropy is when I developer is tasked with adding a ne
 
 How cohesion can be preserved?
 
- The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's <strong>essential</strong> and what's <strong>incidental</strong>.
+ The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what's <b>essential</b> and what's <b>incidental</b>.
 
 Let's say that I have for example a class called `Appointment`. The concerns of `Appointment` include among other things, start time, a client and some matters related to caching.
 
@@ -310,7 +313,7 @@ Managing setup data
 
 Most tests require some setup data, the more setup data there is, the harder it is to keep the test code understandable.
 
-It's important for tests to be <strong>deterministic</strong>, meaning that they behave the same way every time. if a test is not deterministic, it may pass sometimes and fail sometimes, giving false negatives and causing numbness to legitimate failures.
+It's important for tests to be <b>deterministic</b>, meaning that they behave the same way every time. if a test is not deterministic, it may pass sometimes and fail sometimes, giving false negatives and causing numbness to legitimate failures.
 
 A key ingredient in making a test stick is to start with the same state every time. If a test is allowed to pollute its environment by changing for example environmental variables, configuration settings or database data, then the test that runs after it will run in a fould environment instead of a clean slate.
 
@@ -322,13 +325,13 @@ Naming.
 
 The author lays out a test that has three values: 'user’, ‘token’, ‘mismatch_token’.  He states that the last one is pretty clear, however after reading the whole test he suggested changing from ‘token’ to ‘valid_token’ in order to make it clearer.
 
-A good rule of thumb for naming is to call things <strong>what they are</strong>.  This rule may sound obvious, but how many times have you encountered a variable method, class or database table that's named according to something other than what it actually is?
+A good rule of thumb for naming is to call things <b>what they are</b>.  This rule may sound obvious, but how many times have you encountered a variable method, class or database table that's named according to something other than what it actually is?
 
 Because code is read many more times than it is written, the cost of a poor name is often many times more than the cost saved by skipping the effort of giving it a clear name.
 
 One topic per test.
 
-Some testers believe that each test should have just one assertion, others believe that this rule is hogwash, and that a test should have as many assertions as it needs. The significant thing about the test is not how many assertions it contains but rather <strong>how many topics it contains</strong>.
+Some testers believe that each test should have just one assertion, others believe that this rule is hogwash, and that a test should have as many assertions as it needs. The significant thing about the test is not how many assertions it contains but rather <b>how many topics it contains</b>.
 
 A test with just one topic – a test that's only about one thing– it's going to be easier to understand than a test that conflates multiple topics.
 
@@ -336,30 +339,37 @@ It is common for developers to stuff several assertions into one test out of a d
 
  The phases of a test
 
-Every test has four phases:  <strong>set up, exercise, assertions and tear down</strong>. in Rails the tear down usually happens automatically, so we only need to think about the ‘setup’, ‘exercise’ and ‘assertion’  steps done. They are also known as a range, act, assert.
+Every test has four phases:  <b>set up, exercise, assertions and tear down</b>. in Rails the tear down usually happens automatically, so we only need to think about the ‘setup’, ‘exercise’ and ‘assertion’  steps done. They are also known as a range, act, assert.
 
 Organizing your test Suite.
 
-As we saw at the beginning of this chapter, a test suite, when thought of as a structure set of <strong>behavior specifications</strong>, can serve as the backbone of a systems design.
+As we saw at the beginning of this chapter, a test suite, when thought of as a structure set of <b>behavior specifications</b>, can serve as the backbone of a systems design.
 The files and folders in a test suit should be laid out in an orderly and logically fashion so that when one needs to find something, it can be found easily.
 
- Instead of organizing tests by test type, which in a sense is an incidental detail, I find it more logical to organize my test <strong>by domain concept</strong>.
+ Instead of organizing tests by test type, which in a sense is an incidental detail, I find it more logical to organize my test <b>by domain concept</b>.
 Each folder in a test suite can be thought of as having two dimensions: to what domain concept it belongs and to what type of test it pertains.
 
-Traditional Rspec way to order files
+Traditional Rspec way to order files:
 
+```ruby
           | billing         | schedule        | clinical        
 ----------|----------------|----------------|----------------
 models    | models/billing | models/schedule | models/clinical
 requests  | requests/billing | requests/schedule | requests/clinical
 system    | system/billing | system/schedule | system/clinical
+```
 
-Jason suggests the following by meaning (domain-specific) and then type
+Jason suggests the following by meaning (domain-specific) and then type:
+
+```ruby
 
           | models         | requests        | system        
 ----------|---------------|----------------|---------------
 billing   | billing/models  | billing/requests  | billing/system
 schedule  | schedule/models | schedule/requests | schedule/system
 clinical  | clinical/models | clinical/requests | clinical/system
+```
 
 Lastly, something helpful that this new approach helps is to catch regressions, when tests are organized by the main concept, the search for regressions can be conducted much more logically and efficiently. Once you get for instance `spec/schedule/appointments/system/cancel _appointment.rb` passing, you can then locally run all the tests in that parent folder `spec/schedule/appointment`.
+
+Chapter 6.

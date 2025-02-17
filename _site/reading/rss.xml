@@ -38,7 +38,7 @@
 
 &lt;p&gt;Scenario:  when a user enters a valid email and password combination into the email and password fields, then clicks ‘sign in’&lt;/p&gt;
 
-&lt;p&gt;Expectation: the user dashboards page is shown&lt;/p&gt;
+&lt;p&gt;Expectation: the user dashboards page is shown.&lt;/p&gt;
 
 &lt;p&gt;This is a style that the author has conceived and he denotes that it makes sense to him but it is not a golden rule, in other words “under such-and-such a scenario, we expect such-and-such behavior”&lt;/p&gt;
 
@@ -102,8 +102,9 @@ Something important here is to run the test so we can clear out any false positi
 
 &lt;p&gt;Something that I have seen has always been trivial is % of test coverage and the author suggests the following:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; What if we use a minimum number of system tests, perhaps one for the happy path and one or two more for the failure cases and then use fast unit tests for all the edge cases?  This way we will get a reasonable level of confidence that our system works as a whole.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;What if we use a minimum number of system tests, perhaps one for the happy path and one or two more for the failure cases and then use fast unit tests for all the edge cases?  This way we will get a reasonable level of confidence that our system works as a whole.&lt;/p&gt;
+&lt;/blockquote&gt;
 
 &lt;p&gt;Then we have: how to test models (POROs),  requests, background jobs, mailer specs, helper specs, view specs and view components.&lt;/p&gt;
 
@@ -123,8 +124,249 @@ Something important here is to run the test so we can clear out any false positi
 
 &lt;p&gt;In a model do we need to test every method,  again remember that we covered every Behavior not every method.&lt;/p&gt;
 
-&lt;p&gt;Chapter 5 is writing understandable tests&lt;/p&gt;
+&lt;p&gt;Chapter 5. Writing understandable tests.&lt;/p&gt;
 
+&lt;p&gt;I think this is the longest chapter but is the one that has more meat  because it touches topics as code quality in tests, in this case “abstraction”, (we always hear about quality code of the app itself but not in tests), it revisits the what the ‘when’, the ‘given’, ‘then’ as a structure for the test. Also how to accommodate the different files you need in the rails app, when to use helper when those are helpful, what about concerns, when is a good practice to create a model without inheriting from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ActiveRecord&lt;/code&gt;,  how to preserve ‘cohesion’,  also Rspec feature which is ‘shared examples’,  what may cause obfuscation in the tests, whether you use ‘subject’ or ‘let’ in our specs, plus the author gives a very useful opinion about code duplication (he shares that duplication is okay when it comes to testing).&lt;/p&gt;
+
+&lt;p&gt;Something that I truly liked is when the author brings up that a codebase is like a story book so each file has to be seen as a chapter, where you see essential points and it remains on those essentials topics and also incidental/distracting things that may go on the footnote or appendix.&lt;/p&gt;
+
+&lt;p&gt;Tests are more than just a safety net to catch regressions. A test suite can serve as a guidebook to a system, showing what the system’s parts are, how the parts relate to each other, which ideas are more and less important, and of course, how are the parts of the system are supposed to behave&lt;/p&gt;
+
+&lt;p&gt;A test suite is a structured collection of behavior specifications, and can also serve as the backbone for a systems design.&lt;/p&gt;
+
+&lt;p&gt;It is common to think of a system’s code as its essence and the tests as something secondary.  I invite you to think of it the other way around. A system’s code shows what the system does, but the system’s application code does not have the last word.  Because an application tests are specifications, whatever the test specifies is, by definition, correct.&lt;/p&gt;
+
+&lt;p&gt;So far we have mostly focused on writing new tests and writing them. but in a production application, in addition to being written and run, tests often need to be understood and modified.&lt;/p&gt;
+
+&lt;p&gt;Abstraction is the art of hiding distracting details and emphasizing essential information.&lt;/p&gt;
+
+&lt;p&gt;Test code is responsible for jobs that vary widely in the relevance to the high level meaning of the test.
+1 test data has to be created.
+2 dependencies have to be initialized.
+3 code has to be finagled into the right state.
+4 assertions have to be made, etc.&lt;/p&gt;
+
+&lt;p&gt;Here is a testing code example:&lt;/p&gt;
+
+&lt;p&gt;Before:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creating Comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;type: :feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;js: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:raw_comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Faker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Lorem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;paragraph&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;user_id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;show_comments: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  
+  &lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sign_in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;User replies to a comment&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;commentable_id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;user_id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_s&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.toggle-reply-form&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;click&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:xpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div[@class=’actions’]/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;form&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_comment&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;textarea&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:xpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div[contains(@class, ’reply-actions’)]/in&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;vi&quot;&gt;@name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;commit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;click&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;have_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The “it” block should describe how it (the system) should behave. To me the way this test description is written is a sign that this test is not the result of a clearly thought out specification&lt;/p&gt;
+
+&lt;p&gt;The next step is to think about the one or the given,  in this case when user submits a reply to a comment or not article ( a scenario)  the body of the reply shows up on the article’s page ( expectation)&lt;/p&gt;
+
+&lt;p&gt;After (with better description):&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Creating&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Comment&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;type: :feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;js: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; 
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;user submits a reply to a comment on an article” do
+    it “shows the reply on the article’s page” do
+    end
+  end
+end
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If an abstraction does not give you the slightest clue of what it is doing without looking at its content, Then it is a pretty poor abstraction. When a test is full of distracting details, simply moving the details behind methods is not necessarily an improvement; careful thought must be given to what abstractions the methods represent and why they are helpful.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Creating Comment&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;type: :feature&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;js: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sign_in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;User replies to a comment&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_setup_data&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;submit_comment&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect_correct_comment&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create_setup_data&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:raw_comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Faker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Lorem&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;paragraph&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;user_id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;show_comments: &lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;submit_comment&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;commentable_id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;article&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;user_id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;visit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;article_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_s&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;.toggle-reply-form&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;click&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:xpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;//div[@class=&apos;actions&apos;]/form[@class=&apos;new_comment&apos;]/textarea&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    
+    &lt;span class=&quot;n&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;:xpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;//div[contains(@class, &apos;reply-actions&apos;)]/input[@name=&apos;commit&apos;]&quot;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;click&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;expect_correct_comment&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;have_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;raw_comment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The author also speaks about scoping (arranging app’s files) and gives a relevant example of an appointment model&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;appointment_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;invoice_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;patient_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;user_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;appointment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;invoice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;patient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rails g scaffold appointment&lt;/code&gt; command gave the developers to containers to put stuff in, one called app/models/appointment.rband another called spec/models/appointment.rb. Slowly over time, each of these containers group, a few lines of code at a time, into a monster.&lt;/p&gt;
+
+&lt;p&gt;How do we fix this? by slicing up the model code into a smaller, more cohesive pieces for instance: 
+The recurrence logic moved into an object called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RecurrenceRule&lt;/code&gt; which lives in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/models/recurrence_rule.rb&lt;/code&gt; or even better with namespace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Schedule::RecurrenceRule&lt;/code&gt; and lives at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app/models/schedule/recurrence_rule.rb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Cohesion&lt;/p&gt;
+
+&lt;p&gt;If a code base is like a story, a file in a code base is perhaps like a chapter in a book. A well-written chapter will clearly let the reader know what the most important points are and will feature those important points most prominently. A chapter is most understandable when it principally sticks to just one topic.&lt;/p&gt;
+
+&lt;p&gt;If a detail would pose too much of a distraction or an interruption, it gets moved to a footnote or appendix or parenthetical clause.&lt;/p&gt;
+
+&lt;p&gt;A piece of code is cohesive if a) everything in it shares one single idea and b) it doesn’t mix into incidental details with essential points.&lt;/p&gt;
+
+&lt;p&gt;How cohesion gets lost&lt;/p&gt;
+
+&lt;p&gt;Fresh new projects are usually pretty easy to work with because when you don’t have very much code, it is easier to keep your code organized and when the total amount of code is small, things have to be pretty disorganized in order for it to hurt.&lt;/p&gt;
+
+&lt;p&gt;Things get tougher as the project grows. Entropy is the tendency for all things to decline to disorder unavoidably sets in.&lt;/p&gt;
+
+&lt;p&gt;A common manifestation of entropy is when I developer is tasked with adding a new behavior. he or she goes looking for the object that seems like the most fitting home for that new behavior. he or she adds the new behavior, which does not perfectly fit the object where it was placed, but the code only makes the object say 5% less cohesive, the result of all these changes in aggregate is a surprisingly bad mass.&lt;/p&gt;
+
+&lt;p&gt;How cohesion can be preserved?&lt;/p&gt;
+
+&lt;p&gt;The first key to maintaining cohesion in any particular piece of code is to make a clear distinction between what’s &lt;b&gt;essential&lt;/b&gt; and what’s &lt;b&gt;incidental&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s say that I have for example a class called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Appointment&lt;/code&gt;. The concerns of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Appointment&lt;/code&gt; include among other things, start time, a client and some matters related to caching.&lt;/p&gt;
+
+&lt;p&gt;I would say that the start time and client are essential concerns of an appointment and that the caching is probably incidental.&lt;/p&gt;
+
+&lt;p&gt;Now where to put these newly sprouted files. The rationale here is that cashing logic will only ever be relevant to a scheduling whereas an appointment might be viewed in multiple contexts, for example sometimes scheduling and sometimes billing.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;appointment&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scheduling&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;appointment_caching&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is another example of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Customer&lt;/code&gt; object with certain method including one called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;balance&lt;/code&gt;.  Over time the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;balance&lt;/code&gt; calculation becomes increasingly complicated to the point that it causes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Customer&lt;/code&gt; to lose cohesion. I can just move the guts of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;balance&lt;/code&gt; method into a new object (a PORO) called &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CustomerBalance&lt;/code&gt; and delegate all the gory details of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;balance&lt;/code&gt;  calculation to that object. Now the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Customer&lt;/code&gt; object once again focuses on the essential points and forget about the incidental details.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;customer_balance&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the case that we cannot extract the incidental details of an object we can use a ‘mixin’ instead. I view ‘mixin’  as a good way to hold a bit of code which has cohesion with itself but which does not quite qualify as an abstraction and so does not make sense as an object. For me, ‘mixins’ usually don’t have a standalone value, and they are usually only ever “mixed in” to one object as supposed to be reusable.&lt;/p&gt;
+
+&lt;p&gt;I could have said ‘concern’ instead of ‘mixin’, but to me it is a distinction without a meaningful difference, and concerns come along with some conceptual baggage that I don’t want to bring into the picture here.&lt;/p&gt;
+
+&lt;p&gt;Jason believes in organizing files by meaning rather than type.&lt;/p&gt;
+
+&lt;p&gt;Shared examples from our spec is something that at first glance seems to be a good idea however it provides obfuscation because it is difficult for the programmer to know where the values and variables come from https://rspec.info/features/3-13/rspec-core/example-groups/shared-examples/&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center;&quot;&gt;Duplication code only for testing.&lt;/div&gt;
+
+&lt;p&gt;Duplication is mainly bad when it passes a risk of two or more pieces of behavior getting out of sync due to a mistake, leaving one copy of the behavior correct and the other one incorrect. Since tests are not behavior, they are not always susceptible to the same kinds of duplication mistakes as application code.&lt;/p&gt;
+
+&lt;p&gt;Test helpers on DRY&lt;/p&gt;
+
+&lt;p&gt;That DRY principle does not apply to test code in the same way that it applies to application code, since application code is behavior whereas the test code is a specification.
+Helpers are not tested and they do not contain specifications. They simply help with gruntwork. online test code a helper does benefit from being DRY just like application code does.&lt;/p&gt;
+
+&lt;p&gt;Managing setup data&lt;/p&gt;
+
+&lt;p&gt;Most tests require some setup data, the more setup data there is, the harder it is to keep the test code understandable.&lt;/p&gt;
+
+&lt;p&gt;It’s important for tests to be &lt;b&gt;deterministic&lt;/b&gt;, meaning that they behave the same way every time. if a test is not deterministic, it may pass sometimes and fail sometimes, giving false negatives and causing numbness to legitimate failures.&lt;/p&gt;
+
+&lt;p&gt;A key ingredient in making a test stick is to start with the same state every time. If a test is allowed to pollute its environment by changing for example environmental variables, configuration settings or database data, then the test that runs after it will run in a fould environment instead of a clean slate.&lt;/p&gt;
+
+&lt;p&gt;For this reason, Rails by default runs every test inside of the database transaction, before the test finishes, the transaction gets aborted so that any data created inside the test never gets committed to the database.&lt;/p&gt;
+
+&lt;p&gt;Every piece of data that’s in the database when test starts, we will call this data “background data”, has the potential to influence how the test behaves. the less background data there is, the fewer headaches it can cause.&lt;/p&gt;
+
+&lt;p&gt;Naming.&lt;/p&gt;
+
+&lt;p&gt;The author lays out a test that has three values: ‘user’, ‘token’, ‘mismatch_token’.  He states that the last one is pretty clear, however after reading the whole test he suggested changing from ‘token’ to ‘valid_token’ in order to make it clearer.&lt;/p&gt;
+
+&lt;p&gt;A good rule of thumb for naming is to call things &lt;b&gt;what they are&lt;/b&gt;.  This rule may sound obvious, but how many times have you encountered a variable method, class or database table that’s named according to something other than what it actually is?&lt;/p&gt;
+
+&lt;p&gt;Because code is read many more times than it is written, the cost of a poor name is often many times more than the cost saved by skipping the effort of giving it a clear name.&lt;/p&gt;
+
+&lt;p&gt;One topic per test.&lt;/p&gt;
+
+&lt;p&gt;Some testers believe that each test should have just one assertion, others believe that this rule is hogwash, and that a test should have as many assertions as it needs. The significant thing about the test is not how many assertions it contains but rather &lt;b&gt;how many topics it contains&lt;/b&gt;.&lt;/p&gt;
+
+&lt;p&gt;A test with just one topic – a test that’s only about one thing– it’s going to be easier to understand than a test that conflates multiple topics.&lt;/p&gt;
+
+&lt;p&gt;It is common for developers to stuff several assertions into one test out of a desire for performance efficiency, especially in system specs, which are expensive to run. That I think this is usually a false economy. Yes, a performance benefit is cheap but at expense of understandably but the savings in CPU time is paid for by engineer time and we of course know which of the two is more expensive.&lt;/p&gt;
+
+&lt;p&gt;The phases of a test&lt;/p&gt;
+
+&lt;p&gt;Every test has four phases:  &lt;b&gt;set up, exercise, assertions and tear down&lt;/b&gt;. in Rails the tear down usually happens automatically, so we only need to think about the ‘setup’, ‘exercise’ and ‘assertion’  steps done. They are also known as a range, act, assert.&lt;/p&gt;
+
+&lt;p&gt;Organizing your test Suite.&lt;/p&gt;
+
+&lt;p&gt;As we saw at the beginning of this chapter, a test suite, when thought of as a structure set of &lt;b&gt;behavior specifications&lt;/b&gt;, can serve as the backbone of a systems design.
+The files and folders in a test suit should be laid out in an orderly and logically fashion so that when one needs to find something, it can be found easily.&lt;/p&gt;
+
+&lt;p&gt;Instead of organizing tests by test type, which in a sense is an incidental detail, I find it more logical to organize my test &lt;b&gt;by domain concept&lt;/b&gt;.
+Each folder in a test suite can be thought of as having two dimensions: to what domain concept it belongs and to what type of test it pertains.&lt;/p&gt;
+
+&lt;p&gt;Traditional Rspec way to order files:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;          &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;        
+&lt;span class=&quot;o&quot;&gt;----------|----------------|----------------|----------------&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;    &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Jason suggests the following by meaning (domain-specific) and then type:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+          &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;         &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;        &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;        
+&lt;span class=&quot;o&quot;&gt;----------|---------------|----------------|---------------&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt;   &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;billing&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;schedule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;models&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;requests&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;clinical&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;system&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Lastly, something helpful that this new approach helps is to catch regressions, when tests are organized by the main concept, the search for regressions can be conducted much more logically and efficiently. Once you get for instance &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spec/schedule/appointments/system/cancel _appointment.rb&lt;/code&gt; passing, you can then locally run all the tests in that parent folder &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spec/schedule/appointment&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Chapter 6.&lt;/p&gt;
 </description>
       <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
