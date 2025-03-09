@@ -386,4 +386,58 @@ clinical  | clinical/models | clinical/requests | clinical/system
 
 Lastly, something helpful that this new approach helps is to catch regressions, when tests are organized by the main concept, the search for regressions can be conducted much more logically and efficiently. Once you get for instance `spec/schedule/appointments/system/cancel _appointment.rb` passing, you can then locally run all the tests in that parent folder `spec/schedule/appointment`.
 
-Chapter 6.
+### Chapter 6. Duplication in test code. {#chapter-6}
+
+It is commonly believed that duplication is code that appears in two or more places. But this is actually mistaken. Duplication is when there is a single <b>behavior</b> that's specified into or more places.
+
+ Just because two identical pieces of code are present does not necessarily mean duplication exists. And just because there are no two identical pieces of code present doesn't mean here is no duplication.
+
+Two pieces of code could happen to be identical, but if they actually serve different purposes and lead separate lives, then they do not represent the same behavior, and they do not constitute duplication.
+
+ The way to tell if two pieces of code are duplicative is not to see if their code matches. The question that determines application is; “if I changed one piece of code in order to meet any requirement, would it be logically necessary to update the other piece of code the same way?”
+
+ The main reason for duplication is that it leaves a problem susceptible to developing logical inconsistencies. If a behavior is expressed in two different places in a program, and one of them accidentally does not match the other, then the deviating behavior is necessarily wrong.
+
+ Another reason duplication can be bad is because it can cost an extra maintenance burden.
+
+What determines how risky duplication is 
+1) one how easily noticeable the duplication is
+2) how much extra maintenance overhead the presence of the duplication incurs,
+3) how much traffic that area receives( how frequently that area of code needs to be changed or understood)
+
+Noticeability
+
+ If someone updates one of the code of the behavior to meet any requirement they are very likely to miss updating the other one. We might call this the proximity factor.
+
+If two pieces of duplicated behavior appear in different files in different areas of the application, then a mess is much likely to occur, and therefore the application processes a larger risk.
+
+Another quality that makes the noise ability of the application issued is similarity. If two pieces of code look very similar than the duplicity is more likely to be noticed than if the two pieces of code do not look the same (similarity factor)
+
+Maintenance overhead
+
+If a piece of duplication exists as a part of the database schema, that's a much higher maintenance cost than a small duplication in code. Instances of duplication there are large and are not represented by identical code can also be costly to maintain because, in those cases, you cannot just type the same thing twice, you have to perform a potentially expensive translation step in your head.
+
+Traffic level
+The more frequently the code is changed, the more of a toll it is going to incur, and so the bigger problem it is.
+
+Another tollway is when a piece of code needs to be understood as a priority to understanding a different piece of code. 
+
+How to decide whether to DRY up a piece of code. There are two simple options, although it is not always easy.
+
+Severity. If a piece of duplication is severe for example it has low noticeability, it posses high maintenance overhead, and has a high traffic level, then those all add weight to the argument that the duplication should be cleaned up.
+
+The quality of alternatives just because a piece of duplication costs something does not automatically mean that the duplicated version costs less. It doesn't happen very often but sometimes ad duplication unavoidably results in code that's so generalized that it is virtually impossible to understand. 
+
+Rule of three,  write everything twice. When I'm deciding whether to dry up a duplication, I asked myself: how severe is this instance of duplication? Are we able to come up with a fix that's better than the duplicated version and not worse? 
+
+Example, imagine a piece of duplication in the form of three very simple and nearly identical lines, group together in a single file, the file is a unimportant one which only gets touch a couple of times a year, and no one needs to understand that piece of code as a prerequisite to understanding anything else.
+
+Now imagine another piece of duplication. The duplication appears in only two places but the places are distant from each other and therefore the application is hard to notice. The two places where the duplicated behavior appears are expressed differently enough that the code would elude detection by a quality tool or a manual human search. The behavior is vitality central and important one and the two places the behavior appears are virtually painful to keep in sync.
+
+Duplication is cheaper than the wrong abstraction 
+
+The real difference between duplication and test code and application code. <b>Duplication, again, is when a one behavior is expressed into or more places.</b> The difference between the test code and application code is that test code does not contain <b>behavior</b>. all the behaviors are in the application code. the purpose of the test code is to specify the behaviors of the application code.
+
+ What is the codebase that determines whether the application code is correct? <b>the test.</b>
+
+If a piece of behavior is duplicated in two places in the application code and one piece of behavior gets changed, it does always logically follow that the other piece of behavior needs to get updated to match. (otherwise they will not be the instance of a duplication.)
