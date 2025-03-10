@@ -17,6 +17,8 @@ This book has two parts, the first one goes over principles of testing, the seco
 4. [Chapter 4. Writing meaningful tests.](#chapter-4)
 5. [Chapter 5. Writing understandable tests.](#chapter-5)
 6. [Chapter 6. Duplication in test code.](#chapter-6)
+7. [Chapter 7. Mocks and stubs.](#chapter-7)
+
 
 ### Chapter 1. Introduction. {#chapter-1}
 
@@ -441,3 +443,90 @@ The real difference between duplication and test code and application code. <b>D
  What is the codebase that determines whether the application code is correct? <b>the test.</b>
 
 If a piece of behavior is duplicated in two places in the application code and one piece of behavior gets changed, it does always logically follow that the other piece of behavior needs to get updated to match. (otherwise they will not be the instance of a duplication.)
+
+
+### Chapter 7. Mocks and stubs. {#chapter-7}
+
+What is a stub?
+
+In a football scrimmage, the team doesn't play against a real opponent because:
+- It's expensive (travel, logistics, etc.).
+- It could have unwanted side effects (injuries, revealing strategies, etc.).
+- Instead, they simulate the opponent using their own players to control the scenario.
+
+Similarly, in testing:
+
+A stub replaces an actual method <b>with a controlled response.</b>
+It prevents expensive operations like:
+- Database queries.
+- External API calls.
+- Complex calculations.
+- It ensures the test has more controllable responses.
+
+Example:
+
+```ruby
+class PaymentGateway
+  def charge(amount)
+    # Imagine this calls an external API (expensive!)
+    "Charged #{amount}"
+  end
+end
+
+RSpec.describe PaymentGateway do
+  it "stubs the charge method" do
+    gateway = PaymentGateway.new
+
+    allow(gateway).to receive(:charge).with(100).and_return("Stubbed charge")
+
+    expect(gateway.charge(100)).to eq("Stubbed charge") # Controlled response
+  end
+end
+```
+
+What is a mock?
+
+Imagine Mr. Boss pretends to be a regular customer (mock objects pretend to be real objects)
+He orders specific items like a hamburger, fries, and a coke (sets expected method calls).
+
+Afterward, he "interrogates" the experience - "Did you receive the hamburger you ordered?" (verifies that expected interactions occurred) If any verification fails, the test fails
+
+
+A mock is a fake object (like the undercover boss is a fake customer)
+It has predetermined responses
+
+```ruby
+class Waiter
+  def take_order(order)
+    # Imagine this method interacts with a real kitchen system
+    "Order placed: #{order}"
+  end
+end
+
+RSpec.describe Waiter do
+  it "verifies that the order was placed" do
+    waiter = Waiter.new
+
+    expect(waiter).to receive(:take_order).with("hamburger")
+
+    waiter.take_order("hamburger") # If this isn't called, the test fails
+  end
+end
+```
+
+Summary 
+
+- A stub is like using a fake team in a football scrimmage—it avoids unnecessary costs.
+
+- A mock is like an undercover boss—it checks if expected interactions happen.
+
+"Do I just need to fake a response?" → Use a stub.
+
+"Do I need to verify that something was called?" → Use a mock.
+
+Feature | Stub | Mock
+----------|---------------|----------------|---------------
+Purpose | Controls return values | Verifies method calls
+Tracks calls? | No | Yes
+Fails test if method is not called? | No | Yes
+
