@@ -1,6 +1,6 @@
 ---
 title: "UTF-8, bits, bytes and binary numbers!"
-categories: computer-science
+categories: [computer_science, database]
 layout: post
 ---
 

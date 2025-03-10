@@ -2,17 +2,19 @@
 layout: default
 title: Computer Science Notes
 permalink: /computer_science/
-description: 'Your collection of Computer Science notes'
+description: 'Your collection of Computer Science Notes'
 ---
 
 <strong style="margin-top:-1rem;">
-  I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer.com.
+  I've committed to gaining depth in computer science, and here are the notes I'm taking along with the lessons on csprimer.com.
 </strong>
 
+## Categories
 
-<p style="color:rgb(54, 54, 59);">
-  1st module: Computes Systems.
-</p>
+- [Programming: Beyond the basics](/computer_science/beyond/)
+- [Computer Systems](/computer_science/systems/)
+- [Networking](/computer_science/networking/)
+- [Databases](/computer_science/database/)
 
 <div class='writing nu'>
   {% for post in site.categories.computer_science %}
