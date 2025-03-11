@@ -18,7 +18,12 @@ This book has two parts, the first one goes over principles of testing, the seco
 5. [Chapter 5. Writing understandable tests.](#chapter-5)
 6. [Chapter 6. Duplication in test code.](#chapter-6)
 7. [Chapter 7. Mocks and stubs.](#chapter-7)
-
+8. [Chapter 8. Flaky tests.](#chapter-8)
+9. [Chapter 9. Testing sins and crimes.](#chapter-9)
+10. [Chapter 10. Ruby DSL.](#chapter-10)
+11. [Chapter 11. Factory bot.](#chapter-11)
+12. [Chapter 12. RSpec syntax.](#chapter-12)
+13. [Chapter 13. Capybara's DSL.](#chapter-13)
 
 ### Chapter 1. Introduction. {#chapter-1}
 
@@ -629,10 +634,129 @@ end
 
 RSpec.describe "Starting the background job with RSpec mock" do
   it "calls .perform on the mock job" do
-    job = MockedJob.new
-    expect(job).to receive(:perform)
+    job = MockedJob.new 👈
+    expect(job).to receive(:perform) 👈
     start_background_job(job)
   end
 end
 ```
 
+### Chapter 8. Flaky tests. {#chapter-8}
+
+
+When a boat leaks, the crew has not one problem but two. One problem is the water that's in the boat, causing it to lose buoyancy. This problem can be mitigated by bailing out water, but it won't solve the other problem, which is that there are holes in the boat allowing more water to leak in.
+
+Layer | Symptom         | Root cause
+----------|---------------|----------------
+Secondary   | Water in the boat  | Holes in the boat.
+Primary  | Holes in the boat | Poor design? Aging?
+
+The holes in the boat are the symptom of the primary problem.
+
+
+
+
+The two layers of the flaky test problem
+
+Layer | Symptom         | Root cause
+----------|---------------|----------------
+Secondary   | Individual flaky tests  | Instances of non-determinism (race conditions, environment corruption, randomness, external dependencies in tests, fragile time dependencies)
+Primary  | Instances of non-determinism (race conditions, environment corruption, randomness, external dependencies in tests, fragile time dependencies) | Application complexity, poor test design.
+
+What is a flaky test? 
+
+A flaky test is a test that passes sometimes and fails sometimes even when no code has changed. Flaky test cost test runs to fail illegitimately, causing annoyance, wasted time and a numbness to legitimate failures. All flaky tests are caused by some form of non-determinism.
+
+Code that's deterministic is code that always gives the same output for a given input. Flaky tests are caused by some form of non-determinism.
+
+Race conditions
+
+Race conditions are most likely to arise when the buffer is small. Imagine, a guy arrives at the train station with only a 1-minute buffer. If a ticket machine is slow or a gate malfunctions, he misses the train. Similarly, in software, race conditions occur when timing issues cause unpredictable failures.
+
+This gets fixed by adding an `expect(page).to have_content` command immediately after the command that submits in this case the form. Unlike the indifferent `click_on` command `expect_page.to have_content` will wait a bit before it gives up and allows the test Runner to continue.
+
+```ruby
+click_on “submit”
+expect(page).to have_content(“Thanks”) # to prevent race conditions
+click_on “Home”
+```
+You can modify the default wait time [docs](https://github.com/teamcapybara/capybara/blob/master/README.md#asynchronous-javascript-ajax-and-friends
+)
+```ruby
+Capybara.default_max_wait_time = 10 
+```
+
+And also per-test basis 
+
+```ruby
+Capybara.using_wait_time(10) do
+  expec(page).to have_content(“Success”)
+end
+```
+
+Environment state corruption
+
+Imagine two tests, each of which creates a user with `email_address: test@example.com` the first test will pass and, if there is a unique constraint on `user.email`, the second test will raise an error due to unique constraint validation. Sometimes the first test will fail and sometimes the second test will fail depending on the order in which order you run them.
+
+Another way to spoil the environment is to change a configuration setting. Let's say you have a test environment with a background job configured not to run for most tests because most background jobs are irrelevant to what's being tested and would just slow things down. But then let's imagine that you have one test that you do want background jobs to run, and so at the beginning of the test you set background job setting from the `don’t run` to `run`. if you don't remember to change the setting back to `don’t run` at the end all background jobs will run for all later tests and potentially cause problematic behavior. 
+
+External dependencies in tests.
+
+The way to prevent flaky test caused by network dependencies is to <b>stub</b> services rather than hitting live services 
+
+Randomness
+
+By definition common non-deterministic. If you have for example a test that generates a random integer between one and two and then asserts that the number is one that is going to fail about half the time period.
+
+Fragile time dependencies in test
+
+The way around this problem is to always use absolute times in tests instead of relative ones. For instance “2025-03-10 08:00:00” Instead of “tomorrow 12:00 p.m.”
+
+
+Problem | Prerequisite
+----------|---------------
+Race conditions   | Concurrency
+Environment state corruption  | Mutable environment state
+Randomness | Randomness
+External dependencies  | External dependencies
+Fragile time dependencies  | Features that involve time
+
+To summarize all this in a few words, complicated applications tend to have more flaky tests than simple ones. 
+
+How to fix flaky tests
+
+Flaky tests are hard to fix largely <b>because they are hard to reproduce.</b> If a flaky test cannot be consistently reproduced then it is very hard to hypothesize about the conditions to make it fail.
+
+It is also hard to hypothesize about the case of a flaky chest if we don't have enough background knowledge to guide our hypothesis. If we are familiar with the conditions that can lead to flaky tests, then we can come up with much more intelligent guesses than if we are clueless about how flaky tests arise.
+
+The fact that flaky tests are hard to reproduce also means that our fixed attempts are hard to validate or invalidate.
+
+Adopt an effective bug fix methodology.
+
+I find it helpful to split the bug fix process into three distinct stages: 
+
+- reproduction, 
+- diagnosis and 
+- fix.
+ 
+When fixing a bug it is very easy to let your head get filled with a jumble of thoughts and lose track of what you're doing. Dividing the processing to steps helps us stay focused on one activity at the time.
+
+Arm yourself with background knowledge. All about diagnosis start as guesses to get more efficient in diagnosing flaky tests, commit to five causes of flaky tests to memory.
+
+Before reproducing: determine whether it is really a flaky test. Not everything that appears to be a flaky test is actually a flaky test. Sometimes a test that appears to be flaky is just a healthy test that's legitimately failing.
+
+Reproducing a flaky test.  My go-to method for reproducing a flaky chest is simply to re-run the test suite multiple times on my CI service until I see the flaky test fail. I like to run the test so it's a large number of times to not only reproduce the failure but also to get a feel for how frequently the flaky test fails.
+
+Diagnosing flaky tests.  Remember that if you preferably understood all the code and tests, you would also understand the cause of the flaky test that you are trying to diagnose. All that lies between you and a diagnosis is certain amount of understanding.
+
+Applying the fix for a flaky test. Sometimes the only way to see if a flaky test is fixed with our  attempt is to wait.
+
+Do not delete a test without a good reason. Remember that the important thing is not the cost benefit ratio of an individual flaky test fixed, but the cost benefit ratio of all the flaky test fixes on average. This means that fixing flaky tests creates a positive feedback loop. 
+
+
+
+### Chapter 9. Testing sins and crimes. {#chapter-9}
+### Chapter 10. Ruby DSL. {#chapter-10}
+### Chapter 11. Factory bot. {#chapter-11}
+### Chapter 12. RSpec syntax. {#chapter-12}
+### Chapter 13. Capybara's DSL. {#chapter-13}

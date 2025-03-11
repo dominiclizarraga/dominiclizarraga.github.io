@@ -24,6 +24,12 @@
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;Chapter 5. Writing understandable tests.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-6&quot;&gt;Chapter 6. Duplication in test code.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-7&quot;&gt;Chapter 7. Mocks and stubs.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-8&quot;&gt;Chapter 8. Flaky tests.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-9&quot;&gt;Chapter 9. Testing sins and crimes.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-10&quot;&gt;Chapter 10. Ruby DSL.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-11&quot;&gt;Chapter 11. Factory bot.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-12&quot;&gt;Chapter 12. RSpec syntax.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-13&quot;&gt;Chapter 13. Capybara’s DSL.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;chapter-1&quot;&gt;Chapter 1. Introduction.&lt;/h3&gt;
@@ -558,6 +564,276 @@ It has predetermined responses&lt;/p&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
+&lt;p&gt;Testing third party interactions using stubs&lt;/p&gt;
+
+&lt;p&gt;In principle we could test third party interactions by actually hitting live services. the upside to this approach is that it provides a very realistic environment, however the downsides are:&lt;/p&gt;
+
+&lt;p&gt;Loss of determinism, this means that our tests will potentially be non-deterministic. Determinism is the property of always behaving the same way given the same starting conditions. Tests that involve third-party services may behave one way on some runs and another way on other runs even though they’re starting conditions were the same.&lt;/p&gt;
+
+&lt;p&gt;Limited ability to control test scenarios, when writing tests that involved third-party services, it is desirable to cover certain scenarios such as when the server returns a value response, when the service return a graceful error response, or a 500 error so creating this scenario is impossible.&lt;/p&gt;
+
+&lt;p&gt;Side effects, using live services can also cause rate limiting, causing the test to eventually flake once requests start failing due to rate limits, and also preventing real production requests.&lt;/p&gt;
+
+&lt;p&gt;Stubbing  services.&lt;/p&gt;
+
+&lt;p&gt;Stubbing third party services avoids the problems that come with using live services. When services are stubbed our test can be deterministic, we can control our test scenarios and we don’t have to worry about introducing side effects. What exactly is stubbing? is a practice of replacing one piece of behavior with another.&lt;/p&gt;
+
+&lt;p&gt;Coming up with good tests&lt;/p&gt;
+
+&lt;p&gt;A common mistake is to write tests that “make sure the API gets called” and to “make sure the right results get returned”.  &lt;b&gt;Remember that testing is about a specification, not verification.&lt;/b&gt; The test is not to “make sure the code worked” but rather to specify how the code should work.&lt;/p&gt;
+
+&lt;p&gt;Remember that the behavior we are interested in is what happens after the API (stripe, paypal) response is received.&lt;/p&gt;
+
+&lt;p&gt;Example of code before “stubbing”&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rails_helper&quot;&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;APIAuthenticationHelper&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;GitHub tokens&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;type: :request&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Describe&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;POST&lt;/span&gt; &lt;span class=&quot;sr&quot;&gt;/api/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;v1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;github_tokens&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;returns a token&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+              &lt;span class=&quot;n&quot;&gt;api_v1_github_tokens_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+              &lt;span class=&quot;ss&quot;&gt;headers: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;api_authorization_headers&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ABC123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;After stubbing:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rails_helper&quot;&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;APIAuthenticationHelper&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;POST /api/v1/github_tokens&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;type: :request&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;returns a token&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;GitHubToken&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;and_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ABC123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;👈&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;api_v1_github_tokens_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;ss&quot;&gt;headers: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;api_authorization_headers&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ABC123&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;The behavior we are mainly interested in is not how the token gets generated but in how the GitHub tokens &lt;b&gt;API endpoint response&lt;/b&gt; to a request for a token.&lt;/p&gt;
+
+&lt;p&gt;The line “allow(GitHubToken)” Does not actually call the method, but instead return the hard coded value “ABC123”.&lt;/p&gt;
+
+&lt;p&gt;Code example for mocking&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TaskProcessor&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;process&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Processing task...&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BackgroundJob&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;TaskProcessor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;process&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;start_background_job&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;job&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BackgroundJob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;job&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;MockedJob&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@performed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;perform&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;TaskProcessor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;process&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@performed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;performed?&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@performed&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Starting the background job with RSpec mock&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;calls .perform on the mock job&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;job&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MockedJob&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;👈&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;job&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;👈&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;start_background_job&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;job&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;chapter-8&quot;&gt;Chapter 8. Flaky tests.&lt;/h3&gt;
+
+&lt;p&gt;When a boat leaks, the crew has not one problem but two. One problem is the water that’s in the boat, causing it to lose buoyancy. This problem can be mitigated by bailing out water, but it won’t solve the other problem, which is that there are holes in the boat allowing more water to leak in.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Layer&lt;/th&gt;
+      &lt;th&gt;Symptom&lt;/th&gt;
+      &lt;th&gt;Root cause&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Secondary&lt;/td&gt;
+      &lt;td&gt;Water in the boat&lt;/td&gt;
+      &lt;td&gt;Holes in the boat.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Primary&lt;/td&gt;
+      &lt;td&gt;Holes in the boat&lt;/td&gt;
+      &lt;td&gt;Poor design? Aging?&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;The holes in the boat are the symptom of the primary problem.&lt;/p&gt;
+
+&lt;p&gt;The two layers of the flaky test problem&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Layer&lt;/th&gt;
+      &lt;th&gt;Symptom&lt;/th&gt;
+      &lt;th&gt;Root cause&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Secondary&lt;/td&gt;
+      &lt;td&gt;Individual flaky tests&lt;/td&gt;
+      &lt;td&gt;Instances of non-determinism (race conditions, environment corruption, randomness, external dependencies in tests, fragile time dependencies)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Primary&lt;/td&gt;
+      &lt;td&gt;Instances of non-determinism (race conditions, environment corruption, randomness, external dependencies in tests, fragile time dependencies)&lt;/td&gt;
+      &lt;td&gt;Application complexity, poor test design.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;What is a flaky test?&lt;/p&gt;
+
+&lt;p&gt;A flaky test is a test that passes sometimes and fails sometimes even when no code has changed. Flaky test cost test runs to fail illegitimately, causing annoyance, wasted time and a numbness to legitimate failures. All flaky tests are caused by some form of non-determinism.&lt;/p&gt;
+
+&lt;p&gt;Code that’s deterministic is code that always gives the same output for a given input. Flaky tests are caused by some form of non-determinism.&lt;/p&gt;
+
+&lt;p&gt;Race conditions&lt;/p&gt;
+
+&lt;p&gt;Race conditions are most likely to arise when the buffer is small. Imagine, a guy arrives at the train station with only a 1-minute buffer. If a ticket machine is slow or a gate malfunctions, he misses the train. Similarly, in software, race conditions occur when timing issues cause unpredictable failures.&lt;/p&gt;
+
+&lt;p&gt;This gets fixed by adding an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect(page).to have_content&lt;/code&gt; command immediately after the command that submits in this case the form. Unlike the indifferent &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;click_on&lt;/code&gt; command &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect_page.to have_content&lt;/code&gt; will wait a bit before it gives up and allows the test Runner to continue.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;click_on&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;submit&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;have_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Thanks&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# to prevent race conditions&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;click_on&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Home&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can modify the default wait time &lt;a href=&quot;https://github.com/teamcapybara/capybara/blob/master/README.md#asynchronous-javascript-ajax-and-friends&quot;&gt;docs&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Capybara&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;default_max_wait_time&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And also per-test basis&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Capybara&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;using_wait_time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;expec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;page&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;have_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;“&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Success&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Environment state corruption&lt;/p&gt;
+
+&lt;p&gt;Imagine two tests, each of which creates a user with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;email_address: test@example.com&lt;/code&gt; the first test will pass and, if there is a unique constraint on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user.email&lt;/code&gt;, the second test will raise an error due to unique constraint validation. Sometimes the first test will fail and sometimes the second test will fail depending on the order in which order you run them.&lt;/p&gt;
+
+&lt;p&gt;Another way to spoil the environment is to change a configuration setting. Let’s say you have a test environment with a background job configured not to run for most tests because most background jobs are irrelevant to what’s being tested and would just slow things down. But then let’s imagine that you have one test that you do want background jobs to run, and so at the beginning of the test you set background job setting from the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;don’t run&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run&lt;/code&gt;. if you don’t remember to change the setting back to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;don’t run&lt;/code&gt; at the end all background jobs will run for all later tests and potentially cause problematic behavior.&lt;/p&gt;
+
+&lt;p&gt;External dependencies in tests.&lt;/p&gt;
+
+&lt;p&gt;The way to prevent flaky test caused by network dependencies is to &lt;b&gt;stub&lt;/b&gt; services rather than hitting live services&lt;/p&gt;
+
+&lt;p&gt;Randomness&lt;/p&gt;
+
+&lt;p&gt;By definition common non-deterministic. If you have for example a test that generates a random integer between one and two and then asserts that the number is one that is going to fail about half the time period.&lt;/p&gt;
+
+&lt;p&gt;Fragile time dependencies in test&lt;/p&gt;
+
+&lt;p&gt;The way around this problem is to always use absolute times in tests instead of relative ones. For instance “2025-03-10 08:00:00” Instead of “tomorrow 12:00 p.m.”&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Problem&lt;/th&gt;
+      &lt;th&gt;Prerequisite&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Race conditions&lt;/td&gt;
+      &lt;td&gt;Concurrency&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Environment state corruption&lt;/td&gt;
+      &lt;td&gt;Mutable environment state&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Randomness&lt;/td&gt;
+      &lt;td&gt;Randomness&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;External dependencies&lt;/td&gt;
+      &lt;td&gt;External dependencies&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Fragile time dependencies&lt;/td&gt;
+      &lt;td&gt;Features that involve time&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;To summarize all this in a few words, complicated applications tend to have more flaky tests than simple ones.&lt;/p&gt;
+
+&lt;p&gt;How to fix flaky tests&lt;/p&gt;
+
+&lt;p&gt;Flaky tests are hard to fix largely &lt;b&gt;because they are hard to reproduce.&lt;/b&gt; If a flaky test cannot be consistently reproduced then it is very hard to hypothesize about the conditions to make it fail.&lt;/p&gt;
+
+&lt;p&gt;It is also hard to hypothesize about the case of a flaky chest if we don’t have enough background knowledge to guide our hypothesis. If we are familiar with the conditions that can lead to flaky tests, then we can come up with much more intelligent guesses than if we are clueless about how flaky tests arise.&lt;/p&gt;
+
+&lt;p&gt;The fact that flaky tests are hard to reproduce also means that our fixed attempts are hard to validate or invalidate.&lt;/p&gt;
+
+&lt;p&gt;Adopt an effective bug fix methodology.&lt;/p&gt;
+
+&lt;p&gt;I find it helpful to split the bug fix process into three distinct stages:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;reproduction,&lt;/li&gt;
+  &lt;li&gt;diagnosis and&lt;/li&gt;
+  &lt;li&gt;fix.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When fixing a bug it is very easy to let your head get filled with a jumble of thoughts and lose track of what you’re doing. Dividing the processing to steps helps us stay focused on one activity at the time.&lt;/p&gt;
+
+&lt;p&gt;Arm yourself with background knowledge. All about diagnosis start as guesses to get more efficient in diagnosing flaky tests, commit to five causes of flaky tests to memory.&lt;/p&gt;
+
+&lt;p&gt;Before reproducing: determine whether it is really a flaky test. Not everything that appears to be a flaky test is actually a flaky test. Sometimes a test that appears to be flaky is just a healthy test that’s legitimately failing.&lt;/p&gt;
+
+&lt;p&gt;Reproducing a flaky test.  My go-to method for reproducing a flaky chest is simply to re-run the test suite multiple times on my CI service until I see the flaky test fail. I like to run the test so it’s a large number of times to not only reproduce the failure but also to get a feel for how frequently the flaky test fails.&lt;/p&gt;
+
+&lt;p&gt;Diagnosing flaky tests.  Remember that if you preferably understood all the code and tests, you would also understand the cause of the flaky test that you are trying to diagnose. All that lies between you and a diagnosis is certain amount of understanding.&lt;/p&gt;
+
+&lt;p&gt;Applying the fix for a flaky test. Sometimes the only way to see if a flaky test is fixed with our  attempt is to wait.&lt;/p&gt;
+
+&lt;p&gt;Do not delete a test without a good reason. Remember that the important thing is not the cost benefit ratio of an individual flaky test fixed, but the cost benefit ratio of all the flaky test fixes on average. This means that fixing flaky tests creates a positive feedback loop.&lt;/p&gt;
+
+&lt;h3 id=&quot;chapter-9&quot;&gt;Chapter 9. Testing sins and crimes.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-10&quot;&gt;Chapter 10. Ruby DSL.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-11&quot;&gt;Chapter 11. Factory bot.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-12&quot;&gt;Chapter 12. RSpec syntax.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-13&quot;&gt;Chapter 13. Capybara’s DSL.&lt;/h3&gt;
 </description>
       <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
