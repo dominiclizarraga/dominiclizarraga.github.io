@@ -530,3 +530,109 @@ Purpose | Controls return values | Verifies method calls
 Tracks calls? | No | Yes
 Fails test if method is not called? | No | Yes
 
+Testing third party interactions using stubs
+
+In principle we could test third party interactions by actually hitting live services. the upside to this approach is that it provides a very realistic environment, however the downsides are:
+
+Loss of determinism, this means that our tests will potentially be non-deterministic. Determinism is the property of always behaving the same way given the same starting conditions. Tests that involve third-party services may behave one way on some runs and another way on other runs even though they're starting conditions were the same.
+
+Limited ability to control test scenarios, when writing tests that involved third-party services, it is desirable to cover certain scenarios such as when the server returns a value response, when the service return a graceful error response, or a 500 error so creating this scenario is impossible.
+
+Side effects, using live services can also cause rate limiting, causing the test to eventually flake once requests start failing due to rate limits, and also preventing real production requests.
+
+Stubbing  services.
+
+Stubbing third party services avoids the problems that come with using live services. When services are stubbed our test can be deterministic, we can control our test scenarios and we don't have to worry about introducing side effects. What exactly is stubbing? is a practice of replacing one piece of behavior with another.
+
+Coming up with good tests
+
+A common mistake is to write tests that “make sure the API gets called” and to “make sure the right results get returned”.  <b>Remember that testing is about a specification, not verification.</b> The test is not to “make sure the code worked” but rather to specify how the code should work.
+
+Remember that the behavior we are interested in is what happens after the API (stripe, paypal) response is received.
+
+Example of code before “stubbing”
+
+```ruby
+require "rails_helper"
+include APIAuthenticationHelper
+
+RSpec.describe "GitHub tokens", type: :request do
+  Describe “POST /api/v1/github_tokens” do
+    it "returns a token" do
+      post(
+              api_v1_github_tokens_path, 
+              headers: api_authorization_headers
+      )
+
+    expect(response.body).to be("ABC123")
+  end
+end
+```
+After stubbing:
+
+```ruby
+require "rails_helper"
+
+include APIAuthenticationHelper
+
+RSpec.describe "POST /api/v1/github_tokens", type: :request do
+  it "returns a token" do
+    allow(GitHubToken).to receive(:generate).and_return("ABC123") 👈
+
+    post(
+      api_v1_github_tokens_path,
+      headers: api_authorization_headers
+    )
+
+    expect(response.body).to eq("ABC123")
+  end
+end
+
+```
+The behavior we are mainly interested in is not how the token gets generated but in how the GitHub tokens <b>API endpoint response</b> to a request for a token. 
+
+The line “allow(GitHubToken)” Does not actually call the method, but instead return the hard coded value “ABC123”.
+
+Code example for mocking
+
+```ruby 
+class TaskProcessor
+  def self.process
+    puts "Processing task..."
+  end
+end
+
+class BackgroundJob
+  def perform
+    TaskProcessor.process
+  end
+end
+
+def start_background_job(job = BackgroundJob.new)
+  job.perform
+end
+
+class MockedJob
+  def initialize
+    @performed = false
+  end
+
+  def perform
+    TaskProcessor.process
+    @performed = true
+  end
+
+  def performed?
+    @performed
+  end
+end
+
+RSpec.describe "Starting the background job with RSpec mock" do
+  it "calls .perform on the mock job" do
+    job = MockedJob.new
+    expect(job).to receive(:perform)
+    start_background_job(job)
+  end
+end
+```
+
