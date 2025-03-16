@@ -643,7 +643,6 @@ end
 
 ### Chapter 8. Flaky tests. {#chapter-8}
 
-
 When a boat leaks, the crew has not one problem but two. One problem is the water that's in the boat, causing it to lose buoyancy. This problem can be mitigated by bailing out water, but it won't solve the other problem, which is that there are holes in the boat allowing more water to leak in.
 
 Layer | Symptom         | Root cause
@@ -652,9 +651,6 @@ Secondary   | Water in the boat  | Holes in the boat.
 Primary  | Holes in the boat | Poor design? Aging?
 
 The holes in the boat are the symptom of the primary problem.
-
-
-
 
 The two layers of the flaky test problem
 
@@ -702,7 +698,7 @@ Another way to spoil the environment is to change a configuration setting. Let's
 
 External dependencies in tests.
 
-The way to prevent flaky test caused by network dependencies is to <b>stub</b> services rather than hitting live services 
+The way to prevent flaky test caused by network dependencies is to <b>stub services </b>rather than hitting live services 
 
 Randomness
 
@@ -753,9 +749,9 @@ Applying the fix for a flaky test. Sometimes the only way to see if a flaky test
 
 Do not delete a test without a good reason. Remember that the important thing is not the cost benefit ratio of an individual flaky test fixed, but the cost benefit ratio of all the flaky test fixes on average. This means that fixing flaky tests creates a positive feedback loop. 
 
-
-
 ### Chapter 9. Testing sins and crimes. {#chapter-9}
+
+
 ### Chapter 10. Ruby DSL. {#chapter-10}
 ### Chapter 11. Factory bot. {#chapter-11}
 ### Chapter 12. RSpec syntax. {#chapter-12}

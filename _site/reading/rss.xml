@@ -12,6 +12,28 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Hands-on Test-Driven Development: Using Ruby, Rails, and RSpec by Greg Donald. (5.0)</title>
+      <dc:creator>dom lizarraga</dc:creator>
+      <description>&lt;p&gt;The book has a very practical approach (living up to its title “hands-on”) where the author explains what you’re going to build, which tools and why those tools. It’s meant for beginner-intermediate developers.&lt;/p&gt;
+
+&lt;p&gt;The content follows a linear structure which means you should read chapters from the beginning to the end, in a straightforward manner, you’ll follow him along as he codes the web app as you see the red-green-refactor cycle.&lt;/p&gt;
+
+&lt;p&gt;The outcome will be getting a better grasp of the benefits of applying Test-Driven Development (TDD), how to adopt this new mindset.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introduction.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;intro&quot;&gt;Introduction.&lt;/h3&gt;
+
+&lt;p&gt;The firsts chapters is about what you can expect from the book, why the author chose Rspec over Minitest and the ways you can reach out to Jason Swett.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 16 Mar 2025 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</guid>
+    </item>
+    
+    <item>
       <title>Professional Rails Testing by Jason Swett. (5.0)</title>
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.&lt;/p&gt;
@@ -754,7 +776,7 @@ It has predetermined responses&lt;/p&gt;
 
 &lt;p&gt;External dependencies in tests.&lt;/p&gt;
 
-&lt;p&gt;The way to prevent flaky test caused by network dependencies is to &lt;b&gt;stub&lt;/b&gt; services rather than hitting live services&lt;/p&gt;
+&lt;p&gt;The way to prevent flaky test caused by network dependencies is to &lt;b&gt;stub services &lt;/b&gt;rather than hitting live services&lt;/p&gt;
 
 &lt;p&gt;Randomness&lt;/p&gt;
 
@@ -830,6 +852,7 @@ It has predetermined responses&lt;/p&gt;
 &lt;p&gt;Do not delete a test without a good reason. Remember that the important thing is not the cost benefit ratio of an individual flaky test fixed, but the cost benefit ratio of all the flaky test fixes on average. This means that fixing flaky tests creates a positive feedback loop.&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-9&quot;&gt;Chapter 9. Testing sins and crimes.&lt;/h3&gt;
+
 &lt;h3 id=&quot;chapter-10&quot;&gt;Chapter 10. Ruby DSL.&lt;/h3&gt;
 &lt;h3 id=&quot;chapter-11&quot;&gt;Chapter 11. Factory bot.&lt;/h3&gt;
 &lt;h3 id=&quot;chapter-12&quot;&gt;Chapter 12. RSpec syntax.&lt;/h3&gt;
@@ -2217,94 +2240,6 @@ The child can override or redefine any of the attributes and methods of the pare
       <pubDate>Sun, 21 Feb 2021 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2021/02/21/ruby_way.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/02/21/ruby_way.html</guid>
-    </item>
-    
-    <item>
-      <title>Agile web Development with Rails 6 🛤 by Sam Ruby, David B Copeland, Dave Thomas. (4.8)</title>
-      <dc:creator>dom lizarraga</dc:creator>
-      <description>&lt;p&gt;This was the first Rails book I read and caught me with the real example it takes you through, you’ll be building an online shop and the author goes from installing Rails, ruby and other libraries to finally code some automations and uploading to Heroku, you can either follow the book or at the beginning of each chapter you can download the final version of the app so that you will never lose track of what is being presented, also, brings a summary after lesson and has a playtime section where you can push yourself to do a bit more of the exercises.&lt;/p&gt;
-
-&lt;p&gt;In addition something I find very interesting in the book is that the foreword and some sections in each chapter DHH had the opportunity to share either his experience or advice regarding the current topic and he, being the creator of this framework and having built a company on top of it (Basecamp and Hey), I consider it as a nugget of information. Lastly, this is the book that has the best explanation about how Action Pack, Action Controller, Action View, Action Dispatch work together; it dedicates 1 chapter to just explain how routes get match to the controller and their actions and how are they converted into views. Very immaculate.&lt;/p&gt;
-
-&lt;p&gt;Let’s begin with chapter 2 (1st is about installing all the stuff) The first example is to show the reader how to use the rails command, in this case the author creates a demo app with two views and one controller, after that it creates a couple of links in order to show how works, nothing fancy so far.&lt;/p&gt;
-
-&lt;p&gt;Next chapter goes over the MVC architecture, the model is responsible for maintaining the state of the application. Is more than data; It enforces all the business rules that apply to the that data. For example, if a discount should not be applied to orders of less than $20, the model enforces the constraint. The model acts as both a gatekeeper and a data stored.&lt;/p&gt;
-
-&lt;p&gt;That view is responsible for generating a user interface, normally based on data in the model. For example, an online store has a list of products to be displayed on a catalog screen. The list is accessible via the model, but it is a view that formats the list for the end user. Debut itself never handles incoming data. Controllers on the other side, orchestrate the application. They receive events from the outside world (normally, user input), interact with the model, and display an appropriate view to the user.&lt;/p&gt;
-
-&lt;p&gt;The MVC architecture was originally intended for conventional GUI applications, where developers found that the separation of concerns led to far less coupling which in turn made the code easier to write and maintain. Each concept or action was expressed in a single, well known place.&lt;/p&gt;
-
-&lt;p&gt;In a Rails application, an incoming request is first sent to a router, which works out where in the application the request should be sent and how the request should be parsed. Ultimately, these face identifies a particular method (called an action in rails parlance) somewhere in the controller code. The action might look at data in the request it might interact with the model, and it might cause other actions to be invoked. Eventually the action prepares information for the view, renders something to the user.&lt;/p&gt;
-
-&lt;p&gt;The routing component receives the incoming request and immediately picks it apart. The request contains a path (/line_items?product_id=2) and a method (this button does a POST operation; Other commands methods are GET, PUT, PATCH and DELETE). In this case, Rails takes the first part of the path line_items as the name of the controller and the product_id as the id of the product . By convention, POST methods are associated with create actions. They create method handles user requests. In this case, it finds the current user shopping cart when parentheses which is an object managed by the model). It also asks the model to find the information for product 2. It then tells the shopping cart to add the product to itself.&lt;/p&gt;
-
-&lt;p&gt;Object relational mapping (ORM) libraries map database tables to classes. If a database has a table called orders, our program will have a class name Order. Rows in this table correspond to objects of the class - a particular order is represented as an object of the Order class. Within that object, attributes are used to get and set the individual columns . Our order object has methods to get and set the amount, sales tax, and so on.&lt;/p&gt;
-
-&lt;p&gt;So, and ORM layer maps tables to classes, rows to objects, and columns to attributes of those objects. Class methods are used to perform table level operations, and instance method perform operations on individual rows. Active record is the ORM layer supplied with rails. It closely follows the standard model: tables map 2 classes, roast two objects, and columns to object attributes.&lt;/p&gt;
-
-&lt;p&gt;Action pack: the view and controller&lt;/p&gt;
-
-&lt;p&gt;When you think about it, and controller parts of the MVC are pretty intimate. The controller supplies their data to the view and the controller receives events from the pages generated by the abuse. Because of these interactions, support for views and controllers in rails is bundled into a single component, Action pack.
-The view is responsible for creating all or part of the response to the displayed in a browser, to be processed by an application, or to be sent as an e-mail. At its simplest , is a chunk of HTML code that displays some fixed text. More typically, you will want to include dynamic content created by the action method in the controller.&lt;/p&gt;
-
-&lt;p&gt;The controller in rails is the logical center of your applications. It coordinates the interaction among the user, the abuse, and the model . however, rails handles most of this interaction behind the scenes; The code you write concentrates on application level functionality . This makes rails controller code remarkably easy to develop and maintain.&lt;/p&gt;
-
-&lt;p&gt;The controller is also home to a number of important ancillary services:&lt;/p&gt;
-
-&lt;p&gt;• It is responsible for routing external requests to internal actions. It handles people friendly you are extremely well.&lt;/p&gt;
-
-&lt;p&gt;• It manages catching, which can give application orders of magnitude performance boosts.&lt;/p&gt;
-
-&lt;p&gt;• It manages helper modules, which extend the capabilities of the view templates without walking up their code.&lt;/p&gt;
-
-&lt;p&gt;• It manages sessions, giving the users the impression of ongoing traction with our applications.&lt;/p&gt;
-
-&lt;div&gt;&lt;img src=&quot;/../graphics/projects/agile_web_dev.jpeg&quot; alt=&quot;agile_dev_rails&quot; style=&quot;width:300px;&quot; /&gt;&lt;/div&gt;
-
-&lt;p&gt;Chapter 4 goes on to what is an object oriented language, will we names for local variables, methods parameters, and methods names, it provides the general rules of syntax, the kind of data types you will find in groovy like strings, array, hashes. The core of the Ruby language, which is blocks and iterators, control structures with the if statements, while loops, unless, until.&lt;/p&gt;
-
-&lt;p&gt;Chapter 5: incremental development, use cases, page flow, data and priorities are covered. The first sketch of the shopping cart is shown, the user stories are broken down for instance: the buyer uses the web app to browse products we have to sell , select some of to purchase, and supply the information needed to create an order. On the other side the seller journey is as well described and something important is how the data is it going to be handled, how many controllers are we planning to code, the schemas are presented as well and finally the author emphasizes that all of these planning will become outdated because we must get customer feedback and most of these will change. The book pushes you to develop the web app in incremental changes called iterations.&lt;/p&gt;
-
-&lt;p&gt;Chapter 6, it starts with the application “rails new depot” and creating the first model in this case the product , it shows you how to migrate, the addition of CSS for the forms, it explains the HTTP verbs and this is the first commit to GitHub. Next chapter added some model validations in order to ensure the user input, also, introduced the first unit test examples and explain how they work; the importance of naming self-explanatory variables, tests.&lt;/p&gt;
-
-&lt;p&gt;Chapter 8, builds the 2nd controller in this case is a Store and it added some CSS to the index view, also, went over the layout, using partials files in order to create the navbar, and continued with the testing now including the front end (what should the &amp;lt;H2&amp;gt; tag title contain or how many items &amp;lt;li&amp;gt; should have). The following chapter creates the Cart model, line_item, by a scaffolding them, and connect the line_item model to product and to cart, becoming a joint table; another feature added here is the introduction to sessions , it explains how they work, how much they can carry on and what are they useful.&lt;/p&gt;
-
-&lt;p&gt;Chapter 10 covers how to deploy a new migration because in the first one, something was forgotten and leveraging how you can juggle with migrations there are four decided to add a new one instead of creating everything from scratch. Some flash notice modifications took place, and a strong parameter adjustment as well, finally the CSS was at refined to the new changes. The next chapter introduced they AJAX and it explains it very well, the book contains why Ajax exist how can I change the flow of the views, then Ajax feature it’s just highlighting some data without refreshing the whole page and finally action cable is presented with the core concepts.&lt;/p&gt;
-
-&lt;p&gt;Within the next iteration the add_order_to_line_item model is created, a new form for capturing the lines items for the order as well and linking Line items 2 one order, after each addition a test is deployed and passed. In order to make more dynamic our rails app we need to add React which is a JavaScript view library designed to quickly create dynamic user interfaces. We will use it to create a dynamic payment method details form coma and Webpacker will ensure that the configuration and set-up for all these is as simple as possible. That said, there is a bit of setup we need to do. Web Packer essentially is the decisions made by the rail steam and bundled up into a gem.&lt;/p&gt;
-
-&lt;p&gt;React dynamically renders HTML. Unlike ERB, react does this in the browser, and it is optimized to do it fast. React re render each field of the form instead of having this server re render the entire thing. the core concept in react is components. A component is a view, backed by some sort of state. When the state changes, the rear Enders. The view can behave differently depending on the current state inside the component.&lt;/p&gt;
-
-&lt;p&gt;Chapter 14 goes on the e-mail module of Rails and explain why sending e-mail normally is slow, why would you choose Action Mailer and then you put on top of it Active Job to offload the work.
-In a Rails app, when a bit of logic becomes more complex than a line or two of code, you want to move that out of the controller and put it into a model.&lt;/p&gt;
-
-&lt;p&gt;The chapter 15, 16, 17, are about logging in, internationalization, and responding emails with rich text this is almost as straight out as you may find it in the rails guide so I won’t go deeper due to is configuration, set-up and little adjustments.&lt;/p&gt;
-
-&lt;p&gt;The last part of the book (III) contains 6 chapters and they are under a title called “Rails in depth” I consider this very helpful if you want to go deep into the weeds and explore how is rails composed? why does rails app contain many default files? What are they for? When is correct to use a helper from there app file or from the model? Where does rail put the logs? Naming conventions? Where do you configure the environments? And many interesting methods that I didn’t know.&lt;/p&gt;
-
-&lt;p&gt;Active record he’s also touched in this chapter and with more detail the CRUD actions are explained, also, using like classes, order, limit, using the word keyword, joins coma scopes, writing your own SQL, What are the 16 call backs Rails includes.&lt;/p&gt;
-
-&lt;p&gt;Action Pack lies at the heart of rails applications. It consists of three Ruby modules: action dispatch, action controller and action view. Action dispatch routes request to controllers. Action controller converts requests into responses. Action view is used by action controller to format those responses. Components such as action controller, action view, and active record handled the processing of request, and the rails environments needs them together into a coherent and easy to use whole.&lt;/p&gt;
-
-&lt;p&gt;At its most basic, a web application accepts an incoming request from my browser, process it, and sends a response. The first question that springs to mind is, how does the application know what to do with the incoming request? A shopping cart application will receive requests to display a catalog, add items to a part, create an order, and so on. How does it route these requests to the appropriate code?
-it turns out that Rails provides two ways to define how to route a request: a comprehensive way that you will use when you need to and a convenient way that you will generally use whenever you can.&lt;/p&gt;
-
-&lt;p&gt;The comprehensive way lets you define a direct mapping of URLs to actions based on pattern matching, requirements and conditions. The convenient way lets you define routes based on resources, such as the models that you define. And because the convenient weight is built on the comprehensive way, you can freely mix and match the two approaches.&lt;/p&gt;
-
-&lt;p&gt;A controller always responds to they use exactly one time per request. This means you should have just one call to a render(), redirect_to() or send() method in the processing of any request. Because the controller must respond exactly once, it checks to see whether a response has been generated just before it finishes handling a request. If not, the controller looks for a template named after the controller and action and automatically renders it. This is the most common way that rendering takes place. You may have noticed that in most of the actions north shopping cart tutorial we never explicitly rendered anything. Instead, or action methods set-up the context for the view and return. The controller notices that no rendering has taken place and automatically invokes the appropriate template.&lt;/p&gt;
-
-&lt;p&gt;A real session is a hash-like structure that persists across request. Unlike raw cookies, sessions can hold any objects as long as those objects can be marshaled, which makes them ideal for holding state information in web applications.&lt;/p&gt;
-
-&lt;p&gt;Rails encourages and agile, iterative style of development. We don’t expect to get everything right the first time period instead, we write tests and interact with our customer to refine our understanding as we go.&lt;/p&gt;
-
-&lt;p&gt;For that to work, we need any supporting set of practices. We write tests to help us design our interfaces and to act as a safety net when we change things, and we use a version control to store our application source files, allowing us to undo mistakes and to monitor what changes day today.
-The database schema in a rails application constantly evolves as we progress through the development column we add a table here, rename a column there, and so on the database changes in step with the applications code.&lt;/p&gt;
-
-&lt;p&gt;With rails, each of those steps is made possible through the use of migration. A migration is simply a Ruby source file in your applications and You can modify column types, renaming columns, changing columns, defining indices, renaming tables, the usage of primary keys, and even using native SQL and always you can rollback their migrations when they go bad.&lt;/p&gt;
-</description>
-      <pubDate>Fri, 22 Jan 2021 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2021/01/22/agile.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2021/01/22/agile.html</guid>
     </item>
     
   </channel>
