@@ -12,7 +12,7 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
-      <title>Hands-on Test-Driven Development: Using Ruby, Rails, and RSpec by Greg Donald. (5.0)</title>
+      <title>Hands-on TDD: Using Ruby, Rails, and RSpec by Greg Donald. (5.0)</title>
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;The book has a very practical approach (living up to its title “hands-on”) where the author explains what you’re going to build, which tools and why those tools. It’s meant for beginner-intermediate developers.&lt;/p&gt;
 
@@ -21,14 +21,35 @@
 &lt;p&gt;The outcome will be getting a better grasp of the benefits of applying Test-Driven Development (TDD), how to adopt this new mindset.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introduction.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Introduction.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;What is TDD?.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;Getting started with Ruby.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;intro&quot;&gt;Introduction.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-1&quot;&gt;Introduction.&lt;/h3&gt;
 
-&lt;p&gt;The firsts chapters is about what you can expect from the book, why the author chose Rspec over Minitest and the ways you can reach out to Jason Swett.&lt;/p&gt;
+&lt;p&gt;It was not so long ago that we did not even write tests for our software. at some points, some very smart people realize that writing tests for our software was actually a good idea. our tests will provide us with confidence that our software worked as expected and even more importantly keep us from getting phone calls in the middle of the night to fix things that would break in production.&lt;/p&gt;
+
+&lt;p&gt;not long after we started writing tests, some other very smart people realize that writing our test first would give us an opportunity to think about what we were going to ride before we would write it. it will give us a Target to aim at, in effect. this was the birth of test driven development tdd is a style of software development where we write our test first, see that they are failing as expected, and only then do we pursue writing the code to make those tests passed.&lt;/p&gt;
+
+&lt;p&gt;this is the central idea of my book. we will think about what we want to do, then we will capture that idea with a properly failing test. we will then write the code to make the test pass. we will then we Factor our code to make it better, or prettier, or less repetitive.&lt;/p&gt;
+
+&lt;p&gt;we will use test driven development style of software design and engineering, which means we will write failing test first and only then write our implementation code to get our failing test passing.&lt;/p&gt;
+
+&lt;p&gt;we will use our spec testing framework to write our test. our spec describes itself as a tool for performing behavioral driven development and as in fact the best tool available for testing will be code.&lt;/p&gt;
+
+&lt;p&gt;The main goal of this book is to provide a practical common Hands-On introduction to test driven style of software design and engineering.&lt;/p&gt;
+
+&lt;p&gt;many books on the topic of test driven development have been written before this one. most other books are written in a small problem sort of writing style. they cover single topics, one of the time, barely more than a reference guy. they do not cover the entire process of building software application from start to finish, using tdd. as a result, they are, in my opinion, let’s practical and much less useful for actually learning practical tdd.&lt;/p&gt;
+
+&lt;p&gt;The author Estates the following colon I have never seen software written using tdd that was not better than software written without tdd&lt;/p&gt;
+
+&lt;h3 id=&quot;chapter-2&quot;&gt;What is Test Driven Development?&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-3&quot;&gt;Getting started with Ruby.&lt;/h3&gt;
+
 </description>
-      <pubDate>Sun, 16 Mar 2025 00:00:00 -0700</pubDate>
+      <pubDate>Sun, 16 Mar 2025 00:00:00 -0600</pubDate>
       <link>http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</guid>
     </item>
@@ -858,7 +879,7 @@ It has predetermined responses&lt;/p&gt;
 &lt;h3 id=&quot;chapter-12&quot;&gt;Chapter 12. RSpec syntax.&lt;/h3&gt;
 &lt;h3 id=&quot;chapter-13&quot;&gt;Chapter 13. Capybara’s DSL.&lt;/h3&gt;
 </description>
-      <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
+      <pubDate>Wed, 05 Feb 2025 00:00:00 -0600</pubDate>
       <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/02/05/professional-rails-testing.html</guid>
     </item>
@@ -868,7 +889,7 @@ It has predetermined responses&lt;/p&gt;
       <dc:creator>dom lizarraga</dc:creator>
       <description>
 </description>
-      <pubDate>Fri, 22 Sep 2023 00:00:00 -0700</pubDate>
+      <pubDate>Fri, 22 Sep 2023 00:00:00 -0600</pubDate>
       <link>http://localhost:4000/2023/09/22/apprenticeship-patterns.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/22/apprenticeship-patterns.html</guid>
     </item>
@@ -1365,7 +1386,7 @@ them to:
 	◦ Rendered templates
 	◦ Instance variables passed to the view&lt;/p&gt;
 </description>
-      <pubDate>Wed, 05 Jan 2022 00:00:00 -0800</pubDate>
+      <pubDate>Wed, 05 Jan 2022 00:00:00 -0600</pubDate>
       <link>http://localhost:4000/2022/01/05/minitest_cookbook.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/01/05/minitest_cookbook.html</guid>
     </item>
@@ -1612,7 +1633,7 @@ level as a series of comments.&lt;/p&gt;
 
 &lt;p&gt;Book examples: https://github.com/DominicLizarraga/refactoring_ruby_edition&lt;/p&gt;
 </description>
-      <pubDate>Sat, 25 Sep 2021 00:00:00 -0700</pubDate>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 -0500</pubDate>
       <link>http://localhost:4000/2021/09/25/refactoring.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/09/25/refactoring.html</guid>
     </item>
@@ -1777,7 +1798,7 @@ Numerators are closely related to eaters, but they are not the same thing period
 &lt;p&gt;Here is the source code https://github.com/jleo3/twgr&lt;/p&gt;
 
 </description>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 -0700</pubDate>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 -0500</pubDate>
       <link>http://localhost:4000/2021/06/15/well_grounded_rubyist.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/06/15/well_grounded_rubyist.html</guid>
     </item>
@@ -1943,7 +1964,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
 
 &lt;p&gt;These are notes I took from the book, nothing is mine.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 30 May 2021 00:00:00 -0700</pubDate>
+      <pubDate>Sun, 30 May 2021 00:00:00 -0500</pubDate>
       <link>http://localhost:4000/2021/05/30/practical_oriented.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/05/30/practical_oriented.html</guid>
     </item>
@@ -2000,7 +2021,7 @@ There is also a chapter that teaches you how to modify normal operators (&amp;lt
 
 &lt;p&gt;Updating existing classes, fixing broken classes, what is the monkey patching? Dealing with DSL and XML, what are the Gems package, how to consume them, nuts and bolts of gems, where are they located and also how to build a gem publish them and make it public.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 23 May 2021 00:00:00 -0700</pubDate>
+      <pubDate>Sun, 23 May 2021 00:00:00 -0500</pubDate>
       <link>http://localhost:4000/2021/05/23/eloquent-ruby.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/05/23/eloquent-ruby.html</guid>
     </item>
@@ -2144,7 +2165,7 @@ The chapters of Active Storage, how to implement Ajax (was implemented for creat
 
 &lt;p&gt;The last 3 chapters covers testing, internationalization and the upload to Heroku, the first on them emphasize the importance of always test after each small change, and why the didn’t apply test to follow along, they bring up the technical debt, refactoring. what tools are outside to automate the testing like Unit::Test, fixtures, validations and lastly the 4 types of tests, for models, for controllers, mailers and system, it doesn’t go deep into the weeds, it only explain what they are.&lt;/p&gt;
 </description>
-      <pubDate>Thu, 01 Apr 2021 00:00:00 -0700</pubDate>
+      <pubDate>Thu, 01 Apr 2021 00:00:00 -0600</pubDate>
       <link>http://localhost:4000/2021/04/01/beginning.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/04/01/beginning.html</guid>
     </item>
@@ -2237,7 +2258,7 @@ The child can override or redefine any of the attributes and methods of the pare
 
 &lt;p&gt;Every time you invoke a method, you are sending a message to an object.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 21 Feb 2021 00:00:00 -0800</pubDate>
+      <pubDate>Sun, 21 Feb 2021 00:00:00 -0600</pubDate>
       <link>http://localhost:4000/2021/02/21/ruby_way.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/02/21/ruby_way.html</guid>
     </item>

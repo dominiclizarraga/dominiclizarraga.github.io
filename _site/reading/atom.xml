@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-03-15T20:20:17-07:00</updated>
+  <updated>2025-03-16T23:55:10-06:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -13,9 +13,9 @@
   </author>
   
   <entry>
-    <title>Hands-on Test-Driven Development: Using Ruby, Rails, and RSpec by Greg Donald.</title>
+    <title>Hands-on TDD: Using Ruby, Rails, and RSpec by Greg Donald.</title>
     <link href="http://localhost:4000/2025/03/16/hands-on-tdd-rails.html"/>
-    <updated>2025-03-16T00:00:00-07:00</updated>
+    <updated>2025-03-16T00:00:00-06:00</updated>
     <id>http://localhost:4000/2025/03/16/hands-on-tdd-rails</id>
     <content type="html">&lt;p&gt;The book has a very practical approach (living up to its title “hands-on”) where the author explains what you’re going to build, which tools and why those tools. It’s meant for beginner-intermediate developers.&lt;/p&gt;
 
@@ -24,12 +24,33 @@
 &lt;p&gt;The outcome will be getting a better grasp of the benefits of applying Test-Driven Development (TDD), how to adopt this new mindset.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#intro&quot;&gt;Introduction.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Introduction.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;What is TDD?.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;Getting started with Ruby.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;intro&quot;&gt;Introduction.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-1&quot;&gt;Introduction.&lt;/h3&gt;
 
-&lt;p&gt;The firsts chapters is about what you can expect from the book, why the author chose Rspec over Minitest and the ways you can reach out to Jason Swett.&lt;/p&gt;
+&lt;p&gt;It was not so long ago that we did not even write tests for our software. at some points, some very smart people realize that writing tests for our software was actually a good idea. our tests will provide us with confidence that our software worked as expected and even more importantly keep us from getting phone calls in the middle of the night to fix things that would break in production.&lt;/p&gt;
+
+&lt;p&gt;not long after we started writing tests, some other very smart people realize that writing our test first would give us an opportunity to think about what we were going to ride before we would write it. it will give us a Target to aim at, in effect. this was the birth of test driven development tdd is a style of software development where we write our test first, see that they are failing as expected, and only then do we pursue writing the code to make those tests passed.&lt;/p&gt;
+
+&lt;p&gt;this is the central idea of my book. we will think about what we want to do, then we will capture that idea with a properly failing test. we will then write the code to make the test pass. we will then we Factor our code to make it better, or prettier, or less repetitive.&lt;/p&gt;
+
+&lt;p&gt;we will use test driven development style of software design and engineering, which means we will write failing test first and only then write our implementation code to get our failing test passing.&lt;/p&gt;
+
+&lt;p&gt;we will use our spec testing framework to write our test. our spec describes itself as a tool for performing behavioral driven development and as in fact the best tool available for testing will be code.&lt;/p&gt;
+
+&lt;p&gt;The main goal of this book is to provide a practical common Hands-On introduction to test driven style of software design and engineering.&lt;/p&gt;
+
+&lt;p&gt;many books on the topic of test driven development have been written before this one. most other books are written in a small problem sort of writing style. they cover single topics, one of the time, barely more than a reference guy. they do not cover the entire process of building software application from start to finish, using tdd. as a result, they are, in my opinion, let’s practical and much less useful for actually learning practical tdd.&lt;/p&gt;
+
+&lt;p&gt;The author Estates the following colon I have never seen software written using tdd that was not better than software written without tdd&lt;/p&gt;
+
+&lt;h3 id=&quot;chapter-2&quot;&gt;What is Test Driven Development?&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-3&quot;&gt;Getting started with Ruby.&lt;/h3&gt;
+
 </content>
     <author>
       <name>dom lizarraga</name>
@@ -40,7 +61,7 @@
   <entry>
     <title>Professional Rails Testing by Jason Swett.</title>
     <link href="http://localhost:4000/2025/02/05/professional-rails-testing.html"/>
-    <updated>2025-02-05T00:00:00-08:00</updated>
+    <updated>2025-02-05T00:00:00-06:00</updated>
     <id>http://localhost:4000/2025/02/05/professional-rails-testing</id>
     <content type="html">&lt;p&gt;This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.&lt;/p&gt;
 
@@ -873,7 +894,7 @@ It has predetermined responses&lt;/p&gt;
   <entry>
     <title>Apprenticeship Patterns 🌌 by David H. Hoover &amp; Adewale Oshineye.</title>
     <link href="http://localhost:4000/2023/09/22/apprenticeship-patterns.html"/>
-    <updated>2023-09-22T00:00:00-07:00</updated>
+    <updated>2023-09-22T00:00:00-06:00</updated>
     <id>http://localhost:4000/2023/09/22/apprenticeship-patterns</id>
     <content type="html">
 </content>
@@ -886,7 +907,7 @@ It has predetermined responses&lt;/p&gt;
   <entry>
     <title>The Minitest Cookbook by Chris Kottom</title>
     <link href="http://localhost:4000/2022/01/05/minitest_cookbook.html"/>
-    <updated>2022-01-05T00:00:00-08:00</updated>
+    <updated>2022-01-05T00:00:00-06:00</updated>
     <id>http://localhost:4000/2022/01/05/minitest_cookbook</id>
     <content type="html">&lt;p&gt;Today though, the separation between development and testing has largely disappeared - at least in the universe that most Ruby and Rails programmers occupy.&lt;/p&gt;
 
@@ -1386,7 +1407,7 @@ them to:
   <entry>
     <title>Refactoring by Jay Fields, Shane Harvie, Martin Fowler &amp; Kent Beck.</title>
     <link href="http://localhost:4000/2021/09/25/refactoring.html"/>
-    <updated>2021-09-25T00:00:00-07:00</updated>
+    <updated>2021-09-25T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/09/25/refactoring</id>
     <content type="html">&lt;p&gt;This book will take you from beginner to advanced in terms of refactoring.&lt;/p&gt;
 
@@ -1636,7 +1657,7 @@ level as a series of comments.&lt;/p&gt;
   <entry>
     <title>The Well-Grounded Rubyist by David A. Black &amp; Joseph Leo III.</title>
     <link href="http://localhost:4000/2021/06/15/well_grounded_rubyist.html"/>
-    <updated>2021-06-15T00:00:00-07:00</updated>
+    <updated>2021-06-15T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/06/15/well_grounded_rubyist</id>
     <content type="html">&lt;p&gt;The book is on its 3rd edition and it’s comprised of 3 parts and 16 chapters:&lt;/p&gt;
 
@@ -1804,7 +1825,7 @@ Numerators are closely related to eaters, but they are not the same thing period
   <entry>
     <title>Practical Object-Oriented Design (POODR) by Sandi Metz</title>
     <link href="http://localhost:4000/2021/05/30/practical_oriented.html"/>
-    <updated>2021-05-30T00:00:00-07:00</updated>
+    <updated>2021-05-30T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/05/30/practical_oriented</id>
     <content type="html">&lt;p&gt;This book is the second edition that Sandi Metz publishes and it’s even considered as a must-read by the RoR community, give it a shot you won’t regret at all no matter what language you’re coming from.&lt;/p&gt;
 
@@ -1973,7 +1994,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
   <entry>
     <title>Eloquent Ruby by Russ Olsen.</title>
     <link href="http://localhost:4000/2021/05/23/eloquent-ruby.html"/>
-    <updated>2021-05-23T00:00:00-07:00</updated>
+    <updated>2021-05-23T00:00:00-05:00</updated>
     <id>http://localhost:4000/2021/05/23/eloquent-ruby</id>
     <content type="html">&lt;p&gt;This is book is not for learning the very basics of Ruby, it’s more for people who have played with the language, the console and maybe built simple web app, I say this because it assumes you know what is an array, how you can manipulate or work with it therefore the book only shows shortcuts for instance methods on arrays, the correct usage of bang (!).&lt;/p&gt;
 
@@ -2033,7 +2054,7 @@ There is also a chapter that teaches you how to modify normal operators (&amp;lt
   <entry>
     <title>Beginning Rails 6 🚇 by Brady Somerville, Adam Gamble.</title>
     <link href="http://localhost:4000/2021/04/01/beginning.html"/>
-    <updated>2021-04-01T00:00:00-07:00</updated>
+    <updated>2021-04-01T00:00:00-06:00</updated>
     <id>http://localhost:4000/2021/04/01/beginning</id>
     <content type="html">&lt;p&gt;This book takes you from the straightforward “rails new blog –d=postgrsql” to adding active jobs and sending automated emails; it goes step by step so that you can see gradually the app development, it has more than 500 pages with 18 chapters; it touches the very basics of Ruby in the 4th just in case the reader has no experience with this language however Rails is very intuitive and easy to follow along.&lt;/p&gt;
 
@@ -2180,7 +2201,7 @@ The chapters of Active Storage, how to implement Ajax (was implemented for creat
   <entry>
     <title>The Ruby Way by Hal Fulton with André Arko</title>
     <link href="http://localhost:4000/2021/02/21/ruby_way.html"/>
-    <updated>2021-02-21T00:00:00-08:00</updated>
+    <updated>2021-02-21T00:00:00-06:00</updated>
     <id>http://localhost:4000/2021/02/21/ruby_way</id>
     <content type="html">&lt;p&gt;The book is on its third edition, it has had plenty of space as the must-read for every Ruby programmer, many great personalities in the software development community have commented, praised, written about this book (including Yukihiro “Matz” Matsumoto, the creator of Ruby) because a few years after Ruby was conceived the first edition was published, and as everything evolved, the book has done as well.&lt;/p&gt;
 
