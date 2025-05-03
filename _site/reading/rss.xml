@@ -49,7 +49,7 @@
 &lt;h3 id=&quot;chapter-3&quot;&gt;Getting started with Ruby.&lt;/h3&gt;
 
 </description>
-      <pubDate>Sun, 16 Mar 2025 00:00:00 -0600</pubDate>
+      <pubDate>Sun, 16 Mar 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</guid>
     </item>
@@ -879,7 +879,7 @@ It has predetermined responses&lt;/p&gt;
 &lt;h3 id=&quot;chapter-12&quot;&gt;Chapter 12. RSpec syntax.&lt;/h3&gt;
 &lt;h3 id=&quot;chapter-13&quot;&gt;Chapter 13. Capybara’s DSL.&lt;/h3&gt;
 </description>
-      <pubDate>Wed, 05 Feb 2025 00:00:00 -0600</pubDate>
+      <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/02/05/professional-rails-testing.html</guid>
     </item>
@@ -889,7 +889,7 @@ It has predetermined responses&lt;/p&gt;
       <dc:creator>dom lizarraga</dc:creator>
       <description>
 </description>
-      <pubDate>Fri, 22 Sep 2023 00:00:00 -0600</pubDate>
+      <pubDate>Fri, 22 Sep 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/09/22/apprenticeship-patterns.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/22/apprenticeship-patterns.html</guid>
     </item>
@@ -1386,7 +1386,7 @@ them to:
 	◦ Rendered templates
 	◦ Instance variables passed to the view&lt;/p&gt;
 </description>
-      <pubDate>Wed, 05 Jan 2022 00:00:00 -0600</pubDate>
+      <pubDate>Wed, 05 Jan 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/01/05/minitest_cookbook.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/01/05/minitest_cookbook.html</guid>
     </item>
@@ -1633,7 +1633,7 @@ level as a series of comments.&lt;/p&gt;
 
 &lt;p&gt;Book examples: https://github.com/DominicLizarraga/refactoring_ruby_edition&lt;/p&gt;
 </description>
-      <pubDate>Sat, 25 Sep 2021 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/09/25/refactoring.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/09/25/refactoring.html</guid>
     </item>
@@ -1798,7 +1798,7 @@ Numerators are closely related to eaters, but they are not the same thing period
 &lt;p&gt;Here is the source code https://github.com/jleo3/twgr&lt;/p&gt;
 
 </description>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 -0500</pubDate>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/06/15/well_grounded_rubyist.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/06/15/well_grounded_rubyist.html</guid>
     </item>
@@ -1964,7 +1964,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
 
 &lt;p&gt;These are notes I took from the book, nothing is mine.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 30 May 2021 00:00:00 -0500</pubDate>
+      <pubDate>Sun, 30 May 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/05/30/practical_oriented.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/05/30/practical_oriented.html</guid>
     </item>
@@ -2021,7 +2021,7 @@ There is also a chapter that teaches you how to modify normal operators (&amp;lt
 
 &lt;p&gt;Updating existing classes, fixing broken classes, what is the monkey patching? Dealing with DSL and XML, what are the Gems package, how to consume them, nuts and bolts of gems, where are they located and also how to build a gem publish them and make it public.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 23 May 2021 00:00:00 -0500</pubDate>
+      <pubDate>Sun, 23 May 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/05/23/eloquent-ruby.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/05/23/eloquent-ruby.html</guid>
     </item>
@@ -2165,7 +2165,7 @@ The chapters of Active Storage, how to implement Ajax (was implemented for creat
 
 &lt;p&gt;The last 3 chapters covers testing, internationalization and the upload to Heroku, the first on them emphasize the importance of always test after each small change, and why the didn’t apply test to follow along, they bring up the technical debt, refactoring. what tools are outside to automate the testing like Unit::Test, fixtures, validations and lastly the 4 types of tests, for models, for controllers, mailers and system, it doesn’t go deep into the weeds, it only explain what they are.&lt;/p&gt;
 </description>
-      <pubDate>Thu, 01 Apr 2021 00:00:00 -0600</pubDate>
+      <pubDate>Thu, 01 Apr 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/04/01/beginning.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/04/01/beginning.html</guid>
     </item>
@@ -2258,7 +2258,7 @@ The child can override or redefine any of the attributes and methods of the pare
 
 &lt;p&gt;Every time you invoke a method, you are sending a message to an object.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 21 Feb 2021 00:00:00 -0600</pubDate>
+      <pubDate>Sun, 21 Feb 2021 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2021/02/21/ruby_way.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/02/21/ruby_way.html</guid>
     </item>
