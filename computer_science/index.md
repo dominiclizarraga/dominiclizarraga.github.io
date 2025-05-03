@@ -16,6 +16,8 @@ description: 'Your collection of Computer Science Notes'
 - [Networking](/computer_science/networking/)
 - [Databases](/computer_science/database/)
 
+--------------
+
 <div class='writing nu'>
   {% for post in site.categories.computer_science %}
     <div><a title='#{{ forloop.rindex }}' href='{{ post.url }}'>{{ post.title }}</a></div>
