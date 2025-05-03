@@ -644,39 +644,39 @@ strong {
 
 var documents = [{
     "id": 0,
+    "url": "http://localhost:4000/computer_science/beyond/2025-05-02-beyond-programming",
+    "title": "This is a test for beyond programming",
+    "body": "BEYOND "
+    }, {
+    "id": 1,
     "url": "http://localhost:4000/404",
     "title": "",
     "body": "404!"
     }, {
-    "id": 1,
+    "id": 2,
     "url": "http://localhost:4000/about/index.html",
     "title": "About",
     "body": "👋 Hey there! I’m Dominic a software developer proficient in Ruby on Rails, Hotwire (including Turbo + Stimulus), JS, APIs, Minitest, Capybara, Postgres, HTML, CSS(bootstrap) &amp; Tailwind. 🚀 I’m currently looking for my next adventure, my last job was with Oblsk where we worked on some amazing projects like PLT4M where I solved user stories from developing new features, creating models, involving ORM queries Sequel, testing with Mini &amp; Capy &amp; CSS responsiveness. 🏃 Then we moved to work on H4H a non-profit org that needed a solution for its marketing team so they can create content easily, here we implemented Strapi API as a headless CMS and Tailwind design (fully-responsive). 🥊 I’m currently working on a Ruby for good project called CASA where I help them to solve stakeholders tickets, I’ve been doing this as a way of giving back to the community and keep learning since this project uses Rspec, bootstrap, JavaScript and bits of jQuery ✨. I consider myself as very resilient and resourceful also I have learnt how to manage my emotional state and communicate efficiently and on time. 🔑 Here you may find my resume, LinkedIn, GitHub or if you want to drop me a line :) Tech stack  Ruby on Rails - Hotwire (Turbo &amp; Stimulus) Tailwind / Bootstrap Minitest &amp; Rspec - Capybara API’s - Agile methodologies SQL &amp; PostgreSQL AWS S3 - JavaScript HTML, CSS - GitHub - HerokuLanguages 🇺🇸 English - Professional 🇲🇽 Spanish - Native 🇩🇪 German - Basic "
     }, {
-    "id": 2,
+    "id": 3,
     "url": "http://localhost:4000/confs/index.html",
     "title": "Conferences",
     "body": " Here you’ll find the confs that I have attended or will be attending in the future. {% for conf in page. confs %} {{conf. name}} {{conf. description}}{% endfor %}"
     }, {
-    "id": 3,
+    "id": 4,
     "url": "http://localhost:4000/",
     "title": "",
     "body": "{% for post in site. categories. blog %} {{ post. title }} {{ post. date | date:  %Y-%m-%d  }}{% endfor %}"
     }, {
-    "id": 4,
+    "id": 5,
     "url": "http://localhost:4000/computer_science/",
     "title": "Computer Science Notes",
     "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com. Categories:  Programming: Beyond the basics Computer Systems Networking Databases {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
-    "id": 5,
-    "url": "http://localhost:4000/computer_science/systems/",
-    "title": "Computer Systems Notes",
-    "body": " Notes on Computer Systems  {% for post in site. categories. systems %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
-    }, {
     "id": 6,
-    "url": "http://localhost:4000/computer_science/networking/",
-    "title": "Networking Notes",
-    "body": " Notes on Networking  {% for post in site. categories. networking %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    "url": "http://localhost:4000/computer_science/database/",
+    "title": "Computer Systems Notes",
+    "body": " Notes on Databases  {% for post in site. categories. database %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 7,
     "url": "http://localhost:4000/computer_science/beyond/",
@@ -684,24 +684,24 @@ var documents = [{
     "body": " Notes on Beyond Programming  {% for post in site. categories. beyond %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 8,
-    "url": "http://localhost:4000/computer_science/database/",
-    "title": "Computer Systems Notes",
-    "body": " Notes on Databases  {% for post in site. categories. database %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    "url": "http://localhost:4000/computer_science/networking/",
+    "title": "Networking Notes",
+    "body": " Notes on Networking  {% for post in site. categories. networking %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 9,
+    "url": "http://localhost:4000/computer_science/systems/",
+    "title": "Computer Systems Notes",
+    "body": " Notes on Computer Systems  {% for post in site. categories. systems %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    }, {
+    "id": 10,
     "url": "http://localhost:4000/projects/index.html",
     "title": "Projects",
     "body": " {% for project in page. projects %}        {{ project. name }}   {{ project. description }}   {% endfor %} "
     }, {
-    "id": 10,
+    "id": 11,
     "url": "http://localhost:4000/reading/index.html",
     "title": "Reading",
     "body": "{% for book in site. categories. book %}   {{ book. title }}  {{ book. author }} {{ book. date | date:  %Y-%m-%d  }}    {% endfor %}"
-    }, {
-    "id": 11,
-    "url": "http://localhost:4000/2025/05/02/beyond-programming.html",
-    "title": "This is a test for beyond programming",
-    "body": "2025/05/02 - BEYOND "
     }, {
     "id": 12,
     "url": "http://localhost:4000/2025/03/16/hands-on-tdd-rails.html",
@@ -1075,7 +1075,16 @@ function lunr_search(term) {
       </div>
     </nav>
     <div class='limiter content '>
-      <h1>What is cache? 💵 💰</h1>
+      
+  <nav class="post‑nav">
+    <a href="javascript:history.back()" class="no-underline back-link" aria-label="Go back one page">
+      <i aria-hidden="true">←</i>
+      <span class="underline">Back one page</span>
+    </a>
+  </nav>
+
+  <h1>What is cache? 💵 💰</h1>
+
 
 <div class="reading-time">
   
