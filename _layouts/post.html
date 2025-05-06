@@ -3,16 +3,9 @@ layout: default
 class: post
 ---
 
-{% if page.notitle != true %}
-  <nav class="post‑nav">
-    <a href="javascript:history.back()" class="no-underline back-link" aria-label="Go back one page">
-      <i aria-hidden="true">←</i>
-      <span class="underline">Back one page</span>
-    </a>
-  </nav>
+{% if page.notitle != true %}<h1>{{ page.title }}</h1>{% endif %}
 
-  <h1>{{ page.title }}</h1>
-{% endif %}
+{% include back-link.html %}
 
 <div class="reading-time">
   {% include reading-time.html %}
