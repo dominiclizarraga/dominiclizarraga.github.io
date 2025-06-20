@@ -6,7 +6,7 @@ layout: post
 
 **Rspec learning resources**
 
-The best way to get a grasp of testing  in general and *rspec* is to start from scratch a project and start writing down each test, that way you'll be able to see what happens if you forget to close either a `context` block or an `it` block or even more intricate subjects like what's the difference between `describe` and `context`.
+I believe that the best way to get a grasp of testing  in general and *rspec* is to start from scratch a project and start writing down each test, that way you'll be able to see what happens if you forget to close either a `context` block or an `it` block or even more intricate subjects like what's the difference between `describe` and `context`.
 
 While developing a freelance project I wanted to add testing as a way to push myself to learn more about testing and also give *rspec* a try and by doing it I learned how to use gems like: [faker](https://github.com/faker-ruby/faker), [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers), [factory_bot](https://github.com/thoughtbot/factory_bot_rails) and finally [rspec](https://github.com/rspec/rspec-rails). 🎲
 
@@ -61,4 +61,4 @@ end
 
 Learn by doing is the best way to learn rspec DSL, development stack, learn what to test and why it's important to test and avoid technical debt.
 
-So give it a try, it wont be difficult at all.
+So give it a try, it wont be difficult after all.

@@ -12,6 +12,41 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Effective testing with RSpec by Myron Marston and Ian Dees. (5.0)</title>
+      <dc:creator>dom lizarraga</dc:creator>
+      <description>&lt;p&gt;Recently, I participated in a very competitive interview. When I submitted the code challenge, I felt my weakest area was the testing suite. Even though feedback was not available, being honest with myself and seeing some posts from the reviewers, I decided to dive deeper into testing.&lt;/p&gt;
+
+&lt;p&gt;I picked up books like &lt;a href=&quot;/2025/02/05/professional-rails-testing.html&quot;&gt;Professional Rails Testing by Jason Swett&lt;/a&gt;, &lt;a href=&quot;/2025/03/16-hands-on-tdd-rails.html&quot;&gt;Hands-On Test Driven Development by Greg Donald&lt;/a&gt;, and Effective Testing with RSpec by Myron Marston and Ian Dees.&lt;/p&gt;
+
+&lt;p&gt;I had practiced testing before, but I felt it was time to level up and get it closer to the same standard as the rest of my code.&lt;/p&gt;
+
+&lt;p&gt;Here are the notes, examples, and quotes that stood out to me while reading.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Installing RSpec.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Getting Started.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-2&quot;&gt;Part II — Building an App With RSpec.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-3&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-4&quot;&gt;Part IV — RSpec Expectations.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-5&quot;&gt;Part V — RSpec Mocks.&lt;/h3&gt;
+
+</description>
+      <pubDate>Fri, 11 Apr 2025 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2025/04/11/effective-testing-with-rspec.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2025/04/11/effective-testing-with-rspec.html</guid>
+    </item>
+    
+    <item>
       <title>Hands-on TDD: Using Ruby, Rails, and RSpec by Greg Donald. (5.0)</title>
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;The book has a very practical approach (living up to its title “hands-on”) where the author explains what you’re going to build, which tools and why those tools. It’s meant for beginner-intermediate developers.&lt;/p&gt;
@@ -2168,99 +2203,6 @@ The chapters of Active Storage, how to implement Ajax (was implemented for creat
       <pubDate>Thu, 01 Apr 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/04/01/beginning.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/04/01/beginning.html</guid>
-    </item>
-    
-    <item>
-      <title>The Ruby Way by Hal Fulton with André Arko (4.6)</title>
-      <dc:creator>dom lizarraga</dc:creator>
-      <description>&lt;p&gt;The book is on its third edition, it has had plenty of space as the must-read for every Ruby programmer, many great personalities in the software development community have commented, praised, written about this book (including Yukihiro “Matz” Matsumoto, the creator of Ruby) because a few years after Ruby was conceived the first edition was published, and as everything evolved, the book has done as well.&lt;/p&gt;
-
-&lt;p&gt;This time the background of the beginning of this language is presented, how Matz thought in terms of design and usage for building this language, it went from the approach machine-centered paradigm to a human-centered one. Ruby strives to be friendly to the programmer, and with that in mind, we can rely on a completely new style of software development, more strategically then tactic, easier to read, needlessly to add comments.&lt;/p&gt;
-
-&lt;p&gt;This piece has 22 chapters, and more than 700 pages; it covers the conception of the language, introduction to object orientation, basic syntax and semantics, working with strings, symbols, ranges, numbers, times and dates and of course our arrays, hashes and other Enumerables, also, goes over more advanced data structures like trees, graphs, sets, stacks and queues. It brings the difference between static and dynamic languages, testing, how to handle different data formats, how is related Ruby and web applications, and more stuff that you can leverage in order to cement draw Ruby fundamentals.&lt;/p&gt;
-
-&lt;p&gt;To me it was the longest book I’d ever had in my hands, quite hard to start to be honest but as soon as you pass the first pages you get caught, it refreshed me a ton of built in methods for the most important data structures, and when I say a ton, it’s about 80% of all what you need (very comfy way to read these methods on the book, and with the method description more friendlier) , so very well thought from the author perspective, not hard theory to digest, only practical examples and a few debates between 2 different points of view but nothing abstract.&lt;/p&gt;
-
-&lt;p&gt;I think is a good start for people who want to harden their programming skills because it covers many topics of software development, it doesn’t matter what language you come from, it works for processing text files, web development, graphical interfaces, some algorithms to get familiarized with.&lt;/p&gt;
-
-&lt;p&gt;Notes. ✍🏻&lt;/p&gt;
-
-&lt;p&gt;An object is an entity that serves as a container for data and also controls access to the data. Associated with the object is a set of attributes, which are essentially no more than variables belonging to the object.Also associated with an object is a set of functions that provide an interface to the functionality of the object, called methods.&lt;/p&gt;
-
-&lt;p&gt;It is a essential that any OOP language to provide encapsulation.
-The class may be thought of as the blueprint or pattern; The object itself is the thing created from that blueprint or pattern. A class is often thought of as an abstract type, a more complex type than, for example, an integer or character string.&lt;/p&gt;
-
-&lt;p&gt;Inheritance is a mechanism that allows us to extend previously existing entity by adding features to create a new entity. In short, inheritance is a way of reusing code. Easy effective code reuse has long been the Holy Grail of computer science, resulting in the invention decades ago of parameterized subroutines and code libraries.&lt;/p&gt;
-
-&lt;p&gt;Multiple inheritance he’s probably the most controversial area in OOP; one camp will point out the potential for ambiguity that must be resolved. It is conceivable that a new class could inherit from more than one class.&lt;/p&gt;
-
-&lt;div&gt;&lt;img src=&quot;/../graphics/projects/ruby-way.jpeg&quot; alt=&quot;agile_dev_rails&quot; style=&quot;width:300px;&quot; /&gt;&lt;/div&gt;
-
-&lt;p&gt;Diamond inheritance problem, so-called because of the shape of its inheritance diagram, with both super classes inheriting from a single common superclass.&lt;/p&gt;
-
-&lt;p&gt;The literal meaning of polymorphism is the ability to take on multiple forms or shapes. In its broadest sense, this refers to the ability to different objects to respond in different ways to the same message (or method invocation).&lt;/p&gt;
-
-&lt;p&gt;The first, inheritance polymorphism, is what most programmers are referring to when they talk about polymorphism.&lt;/p&gt;
-
-&lt;p&gt;When a class inherits from its superclass we know that any method present in the superclass is also present in the subclass.&lt;/p&gt;
-
-&lt;p&gt;The second kind of polymorphism Conway identifies is interface polymorphism.&lt;/p&gt;
-
-&lt;p&gt;This does not require any inheritance relationship between classes; It only requires that the interface of the object have met thoughts of a certain name.&lt;/p&gt;
-
-&lt;p&gt;A module consists of methods or constants that may be used as though they were actually part of the class or object; When a module is mixed in via the include statement this is considered to be a restrictive form of multiple inheritance.&lt;/p&gt;
-
-&lt;p&gt;By rivals are used to hold reference to objects.&lt;/p&gt;
-
-&lt;p&gt;A module is a collection of methods and constants that is external to the Ruby program.&lt;/p&gt;
-
-&lt;p&gt;The private level means that the method is accessible only within the class or its subclass.&lt;/p&gt;
-
-&lt;p&gt;Ruby is a dynamic language in the sense that objects and classes may be altered at runtime. Will be has the capability to construct and evaluate pieces of gold in the course of executing the existing statically coded program. This is perhaps the most difficult area a programmer will encounter in learning Ruby.&lt;/p&gt;
-
-&lt;p&gt;Everything is intuitive once you understand it.&lt;/p&gt;
-
-&lt;p&gt;Everything is true except false and nil.&lt;/p&gt;
-
-&lt;p&gt;many languages have some kind of for loop, as does Ruby. The question sooner or later arises as to whether the index variable can be modified.&lt;/p&gt;
-
-&lt;p&gt;Any object can be in principle converted to some kind of string representation; That is why nearly every quarter class has a to_s method.&lt;/p&gt;
-
-&lt;p&gt;A symbol is like a string in that it corresponds to a sequence of chapters. It is unlikely string in that each symbol has only one instance (just as a fixed number works). Therefore there is a memory or performance issue to be aware of.&lt;/p&gt;
-
-&lt;p&gt;The &amp;amp; notation allows us to pass a proc instead of an explicit attached block if we want. Because we use the &amp;amp; on an object that is not a problem interpreter tries to call to_call on that object. It will call it repeatedly, once for each element in the right.
-The collect method (part of innumerable) is a useful tool that proves to be a time and labor saver in many circumstances.&lt;/p&gt;
-
-&lt;p&gt;If you want to delete all instances of a certain piece of data, delete would do the job.
-The compact method (or it’s in place version compact!) removes nil values from an array, leaving the rest untouched.&lt;/p&gt;
-
-&lt;p&gt;The delete_if passes every element into the supply block and delete the elements for which the block evaluates to true. It behaves similarly to reject!, except that the latter can return when the array remains unchanged.&lt;/p&gt;
-
-&lt;p&gt;They reject method takes a block and produces a new array without the elements for which the block returns true.&lt;/p&gt;
-
-&lt;p&gt;Bear in mind that +, concat, and even +=always create a new array object. Also bear in mind that while « adds to the existing array, it happens a new array element (which may itself be an array).&lt;/p&gt;
-
-&lt;p&gt;What makes a collection enumerable ? Largely it is just the fact of being a collection. The module enumerable has the requirements that the default iterate each should be defined. Sequence as such is not an issue because even on unordered collection can have any generator.&lt;/p&gt;
-
-&lt;p&gt;And enumerator is basically an object that can be used for external or internal iteration. In internal iteration, we simply iterate over each item in the collection and execute the block for each item in the sequence; External iteration means that the code can grab the next item in the sequence “on demand”.&lt;/p&gt;
-
-&lt;p&gt;There are many other methods on Enumerable, and I cover most of them here. For convenience, I have divided them a little arbitrarily in four areas: searching and selecting, counting and comparing, iterating, and finally extracting and converting .
-The purpose of inheritance, of course, is to add or enhance functionality.&lt;/p&gt;
-
-&lt;p&gt;It’s not always necessary to use super in such a way, but it is often convenient. Every attribute and method of the point is reflected in the child.&lt;/p&gt;
-
-&lt;p&gt;The child can have additional attributes and methods, as you have already seen.
-The child can override or redefine any of the attributes and methods of the parents.&lt;/p&gt;
-
-&lt;p&gt;If we invoke a method on a subclass, the method for that class will be called if it exists. If it does not the method in the superclass will be called, and so on.&lt;/p&gt;
-
-&lt;p&gt;When we create a new structure template by calling Struct . New we may pass a string with the class name as the first argument. If we do come a new class is created where in class Struct itself, with the name passed in as the first parameter and the attributes given as the rest of the parameters.&lt;/p&gt;
-
-&lt;p&gt;Every time you invoke a method, you are sending a message to an object.&lt;/p&gt;
-</description>
-      <pubDate>Sun, 21 Feb 2021 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2021/02/21/ruby_way.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2021/02/21/ruby_way.html</guid>
     </item>
     
   </channel>
