@@ -62,3 +62,7 @@ end
 Learn by doing is the best way to learn rspec DSL, development stack, learn what to test and why it's important to test and avoid technical debt.
 
 So give it a try, it wont be difficult after all.
+
+Lately, I have completed a few books on testing, inclding [Professional Rails Testing by Jason Swett](/2025/02/05/professional-rails-testing.html), [Hands-On Test Driven Development by Greg Donald](/2025/03/16-hands-on-tdd-rails.html), [Effective Testing with RSpec by Myron Marston and Ian Dees](/2025/04/11-effective-testing-with-rspec.html) and even attended a [testing workshop by Lucian Ghinda](https://goodenoughtesting.com/).
+
+
