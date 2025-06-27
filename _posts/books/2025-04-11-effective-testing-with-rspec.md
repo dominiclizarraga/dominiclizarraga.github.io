@@ -51,11 +51,11 @@ With TDD, you write each test case just before implementing the next bit of beha
 
 It is about the way they enable fearless improvements to your design.
 
-BDD brings the emphasis to where it is supposed to be: <strong> your code's behavior. </strong> 
+BDD brings the emphasis to where it is supposed to be: <b> your code's behavior. </b> 
 
-Respect is a productive Ruby test framework. we say productive because everything about it, its style, api, libraries, and settings are designed to support you as you write great software.
+RSpec is a productive Ruby test framework. we say productive because everything about it, its style, api, libraries, and settings are designed to support you as you write great software.
 
-We have a specific definition of effective here, does this test pay for the cost of writing and running it? a good test will provide at least one of these benefits:
+We have a specific definition of effective here, <b>does this test pay for the cost of writing and running it?</b> A good test will provide at least one of these benefits:
 
 - design guidance:  helping you distill all those fantastic ideas in your head into running, maintainable code
 
@@ -65,17 +65,17 @@ We have a specific definition of effective here, does this test pay for the cost
 
 As you follow along through the examples in this book, you will practice several habits that will help you test effectively:
 
- when you describe precisely what you want your program to do, you avoid being too strict ( and failing when an irrelevant detail changes)  or to lacks open parentheses and getting false Confidence from incomplete tests).
+When you describe precisely what you want your program to do, you avoid being too strict ( and failing when an irrelevant detail changes)  or too lax (and getting false Confidence from incomplete tests).
 
- by writing your specs to report failure at the right level of detail, you give just enough information to find the house of the problem, without drawing in excessive output.
+By writing your specs to report failure at the right level of detail, you give just enough information to find the cause of the problem, without drawing in excessive output.
 
- but clearly separating essential test code from noisy setup code, you communicate what's exactly expected of the application, and you avoid repeating unnecessary detail.
+By clearly separating essential test code from noisy setup code, you communicate what's exactly expected of the application, and you avoid repeating unnecessary detail.
 
- when you reorder, profile, and filter your specs, you unearth order dependencies, slow tests and incomplete work.
+When you reorder, profile, and filter your specs, you unearth order dependencies, slow tests and incomplete work.
 
 Installing RSpec.
 
- it is made of three independent ruby gems:
+It is made of three independent ruby gems:
 
 `rspec-core`:  is the overall test harness that runs your specs.
 
@@ -112,13 +112,18 @@ Note: The book suggests to use `gem install rspec` however I think it's importan
 
 Let’s write our first spec 😁
 
-The book starts with the very simple example of building a sandwich.  what's the most important property of a sandwich? the bread? the condiments? no, the most important thing I probably sandwich is that it should taste good.
+The book starts with the very simple example of building a sandwich. What's the most important property of a sandwich? the bread? the condiments? No, the most important thing about a sandwich is that it should taste good.
+
+RSpec uses the words `describe` a `it` to express concepts in a conversational format:
+
+- “Describe an ideal sandwich”
+- “First, it is delicious” 
 
 ```ruby
 01-getting-started/01/spec/sandwich_spec.rb
 RSpec.describe “An ideal sandwich” do
   it “is delicious” do
-    # developers work this way with Rspec all the time; they start with an outline and fill it in as they go. 
+    # developers work this way with RSpec all the time; they start with an outline and fill it in as they go. 
   end
 end
 
@@ -138,11 +143,11 @@ RSpec.describe “An ideal sandwich” do
 end
 
 ```
-This file defines your test, known in RSpec as your specs, short for a specification (because they specify the desired behavior of your code). The outer `describe` block creates an example group – an example group defines what you are testing, in this case, a sandwich, and keeps related specs together.
+This file defines your test, known in RSpec as your specs, <b>short for a specification (because they specify the desired behavior of your code)</b>. The outer `describe` block creates an example group – an example group defines what you are testing, in this case, a sandwich, and keeps related specs together.
 
 The nested block, the one beginning with `it`, is an example of the sandwich’s use. As you write specs, you will tend to keep each example focused on one particular size of behavior you are testing.
 
->This first paragraphs reminds me of Jason Sweat's book how many times he reminds the reader that tests are a specifications not validations I was able to count at least 8 times that he mentions that for example:
+>This first paragraphs reminds me of Jason Swett's book on how many times he stresses to the readers that tests are a specifications not validations! I was able to count at least 8 times that he mentions that for example:
 <b>A specification is a statement of how some aspect of a software product should behave.</b> 
 <b>Remember that testing is about a specification, not verification. </b> 
 <b>A test suite is a structured collection of behavior specifications.</b> 
@@ -153,7 +158,7 @@ Differences between tests, specs and examples:
 • A spec describes the desired behavior of a bit of code. 
 • An example shows how a particular API is intended to be used.
 
-In the bits of code that we wrote we can clearly see the pattern arrange/act/assert
+In the bits of code that we wrote we can clearly see the pattern arrange/act/assert.
 
 The last line with the `expect` keyword is the assertion in other test frameworks. Let’s look at the RSpec methods we’ve used:
 
@@ -161,7 +166,7 @@ The last line with the `expect` keyword is the assertion in other test framework
 • `it` creates an example (individual test).
 • `expect` verifies an expected outcome (assertion).
 
-Up to this point this spec serves two purposes: documenting what your sandwich should do and checking that the sandwich does what it is supposed to.
+Up to this point this spec serves two purposes: documenting what your sandwich should do and checking that the sandwich does what it is supposed to. (Lovely, isn’t it? 🤌) 
 
 Let’s run the test and see what happens. (We’ll start reading common error tests)
 
@@ -187,13 +192,15 @@ Failed examples:
 rspec ./01-getting-started/01/spec/sandwich_spec.rb:6 # An ideal sandwich is delicious
 ```
 
+Here we can see that RSpec gives us a detailed report showing us the line of code where the error occurred, and the description of the problem, in this case sandwich has not been initialized.
+
 With this we are following Red/Green/Refactor development practice essential to TDD and BDD. With this workflow, you’ll make sure each example catches failing or missing code before you implement the behavior you’re testing.
 
 The next step after writing a failing spec is to make it pass.
 
 ```ruby 
 # add to the top of the file 
-`Sandwich = Struct.new(:taste, :toppings)`
+`Sandwich = Struct.new(:taste, :toppings)`  # more about [Structs official docs](https://rubyapi.org/3.4/o/struct) and [Stackoverflow](https://stackoverflow.com/questions/25873672/ruby-class-vs-struct)
 # re-run the tests
 ```
 
@@ -241,17 +248,86 @@ But also they are repetitive, let’s introduce 3 new RSpec features:
 • `Helper methods` are regular Ruby methods; you control when these run.
 • RSpec’s `let` construct initializes data on demand.
 
-It’s kind of repetitive 
+To avoid the repetitiveness that the prior code shows, let's start using what we described previously hooks, helper methods, let. 
 
+Hooks
 
+The first thing that we will try in our test Suite is a before hook, which will run automatically before each example. (it reminds me to [ActiveRecord callbacks](https://guides.rubyonrails.org/active_record_callbacks.html)) 
 
-### Part II — Building an App With RSpec. {#chapter-2}
+```ruby
+RSpec.describe "An ideal sandwich" do
+  before { @sandwich = Sandwich.new("delicious", []) } 
+  it "is delicious" do
+    taste = @sandwich.taste
 
-### Part III — RSpec Core. {#chapter-3}
+    expect(taste).to eq("delicious")
+  end
 
-### Part IV — RSpec Expectations. {#chapter-4}
+  it "lets me add toppings" do
+    @sandwich.toppings << "cheese"
+    toppings = @sandwich.toppings
 
-### Part V — RSpec Mocks. {#chapter-5}
+    expect(toppings).not_to be_empty
+  end
+end
+```
 
+The setup code is shared across specs, but the individual Sandwich instance is not. Every example gets its own sandwich. That means that you can add toppings as you do in the second spec, with the confidence that the changes won't affect other examples.
 
+<div style="text-align: center;">RSpec keeps track of all the hooks you have registered. Each time RSpec is about to start running one of your examples, it will run any `before` hooks that apply.  `hooks` are great for running, setup code that has real-world side effects. If you need to clear out a test database before each example, a hook is a great place to do so.</div>
 
+<div style="text-align: center;">Here are some drawbacks from `hooks`:  First, If you misspelled `@sandwich`, Ruby will silently return `nil` instead of aborting with a failure right away. The result is typically a confusing error message. Second, to refactor your specs to use instance variables, you have had to go through the entire file and replace `sandwich` with `@sandwich`. Finally, when you initialize an instance variable maybe `before hook`, you pay the cost of that setup time for all the examples in the group even if some of them never use the instance variable. That is inefficient and can be quite noticeable.</div>
+
+ Let's try a different approach. (a more traditional Ruby approach)
+
+RSpec does a lot for us; it is easy to forget that it is just playing Ruby underneath. Each example group is a ruby class, which means that we can define methods on it. 
+
+```ruby
+RSpec.describe "An ideal sandwich" do
+  def sandwich
+    @sandwich ||= Sandwich.new("delicious", [])
+  end
+  it "is delicious" do
+    taste = sandwich.taste
+
+    expect(taste).to eq("delicious")
+  end
+
+  it "lets me add toppings" do
+    sandwich.toppings << "cheese"
+    toppings = sandwich.toppings
+
+    expect(toppings).not_to be_empty
+  end
+end
+```
+A typical Ruby implementation might look something like the one we just wrote which uses memoization.
+
+This pattern is pretty easy to find in Ruby but it is not without its pitfalls. the `||=` operator works by seeing if `@sandwich` is falsey, that is, `false` or `nil`, before creating a new `@sandwich`. That means that it won't work if we are actually trying to store something `falsey`.
+
+Sharing objects with `let`
+
+RSpec gives us an alternative construct, `let`. Which handles the edge case that we previously discussed with `memoization`.
+
+You can think of `let` as assigning a name — in this case, `:sandwich` — to the result of a block. This block is lazily evaluated, meaning RSpec will only run it the first time `:sandwich` is accessed within an example. The result is then memoized (cached) for the remainder of that example.
+
+Our recommendation is to use these code-sharing techniques where they improve maintainability, lesson noise, and increase clarity. 
+
+```ruby
+RSpec.describe "An ideal sandwich" do
+  let (:sandwich) { Sandwich.new("delicious", []) }
+  it "is delicious" do
+    taste = sandwich.taste
+
+    expect(taste).to eq("delicious")
+  end
+
+  it "lets me add toppings" do
+    sandwich.toppings << "cheese"
+    toppings = sandwich.toppings
+
+    expect(toppings).not_to be_empty
+  end
+end
+```
+### Part I — From writing specs to running them. {#chapter-2}
