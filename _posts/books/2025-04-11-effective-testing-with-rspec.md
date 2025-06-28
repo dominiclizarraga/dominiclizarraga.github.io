@@ -19,7 +19,7 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 
 
 1. [Installing RSpec.](#chapter-1)
-2. [pending.](#chapter-2)
+2. [From writing specs to running them.](#chapter-2)
 3. [pending.](#chapter-3)
 4. [pending.](#chapter-4)
 5. [pending.](#chapter-5)
@@ -315,7 +315,7 @@ Our recommendation is to use these code-sharing techniques where they improve ma
 
 ```ruby
 RSpec.describe "An ideal sandwich" do
-  let (:sandwich) { Sandwich.new("delicious", []) }
+  let (:sandwich) { Sandwich.new("delicious", []) } # [let official docs](https://rspec.info/features/3-13/rspec-core/helper-methods/let/)
   it "is delicious" do
     taste = sandwich.taste
 
@@ -330,4 +330,119 @@ RSpec.describe "An ideal sandwich" do
   end
 end
 ```
+[Claude convo about let](https://claude.ai/chat/b5733d6a-d842-406b-83bc-d7ebc98008b5)
+
+At the end of the chapter there is a “Your turn” section where the author encouraged you to respond a couple of questions and for the first chapter they asked the following:
+ Which of the three ways to reduce duplication that we have shown to you do you like the best for this example? Why? Can you think of situations where the others might be a better option?
+
+As all good engineering questions it depends as we have seen the first one which was the before hook, it is very clean, it reads good however we saw that it has some drawbacks, like it would return `nil` if the instance variable is misspelled  and all the refactor gymnastics that it implies for refactoring just one file even when the instance variable is not used in a group example. Then the `helper method` has the memoization problem and finally they `let` alternative covers those issues. 
+
+Some extra coding for solidifying `let` knowledge:
+
+```ruby
+RSpec.describe "An ideal sandwich" do
+  let(:sandwich) { Sandwich.new("delicious", []) }
+  
+  it "is delicious" do
+    puts "Example 1 - Sandwich object_id: #{sandwich.object_id}"
+    # Example 1 - Sandwich object_id: 1232
+    taste = sandwich.taste
+    expect(taste).to eq("delicious")
+  end
+
+  it "lets me add toppings" do
+    puts "Example 2 - Sandwich object_id: #{sandwich.object_id}"
+    # Example 2 - Sandwich object_id: 1240
+    sandwich.toppings << "cheese"
+    toppings = sandwich.toppings
+    expect(toppings).not_to be_empty
+  end
+end
+
+# within same group example
+
+it "uses the same object within one example" do
+  puts "First call: #{sandwich.object_id}"
+  # First call: 1248
+  sandwich.toppings << "cheese"
+  
+  puts "Second call: #{sandwich.object_id}"  # Same object!
+  # Second call: 1248
+  expect(sandwich.toppings).to include("cheese")  # Cheese is still there
+end
+```
+
 ### Part I — From writing specs to running them. {#chapter-2}
+
+```ruby
+# Add the next file 01-getting-started/01/spec/coffee_spec.rb
+class Coffee
+  def ingridients
+    @ingridients ||= []
+  end
+
+  def add(ingridient)
+    ingridients << ingridient
+  end
+
+  def price
+    1.00
+  end
+end
+
+RSpec.describe "A cup of coffee" do
+  let(:coffee) { Coffee.new }
+  it "costs $1" do
+    expect(coffee.price).to eq(1)
+  end
+
+  context "with milk" do
+    before { coffee.add :milk }
+
+    it "costs $1.25" do
+      expect(coffee.price).to eq(1.25)
+    end
+  end
+end
+```
+And in this chapter we explore the `--format documentation`
+```ruby
+➜  rspec-book git:(master) bundle exec rspec 01-getting-started/01 --format documentation
+
+A cup of coffee
+  costs $1
+  with milk
+    costs $1.25 (FAILED - 1)
+
+An ideal sandwich
+  is delicious
+  lets me add toppings
+
+Failures:
+
+  1) A cup of coffee with milk costs $1.25
+     Failure/Error: expect(coffee.price).to eq(1.25)
+     
+       expected: 1.25
+            got: 1.0
+     
+       (compared using ==)
+     # ./01-getting-started/01/spec/coffee_spec.rb:25:in 'block (3 levels) in <top (required)>'
+
+Finished in 0.01762 seconds (files took 0.08827 seconds to load)
+4 examples, 1 failure
+
+Failed examples:
+
+rspec ./01-getting-started/01/spec/coffee_spec.rb:24 # A cup of coffee with milk costs $1.25
+```
+### Part II — Building an App With RSpec. {#chapter-2}
+
+### Part III — RSpec Core. {#chapter-3}
+
+### Part IV — RSpec Expectations. {#chapter-4}
+
+### Part V — RSpec Mocks. {#chapter-5}
+
+
+
