@@ -436,6 +436,11 @@ Failed examples:
 
 rspec ./01-getting-started/01/spec/coffee_spec.rb:24 # A cup of coffee with milk costs $1.25
 ```
+Another suggestion from the book is adding the [gem coderay](https://github.com/rubychan/coderay) which highlights with different colors the line that is failing. This is particularly useful when dealing with complex tests suites.
+`bundle exec rspec 01-getting-started/01 -fd` (see the `expect` and `1.25`)
+
+<div><img src='/../graphics/projects/coderay_gem_syntax_highlight.png' alt='beginning_rails' style="width:400px;"/></div>
+
 ### Part II — Building an App With RSpec. {#chapter-2}
 
 ### Part III — RSpec Core. {#chapter-3}

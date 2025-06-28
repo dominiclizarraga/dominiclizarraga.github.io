@@ -12,6 +12,47 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>Good enough testing workshop | notes</title>
+      <dc:creator>dom lizarraga</dc:creator>
+      <description>&lt;p&gt;Recently, I attended a workshop by Lucian Ghinda called &lt;a href=&quot;https://goodenoughtesting.com/&quot;&gt;Good Enough Testing&lt;/a&gt;. The workshop was a great experience, and I learned a lot about testing in Ruby on Rails.&lt;/p&gt;
+
+&lt;p&gt;Here are my notes from the workshop:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;How do you know how many tests are enough?&lt;/li&gt;
+  &lt;li&gt;How do you know if your tests are covering enough business logic?&lt;/li&gt;
+  &lt;li&gt;When do you stop testing based on risk and time?&lt;/li&gt;
+  &lt;li&gt;What kind of bugs are you trying to catch?&lt;/li&gt;
+  &lt;li&gt;what does mean to test a feature?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We tend to write test on habit or gut feeling. This can be systematic.&lt;/p&gt;
+
+&lt;p&gt;Taking into consideration the context, we choose coverage criteria (what we pay attention to), and this will drive the test design and test cases we write so we can cover what’s important with minimum effort.&lt;/p&gt;
+
+&lt;p&gt;In other words: considering the level of risk, we define test coverage that will drive the test design so that we can achieve 100% coverage with the minimum number of test cases.&lt;/p&gt;
+
+&lt;p&gt;Objectives of workshop:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Model the universe of all possible test cases.&lt;/li&gt;
+  &lt;li&gt;Define the test coverage that is the most important in the context&lt;/li&gt;
+  &lt;li&gt;Identify the minimum number of test cases to achieve 100% of coverage.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Do this in a systematic way.&lt;/p&gt;
+
+&lt;p&gt;4 test design techniques. 
+Equivalence partitioning
+Bounday value analysis
+Decision table
+State transition&lt;/p&gt;
+</description>
+      <pubDate>Sat, 28 Jun 2025 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2025/06/28/good-enough-testing.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2025/06/28/good-enough-testing.html</guid>
+    </item>
+    
+    <item>
       <title>Rails code guide through with Kasper Timm Hansen | notes</title>
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;Next session with Kasper &lt;a href=&quot;https://lu.ma/8a8clh9b&quot; target=&quot;_blank&quot;&gt;(luma link)&lt;/a&gt;&lt;/p&gt;
@@ -702,20 +743,6 @@ So in order to increase the quality of your customer service at the internet sca
       <pubDate>Fri, 26 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/26/action-policy-cache.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/26/action-policy-cache.html</guid>
-    </item>
-    
-    <item>
-      <title>When you see the `.count` in a Rails view 👀</title>
-      <dc:creator>dom lizarraga</dc:creator>
-      <description>&lt;p&gt;I’ve been working on improving the app performance and have learnt about how&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.count&lt;/code&gt; works and how it can slow down the app.&lt;/p&gt;
-
-&lt;p&gt;As a solution we have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter_cache&lt;/code&gt;provided by default by rails and also something more advance like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;counter_culture&lt;/code&gt;gem!&lt;/p&gt;
-
-&lt;p&gt;Let’s see how it can improve you app as well!&lt;/p&gt;
-</description>
-      <pubDate>Mon, 22 Jan 2024 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2024/01/22/when-you-see-the-count.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2024/01/22/when-you-see-the-count.html</guid>
     </item>
     
   </channel>
