@@ -471,6 +471,39 @@ Top 2 slowest examples (0.90852 seconds, 58.8% of total time):
 Finished in 1.54 seconds (files took 0.0894 seconds to load)
 5 examples, 0 failures
 ```
+Also this chapter covers how to run specific tests when you don’t need to run the whole test suite (from directories, to files to even just examples).
+
+```ruby 
+$ rspec spec/unit/specific_spec.rb # Load just one spec file
+$ rspec spec/unit spec/foo_spec.rb # Or mix and match files and directories
+```
+
+Example for running examples that contains word “milk” (searches are
+case-sensitive)
+
+```ruby
+$ bundle exec rspec 01-getting-started/01 -e milk -fd 
+Run options: include {full_description: /milk/}
+
+A cup of coffee
+  with milk
+    costs $1.25 (FAILED - 1)
+
+Failures:
+
+  1) A cup of coffee with milk costs $1.25
+     Failure/Error: expect(coffee.price).to eq(1.25)
+     
+       expected: 1.25
+            got: 1.0
+     
+       (compared using ==)
+     # ./01-getting-started/01/spec/coffee_spec.rb:25:in 'block (3 levels) in <top (required)>'
+
+Finished in 0.0128 seconds (files took 0.06799 seconds to load)
+1 example, 1 failure
+```
+And if you need to run only one example or test case, you can pass `rspec 01-getting-started/01/spec/coffee_spec.rb:25` and RSpec will run the example that starts on that line.
 
 
 ### Part II — Building an App With RSpec. {#chapter-2}
