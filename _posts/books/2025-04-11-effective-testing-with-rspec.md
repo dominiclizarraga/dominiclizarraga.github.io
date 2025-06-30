@@ -439,7 +439,39 @@ rspec ./01-getting-started/01/spec/coffee_spec.rb:24 # A cup of coffee with milk
 Another suggestion from the book is adding the [gem coderay](https://github.com/rubychan/coderay) which highlights with different colors the line that is failing. This is particularly useful when dealing with complex tests suites.
 `bundle exec rspec 01-getting-started/01 -fd` (see the `expect` and `1.25`)
 
-<div><img src='/../graphics/projects/coderay_gem_syntax_highlight.png' alt='beginning_rails' style="width:400px;"/></div>
+<div><img src='/../graphics/projects/coderay_gem_syntax_highlight.png' alt='highlight_syntax_by_coderay_gem' style="width:400px;"/></div>
+
+Another tool that is shown in this chapter is how to identify a slow test by adding `--profile n` (n is the number of offenders we’d like to see)
+
+```ruby 
+# 01-getting-started/01/spec/slow_spec.rb
+RSpec.describe "The sleep() method" do
+  it("can sleep for 0.1 seconds") { sleep 0.1 }
+  it("can sleep for 0.2 seconds") { sleep 0.2 }
+  it("can sleep for 0.3 seconds") { sleep 0.3 }
+  it("can sleep for 0.4 seconds") { sleep 0.4 }
+  it("can sleep for 0.5 seconds") { sleep 0.5 }
+end
+
+# $ bundle exec rspec 01-getting-started/01 -fd --profile 2
+The sleep() method
+  can sleep for 0.1 seconds
+  can sleep for 0.2 seconds
+  can sleep for 0.3 seconds
+  can sleep for 0.4 seconds
+  can sleep for 0.5 seconds
+
+Top 2 slowest examples (0.90852 seconds, 58.8% of total time):
+  The sleep() method can sleep for 0.5 seconds
+    0.50321 seconds ./01-getting-started/01/spec/slow_spec.rb:6
+  The sleep() method can sleep for 0.4 seconds
+    0.40531 seconds ./01-getting-started/01/spec/slow_spec.rb:5
+
+
+Finished in 1.54 seconds (files took 0.0894 seconds to load)
+5 examples, 0 failures
+```
+
 
 ### Part II — Building an App With RSpec. {#chapter-2}
 
