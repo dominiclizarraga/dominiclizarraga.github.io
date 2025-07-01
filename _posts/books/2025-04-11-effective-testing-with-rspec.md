@@ -505,6 +505,82 @@ Finished in 0.0128 seconds (files took 0.06799 seconds to load)
 ```
 And if you need to run only one example or test case, you can pass `rspec 01-getting-started/01/spec/coffee_spec.rb:25` and RSpec will run the example that starts on that line.
 
+Rerunning Everything That Failed
+
+There is one RSpec command that allows you to run just exactly the fail specs, this is pretty useful as the last command because you avoid running the whole test rate and you can fix one spec, rerun it, fix the next one and so on let's dive in 
+
+```ruby
+# here we can see that same error is being brought up, example: `with milk costs $1.25`
+➜  rspec-book git:(master) ✗ bundle exec rspec 01-getting-started/01/
+.F.......
+
+Failures:
+
+  1) A cup of coffee with milk costs $1.25
+     Failure/Error: expect(coffee.price).to eq(1.25)
+     
+       expected: 1.25
+            got: 1.0
+     
+       (compared using ==)
+     # ./01-getting-started/01/spec/coffee_spec.rb:29:in 'block (3 levels) in <top (required)>'
+
+Finished in 1.55 seconds (files took 0.08332 seconds to load)
+9 examples, 1 failure
+
+Failed examples:
+
+rspec ./01-getting-started/01/spec/coffee_spec.rb:28 # A cup of coffee with milk costs $1.25
+
+➜  rspec-book git:(master) ✗ bundle exec rspec 01-getting-started/01/ --only-failures
+
+To use `--only-failures`, you must first set `config.example_status_persistence_file_path`.
+```
+Then we add the command `--only-failures` at the end and this will ask us for a path to write the last run diagnosis, in this case we added:
+
+```ruby
+RSpec.configure do |config|
+  config.example_status_persistence_file_path = 'spec/examples.txt'
+end
+```
+Which will add a spec/examples.txt file with details as the following:
+
+example_id                                         | status | run_time        |
+-------------------------------------------------- | ------ | --------------- |
+./01-getting-started/01/spec/coffee_spec.rb[1:1]   | passed | 0.00064 seconds |
+./01-getting-started/01/spec/coffee_spec.rb[1:2:1] | failed | 0.01486 seconds |
+./01-getting-started/01/spec/sandwich_spec.rb[1:1] | passed | 0.00007 seconds |
+./01-getting-started/01/spec/sandwich_spec.rb[1:2] | passed | 0.00163 seconds |
+./01-getting-started/01/spec/slow_spec.rb[1:1]     | passed | 0.10517 seconds |
+./01-getting-started/01/spec/slow_spec.rb[1:2]     | passed | 0.20549 seconds |
+./01-getting-started/01/spec/slow_spec.rb[1:3]     | passed | 0.30431 seconds |
+./01-getting-started/01/spec/slow_spec.rb[1:4]     | passed | 0.40278 seconds |
+./01-getting-started/01/spec/slow_spec.rb[1:5]     | passed | 0.50561 seconds |
+
+Finally, when we re-run the `--only-failures` it will search for that “failed status” and run only that one! You can see it below:
+
+```ruby
+➜  rspec-book git:(master) ✗ bundle exec rspec 01-getting-started/01/ --only-failures
+Run options: include {last_run_status: "failed"} 👈
+F
+
+Failures:
+
+  1) A cup of coffee with milk costs $1.25
+     Failure/Error: expect(coffee.price).to eq(1.25)
+     
+       expected: 1.25
+            got: 1.0
+     
+       (compared using ==)
+     # ./01-getting-started/01/spec/coffee_spec.rb:29:in 'block (3 levels) in <top (required)>'
+
+Finished in 0.01276 seconds (files took 0.08701 seconds to load)
+1 example, 1 failure
+Failed examples:
+
+rspec ./01-getting-started/01/spec/coffee_spec.rb:28 # A cup of coffee with milk costs $1.25
+```
 
 ### Part II — Building an App With RSpec. {#chapter-2}
 
