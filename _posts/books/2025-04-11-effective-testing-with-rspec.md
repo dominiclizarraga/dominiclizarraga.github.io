@@ -685,6 +685,14 @@ Another feature we explored was how to sketch out the test suite when you have m
 
 Finally, we covered the --next-failure command, which runs only the next failing test from the previous run.
   
+| Command                                 | Description                                                                 |
+|-----------------------------------------|-----------------------------------------------------------------------------|
+| rspec --format documentation            | Displays test output with indentation to show nesting of examples.         |
+| rspec --profile 2                       | Shows the 2 slowest-running tests to help identify performance bottlenecks.|
+| rspec --example word                    | Runs only the examples that match the given word.                          |
+| rspec ./spec/filename_spec.rb:25        | Runs only the test located on line 25 of the specified file.               |
+| rspec --only-failures                   | Runs only the tests that failed in the previous run.                       |
+| rspec --next-failure                    | Runs the next failing test from the last run.                              |
 
 
 ### Part I — Chapter 3. The RSpec Way. {#chapter-3}
