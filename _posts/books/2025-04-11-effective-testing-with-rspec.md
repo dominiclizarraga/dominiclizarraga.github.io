@@ -20,13 +20,13 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 
 1. [Installing RSpec.](#chapter-1)
 2. [From writing specs to running them.](#chapter-2)
-3. [pending.](#chapter-3)
+3. [The RSpec way.](#chapter-3)
 4. [pending.](#chapter-4)
 5. [pending.](#chapter-5)
 
 
 
-### Part I — Getting Started. {#chapter-1}
+### Part I — Chapter 1. Getting Started. {#chapter-1}
 
 Picture of the book!
 
@@ -371,8 +371,11 @@ it "uses the same object within one example" do
   expect(sandwich.toppings).to include("cheese")  # Cheese is still there
 end
 ```
+A recap of Chapter 1: We explored the `describe` block, which is called a group of examples, and the `it` block, which is called an example (or a test case in some other testing frameworks). We covered the expect keyword. We also looked at the Arrange-Act-Assert pattern. We thoroughly read through test failures and what they mean.
 
-### Part I — From writing specs to running them. {#chapter-2}
+We understood that testing serves two purposes: documenting what the code should do, and checking that the code does what it’s supposed to do. We explored how to negate an expectation, and how to test collections such as arrays and hashes. Finally, we saw three different ways of reducing code in tests: `hooks`, Ruby helper methods, and the `let` construct.
+
+### Part I — Chapter 2. From writing specs to running them. {#chapter-2}
 
 ```ruby
 # Add the next file 01-getting-started/01/spec/coffee_spec.rb
@@ -581,14 +584,121 @@ Failed examples:
 
 rspec ./01-getting-started/01/spec/coffee_spec.rb:28 # A cup of coffee with milk costs $1.25
 ```
+The usage of command `rspec –next-failure`
 
-### Part II — Building an App With RSpec. {#chapter-2}
+```ruby
+rspec-book git:(master) ✗ bundle exec rspec 02-running-specs
+# above command created spec/tea_examples.txt
+example_id                          | status | run_time        |
+----------------------------------- | ------ | --------------- |
+./02-running-specs/tea_spec.rb[1:1] | failed | 0.0001 seconds  |
+./02-running-specs/tea_spec.rb[1:2] | failed | 0.00005 seconds |
+
+02-running-specs/tea_spec.rb
+class Tea
+end
+
+RSpec.configure do |config|
+    config.example_status_persistence_file_path = 'spec/tea_examples.txt'
+end
+
+RSpec.describe "Tea" do
+  let(:tea) { Tea.new }
+  it "tastes like Earl Grey" do
+    expect(tea.flavor).to be :earl_grey
+  end
+
+  it "is hot" do
+    expect(tea.temperature).to be > 200.0
+  end
+end
+
+➜  rspec-book git:(master) ✗ bundle exec rspec 02-running-specs               
+FF
+
+Failures:
+
+  1) Tea tastes like Earl Grey
+     Failure/Error: expect(tea.flavor).to be :earl_grey
+     
+     NoMethodError:
+       undefined method 'flavor' for an instance of Tea
+     # ./02-running-specs/tea_spec.rb:11:in 'block (2 levels) in <top (required)>'
+
+  2) Tea is hot
+     Failure/Error: expect(tea.temperature).to be > 200.0
+     
+     NoMethodError:
+       undefined method 'temperature' for an instance of Tea
+     # ./02-running-specs/tea_spec.rb:15:in 'block (2 levels) in <top (required)>'
+
+Finished in 0.00362 seconds (files took 0.08398 seconds to load)
+2 examples, 2 failures
+
+Failed examples:
+
+rspec ./02-running-specs/tea_spec.rb:10 # Tea tastes like Earl Grey
+rspec ./02-running-specs/tea_spec.rb:14 # Tea is hot
+
+```
+
+Then we add the option `–next-failure` and it will only run the very next failure, not the whole test suite.
+
+```ruby
+Run options: include {last_run_status: "failed"}
+F
+
+Failures:
+
+  1) Tea tastes like Earl Grey
+     Failure/Error: expect(tea.flavor).to be :earl_grey
+     
+     NoMethodError:
+       undefined method 'flavor' for an instance of Tea
+     # ./02-running-specs/tea_spec.rb:11:in 'block (2 levels) in <top (required)>'
+
+Finished in 0.00049 seconds (files took 0.08649 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./02-running-specs/tea_spec.rb:10 # Tea tastes like Earl Grey
+```
+
+This chapter focused on how specs should look and how they can be run.
+It began with the introduction of the context block, which is an alias for describe. However, it has a more specific and useful purpose: it's often used for phrases that describe a particular state or condition of the object being tested.
+
+We learned about the command rspec --format documentation, which separates group examples from individual examples and adds indentation to visually show nesting—such as one or two levels deep.
+
+We also explored the gem called Ray, which adds color to test output, making it easier to scan for failures. Additionally, we covered the command rspec --profile 2, which helps identify the slowest-running tests.
+
+Next, we learned about the rspec --example word command, which allows us to run only the group examples or examples that match the given word.
+
+Then, we explored how to run a specific test by including the line number in the command, like so:
+rspec ./spec/coffee_spec.rb:25.
+
+We also discovered a very useful command: rspec --only-failures. This runs only the tests that failed in the previous run by using a file that stores the status of each example.
+
+We then looked into running tests in focused mode—allowing us to run only specific context, it, or describe blocks by tagging them. We can assign custom tags and then pass those tags when running rspec to filter the examples accordingly.
+
+Another feature we explored was how to sketch out the test suite when you have more ideas in mind than time to implement them. You can use an it block with just a description (without a body), which RSpec treats as pending. You can also mark tests as incomplete using pending, skip, or xit.
+
+Finally, we covered the --next-failure command, which runs only the next failing test from the previous run.
+  
+
+
+### Part I — Chapter 3. The RSpec Way. {#chapter-3}
+
+
+### Part II — Building an App With RSpec. {#chapter-4}
 
 ### Part III — RSpec Core. {#chapter-3}
 
 ### Part IV — RSpec Expectations. {#chapter-4}
 
 ### Part V — RSpec Mocks. {#chapter-5}
+
+
 
 
 

@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-06-30T22:20:55-07:00</updated>
+  <updated>2025-07-01T20:29:31-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -28,12 +28,12 @@
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Installing RSpec.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;From writing specs to running them.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;The RSpec way.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Getting Started.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Chapter 1. Getting Started.&lt;/h3&gt;
 
 &lt;p&gt;Picture of the book!&lt;/p&gt;
 
@@ -380,7 +380,7 @@ Part III-V:  A series of deep dives into specific aspects of RSpec, which will h
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;chapter-2&quot;&gt;Part I — From writing specs to running them.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-2&quot;&gt;Part I — Chapter 2. From writing specs to running them.&lt;/h3&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# Add the next file 01-getting-started/01/spec/coffee_spec.rb&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Coffee&lt;/span&gt;
@@ -627,7 +627,9 @@ case-sensitive)&lt;/p&gt;
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;getting&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;started&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coffee_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;28&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# A cup of coffee with milk costs $1.25&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;chapter-2&quot;&gt;Part II — Building an App With RSpec.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-3&quot;&gt;Part I — Chapter 3. The RSpec Way.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-4&quot;&gt;Part II — Building an App With RSpec.&lt;/h3&gt;
 
 &lt;h3 id=&quot;chapter-3&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
 
