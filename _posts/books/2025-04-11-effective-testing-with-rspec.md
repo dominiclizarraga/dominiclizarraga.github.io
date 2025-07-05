@@ -510,7 +510,7 @@ And if you need to run only one example or test case, you can pass `rspec 01-get
 
 Rerunning Everything That Failed
 
-There is one RSpec command that allows you to run just exactly the fail specs, this is pretty useful as the last command because you avoid running the whole test rate and you can fix one spec, rerun it, fix the next one and so on let's dive in 
+There is one RSpec command that allows you to run just exactly the failing specs, this is pretty useful as the last command because you avoid running the whole test suite and you can fix one spec, rerun it, fix the next one and so on let's dive in 
 
 ```ruby
 # here we can see that same error is being brought up, example: `with milk costs $1.25`
@@ -535,13 +535,16 @@ Failed examples:
 
 rspec ./01-getting-started/01/spec/coffee_spec.rb:28 # A cup of coffee with milk costs $1.25
 
-➜  rspec-book git:(master) ✗ bundle exec rspec 01-getting-started/01/ --only-failures
-
-To use `--only-failures`, you must first set `config.example_status_persistence_file_path`.
 ```
 Then we add the command `--only-failures` at the end and this will ask us for a path to write the last run diagnosis, in this case we added:
 
 ```ruby
+➜ rspec-book git:(master) ✗ bundle exec rspec 01-getting-started/01/ --only-failures
+
+To use `--only-failures`, you must first set `config.example_status_persistence_file_path`.
+
+#  add this config line
+
 RSpec.configure do |config|
   config.example_status_persistence_file_path = 'spec/examples.txt'
 end
@@ -584,6 +587,7 @@ Failed examples:
 
 rspec ./01-getting-started/01/spec/coffee_spec.rb:28 # A cup of coffee with milk costs $1.25
 ```
+
 The usage of command `rspec –next-failure`
 
 ```ruby
@@ -599,7 +603,7 @@ class Tea
 end
 
 RSpec.configure do |config|
-    config.example_status_persistence_file_path = 'spec/tea_examples.txt'
+  config.example_status_persistence_file_path = 'spec/tea_examples.txt'
 end
 
 RSpec.describe "Tea" do
@@ -613,7 +617,7 @@ RSpec.describe "Tea" do
   end
 end
 
-➜  rspec-book git:(master) ✗ bundle exec rspec 02-running-specs               
+➜  rspec-book git:(master) ✗ bundle exec rspec 02-running-specs           
 FF
 
 Failures:
@@ -645,6 +649,7 @@ rspec ./02-running-specs/tea_spec.rb:14 # Tea is hot
 Then we add the option `–next-failure` and it will only run the very next failure, not the whole test suite.
 
 ```ruby
+$ bundle exec rspec 02-running-specs --next-failure
 Run options: include {last_run_status: "failed"}
 F
 
@@ -666,25 +671,25 @@ rspec ./02-running-specs/tea_spec.rb:10 # Tea tastes like Earl Grey
 ```
 
 This chapter focused on how specs should look and how they can be run.
-It began with the introduction of the context block, which is an alias for describe. However, it has a more specific and useful purpose: it's often used for phrases that describe a particular state or condition of the object being tested.
+It began with the introduction of the `context` block, which is an alias for `describe`. However, it has a more specific and useful purpose: it's often used for phrases that describe a particular state or condition of the object being tested.
 
-We learned about the command rspec --format documentation, which separates group examples from individual examples and adds indentation to visually show nesting—such as one or two levels deep.
+We learned about the command `rspec --format documentation` or `--f d`, which separates group examples from individual examples and adds indentation to visually show nesting—such as one or two levels deep.
 
-We also explored the gem called Ray, which adds color to test output, making it easier to scan for failures. Additionally, we covered the command rspec --profile 2, which helps identify the slowest-running tests.
+We also explored the gem called coderay, which adds color to test output, making it easier to scan for failures. Additionally, we covered the command `rspec --profile 2`, which helps identify the slowest-running tests.
 
-Next, we learned about the rspec --example word command, which allows us to run only the group examples or examples that match the given word.
+Next, we learned about the `rspec --example word` command, which allows us to run only the group examples or examples that match the given word.
 
 Then, we explored how to run a specific test by including the line number in the command, like so:
-rspec ./spec/coffee_spec.rb:25.
+`rspec ./spec/coffee_spec.rb:25`.
 
-We also discovered a very useful command: rspec --only-failures. This runs only the tests that failed in the previous run by using a file that stores the status of each example.
+We also discovered a very useful command: `rspec --only-failures`. This runs only the tests that failed in the previous run by using a file that stores the status of each example.
 
-We then looked into running tests in focused mode—allowing us to run only specific context, it, or describe blocks by tagging them. We can assign custom tags and then pass those tags when running rspec to filter the examples accordingly.
+We then looked into running tests in focused mode—allowing us to run only specific `context`, `it`, or `describe` blocks by tagging them. We can assign custom tags and then pass those tags when running rspec to filter the examples accordingly.
 
-Another feature we explored was how to sketch out the test suite when you have more ideas in mind than time to implement them. You can use an it block with just a description (without a body), which RSpec treats as pending. You can also mark tests as incomplete using pending, skip, or xit.
+Another feature we explored was how to sketch out the test suite when you have more ideas in mind than time to implement them. You can use an `it` block with just a description (without a body), which RSpec treats as `pending`. You can also mark tests as incomplete using `pending`, `skip`, or `xit`.
 
-Finally, we covered the --next-failure command, which runs only the next failing test from the previous run.
-  
+Finally, we covered the `--next-failure` command, which runs only the next failing test from the previous run.
+
 | Command                                 | Description                                                                 |
 |-----------------------------------------|-----------------------------------------------------------------------------|
 | rspec --format documentation            | Displays test output with indentation to show nesting of examples.         |
@@ -694,8 +699,7 @@ Finally, we covered the --next-failure command, which runs only the next failing
 | rspec --only-failures                   | Runs only the tests that failed in the previous run.                       |
 | rspec --next-failure                    | Runs the next failing test from the last run.                              |
 
-
-### Part I — Chapter 3. The RSpec Way. {#chapter-3}
+  ### Part I — Chapter 3. The RSpec Way. {#chapter-3}
 
 
 ### Part II — Building an App With RSpec. {#chapter-4}
@@ -705,7 +709,6 @@ Finally, we covered the --next-failure command, which runs only the next failing
 ### Part IV — RSpec Expectations. {#chapter-4}
 
 ### Part V — RSpec Mocks. {#chapter-5}
-
 
 
 
