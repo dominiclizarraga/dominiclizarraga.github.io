@@ -699,7 +699,46 @@ Finally, we covered the `--next-failure` command, which runs only the next faili
 | rspec --only-failures                   | Runs only the tests that failed in the previous run.                       |
 | rspec --next-failure                    | Runs the next failing test from the last run.                              |
 
-  ### Part I — Chapter 3. The RSpec Way. {#chapter-3}
+### Part I — Chapter 3. The RSpec Way. {#chapter-3}
+
+All these prior  features of RSpec are designed to make certain habits easy:
+• Writing examples that clearly spell out the expected behavior of the code
+• Separating common setup code from the actual test logic
+• Focusing on just what you need to do to make the next spec pass
+
+Writing specs isn’t the goal of using RSpec—it’s the benefits those specs provide. Let’s talk about those benefits now; they’re not all as obvious as “specs catch bugs.”
+
+- Specs increase confidence in your project
+	• The “happy path” through a particular bit of code behaves the way you want it to.
+• A method detects and reacts to an error condition you’re anticipating.
+• That last feature you added didn’t break the existing ones.
+• You’re making measurable progress through the project.
+- Eliminating fear
+	- With broad test coverage, developers find out early if new code is breaking existing features. 
+- Enabling refactoring
+- Without a good set of specs, refactoring is a daunting task.
+- Our challenge as developers is to structure our projects so that big changes are easy and predictable. As Kent Beck says, “for each desired change, make the change easy (warning: this may be hard), then make the easy change.”
+- Guiding design
+- If you write your specs before your implementation, you’ll be your own first client.
+- As counterintuitive as it may sound, one of the purposes of writing specs is to cause pain—or rather, to make poorly designed code painful.
+- Sustainability
+- RSpec may slow initial development but ensures faster, safer future changes—unless the project is small, static, or disposable.
+- Documenting behavior.
+- Transforming your workflow
+	- Each run of your suite is an experiment you’ve designed in order to validate (or refute) a hypothesis about how the code behaves.
+- You get fast, frequent feedback when something doesn’t work, and you can change course immediately
+
+Running the entire suite
+Consider the difference between a test suite taking 12 seconds and one taking 10 minutes. After 1,000 runs, the former has taken 3 hours and 20 minutes. The latter has cumulatively taken nearly 7 days.
+
+Deciding what not to test
+Every behavior you specify in a test is another point of coupling between your tests and your project code. That means you’ll have one more thing you’ll have to fix if you ever need to change your implementation’s behavior.
+
+If you do need to drive a UI from automated tests, try to test in terms of your problem domain (“log in as an administrator”) rather than implementation details (“type admin@example.com into the third text field”).
+
+Another key place to show restraint is the level of detail in your test assertions. Rather than asserting that an error message exactly matches a particular string (“Could not find user with ID 123”), consider using substrings to match just the key parts (“Could not find user”). Likewise, don’t specify the exact order of a collection unless the order is important. 
+
+
 
 
 ### Part II — Building an App With RSpec. {#chapter-4}
@@ -709,6 +748,7 @@ Finally, we covered the `--next-failure` command, which runs only the next faili
 ### Part IV — RSpec Expectations. {#chapter-4}
 
 ### Part V — RSpec Mocks. {#chapter-5}
+
 
 
 
