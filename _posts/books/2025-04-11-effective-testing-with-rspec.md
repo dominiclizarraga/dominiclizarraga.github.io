@@ -738,7 +738,30 @@ If you do need to drive a UI from automated tests, try to test in terms of your 
 
 Another key place to show restraint is the level of detail in your test assertions. Rather than asserting that an error message exactly matches a particular string (“Could not find user with ID 123”), consider using substrings to match just the key parts (“Could not find user”). Likewise, don’t specify the exact order of a collection unless the order is important. 
 
+Different types of specs
 
+Every spec has a job to do. These jobs fall into different categories: catching regressions in an application, guiding the design of a single class or method, and so on.
+
+• Acceptance: Does the whole system work?
+• Unit: Do our objects do the right thing, are they convenient to work with?
+• Integration: Does our code work against code we can’t change?
+
+Acceptance specs
+Acceptance specs describe a feature in an end-to-end, black-box style that exercises the entire system. These specs are hard to write, comparatively brittle, and slow. But they also provide a great deal of confidence that the parts of the system are working together as a whole.
+
+Unit specs
+They check the behavior of a piece of code relative to the environment you construct for it.
+
+Well-written unit specs tend to run extremely quickly (often in a few milliseconds or less!), and thus tend to cost less than other kinds of specs.
+
+Integration specs
+
+Code that interacts with an external service—such as a database or third-party REST
+API—should have an integration spec.
+• Your unit specs would have to isolate your code from any third-party dependency.
+• Your (comparatively slow) integration specs would be allowed to hit third party code indirectly.
+
+Integration specs are harder to write than unit specs, and they run more slowly. Therefore, we prefer to write fewer integration specs and more unit specs
 
 
 ### Part II — Building an App With RSpec. {#chapter-4}
