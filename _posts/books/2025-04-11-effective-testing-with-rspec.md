@@ -738,33 +738,43 @@ If you do need to drive a UI from automated tests, try to test in terms of your 
 
 Another key place to show restraint is the level of detail in your test assertions. Rather than asserting that an error message exactly matches a particular string (“Could not find user with ID 123”), consider using substrings to match just the key parts (“Could not find user”). Likewise, don’t specify the exact order of a collection unless the order is important. 
 
-Different types of specs
-
-Every spec has a job to do. These jobs fall into different categories: catching regressions in an application, guiding the design of a single class or method, and so on.
-
-• Acceptance: Does the whole system work?
-• Unit: Do our objects do the right thing, are they convenient to work with?
-• Integration: Does our code work against code we can’t change?
-
-Acceptance specs
-Acceptance specs describe a feature in an end-to-end, black-box style that exercises the entire system. These specs are hard to write, comparatively brittle, and slow. But they also provide a great deal of confidence that the parts of the system are working together as a whole.
-
-Unit specs
-They check the behavior of a piece of code relative to the environment you construct for it.
-
-Well-written unit specs tend to run extremely quickly (often in a few milliseconds or less!), and thus tend to cost less than other kinds of specs.
-
-Integration specs
-
-Code that interacts with an external service—such as a database or third-party REST
-API—should have an integration spec.
-• Your unit specs would have to isolate your code from any third-party dependency.
-• Your (comparatively slow) integration specs would be allowed to hit third party code indirectly.
-
-Integration specs are harder to write than unit specs, and they run more slowly. Therefore, we prefer to write fewer integration specs and more unit specs
-
-
 ### Part II — Building an App With RSpec. {#chapter-4}
+
+In this chapter authors decide to build an expense tracker app where users can add and search expenses.
+
+It will use sinatra as route and not rails since we don't need background workers, mailers, views, asset pipelie and so on.
+
+We need a small JSON APIs and sinatra will do the job.
+
+Acceptance specs, which check the behavior of the application as a whole
+
+Create a directory and add `bundler`
+
+```ruby
+# 04-acceptance-specs
+
+# add bundler as packages manager
+`bundle init`
+
+# then in the Gemfile file add the next gems
+gem "rspec", "~> 3.13"
+gem "coderay"
+gem 'rack-test'
+gem 'sinatra'
+
+# then run bundle exec rspec --init, which will create:
+`.rspec` # contains rspec command line flags
+`spec/spec_helper.rb` # contains configuration options
+
+# add ENV['RACK_ENV'] = 'test' to spec_helper.rb
+```
+
+It’s easy to feel overwhelmed as we’re deciding what to test first. Where do we start?
+
+what’s the core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.
+
+
+
 
 ### Part III — RSpec Core. {#chapter-3}
 
