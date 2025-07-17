@@ -773,6 +773,137 @@ It’s easy to feel overwhelmed as we’re deciding what to test first. Where do
 
 what’s the core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.
 
+We’re only going to use two of the most basic features of HTTP in these examples:
+• A GET request reads data from the app.
+• A POST request modifies data.
+
+First testing run 🏃
+
+```ruby
+require 'rack/test'
+require 'json'
+
+module ExpenseTracker
+  RSpec.describe 'Expense Tracker API' do
+    include Rack::Test::Methods
+
+    it 'records submitted expenses' do
+      coffee = {
+      'payee' => 'Starbucks',
+      'amount' => 5.75,
+      'date' => '2017-06-10'
+      }
+      post '/expenses', JSON.generate(coffee)
+    end
+  end
+end
+```
+
+In the console we run `bundle exec rspec 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb` and we get the next error:
+
+```ruby
+F
+
+Failures:
+
+  1) Expense Tracker API records submitted expenses
+     Failure/Error: post '/expenses', JSON.generate(coffee)
+     
+     NameError:
+       undefined local variable or method 'app' for #<RSpec::ExampleGroups::ExpenseTrackerAPI:0x000000011e93b538>
+     # ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:14:in 'block (2 levels) in <module:ExpenseTracker>'
+
+Finished in 0.00161 seconds (files took 0.15436 seconds to load)
+1 example, 1 failure
+
+Failed examples:
+
+rspec ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:8 # Expense Tracker API records submitted expenses
+```
+
+Given error tells us that we cannot use `app` because we have not defined it yet, lo let's add it
+
+```ruby
+# 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb
+    def app
+      ExpenseTracker::API.new
+    end
+
+    it 'records submitted expenses' do
+    end
+# 04-acceptance-specs/01/expense_tracker/app/api.rb
+require 'sinatra/base'
+require 'json'
+
+module ExpenseTracker
+  class API < Sinatra::Base
+  end
+end
+```
+
+Now, by adding `ExpenseTracker::API` and the `app` method we’re verifying only that the POST request completes without crashing the app.
+
+Let's check the response
+
+```ruby
+F
+
+Failures:
+
+  1) Expense Tracker API records submitted expenses
+     Failure/Error: expect(last_response.status).to eq(200)
+     
+       expected: 200
+            got: 404
+     
+       (compared using ==)
+     # ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:21:in 'block (2 levels) in <module:ExpenseTracker>'
+
+Finished in 0.02102 seconds (files took 0.20637 seconds to load)
+1 example, 1 failure
+```
+
+We need to add the route for this:
+
+```ruby
+# 04-acceptance-specs/01/expense_tracker/app/api.rb
+  post '/expenses' do
+  end
+```
+
+Let's fill the body of the response, we start from the testing, in this case parsing the `response`
+```ruby
+# 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb
+  it 'records submitted expenses' do
+    coffee = {
+    'payee' => 'Starbucks',
+    'amount' => 5.75,
+    'date' => '2017-06-10'
+    }
+    post '/expenses', JSON.generate(coffee)
+    p last_response
+    expect(last_response.status).to eq(200)
+
+    parsed = JSON.parse(last_response.body) 👈
+    expect().to include('expense_id' => a_kind_of(Integer)) 👈
+  end
+```
+
+Then in our API we are going to fool the response with the following:
+```ruby
+  post '/expenses' do
+    JSON.generate('expense_id' => 42)
+  end
+```
+
+And as we're inspecting the `last_response` we can see the `@body` contains the hash with key as `expense_id` and value as `42`
+
+```ruby
+-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb
+#<Rack::MockResponse:0x000000011db1ba48 @original_headers={"content-type" => "text/html;charset=utf-8", "content-length" => "17", "x-xss-protection" => "1; mode=block", "x-content-type-options" => "nosniff", "x-frame-options" => "SAMEORIGIN"}, @errors="", @status=200, @headers={"content-type" => "text/html;charset=utf-8", "content-length" => "17", "x-xss-protection" => "1; mode=block", "x-content-type-options" => "nosniff", "x-frame-options" => "SAMEORIGIN"}, @writer=#<Method: Rack::MockResponse(Rack::Response::Helpers)#append(chunk) /Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rack-3.1.16/lib/rack/response.rb:359>, @block=nil, @body=["{\"expense_id\":42}"], @buffered=true, @length=17, @cookies={}>
+```
+
+
 
 
 
