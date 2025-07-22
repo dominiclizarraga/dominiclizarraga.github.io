@@ -740,18 +740,18 @@ Another key place to show restraint is the level of detail in your test assertio
 
 ### Part II — Building an App With RSpec. {#chapter-4}
 
-In this chapter authors decide to build an expense tracker app where users can add and search expenses.
+In this chapter authors decide to build an expense tracker app where users can add/search expenses.
 
-It will use sinatra as route and not rails since we don't need background workers, mailers, views, asset pipelie and so on.
+It will use [Sinatra](https://sinatrarb.com/) as router and not rails since we don't need background workers, mailers, views, asset pipelie and so on.
 
-We need a small JSON APIs and sinatra will do the job.
+We need a small JSON APIs and Sinatra will do the job.
 
-Acceptance specs, which check the behavior of the application as a whole
+Acceptance specs => which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow)
 
 Create a directory and add `bundler`
 
 ```ruby
-# 04-acceptance-specs
+# 04-acceptance-specs/
 
 # add bundler as packages manager
 `bundle init`
@@ -762,7 +762,7 @@ gem "coderay"
 gem 'rack-test'
 gem 'sinatra'
 
-# then run bundle exec rspec --init, which will create:
+# then run bundle `exec rspec --init`, which will create:
 `.rspec` # contains rspec command line flags
 `spec/spec_helper.rb` # contains configuration options
 
@@ -771,11 +771,11 @@ gem 'sinatra'
 
 It’s easy to feel overwhelmed as we’re deciding what to test first. Where do we start?
 
-what’s the core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.
+What’s the <strong>core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.</strong>
 
 We’re only going to use two of the most basic features of HTTP in these examples:
-• A GET request reads data from the app.
-• A POST request modifies data.
+• A `GET` request reads data from the app.
+• A `POST` request modifies data.
 
 First testing run 🏃
 
@@ -791,7 +791,7 @@ module ExpenseTracker
       coffee = {
       'payee' => 'Starbucks',
       'amount' => 5.75,
-      'date' => '2017-06-10'
+      'date' => '2025-06-10'
       }
       post '/expenses', JSON.generate(coffee)
     end
@@ -821,7 +821,7 @@ Failed examples:
 rspec ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:8 # Expense Tracker API records submitted expenses
 ```
 
-Given error tells us that we cannot use `app` because we have not defined it yet, lo let's add it
+Given error tells us that we cannot use `app` because we have not defined it yet, so let's add it (temporaly with a ruby helper method.)
 
 ```ruby
 # 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb
@@ -830,6 +830,7 @@ Given error tells us that we cannot use `app` because we have not defined it yet
     end
 
     it 'records submitted expenses' do
+      ...
     end
 # 04-acceptance-specs/01/expense_tracker/app/api.rb
 require 'sinatra/base'
@@ -841,7 +842,7 @@ module ExpenseTracker
 end
 ```
 
-Now, by adding `ExpenseTracker::API` and the `app` method we’re verifying only that the POST request completes without crashing the app.
+Now, by adding `ExpenseTracker::API` and the `app` method we’re verifying only that the `POST` request completes without crashing the app.
 
 Let's check the response
 
@@ -885,23 +886,25 @@ Let's fill the body of the response, we start from the testing, in this case par
     expect(last_response.status).to eq(200)
 
     parsed = JSON.parse(last_response.body) 👈
-    expect().to include('expense_id' => a_kind_of(Integer)) 👈
+    expect(parsed).to include('expense_id' => a_kind_of(Integer)) 👈
   end
 ```
 
 Then in our API we are going to fool the response with the following:
 ```ruby
+  # 04-acceptance-specs/01/expense_tracker/app/api.rb
   post '/expenses' do
     JSON.generate('expense_id' => 42)
   end
 ```
 
-And as we're inspecting the `last_response` we can see the `@body` contains the hash with key as `expense_id` and value as `42`
+And as we're inspecting the `last_response` we can see the `@body` contains the hash with key as `expense_id` and value as `42`.
 
 ```ruby
 -specs/01/expense_tracker/spec/expense_tracker_api_spec.rb
 #<Rack::MockResponse:0x000000011db1ba48 @original_headers={"content-type" => "text/html;charset=utf-8", "content-length" => "17", "x-xss-protection" => "1; mode=block", "x-content-type-options" => "nosniff", "x-frame-options" => "SAMEORIGIN"}, @errors="", @status=200, @headers={"content-type" => "text/html;charset=utf-8", "content-length" => "17", "x-xss-protection" => "1; mode=block", "x-content-type-options" => "nosniff", "x-frame-options" => "SAMEORIGIN"}, @writer=#<Method: Rack::MockResponse(Rack::Response::Helpers)#append(chunk) /Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rack-3.1.16/lib/rack/response.rb:359>, @block=nil, @body=["{\"expense_id\":42}"], @buffered=true, @length=17, @cookies={}>
 ```
+
 
 
 
