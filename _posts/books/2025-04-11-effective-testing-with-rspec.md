@@ -793,7 +793,7 @@ module ExpenseTracker
       'amount' => 5.75,
       'date' => '2025-06-10'
       }
-      post '/expenses', JSON.generate(coffee)
+      post '/expenses', JSON.generate(coffee) # This will simulate an HTTP POST request (it's a Rack::Test helper)
     end
   end
 end
@@ -837,7 +837,7 @@ require 'sinatra/base'
 require 'json'
 
 module ExpenseTracker
-  class API < Sinatra::Base
+  class API < Sinatra::Base # This class defines the barest skeleton of a Sinatra app.
   end
 end
 ```
