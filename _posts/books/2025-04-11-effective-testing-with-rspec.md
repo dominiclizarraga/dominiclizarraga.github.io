@@ -21,10 +21,11 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 1. [Installing RSpec.](#chapter-1)
 2. [From writing specs to running them.](#chapter-2)
 3. [The RSpec way.](#chapter-3)
-4. [pending.](#chapter-4)
+4. [Building an App With RSpec.](#chapter-4)
+5. [Testing in isolation: Unit specs.](#chapter-5)
 5. [pending.](#chapter-5)
-
-
+5. [pending.](#chapter-5)
+5. [pending.](#chapter-5)
 
 ### Part I — Chapter 1. Getting Started. {#chapter-1}
 
@@ -1012,6 +1013,7 @@ In another terminal you can try out your server with the following command:
 [] # this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅
 ``` 
 
+### Part II — Testing in isolation: Unit specs. {#chapter-5}
 
 ### Part III — RSpec Core. {#chapter-3}
 
