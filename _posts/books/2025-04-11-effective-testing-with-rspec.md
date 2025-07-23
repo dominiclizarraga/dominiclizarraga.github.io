@@ -748,21 +748,23 @@ We need a small JSON APIs and Sinatra will do the job.
 
 Acceptance specs => which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow)
 
+Also, we used a outside-in development which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.
+
 Create a directory and add `bundler`
 
 ```ruby
 # 04-acceptance-specs/
 
-# add bundler as packages manager
+# add bundler as package manager
 `bundle init`
 
 # then in the Gemfile file add the next gems
 gem "rspec", "~> 3.13"
-gem "coderay"
-gem 'rack-test'
-gem 'sinatra'
+gem "coderay" # easy-to-read, syntax-highlighted
+gem 'rack-test' # provide an API for tests
+gem 'sinatra' # implement the web application
 
-# then run bundle `exec rspec --init`, which will create:
+# then run `bundle install` and `bundle exec rspec --init`, which will create:
 `.rspec` # contains rspec command line flags
 `spec/spec_helper.rb` # contains configuration options
 
@@ -877,10 +879,11 @@ Let's fill the body of the response, we start from the testing, in this case par
 # 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb
   it 'records submitted expenses' do
     coffee = {
-    'payee' => 'Starbucks',
-    'amount' => 5.75,
-    'date' => '2017-06-10'
+      'payee' => 'Starbucks',
+      'amount' => 5.75,
+      'date' => '2017-06-10'
     }
+
     post '/expenses', JSON.generate(coffee)
     p last_response
     expect(last_response.status).to eq(200)
@@ -905,9 +908,68 @@ And as we're inspecting the `last_response` we can see the `@body` contains the 
 #<Rack::MockResponse:0x000000011db1ba48 @original_headers={"content-type" => "text/html;charset=utf-8", "content-length" => "17", "x-xss-protection" => "1; mode=block", "x-content-type-options" => "nosniff", "x-frame-options" => "SAMEORIGIN"}, @errors="", @status=200, @headers={"content-type" => "text/html;charset=utf-8", "content-length" => "17", "x-xss-protection" => "1; mode=block", "x-content-type-options" => "nosniff", "x-frame-options" => "SAMEORIGIN"}, @writer=#<Method: Rack::MockResponse(Rack::Response::Helpers)#append(chunk) /Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rack-3.1.16/lib/rack/response.rb:359>, @block=nil, @body=["{\"expense_id\":42}"], @buffered=true, @length=17, @cookies={}>
 ```
 
+Saving expenses is all fine and good, but it’d be nice to retrieve them. Let's fetch expenses by date.
 
+Let's start by adding more expenses:
 
+```ruby
+# within the example 'records submitted expenses' add these 2 hashes
+    it 'records submitted expenses' do
+      zoo = post_expense(
+        'payee' => 'Zoo',
+        'amount' => 15.25,
+        'date' => '2017-06-10'
+      )
+  
+      groceries = post_expense(
+        'payee' => 'Whole Foods',
+        'amount' => 95.20,
+        'date' => '2017-06-11'
+      )
+  
+      coffee = post_expense(
+        'payee' => 'Starbucks',
+        'amount' => 5.75,
+        'date' => '2017-06-10'
+      )
 
+      get '/expenses/2017-06-10'
+      expect(last_response.status).to eq(200)
+
+      expenses = JSON.parse(last_response.body)
+      expect(expenses).to contain_exactly(coffee, zoo)
+    end
+```
+
+And as you may see we added the `post_expense(expense)` method, so add it within `describe` block:
+
+```ruby
+  def post_expense(expense)
+    post '/expenses', JSON.generate(expense)
+    expect(last_response.status).to eq(200)
+
+    parsed = JSON.parse(last_response.body)
+    expect(parsed).to include('expense_id' => a_kind_of(Integer))
+    expense.merge('id' => parsed['expense_id'])
+  end
+```
+
+When you run the test suite `bundle exec rspec 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb` you should see an error like this:
+
+```ruby
+Failures:
+
+  1) Expense Tracker API records submitted expenses
+     Failure/Error: expect(expenses).to contain_exactly(coffee, zoo)
+     
+       expected collection contained:  [{"amount" => 5.75, "date" => "2017-06-10", "id" => 42, "payee" => "Starbucks"}, {"amount" => 15.25, "date" => "2017-06-10", "id" => 42, "payee" => "Zoo"}]
+       actual collection contained:    []
+       the missing elements were:      [{"amount" => 5.75, "date" => "2017-06-10", "id" => 42, "payee" => "Starbucks"}, {"amount" => 15.25, "date" => "2017-06-10", "id" => 42, "payee" => "Zoo"}]
+     # ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:47:in 'block (2 levels) in <module:ExpenseTracker>'
+
+Finished in 0.0305 seconds (files took 0.2402 seconds to load)
+1 example, 1 failure
+```
 
 
 ### Part III — RSpec Core. {#chapter-3}
