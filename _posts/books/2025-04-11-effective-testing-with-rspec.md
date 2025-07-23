@@ -971,6 +971,47 @@ Finished in 0.0305 seconds (files took 0.2402 seconds to load)
 1 example, 1 failure
 ```
 
+And the API endpoint we should enable is the following (`GET '/expenses/:date'`)
+
+```ruby
+# 04-acceptance-specs/01/expense_tracker/app/api.rb
+module ExpenseTracker
+  class API < Sinatra::Base
+    post '/expenses' do
+      JSON.generate('expense_id' => 42)
+    end
+
+    get '/expenses/:date' do 
+      JSON.generate([])
+    end
+  end
+end
+```
+
+Now, we can mark the test_case as pending by adding right after the `it` block `pending 'Need to persist expenses'` this will change the red color from our terminal to a more friendly yellow.
+
+And with this warning we can add a webserver gem, in this case add `gem 'rackup'`, `gem 'webrick'` to Gemfile and create a file:
+```ruby
+ # 04-acceptance-specs/01/expense_tracker/config.ru
+  require_relative 'app/api'
+  run ExpenseTracker::API.new
+
+# run `cd 04-acceptance-specs/01/expense_tracker` and from that directory run `bundle exec rackup`
+# this will boot up a webserver 
+➜  expense_tracker git:(master) ✗ bundle exec rackup
+
+[2025-07-23 14:29:17] INFO  WEBrick 1.9.1
+[2025-07-23 14:29:17] INFO  ruby 3.4.2 (2025-02-15) [arm64-darwin24]
+[2025-07-23 14:29:17] INFO  WEBrick::HTTPServer#start: pid=6213 port=9292
+::1 - - [23/Jul/2025:14:29:59 -0400] "GET /expenses/2017-06-10 HTTP/1.1" 200 2 0.0063
+ ```
+
+In another terminal you can try out your server with the following command:
+```ruby
+➜  rspec-book git:(master) ✗ curl localhost:9292/expenses/2017-06-10 -w "\n"
+[] # this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅
+``` 
+
 
 ### Part III — RSpec Core. {#chapter-3}
 
