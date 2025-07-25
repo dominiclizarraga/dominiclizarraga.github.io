@@ -993,11 +993,11 @@ Now, we can mark the test_case as pending by adding right after the `it` block `
 
 And with this warning we can add a webserver gem, in this case add `gem 'rackup'`, `gem 'webrick'` to Gemfile and create a file:
 ```ruby
- # 04-acceptance-specs/01/expense_tracker/config.ru
+ # 04-acceptance-specs/01/expense_tracker/config.ru # new file 🚨
   require_relative 'app/api'
   run ExpenseTracker::API.new
 
-# run `cd 04-acceptance-specs/01/expense_tracker` and from that directory run `bundle exec rackup`
+# run `cd 04-acceptance-specs/01/expense_tracker` and from that directory [NOT rspec-book] run `bundle exec rackup`
 # this will boot up a webserver 
 ➜  expense_tracker git:(master) ✗ bundle exec rackup
 
@@ -1008,6 +1008,7 @@ And with this warning we can add a webserver gem, in this case add `gem 'rackup'
  ```
 
 In another terminal you can try out your server with the following command:
+
 ```ruby
 ➜  rspec-book git:(master) ✗ curl localhost:9292/expenses/2017-06-10 -w "\n"
 [] # this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅
@@ -1015,11 +1016,18 @@ In another terminal you can try out your server with the following command:
 
 ### Part II — Testing in isolation: Unit specs. {#chapter-5}
 
-### Part III — RSpec Core. {#chapter-3}
+In this chapter we're going to be picking up where we left off: the HTTP routing layer.
 
-### Part IV — RSpec Expectations. {#chapter-4}
+Unit tests typically involve isolating a class or method from the rest of the code. The result is faster tests and easier-tofind errors.
 
-### Part V — RSpec Mocks. {#chapter-5}
+In this book, we’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.
+
+With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface. 
+### Part III — RSpec Core. {#chapter-6}
+
+### Part IV — RSpec Expectations. {#chapter-7}
+
+### Part V — RSpec Mocks. {#chapter-8}
 
 
 
