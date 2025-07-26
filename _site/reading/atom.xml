@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-07-14T13:12:24-04:00</updated>
+  <updated>2025-07-25T18:58:14-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -13,9 +13,31 @@
   </author>
   
   <entry>
+    <title>Testing Rails - Thoughtbot by Josh Steiner and Joël Quenneville.</title>
+    <link href="http://localhost:4000/2025/05/17/thoughtbot-ebook-testing.html"/>
+    <updated>2025-05-17T00:00:00-07:00</updated>
+    <id>http://localhost:4000/2025/05/17/thoughtbot-ebook-testing</id>
+    <content type="html">&lt;p&gt;In my journey to improve my testing skills I found this &lt;a href=&quot;https://books.thoughtbot.com/assets/testing-rails.pdf&quot;&gt;Thoughtbot ebook&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;Pending.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;chapter-1&quot;&gt;Pending.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-2&quot;&gt;Pending.&lt;/h3&gt;
+</content>
+    <author>
+      <name>dom lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
+  
+  <entry>
     <title>Effective testing with RSpec by Myron Marston and Ian Dees.</title>
     <link href="http://localhost:4000/2025/04/11/effective-testing-with-rspec.html"/>
-    <updated>2025-04-11T00:00:00-04:00</updated>
+    <updated>2025-04-11T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/04/11/effective-testing-with-rspec</id>
     <content type="html">&lt;p&gt;Recently, I participated in a very competitive interview. When I submitted the code challenge, I felt my weakest area was the testing suite. Even though feedback was not available, being honest with myself and seeing some posts from the reviewers, I decided to dive deeper into testing.&lt;/p&gt;
 
@@ -29,7 +51,10 @@
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Installing RSpec.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;From writing specs to running them.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;The RSpec way.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;Building an App With RSpec.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;Testing in isolation: Unit specs.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
@@ -770,13 +795,325 @@ It began with the introduction of the &lt;code class=&quot;language-plaintext hi
 
 &lt;h3 id=&quot;chapter-3&quot;&gt;Part I — Chapter 3. The RSpec Way.&lt;/h3&gt;
 
+&lt;p&gt;All these prior  features of RSpec are designed to make certain habits easy:
+• Writing examples that clearly spell out the expected behavior of the code
+• Separating common setup code from the actual test logic
+• Focusing on just what you need to do to make the next spec pass&lt;/p&gt;
+
+&lt;p&gt;Writing specs isn’t the goal of using RSpec—it’s the benefits those specs provide. Let’s talk about those benefits now; they’re not all as obvious as “specs catch bugs.”&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Specs increase confidence in your project
+  • The “happy path” through a particular bit of code behaves the way you want it to.
+• A method detects and reacts to an error condition you’re anticipating.
+• That last feature you added didn’t break the existing ones.
+• You’re making measurable progress through the project.&lt;/li&gt;
+  &lt;li&gt;Eliminating fear
+    &lt;ul&gt;
+      &lt;li&gt;With broad test coverage, developers find out early if new code is breaking existing features.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Enabling refactoring&lt;/li&gt;
+  &lt;li&gt;Without a good set of specs, refactoring is a daunting task.&lt;/li&gt;
+  &lt;li&gt;Our challenge as developers is to structure our projects so that big changes are easy and predictable. As Kent Beck says, “for each desired change, make the change easy (warning: this may be hard), then make the easy change.”&lt;/li&gt;
+  &lt;li&gt;Guiding design&lt;/li&gt;
+  &lt;li&gt;If you write your specs before your implementation, you’ll be your own first client.&lt;/li&gt;
+  &lt;li&gt;As counterintuitive as it may sound, one of the purposes of writing specs is to cause pain—or rather, to make poorly designed code painful.&lt;/li&gt;
+  &lt;li&gt;Sustainability&lt;/li&gt;
+  &lt;li&gt;RSpec may slow initial development but ensures faster, safer future changes—unless the project is small, static, or disposable.&lt;/li&gt;
+  &lt;li&gt;Documenting behavior.&lt;/li&gt;
+  &lt;li&gt;Transforming your workflow
+    &lt;ul&gt;
+      &lt;li&gt;Each run of your suite is an experiment you’ve designed in order to validate (or refute) a hypothesis about how the code behaves.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;You get fast, frequent feedback when something doesn’t work, and you can change course immediately&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Running the entire suite
+Consider the difference between a test suite taking 12 seconds and one taking 10 minutes. After 1,000 runs, the former has taken 3 hours and 20 minutes. The latter has cumulatively taken nearly 7 days.&lt;/p&gt;
+
+&lt;p&gt;Deciding what not to test
+Every behavior you specify in a test is another point of coupling between your tests and your project code. That means you’ll have one more thing you’ll have to fix if you ever need to change your implementation’s behavior.&lt;/p&gt;
+
+&lt;p&gt;If you do need to drive a UI from automated tests, try to test in terms of your problem domain (“log in as an administrator”) rather than implementation details (“type admin@example.com into the third text field”).&lt;/p&gt;
+
+&lt;p&gt;Another key place to show restraint is the level of detail in your test assertions. Rather than asserting that an error message exactly matches a particular string (“Could not find user with ID 123”), consider using substrings to match just the key parts (“Could not find user”). Likewise, don’t specify the exact order of a collection unless the order is important.&lt;/p&gt;
+
 &lt;h3 id=&quot;chapter-4&quot;&gt;Part II — Building an App With RSpec.&lt;/h3&gt;
 
-&lt;h3 id=&quot;chapter-3&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
+&lt;p&gt;In this chapter authors decide to build an expense tracker app where users can add/search expenses.&lt;/p&gt;
 
-&lt;h3 id=&quot;chapter-4&quot;&gt;Part IV — RSpec Expectations.&lt;/h3&gt;
+&lt;p&gt;It will use &lt;a href=&quot;https://sinatrarb.com/&quot;&gt;Sinatra&lt;/a&gt; as router and not rails since we don’t need background workers, mailers, views, asset pipelie and so on.&lt;/p&gt;
 
-&lt;h3 id=&quot;chapter-5&quot;&gt;Part V — RSpec Mocks.&lt;/h3&gt;
+&lt;p&gt;We need a small JSON APIs and Sinatra will do the job.&lt;/p&gt;
+
+&lt;p&gt;Acceptance specs =&amp;gt; which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow)&lt;/p&gt;
+
+&lt;p&gt;Also, we used a outside-in development which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.&lt;/p&gt;
+
+&lt;p&gt;Create a directory and add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundler&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# add bundler as package manager&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;`bundle init`&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# then in the Gemfile file add the next gems&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rspec&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;~&amp;gt; 3.13&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;coderay&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# easy-to-read, syntax-highlighted&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;rack-test&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# provide an API for tests&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;sinatra&apos;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# implement the web application&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# then run `bundle install` and `bundle exec rspec --init`, which will create:&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;`.rspec`&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# contains rspec command line flags&lt;/span&gt;
+&lt;span class=&quot;sb&quot;&gt;`spec/spec_helper.rb`&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# contains configuration options&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# add ENV[&apos;RACK_ENV&apos;] = &apos;test&apos; to spec_helper.rb&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It’s easy to feel overwhelmed as we’re deciding what to test first. Where do we start?&lt;/p&gt;
+
+&lt;p&gt;What’s the &lt;strong&gt;core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We’re only going to use two of the most basic features of HTTP in these examples:
+• A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET&lt;/code&gt; request reads data from the app.
+• A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;POST&lt;/code&gt; request modifies data.&lt;/p&gt;
+
+&lt;p&gt;First testing run 🏃&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;rack/test&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;json&apos;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ExpenseTracker&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Expense Tracker API&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Methods&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;records submitted expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Starbucks&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&apos;amount&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2025-06-10&apos;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# This will simulate an HTTP POST request (it&apos;s a Rack::Test helper)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In the console we run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle exec rspec 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb&lt;/code&gt; and we get the next error:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;F&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Failures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Expense&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Tracker&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;API&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;submitted&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;
+     &lt;span class=&quot;no&quot;&gt;Failure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     
+     &lt;span class=&quot;no&quot;&gt;NameError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;undefined&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;local&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;variable&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;app&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#&amp;lt;RSpec::ExampleGroups::ExpenseTrackerAPI:0x000000011e93b538&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;# ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:14:in &apos;block (2 levels) in &amp;lt;module:ExpenseTracker&amp;gt;&apos;&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Finished&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.00161&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;took&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.15436&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failure&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Failed&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;examples:
+
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;04&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;acceptance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;specs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense_tracker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense_tracker_api_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# Expense Tracker API records submitted expenses&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Given error tells us that we cannot use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app&lt;/code&gt; because we have not defined it yet, so let’s add it (temporaly with a ruby helper method.)&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;app&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;ExpenseTracker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;API&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;records submitted expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/app/api.rb&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;sinatra/base&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;json&apos;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ExpenseTracker&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;API&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sinatra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# This class defines the barest skeleton of a Sinatra app.&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, by adding &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExpenseTracker::API&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;app&lt;/code&gt; method we’re verifying only that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;POST&lt;/code&gt; request completes without crashing the app.&lt;/p&gt;
+
+&lt;p&gt;Let’s check the response&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;F&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Failures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Expense&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Tracker&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;API&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;submitted&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;
+     &lt;span class=&quot;no&quot;&gt;Failure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     
+       &lt;span class=&quot;ss&quot;&gt;expected: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;
+            &lt;span class=&quot;ss&quot;&gt;got: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;404&lt;/span&gt;
+     
+       &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;# ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:21:in &apos;block (2 levels) in &amp;lt;module:ExpenseTracker&amp;gt;&apos;&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Finished&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.02102&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;took&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.20637&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failure&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We need to add the route for this:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/app/api.rb&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Let’s fill the body of the response, we start from the testing, in this case parsing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;response&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;records submitted expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Starbucks&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&apos;amount&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;👈&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;expense_id&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a_kind_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;👈&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then in our API we are going to fool the response with the following:&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/app/api.rb&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;expense_id&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And as we’re inspecting the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;last_response&lt;/code&gt; we can see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@body&lt;/code&gt; contains the hash with key as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expense_id&lt;/code&gt; and value as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;42&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;specs&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense_tracker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense_tracker_api_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&amp;lt;Rack::MockResponse:0x000000011db1ba48 @original_headers={&quot;content-type&quot; =&amp;gt; &quot;text/html;charset=utf-8&quot;, &quot;content-length&quot; =&amp;gt; &quot;17&quot;, &quot;x-xss-protection&quot; =&amp;gt; &quot;1; mode=block&quot;, &quot;x-content-type-options&quot; =&amp;gt; &quot;nosniff&quot;, &quot;x-frame-options&quot; =&amp;gt; &quot;SAMEORIGIN&quot;}, @errors=&quot;&quot;, @status=200, @headers={&quot;content-type&quot; =&amp;gt; &quot;text/html;charset=utf-8&quot;, &quot;content-length&quot; =&amp;gt; &quot;17&quot;, &quot;x-xss-protection&quot; =&amp;gt; &quot;1; mode=block&quot;, &quot;x-content-type-options&quot; =&amp;gt; &quot;nosniff&quot;, &quot;x-frame-options&quot; =&amp;gt; &quot;SAMEORIGIN&quot;}, @writer=#&amp;lt;Method: Rack::MockResponse(Rack::Response::Helpers)#append(chunk) /Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rack-3.1.16/lib/rack/response.rb:359&amp;gt;, @block=nil, @body=[&quot;{\&quot;expense_id\&quot;:42}&quot;], @buffered=true, @length=17, @cookies={}&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Saving expenses is all fine and good, but it’d be nice to retrieve them. Let’s fetch expenses by date.&lt;/p&gt;
+
+&lt;p&gt;Let’s start by adding more expenses:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# within the example &apos;records submitted expenses&apos; add these 2 hashes&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;records submitted expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;zoo&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Zoo&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;amount&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;15.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  
+      &lt;span class=&quot;n&quot;&gt;groceries&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Whole Foods&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;amount&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;95.20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-11&apos;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  
+      &lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Starbucks&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;amount&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses/2017-06-10&apos;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+      &lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contain_exactly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zoo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And as you may see we added the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;post_expense(expense)&lt;/code&gt; method, so add it within &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;describe&lt;/code&gt; block:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;post_expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;expense_id&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a_kind_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;id&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;expense_id&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When you run the test suite &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle exec rspec 04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb&lt;/code&gt; you should see an error like this:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Failures&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+
+  &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Expense&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Tracker&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;API&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;records&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;submitted&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;
+     &lt;span class=&quot;no&quot;&gt;Failure&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contain_exactly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;coffee&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;zoo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     
+       &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;contained:  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;amount&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;2017-06-10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;payee&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Starbucks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;amount&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;15.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;2017-06-10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;payee&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Zoo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;actual&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;collection&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;contained:    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
+       &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;missing&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;elements&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;were:      &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;amount&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;2017-06-10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;payee&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Starbucks&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;amount&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;15.25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;date&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;2017-06-10&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;id&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;payee&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Zoo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;
+     &lt;span class=&quot;c1&quot;&gt;# ./04-acceptance-specs/01/expense_tracker/spec/expense_tracker_api_spec.rb:47:in &apos;block (2 levels) in &amp;lt;module:ExpenseTracker&amp;gt;&apos;&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;Finished&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0305&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;took&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2402&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failure&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And the API endpoint we should enable is the following (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET &apos;/expenses/:date&apos;&lt;/code&gt;)&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/app/api.rb&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ExpenseTracker&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;API&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sinatra&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;expense_id&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;/expenses/:date&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; 
+      &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([])&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now, we can mark the test_case as pending by adding right after the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;it&lt;/code&gt; block &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pending &apos;Need to persist expenses&apos;&lt;/code&gt; this will change the red color from our terminal to a more friendly yellow.&lt;/p&gt;
+
+&lt;p&gt;And with this warning we can add a webserver gem, in this case add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gem &apos;rackup&apos;&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gem &apos;webrick&apos;&lt;/code&gt; to Gemfile and create a file:&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/config.ru # new file 🚨&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;require_relative&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;app/api&apos;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ExpenseTracker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;API&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# run `cd 04-acceptance-specs/01/expense_tracker` and from that directory [NOT rspec-book] run `bundle exec rackup`&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# this will boot up a webserver &lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;expense_tracker&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;✗&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rackup&lt;/span&gt;
+
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;WEBrick&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.9&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;ruby&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arm64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;darwin24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;  &lt;span class=&quot;no&quot;&gt;WEBrick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;HTTPServer&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#start: pid=6213 port=9292&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jul&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;59&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;0400&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;GET /expenses/2017-06-10 HTTP/1.1&quot;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;200&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0063&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In another terminal you can try out your server with the following command:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;➜&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;book&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;git&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;master&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;✗&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;curl&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;localhost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9292&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2017&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;06&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;w&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;chapter-5&quot;&gt;Part II — Testing in isolation: Unit specs.&lt;/h3&gt;
+
+&lt;p&gt;In this chapter we’re going to be picking up where we left off: the HTTP routing layer.&lt;/p&gt;
+
+&lt;p&gt;Unit tests typically involve isolating a class or method from the rest of the code. The result is faster tests and easier-tofind errors.&lt;/p&gt;
+
+&lt;p&gt;In this book, we’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.&lt;/p&gt;
+
+&lt;p&gt;With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface.&lt;/p&gt;
+&lt;h3 id=&quot;chapter-6&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-7&quot;&gt;Part IV — RSpec Expectations.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-8&quot;&gt;Part V — RSpec Mocks.&lt;/h3&gt;
 
 </content>
     <author>
@@ -788,7 +1125,7 @@ It began with the introduction of the &lt;code class=&quot;language-plaintext hi
   <entry>
     <title>Hands-on TDD: Using Ruby, Rails, and RSpec by Greg Donald.</title>
     <link href="http://localhost:4000/2025/03/16/hands-on-tdd-rails.html"/>
-    <updated>2025-03-16T00:00:00-04:00</updated>
+    <updated>2025-03-16T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/03/16/hands-on-tdd-rails</id>
     <content type="html">&lt;p&gt;The book has a very practical approach (living up to its title “hands-on”) where the author explains what you’re going to build, which tools and why those tools. It’s meant for beginner-intermediate developers.&lt;/p&gt;
 
@@ -834,7 +1171,7 @@ It began with the introduction of the &lt;code class=&quot;language-plaintext hi
   <entry>
     <title>Professional Rails Testing by Jason Swett.</title>
     <link href="http://localhost:4000/2025/02/05/professional-rails-testing.html"/>
-    <updated>2025-02-05T00:00:00-05:00</updated>
+    <updated>2025-02-05T00:00:00-08:00</updated>
     <id>http://localhost:4000/2025/02/05/professional-rails-testing</id>
     <content type="html">&lt;p&gt;This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.&lt;/p&gt;
 
@@ -1667,7 +2004,7 @@ It has predetermined responses&lt;/p&gt;
   <entry>
     <title>Apprenticeship Patterns 🌌 by David H. Hoover &amp; Adewale Oshineye.</title>
     <link href="http://localhost:4000/2023/09/22/apprenticeship-patterns.html"/>
-    <updated>2023-09-22T00:00:00-04:00</updated>
+    <updated>2023-09-22T00:00:00-07:00</updated>
     <id>http://localhost:4000/2023/09/22/apprenticeship-patterns</id>
     <content type="html">
 </content>
@@ -1680,7 +2017,7 @@ It has predetermined responses&lt;/p&gt;
   <entry>
     <title>The Minitest Cookbook by Chris Kottom</title>
     <link href="http://localhost:4000/2022/01/05/minitest_cookbook.html"/>
-    <updated>2022-01-05T00:00:00-05:00</updated>
+    <updated>2022-01-05T00:00:00-08:00</updated>
     <id>http://localhost:4000/2022/01/05/minitest_cookbook</id>
     <content type="html">&lt;p&gt;Today though, the separation between development and testing has largely disappeared - at least in the universe that most Ruby and Rails programmers occupy.&lt;/p&gt;
 
@@ -2180,7 +2517,7 @@ them to:
   <entry>
     <title>Refactoring by Jay Fields, Shane Harvie, Martin Fowler &amp; Kent Beck.</title>
     <link href="http://localhost:4000/2021/09/25/refactoring.html"/>
-    <updated>2021-09-25T00:00:00-04:00</updated>
+    <updated>2021-09-25T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/09/25/refactoring</id>
     <content type="html">&lt;p&gt;This book will take you from beginner to advanced in terms of refactoring.&lt;/p&gt;
 
@@ -2430,7 +2767,7 @@ level as a series of comments.&lt;/p&gt;
   <entry>
     <title>The Well-Grounded Rubyist by David A. Black &amp; Joseph Leo III.</title>
     <link href="http://localhost:4000/2021/06/15/well_grounded_rubyist.html"/>
-    <updated>2021-06-15T00:00:00-04:00</updated>
+    <updated>2021-06-15T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/06/15/well_grounded_rubyist</id>
     <content type="html">&lt;p&gt;The book is on its 3rd edition and it’s comprised of 3 parts and 16 chapters:&lt;/p&gt;
 
@@ -2598,7 +2935,7 @@ Numerators are closely related to eaters, but they are not the same thing period
   <entry>
     <title>Practical Object-Oriented Design (POODR) by Sandi Metz</title>
     <link href="http://localhost:4000/2021/05/30/practical_oriented.html"/>
-    <updated>2021-05-30T00:00:00-04:00</updated>
+    <updated>2021-05-30T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/05/30/practical_oriented</id>
     <content type="html">&lt;p&gt;This book is the second edition that Sandi Metz publishes and it’s even considered as a must-read by the RoR community, give it a shot you won’t regret at all no matter what language you’re coming from.&lt;/p&gt;
 
@@ -2767,7 +3104,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
   <entry>
     <title>Eloquent Ruby by Russ Olsen.</title>
     <link href="http://localhost:4000/2021/05/23/eloquent-ruby.html"/>
-    <updated>2021-05-23T00:00:00-04:00</updated>
+    <updated>2021-05-23T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/05/23/eloquent-ruby</id>
     <content type="html">&lt;p&gt;This is book is not for learning the very basics of Ruby, it’s more for people who have played with the language, the console and maybe built simple web app, I say this because it assumes you know what is an array, how you can manipulate or work with it therefore the book only shows shortcuts for instance methods on arrays, the correct usage of bang (!).&lt;/p&gt;
 
@@ -2817,153 +3154,6 @@ There is also a chapter that teaches you how to modify normal operators (&amp;lt
 &lt;p&gt;The technique “execute later “ is when you add a parameter prefix with an ampersand, some practical examples of lambdas and procs as well and lastly it touches some of the metaprogramming topics to modify subclasses, to use the method_missing method In order to rescue one execution and provide an exception.&lt;/p&gt;
 
 &lt;p&gt;Updating existing classes, fixing broken classes, what is the monkey patching? Dealing with DSL and XML, what are the Gems package, how to consume them, nuts and bolts of gems, where are they located and also how to build a gem publish them and make it public.&lt;/p&gt;
-</content>
-    <author>
-      <name>dom lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>Beginning Rails 6 🚇 by Brady Somerville, Adam Gamble.</title>
-    <link href="http://localhost:4000/2021/04/01/beginning.html"/>
-    <updated>2021-04-01T00:00:00-04:00</updated>
-    <id>http://localhost:4000/2021/04/01/beginning</id>
-    <content type="html">&lt;p&gt;This book takes you from the straightforward “rails new blog –d=postgrsql” to adding active jobs and sending automated emails; it goes step by step so that you can see gradually the app development, it has more than 500 pages with 18 chapters; it touches the very basics of Ruby in the 4th just in case the reader has no experience with this language however Rails is very intuitive and easy to follow along.&lt;/p&gt;
-
-&lt;p&gt;As you may read the main web app that is built along with this book is a blog where an user can sign-in/ log-in with email and password, can post with “Rich Text” (attach images, modify font, color, size), can edit its own posts, can comment on other’s posts and finally can delete only posts that user has created. Articles are the epicenter of the application.&lt;/p&gt;
-
-&lt;p&gt;It uses the most common Gems in order to get the app up and running, it helps you add the gem to translate the app into different languages (Spanish, Portuguese, etc.), it helps you enable the active storage gem which is used like a cloud storage (comes by default with Rails), explains you the differences between CSS and SCSS, also how to connect JavaScript, what is it for?, action text, Ajax, Action Cable and finally it uploads the app to Heroku (Cloud platform to host your app) in order to grant access anyone in the world.&lt;/p&gt;
-
-&lt;p&gt;It was also the first book I’ve read that contains the whole Action Pack broken down, routes, controllers, views, which means Action Controller, Action View and Action Dispatch respectively in addition the whole request cycle, who are the actors, what is DNS for? And lands all of this with a CD player in a car example, pretty clear for me.&lt;/p&gt;
-
-&lt;p&gt;Notes. ✍🏻&lt;/p&gt;
-
-&lt;p&gt;A framework is a collection of libraries and tools intended to facilitate development. Design with productivity in mind a good framework provides a basic but complete infrastructure on top of which to build an application.
-Why choose Rails? 🛤&lt;/p&gt;
-
-&lt;p&gt;It provides a powerful database abstraction layer called active records, which works with all popular data based systems. It chips with a sensible set of defaults and provides a well-proven, multi-layer system for organizing programs files and concerns.&lt;/p&gt;
-
-&lt;p&gt;Its goal as a framework is to solve 80% of the problems that occur in web development, assuming that the remaining 20% are problems that are unique to the applications domain; you get to focus on just 20% which is what really matters.&lt;/p&gt;
-
-&lt;p&gt;With rails, you can respond to the needs of customers quickly and easily, and rails works well during collaborative development. It has the famous convention over configuration, “don’t repeat yourself” (DRY), the concepts of rapid prototyping and that “you ain’t gonna need it” (YAGNI) Philosophy, closing the gap between customer and programmer.&lt;/p&gt;
-
-&lt;p&gt;Programming is all about making decisions. If you were to write a system from scratch, without the aid of rails, you would have to make a lot of decisions: how to organize your files, what naming conventions to adopt, and how to handle databases access are only a few. Rails lets you start right away by encompassing a set of intelligent decisions about how you program should work and alleviating the
-amount of low-level decisions making you need to do up front. As a result, you can focus on the problems direct trying to solve and get the job done more quickly.&lt;/p&gt;
-
-&lt;p&gt;Although you can manipulate most things in the Rails setup and environment, the more you accept the defaults, the faster you can develop applications and predict how they will work. If you put your files in the right place and name them according to the right conventions, things just work. If you are willing to agree to the defaults, you’re generally have less code to write.&lt;/p&gt;
-
-&lt;p&gt;The more duplication exists in a system, the more room box has to hide.
-Ruby is known for making certain programmatic constructs look more natural by way of what’s called syntactic sugar. Rails has popularized the term synthetic vinegar coma is the exact opposite of syntactic sugar: awkward programmatic constructs are discouraged by making their syntax look sour.&lt;/p&gt;
-
-&lt;p&gt;Rails employs a time honored and well-established architectural pattern that advocates dividing application logic and labor into three distinct categories: the model, view, and controller. In the MVC pattern, the model represents the data, the view represents the user interface, and the controller directs all the action. The real power lies in the combination of the MVC layers.&lt;/p&gt;
-
-&lt;p&gt;Using the pain of maintenance considerably while increasing the level of ability among components.&lt;/p&gt;
-
-&lt;p&gt;Models. in rails, the model layer represents the database. For example, a model called User convention, would map to a table called users. All the rules for data access, associations, validation, calculations and routines that should be executed before and after save, update or destroy operation and nearly encapsulated in get model.&lt;/p&gt;
-
-&lt;p&gt;Controllers. It is the controller’s job to fill with requests coma like processing server variables and formatting data, asking the model for information, and sending information back to the model to be saved in the database. It sets up variables to be used in the view, and then proceeds to render or redirect to another action after processing is complete.&lt;/p&gt;
-
-&lt;p&gt;Controllers typically manage a single area of an application. For example, in a recipe application, you probably have a controller just for managing recipes. Inside the recipes controller, you can define what are called actions. Actions describe what a controller can do. If you want to be able to create, read coma update and delete recipes, you create appropriately named actions in the recipe’s controller.&lt;/p&gt;
-
-&lt;p&gt;When a request comes into a controller, it uses a URL parameter to identify the action to execute; And when it is done, it’s sensory response to the browser. Their response is what you look at next.
-Views. The view layer in the MVC forms the visible part of the application. In rails, views are the templates that (most of the time) contain HTML markup to be rendered in a browser. It’s important to note that views are meant to be free of all but the simplest programming logic. Any direct interaction with the model layer it should be delegated to the controller layer, to keep the view clean and decouple from the applications business logic.&lt;/p&gt;
-
-&lt;p&gt;active_record: a library that handles database abstraction and interaction.&lt;/p&gt;
-
-&lt;p&gt;Action view: a templating system that generates the HTML documents the visitor gets back as a result of a request to a rails application.
-Action controller: a library for manipulating both application flow and the data coming from the database on its way to being displayed in a view. New lane these libraries can be used independently of rails one of another. Together, they form the rails MVC development stack.
-Rails is modular. One of the greatest features of rails is that it was built with modularity in mind from the ground up. Although many developers appreciate the fact that they get a full stack, you may have your own preferences in libraries.&lt;/p&gt;
-
-&lt;p&gt;In the real world, specifications above as we learn how real users interact with our web applications.&lt;/p&gt;
-
-&lt;p&gt;Chapter 3, goes to explain how is the rails architecture distributed, what are the files inside of each folder, how to start writing our first migration, execute it, how to add validations to the model, add more fields to the model, and also, how to rollback a migration in case you make a mistake or you did not add something important, it is always reversible.&lt;/p&gt;
-
-&lt;p&gt;Chapter 4, explains why Ruby is dynamic, how you can use the IRB prompt, what are the Ruby data types such as string, numbers, symbols, arrays and hashes. what are variables, what are they for, and they need do not specify a data type for the variable or the find it in your code before you use it. What are the best practices for naming variables, in this case long and descriptive. Blocks and iterators, comments, control structures, methods. And finally, a brief introduction to object-oriented programming, objects and classes.&lt;/p&gt;
-
-&lt;p&gt;A key feature of active record which maps table to classes, table rows to object, and table columns to object attributes. This practice is commonly known as object relational mapping (ORM).&lt;/p&gt;
-
-&lt;p&gt;rails db:system:change -Which makes it easy to switch databases.
-Active Record provides the link between these classes and your tables, allowing you to work with what look like regular objects, which, in turn, can be persisted to the database. This frees you from having to write low level SQL to talk to the database.&lt;/p&gt;
-
-&lt;p&gt;Object oriented programming is all about objects. You create a class that encapsulates all the logic required to create an object, along with its properties and attributes, and use the class to produce new objects, each of which is in unique instance, distinct from other objects of the same class. That means sound a little abstract (and with good reason abstraction, after all, is the name of the game) but if it helps you can think of a class as being an object factory.&lt;/p&gt;
-
-&lt;p&gt;Classes are used to create objects, and objects have attributes. Every object has a unique set of attributes different from other objects of the same class.&lt;/p&gt;
-
-&lt;p&gt;A return of nil always represents nothing.&lt;/p&gt;
-
-&lt;p&gt;The new constructor creates a new object, but it is your responsibility to save it. If you forget to save the object, it will never be written to the database.&lt;/p&gt;
-
-&lt;p&gt;To summarize, when you want to create a new object and save it manually, use the new constructor; When you want to create and save in one operation, use create.&lt;/p&gt;
-
-&lt;p&gt;update_attributes is an instance variable if you want to update attributes in just one operation.&lt;/p&gt;
-
-&lt;p&gt;The following call works for deleting or what’s inside the array Article.delete([1, 2, 3])&lt;/p&gt;
-
-&lt;p&gt;The primary way in which you enhance models is by adding methods to them. This is referred to as adding domain logic. With active record, all the logic for a particular table is contained in one place that model. This is why the model is set to encapsulate all the domain logic. This logic includes access rules, validations, relationships, and well, just about anything else you feel like adding.&lt;/p&gt;
-
-&lt;p&gt;user.build_profile(attributes={})  Returns a new profile object that has been instantiated with attributes and linked to user through a foreign key but has not yet been saved.&lt;/p&gt;
-
-&lt;p&gt;user.create_profile(attributes={})  Returns a new profile object that has been instantiated with attributes and linked to user through a foreign key that has already been saved.&lt;/p&gt;
-
-&lt;p&gt;Their rule of thumb is that belongs_to declaration always go in the class with the foreign key&lt;/p&gt;
-
-&lt;p&gt;rails db:setup Command recreates the database and adds the seat data as you may expect.&lt;/p&gt;
-
-&lt;p&gt;Whenever you want to add a validation error to the list of errors, you just type errors.add(column_name, error_message).&lt;/p&gt;
-
-&lt;div&gt;&lt;img src=&quot;/../graphics/projects/beginning_rails_6.jpeg&quot; alt=&quot;beginning_rails&quot; style=&quot;width:300px;&quot; /&gt;&lt;/div&gt;
-
-&lt;p&gt;Action Controller. Orchestrate your applications flow. Every time a user requests a page, submits a form, or clicks a link, that request is handled in one way or another by a controller.&lt;/p&gt;
-
-&lt;p&gt;A typical controller is most often a collection of actions that relates to a specific area of concern. For example, consider the blog application you have been building in the previous chapters. The controller that manages articles has the class name articles controller and has action methods for listing, creating, updating, reading, and deleting articles.&lt;/p&gt;
-
-&lt;p&gt;The controller looks for a view whose name matches they requested name action.&lt;/p&gt;
-
-&lt;p&gt;Action View. this library is another important part of action pack. Given that controllers are responsible for handling the request and issuing a response, views are responsible for rendering the output of a response in a way a browser or any other user agent can understand. The primary mechanism by which they do is through shared variables. All instance variables that you may see in a view comes from the controller; look at the view is not handling any logic to fetch the list of these articles.
-Action Pack. routing salt this problem by decoupling the URL from the underlying program implementation.&lt;/p&gt;
-
-&lt;p&gt;Request cycle&lt;/p&gt;
-
-&lt;p&gt;Then type request to response process is called the action pack request cycle. They request cycle consists of the following steps:
-Rails receives a request from the outside world (usually a browser).
-routing picks apart the request to determine the controller and action to invoke.&lt;/p&gt;
-
-&lt;p&gt;A new controller object is instantiated, and an action method is called.
-The controller interacts with the model (usually performing a CRUD operation in a database with an Active Record model, but not necessarily).
-A response is sent back to the browser, in the form of either a render or a red direct.&lt;/p&gt;
-
-&lt;p&gt;HTTP verbs&lt;/p&gt;
-
-&lt;p&gt;The HTTP protocol defines several request methods, the most popular of which art GET and POST. Both our method for requesting a webpage; The differences in how the request is sent. GET is the simpler of the two period it includes all the information about the request as a part of the URL. POST sends information in visibly, which is to say as a part of the request header and not part of the URL so you cannot type a post request into your browser’s locations bar.&lt;/p&gt;
-
-&lt;p&gt;How do you know when to use each? The best way to think of this is to consider GET high as read method. It should never do anything destructive, such as modifying a database record. POST, on the other hand, can be thought of as a writer method. When you need to create data, use POST. PATCH is used when you need to update a record partially, for instance, only changing your e-mail address. PUT is used to update a record completely.&lt;/p&gt;
-
-&lt;p&gt;Most of the time, our controllers handle interactions with a collection of things, so we reflected by using a plural name.&lt;/p&gt;
-
-&lt;p&gt;Comments are interesting because they are a little different from our other models so far. Comments depend on a particular article; They never exist on their own because they are conceptually meaningless if they are not tight to an article.&lt;/p&gt;
-
-&lt;p&gt;Remember that you always have the article_id in your parameters because it is always included in your nested name routes.
-Also notice how you find they assign comment you do so using @article.comments.&lt;/p&gt;
-
-&lt;p&gt;HTTP is a stateless so how can the application remember you are logged in if HTTP is a stateless? The answer is that you fake state with session object. Example: session[:account_id] = @account.id.&lt;/p&gt;
-
-&lt;p&gt;Notice that you define session as a resource and not resources, because you never deal a set of sessions at once.&lt;/p&gt;
-
-&lt;p&gt;The rule of thumb is that whenever you have data that are provided by the user, you cannot trust them blindly . You need to escape it. This includes model attributes as well ask parameters. Fortunately, railes escapes all rendered as strings for you.&lt;/p&gt;
-
-&lt;p&gt;html_safe method skips the HTML escaping process.&lt;/p&gt;
-
-&lt;p&gt;simple_fromat method Convert text to HTML using simple formatting rules.
-The chapters of Active Storage, how to implement Ajax (was implemented for creating and deleting comments, interacted with the DOM with a .js file where all the code for doing this was placed) and sending and receiving email (Action Mailer and Action Mailbox) is difficult to describe but overall those chapters are pretty neat, I’d say more than https://guides.rubyonrails.org/.&lt;/p&gt;
-
-&lt;p&gt;Active Job chapter covers the configuration, the creation, the exception handling, retry, discard and finally it has a benchmark exercise where the perform_later method on the mail delivery improved significantly the app performance.&lt;/p&gt;
-
-&lt;p&gt;This is the first time I faced Active Model, before this one I didn’t know it existed, the book take that module to build an EmailAFriend without the need to create the whole model as Article for example and with all the benefits a model implies, Active Record, callbacks, validations, attributes and so on.&lt;/p&gt;
-
-&lt;p&gt;The Action Cable chapter is short, explains how HTTP is the normal way the web works, then how web sockets were introduced as a bidirectional server communication and after that it just lays out the four main concepts as connections, channels, streams, broadcasting, subscription and so on, it configures it and apply the broadcast to Article so every time one article is published it will appear at the top without refreshing and start the cycle from the beginning.&lt;/p&gt;
-
-&lt;p&gt;The last 3 chapters covers testing, internationalization and the upload to Heroku, the first on them emphasize the importance of always test after each small change, and why the didn’t apply test to follow along, they bring up the technical debt, refactoring. what tools are outside to automate the testing like Unit::Test, fixtures, validations and lastly the 4 types of tests, for models, for controllers, mailers and system, it doesn’t go deep into the weeds, it only explain what they are.&lt;/p&gt;
 </content>
     <author>
       <name>dom lizarraga</name>

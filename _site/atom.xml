@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-07-14T13:12:24-04:00</updated>
+  <updated>2025-07-25T18:58:14-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -15,7 +15,7 @@
   <entry>
     <title>Good enough testing workshop | notes</title>
     <link href="http://localhost:4000/2025/06/28/good-enough-testing.html"/>
-    <updated>2025-06-28T00:00:00-04:00</updated>
+    <updated>2025-06-28T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/06/28/good-enough-testing</id>
     <content type="html">&lt;p&gt;Recently, I attended a workshop by Lucian Ghinda called &lt;a href=&quot;https://goodenoughtesting.com/&quot;&gt;Good Enough Testing&lt;/a&gt;. The workshop was a great experience, and I learned a lot about testing in Ruby on Rails.&lt;/p&gt;
 
@@ -59,7 +59,7 @@ State transition&lt;/p&gt;
   <entry>
     <title>Rails code guide through with Kasper Timm Hansen | notes</title>
     <link href="http://localhost:4000/2025/01/31/rails-code-guide-through.html"/>
-    <updated>2025-01-31T00:00:00-05:00</updated>
+    <updated>2025-01-31T00:00:00-08:00</updated>
     <id>http://localhost:4000/2025/01/31/rails-code-guide-through</id>
     <content type="html">&lt;p&gt;Next session with Kasper &lt;a href=&quot;https://lu.ma/8a8clh9b&quot; target=&quot;_blank&quot;&gt;(luma link)&lt;/a&gt;&lt;/p&gt;
 
@@ -354,7 +354,7 @@ This method handles inserting/updating the record.&lt;/p&gt;
   <entry>
     <title>UML inventor interview (Grady Booch) | notes</title>
     <link href="http://localhost:4000/2024/12/15/uml-inventor.html"/>
-    <updated>2024-12-15T00:00:00-05:00</updated>
+    <updated>2024-12-15T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/12/15/uml-inventor</id>
     <content type="html">&lt;p&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=u7WaC429YcU&amp;amp;t=1144s&quot;&gt;Full interview&lt;/a&gt;&lt;/p&gt;
 
@@ -457,7 +457,7 @@ The perfect storm for AI was having Andrew NG discovering that the matrix multip
   <entry>
     <title>Intercom Off Script series | notes</title>
     <link href="http://localhost:4000/2024/10/12/intercom-off-script.html"/>
-    <updated>2024-10-12T00:00:00-04:00</updated>
+    <updated>2024-10-12T00:00:00-07:00</updated>
     <id>http://localhost:4000/2024/10/12/intercom-off-script</id>
     <content type="html">&lt;p&gt;Here I wrote down some notes after watcihng the Intercom Off-script series about how they are facing the AI age and how the see it &lt;a href=&quot;https://www.youtube.com/watch?v=Gcj7mVY3fJs&amp;amp;list=PLlCIldMZCaFppymtNp4dUWmlkgyCbGEHh&quot;&gt;Youtube playlist&lt;/a&gt;&lt;/p&gt;
 
@@ -550,7 +550,7 @@ So in order to increase the quality of your customer service at the internet sca
   <entry>
     <title>Stimulus controller - life cycle</title>
     <link href="http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html"/>
-    <updated>2024-03-12T00:00:00-04:00</updated>
+    <updated>2024-03-12T00:00:00-07:00</updated>
     <id>http://localhost:4000/2024/03/12/stimulus-controller-life-cycle</id>
     <content type="html">
 </content>
@@ -563,7 +563,7 @@ So in order to increase the quality of your customer service at the internet sca
   <entry>
     <title>Refactoring and testing a long method in Ruby on Rails</title>
     <link href="http://localhost:4000/2024/02/17/refactoring-and-testing.html"/>
-    <updated>2024-02-17T00:00:00-05:00</updated>
+    <updated>2024-02-17T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/17/refactoring-and-testing</id>
     <content type="html">&lt;p&gt;Recently, we had the opportunity to refactor a lengthy method in a Ruby on Rails project. The method had multiple conditional statements (around 6) that checked various aspects of a project, such as whether it was discarded, on time, accepting entries, and more. Refactoring this method required careful planning and testing to ensure that the functionality remained intact while improving the code’s maintainability and readability.&lt;/p&gt;
 
@@ -625,7 +625,7 @@ So in order to increase the quality of your customer service at the internet sca
   <entry>
     <title>What&apos;s the difference behing button_to link_to form_with</title>
     <link href="http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html"/>
-    <updated>2024-02-14T00:00:00-05:00</updated>
+    <updated>2024-02-14T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Like model and how I got to find these differences very particular.&lt;/p&gt;
 
@@ -640,7 +640,7 @@ So in order to increase the quality of your customer service at the internet sca
   <entry>
     <title>Follow as Polymorphic</title>
     <link href="http://localhost:4000/2024/02/07/follow-as-polymorphic.html"/>
-    <updated>2024-02-07T00:00:00-05:00</updated>
+    <updated>2024-02-07T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/02/07/follow-as-polymorphic</id>
     <content type="html">&lt;p&gt;In this blog post I’ll share my findings when developing a Follow model (User can follow another User, Post, Comapny) with a polymorphic property.&lt;/p&gt;
 
@@ -749,7 +749,7 @@ So in order to increase the quality of your customer service at the internet sca
   <entry>
     <title>Beginner guide to Docker 🐳</title>
     <link href="http://localhost:4000/2024/01/28/beginner-guide-docker.html"/>
-    <updated>2024-01-28T00:00:00-05:00</updated>
+    <updated>2024-01-28T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/28/beginner-guide-docker</id>
     <content type="html">&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </content>
@@ -762,7 +762,7 @@ So in order to increase the quality of your customer service at the internet sca
   <entry>
     <title>Action policy gem + Cache</title>
     <link href="http://localhost:4000/2024/01/26/action-policy-cache.html"/>
-    <updated>2024-01-26T00:00:00-05:00</updated>
+    <updated>2024-01-26T00:00:00-08:00</updated>
     <id>http://localhost:4000/2024/01/26/action-policy-cache</id>
     <content type="html">&lt;p&gt;Recently I worked with an app that was using Action Policy, I noticed that those policies were being called almost everywhere! So I started a small research and found that there was a section for cache authorizations.&lt;/p&gt;
 

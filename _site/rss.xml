@@ -47,7 +47,7 @@ Bounday value analysis
 Decision table
 State transition&lt;/p&gt;
 </description>
-      <pubDate>Sat, 28 Jun 2025 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 28 Jun 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/06/28/good-enough-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/06/28/good-enough-testing.html</guid>
     </item>
@@ -339,7 +339,7 @@ This method handles inserting/updating the record.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 </description>
-      <pubDate>Fri, 31 Jan 2025 00:00:00 -0500</pubDate>
+      <pubDate>Fri, 31 Jan 2025 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2025/01/31/rails-code-guide-through.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/01/31/rails-code-guide-through.html</guid>
     </item>
@@ -439,7 +439,7 @@ The perfect storm for AI was having Andrew NG discovering that the matrix multip
 
 &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/Software-Architecture-Perspectives-Emerging-Discipline/dp/0131829572&quot;&gt;Books recommendations&lt;/a&gt;&lt;/p&gt;
 </description>
-      <pubDate>Sun, 15 Dec 2024 00:00:00 -0500</pubDate>
+      <pubDate>Sun, 15 Dec 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/12/15/uml-inventor.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/12/15/uml-inventor.html</guid>
     </item>
@@ -529,7 +529,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;Cannibalize themselves if they want to survive and Netflix did with their shipping DVD business before streaming.&lt;/p&gt;
 
 </description>
-      <pubDate>Sat, 12 Oct 2024 00:00:00 -0400</pubDate>
+      <pubDate>Sat, 12 Oct 2024 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2024/10/12/intercom-off-script.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/10/12/intercom-off-script.html</guid>
     </item>
@@ -539,7 +539,7 @@ So in order to increase the quality of your customer service at the internet sca
       <dc:creator>dom lizarraga</dc:creator>
       <description>
 </description>
-      <pubDate>Tue, 12 Mar 2024 00:00:00 -0400</pubDate>
+      <pubDate>Tue, 12 Mar 2024 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/03/12/stimulus-controller-life-cycle.html</guid>
     </item>
@@ -598,7 +598,7 @@ So in order to increase the quality of your customer service at the internet sca
   &lt;li&gt;Enhancing performance and maintainability to ensure the code could be easily modified in the future.&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-      <pubDate>Sat, 17 Feb 2024 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 17 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/17/refactoring-and-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/17/refactoring-and-testing.html</guid>
     </item>
@@ -610,7 +610,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;remote: true&lt;/p&gt;
 </description>
-      <pubDate>Wed, 14 Feb 2024 00:00:00 -0500</pubDate>
+      <pubDate>Wed, 14 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/14/difference-between-buttonto-linkto-formwith.html</guid>
     </item>
@@ -716,7 +716,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;We’ve explored creating a follower system in Rails, showcasing the flexibility of polymorphic associations and the importance of validations. This guide provides a solid foundation for adding social functionalities to your Rails applications, ensuring a robust and scalable feature set.&lt;/p&gt;
 </description>
-      <pubDate>Wed, 07 Feb 2024 00:00:00 -0500</pubDate>
+      <pubDate>Wed, 07 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/07/follow-as-polymorphic.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/07/follow-as-polymorphic.html</guid>
     </item>
@@ -726,7 +726,7 @@ So in order to increase the quality of your customer service at the internet sca
       <dc:creator>dom lizarraga</dc:creator>
       <description>&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 28 Jan 2024 00:00:00 -0500</pubDate>
+      <pubDate>Sun, 28 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/28/beginner-guide-docker.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/28/beginner-guide-docker.html</guid>
     </item>
@@ -740,7 +740,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 &lt;p&gt;Here are the official (docs)[https://actionpolicy.evilmartians.io/#/caching] for combinig action policy + cache.&lt;/p&gt;
 </description>
-      <pubDate>Fri, 26 Jan 2024 00:00:00 -0500</pubDate>
+      <pubDate>Fri, 26 Jan 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/01/26/action-policy-cache.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/01/26/action-policy-cache.html</guid>
     </item>
