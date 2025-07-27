@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-07-26T22:31:21-07:00</updated>
+  <updated>2025-07-27T15:17:21-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -54,12 +54,12 @@
 &lt;p&gt;Here are the notes, examples, and quotes that stood out to me while reading.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Installing RSpec.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Getting started with RSpec.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;From writing specs to running them.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;The RSpec way.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;Building an App With RSpec.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;Starting On the Outside: Acceptance Specs.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;Testing in isolation: Unit specs.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-6&quot;&gt;Getting real: Integration specs.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -846,7 +846,9 @@ Every behavior you specify in a test is another point of coupling between your t
 
 &lt;p&gt;Another key place to show restraint is the level of detail in your test assertions. Rather than asserting that an error message exactly matches a particular string (“Could not find user with ID 123”), consider using substrings to match just the key parts (“Could not find user”). Likewise, don’t specify the exact order of a collection unless the order is important.&lt;/p&gt;
 
-&lt;h3 id=&quot;chapter-4&quot;&gt;Part II — Building an App With RSpec.&lt;/h3&gt;
+&lt;h3 id=&quot;part-ii--building-an-app-with-rspec&quot;&gt;Part II — Building an app with RSpec.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-4&quot;&gt;Part II — Chapter 4. Building an App With RSpec.&lt;/h3&gt;
 
 &lt;p&gt;In this chapter authors decide to build an expense tracker app where users can add/search expenses.&lt;/p&gt;
 
@@ -1107,7 +1109,7 @@ Every behavior you specify in a test is another point of coupling between your t
 &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;chapter-5&quot;&gt;Part II — Testing in isolation: Unit specs.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-5&quot;&gt;Part II — Chapter 5. Testing in isolation: Unit specs.&lt;/h3&gt;
 
 &lt;p&gt;In this chapter we’re going to be picking up where we left off: the HTTP routing layer.&lt;/p&gt;
 
@@ -1117,11 +1119,31 @@ Every behavior you specify in a test is another point of coupling between your t
 
 &lt;p&gt;With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface.&lt;/p&gt;
 
-&lt;h3 id=&quot;chapter-6&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-6&quot;&gt;Part II — Chapter 6. Getting real. Integration specs.&lt;/h3&gt;
 
-&lt;h3 id=&quot;chapter-7&quot;&gt;Part IV — RSpec Expectations.&lt;/h3&gt;
+&lt;h3 id=&quot;part-iii--rspec-core&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
 
-&lt;h3 id=&quot;chapter-8&quot;&gt;Part V — RSpec Mocks.&lt;/h3&gt;
+&lt;h3 id=&quot;chapter-7&quot;&gt;Part III — Chapter 7. Structuring code examples.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-8&quot;&gt;Part III — Chapter 8. Slicing and dicing specs with metadata.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-9&quot;&gt;Part III — Chapter 9. Configuring RSpec.&lt;/h3&gt;
+
+&lt;h3 id=&quot;part-iv--rspec-expectations&quot;&gt;Part IV — RSpec expectations.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-10&quot;&gt;Part IV — Chapter 10. Exploring RSpec expectations.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-11&quot;&gt;Part IV — Chapter 11. Matchers included in RSpec expectations.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-12&quot;&gt;Part IV — Chapter 12. Creating custom matchers.&lt;/h3&gt;
+
+&lt;h3 id=&quot;part-v--rspec-mocks&quot;&gt;Part V — RSpec mocks.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-13&quot;&gt;Part V — Chapter 13. Understanding test doubles.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-14&quot;&gt;Part V — Chapter 14. Customizing test doubles.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-15&quot;&gt;Part V — Chapter 15. Using test doubles effectively.&lt;/h3&gt;
 
 </content>
     <author>

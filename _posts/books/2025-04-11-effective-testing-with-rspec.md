@@ -18,12 +18,12 @@ I had practiced testing before, but I felt it was time to level up and get it cl
 Here are the notes, examples, and quotes that stood out to me while reading.
 
 
-1. [Installing RSpec.](#chapter-1)
+1. [Getting started with RSpec.](#chapter-1)
 2. [From writing specs to running them.](#chapter-2)
 3. [The RSpec way.](#chapter-3)
-4. [Building an App With RSpec.](#chapter-4)
+4. [Starting On the Outside: Acceptance Specs.](#chapter-4)
 5. [Testing in isolation: Unit specs.](#chapter-5)
-5. [pending.](#chapter-5)
+6. [Getting real: Integration specs.](#chapter-6)
 5. [pending.](#chapter-5)
 5. [pending.](#chapter-5)
 
@@ -739,7 +739,9 @@ If you do need to drive a UI from automated tests, try to test in terms of your 
 
 Another key place to show restraint is the level of detail in your test assertions. Rather than asserting that an error message exactly matches a particular string (“Could not find user with ID 123”), consider using substrings to match just the key parts (“Could not find user”). Likewise, don’t specify the exact order of a collection unless the order is important. 
 
-### Part II — Building an App With RSpec. {#chapter-4}
+### Part II — Building an app with RSpec.
+
+### Part II — Chapter 4. Building an App With RSpec. {#chapter-4}
 
 In this chapter authors decide to build an expense tracker app where users can add/search expenses.
 
@@ -1015,7 +1017,7 @@ In another terminal you can try out your server with the following command:
 [] # this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅
 ``` 
 
-### Part II — Testing in isolation: Unit specs. {#chapter-5}
+### Part II — Chapter 5. Testing in isolation: Unit specs. {#chapter-5}
 
 In this chapter we're going to be picking up where we left off: the HTTP routing layer.
 
@@ -1025,11 +1027,33 @@ In this book, we’ll use unit spec to refer to the fastest, most isolated set o
 
 With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface. 
 
-### Part III — RSpec Core. {#chapter-6}
+### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
 
-### Part IV — RSpec Expectations. {#chapter-7}
+### Part III — RSpec Core.
 
-### Part V — RSpec Mocks. {#chapter-8}
+### Part III — Chapter 7. Structuring code examples. {#chapter-7}
+
+### Part III — Chapter 8. Slicing and dicing specs with metadata. {#chapter-8}
+
+### Part III — Chapter 9. Configuring RSpec. {#chapter-9}
+
+### Part IV — RSpec expectations.
+
+### Part IV — Chapter 10. Exploring RSpec expectations. {#chapter-10}
+
+### Part IV — Chapter 11. Matchers included in RSpec expectations. {#chapter-11}
+
+### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
+
+### Part V — RSpec mocks.
+
+### Part V — Chapter 13. Understanding test doubles. {#chapter-13}
+
+### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
+
+### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
+
+
 
 
 
