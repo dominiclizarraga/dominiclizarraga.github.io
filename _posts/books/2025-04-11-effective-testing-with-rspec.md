@@ -747,14 +747,16 @@ It will use [Sinatra](https://sinatrarb.com/) as router and not rails since we d
 
 We need a small JSON APIs and Sinatra will do the job.
 
-Acceptance specs => which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow)
+<b>Acceptance specs => which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow.)</b>
 
-Also, we used a outside-in development which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.
+Also, we used a "outside-in development" which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.
 
 Create a directory and add `bundler`
 
 ```ruby
 # 04-acceptance-specs/
+
+# add ENV['RACK_ENV'] = 'test' to spec_helper.rb
 
 # add bundler as package manager
 `bundle init`
@@ -769,12 +771,11 @@ gem 'sinatra' # implement the web application
 `.rspec` # contains rspec command line flags
 `spec/spec_helper.rb` # contains configuration options
 
-# add ENV['RACK_ENV'] = 'test' to spec_helper.rb
 ```
 
 It’s easy to feel overwhelmed as we’re deciding what to test first. Where do we start?
 
-What’s the <strong>core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.</strong>
+What’s the <b>core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.</b>
 
 We’re only going to use two of the most basic features of HTTP in these examples:
 • A `GET` request reads data from the app.
@@ -1023,6 +1024,7 @@ Unit tests typically involve isolating a class or method from the rest of the co
 In this book, we’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.
 
 With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface. 
+
 ### Part III — RSpec Core. {#chapter-6}
 
 ### Part IV — RSpec Expectations. {#chapter-7}

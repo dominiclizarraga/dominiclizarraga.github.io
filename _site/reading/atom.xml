@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-07-25T18:58:14-07:00</updated>
+  <updated>2025-07-26T22:31:21-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -27,6 +27,12 @@
 &lt;h3 id=&quot;chapter-1&quot;&gt;Pending.&lt;/h3&gt;
 
 &lt;h3 id=&quot;chapter-2&quot;&gt;Pending.&lt;/h3&gt;
+
+&lt;p&gt;https://thoughtbot.com/upcase/rails-testing-exercises&lt;/p&gt;
+
+&lt;p&gt;https://thoughtbot.com/upcase/fundamentals-of-tdd&lt;/p&gt;
+
+&lt;p&gt;https://thoughtbot.com/upcase/test-driven-rails&lt;/p&gt;
 </content>
     <author>
       <name>dom lizarraga</name>
@@ -848,13 +854,15 @@ Every behavior you specify in a test is another point of coupling between your t
 
 &lt;p&gt;We need a small JSON APIs and Sinatra will do the job.&lt;/p&gt;
 
-&lt;p&gt;Acceptance specs =&amp;gt; which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow)&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Acceptance specs =&amp;gt; which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow.)&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;Also, we used a outside-in development which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.&lt;/p&gt;
+&lt;p&gt;Also, we used a “outside-in development” which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.&lt;/p&gt;
 
 &lt;p&gt;Create a directory and add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundler&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# add ENV[&apos;RACK_ENV&apos;] = &apos;test&apos; to spec_helper.rb&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;# add bundler as package manager&lt;/span&gt;
 &lt;span class=&quot;sb&quot;&gt;`bundle init`&lt;/span&gt;
@@ -869,12 +877,11 @@ Every behavior you specify in a test is another point of coupling between your t
 &lt;span class=&quot;sb&quot;&gt;`.rspec`&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# contains rspec command line flags&lt;/span&gt;
 &lt;span class=&quot;sb&quot;&gt;`spec/spec_helper.rb`&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# contains configuration options&lt;/span&gt;
 
-&lt;span class=&quot;c1&quot;&gt;# add ENV[&apos;RACK_ENV&apos;] = &apos;test&apos; to spec_helper.rb&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;It’s easy to feel overwhelmed as we’re deciding what to test first. Where do we start?&lt;/p&gt;
 
-&lt;p&gt;What’s the &lt;strong&gt;core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;What’s the &lt;b&gt;core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;We’re only going to use two of the most basic features of HTTP in these examples:
 • A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET&lt;/code&gt; request reads data from the app.
@@ -1109,6 +1116,7 @@ Every behavior you specify in a test is another point of coupling between your t
 &lt;p&gt;In this book, we’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.&lt;/p&gt;
 
 &lt;p&gt;With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface.&lt;/p&gt;
+
 &lt;h3 id=&quot;chapter-6&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
 
 &lt;h3 id=&quot;chapter-7&quot;&gt;Part IV — RSpec Expectations.&lt;/h3&gt;
