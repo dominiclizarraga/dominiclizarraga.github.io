@@ -1025,7 +1025,13 @@ Unit tests typically involve isolating a class or method from the rest of the co
 
 In this book, we’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.
 
-With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface. 
+With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface.
+
+Your tests for any particular layer—from customer-facing code down to low-level model classes—should drive that layer’s public API. <b>You’ll find yourself making more careful decisions about what does or doesn’t go into the API</b>
+
+The behavior we want to see is - what happens when an API call succeeds and when it fails.
+
+<div style="text-align: center;">Unit tests are great for test all the conditional branches and edge cases very fast on the other hand if we do it with acceptance/integration would be too inefficient.</div>
 
 ### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
 

@@ -1113,6 +1113,8 @@ Every behavior you specify in a test is another point of coupling between your t
 
 &lt;p&gt;With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface.&lt;/p&gt;
 
+&lt;p&gt;Your tests for any particular layer—from customer-facing code down to low-level model classes—should drive that layer’s public API. &lt;b&gt;You’ll find yourself making more careful decisions about what does or doesn’t go into the API&lt;/b&gt;&lt;/p&gt;
+
 &lt;h3 id=&quot;chapter-6&quot;&gt;Part II — Chapter 6. Getting real. Integration specs.&lt;/h3&gt;
 
 &lt;h3 id=&quot;part-iii--rspec-core&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
