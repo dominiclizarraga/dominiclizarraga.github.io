@@ -1112,10 +1112,6 @@ As with the acceptance specs, you’ll be using `Rack::Test` to route HTTP reque
 
 <b>The seam between layers is where integration bugs hide. Using a simple value object like a `RecordResult` or `Struct` between layers makes it easier to isolate code and trust your tests.</b> <a href="https://www.destroyallsoftware.com/talks/boundaries" target="_blank">Article related to catching bugs between layers.</a>
 
-
-the whole point of the Ledger test double
-is that it will return a canned success or failure response
-
 🔦 If you feel a bit lost here is a summary of the 3 files we have written in chapter 5. 🔎
 
 `api.rb`: Defines a thin HTTP API (Sinatra app). It’s the boundary/interface between the outside world and your app logic.
@@ -1152,9 +1148,141 @@ You’re using an `instance_double` of `Ledger` to isolate the API layer and che
 
 `initialize(ledger:)`: Adds dependency injection so the API can be wired up with either real objects (in end-to-end tests) or test doubles (in unit tests).
 
+```ruby
+# 04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb
 
+require_relative '../../app/api'
+require 'rack/test'
 
+module ExpenseTracker
+  RecordResult = Struct.new(:success?, :expense_id, :error_message)
 
+  RSpec.describe API do
+    include Rack::Test::Methods
+
+    def app
+      API.new(ledger: ledger)
+    end
+
+    let(:ledger) { instance_double('ExpenseTracker::Ledger') }
+
+    describe 'POST /expenses' do
+      context 'when the expense is successfully recorded' do
+        it 'returns the expense id' do
+          expense = { 'some' => 'data' }
+
+          allow(ledger).to receive(:record)
+                       .with(expense)
+                       .and_return(RecordResult.new(true, 417, nil))
+
+          post '/expenses', JSON.generate(expense)
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to include('expense_id' => 417)
+        end
+
+        it 'responds with a 200 (OK)'
+      end
+
+      context 'when the expense fails validation' do
+        it 'returns an error message'
+        it 'responds with a 422 (Unprocessable entity)'
+      end
+    end
+  end
+end
+```
+The `allow` method configures the test double's behavior: when the calle in this case the `API` class invokes `.record` the double will return a new `RecordResult` instance.
+
+Also, please notice that the `expense` hash doesn't contain real data, this is ok since the whole point of the Ledger test double is that it will return a canned success or failure response.
+
+If we run the test at this point we get the following:
+
+```ruby
+Failures:
+
+  1) ExpenseTracker::API POST /expenses when the expense is successfully recorded returns the expense id
+     Failure/Error: expect(parsed).to include('expense_id' => 417)
+     
+       expected {"expense_id" => 42} to include {"expense_id" => 417}
+       Diff:
+       @@ -1 +1 @@
+       -"expense_id" => 417,
+       +"expense_id" => 42,
+       
+     # ./04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb:27:in 'block (4 levels) in <module:ExpenseTracker>'
+
+Top 4 slowest examples (0.03167 seconds, 91.4% of total time):
+...
+```
+
+Let's handle success and failure of the request in the `api.rb`
+
+```ruby
+require_relative '../../app/api'
+require 'rack/test'
+
+module ExpenseTracker
+  RecordResult = Struct.new(:success?, :expense_id, :error_message)
+
+  RSpec.describe API do
+    include Rack::Test::Methods
+
+    def app
+      API.new(ledger: ledger)
+    end
+
+    let(:ledger) { instance_double('ExpenseTracker::Ledger') }
+
+    
+    describe 'POST /expenses' do
+      context 'when the expense is successfully recorded' do
+        let(:expense) { { 'some' => 'data' } }
+        
+        before do
+          allow(ledger).to receive(:record)
+                        .with(expense)
+                        .and_return(RecordResult.new(true, 417, nil))
+        end
+
+        it 'returns the expense id' do
+          post '/expenses', JSON.generate(expense)
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to include('expense_id' => 417)
+        end
+
+        it 'responds with a 200 (OK)' do
+          post '/expenses', JSON.generate(expense)
+          expect(last_response.status).to eq(200)
+        end
+      end
+
+      context 'when the expense fails validation' do
+        let(:expense) { { 'some' => 'data' } }
+        
+        before do
+          allow(ledger).to receive(:record)
+                        .with(expense)
+                        .and_return(RecordResult.new(false, 417, "Expense incomplete"))
+        end
+
+        it 'returns an error message' do
+          post '/expenses', JSON.generate(expense)
+
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to include('error' => 'Expense incomplete')
+        end
+
+        it 'responds with a 422 (Unprocessable entity)' do
+          post '/expenses', JSON.generate(expense)
+          expect(last_response.status).to eq(422)
+        end
+      end
+    end
+  end
+end
+```
+
+These refactored specs report "just the facts" of the expected behavior.
 
 
 As a recap If you ever need to see the full backtrace, you still can; just pass the --backtrace or -b flag to RSpec.
