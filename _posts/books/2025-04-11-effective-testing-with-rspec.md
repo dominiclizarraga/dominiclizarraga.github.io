@@ -372,7 +372,7 @@ it "uses the same object within one example" do
   expect(sandwich.toppings).to include("cheese")  # Cheese is still there
 end
 ```
-A recap of Chapter 1: We explored the `describe` block, which is called a group of examples, and the `it` block, which is called an example (or a test case in some other testing frameworks). We covered the expect keyword. We also looked at the Arrange-Act-Assert pattern. We thoroughly read through test failures and what they mean.
+A recap of Chapter 1: We explored the `describe` block, which is called on a group of examples, and the `it` block, which is called an example (or a test case in some other testing frameworks). We covered the `expect` keyword. We also looked at the Arrange-Act-Assert pattern. We thoroughly read through test failures and what they mean.
 
 We understood that testing serves two purposes: documenting what the code should do, and checking that the code does what it’s supposed to do. We explored how to negate an expectation, and how to test collections such as arrays and hashes. Finally, we saw three different ways of reducing code in tests: `hooks`, Ruby helper methods, and the `let` construct.
 
@@ -1015,24 +1015,153 @@ In another terminal you can try out your server with the following command:
 ```ruby
 ➜  rspec-book git:(master) ✗ curl localhost:9292/expenses/2017-06-10 -w "\n"
 [] # this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅
+
+To recap of this chapter we began a project about tracking expenses that will register and search them, with only 2 actions. We set up `bundler` since we need more libraries than RSpec, such as Sinatra, SQlite, Rack, WEBrick, etc.
+
+We started with an outside-in approach where we defined the outer layer of the app in this case the `POST` endpoint. We were encouraged to think deeply about the public API and what type of data we wanted back as a response. Then we started building the classes, and we made progress by clearing one error at a time. We used two new matchers `include` and `a_kind_of` and lastly we refactored an method for persisting a Hash of expenses and booted up the web server with `bundle exec rackup`. It's important to mention that all these requests are simulated.
 ``` 
 
 ### Part II — Chapter 5. Testing in isolation: Unit specs. {#chapter-5}
 
 In this chapter we're going to be picking up where we left off: the HTTP routing layer.
 
-Unit tests typically involve isolating a class or method from the rest of the code. The result is faster tests and easier-tofind errors.
+Unit tests typically involve isolating a class or method from the rest of the code. The result is faster tests and easier-to-find errors.
 
-In this book, we’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.
+We’ll use unit spec to refer to the fastest, most isolated set of tests for a particular project.
 
-With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface.
+With the unit tests in this chapter, you won’t be calling methods on the API class directly. Instead, you’ll still be simulating HTTP requests through the Rack::Test interface. <a href="https://rhnh.net/2012/12/20/how-i-test-rails-applications/" target="_blank">Xavier Shay article about how he tests rails apps</a>
 
-Your tests for any particular layer—from customer-facing code down to low-level model classes—should drive that layer’s public API. <b>You’ll find yourself making more careful decisions about what does or doesn’t go into the API</b>
+Your tests for any particular layer—from customer-facing code down to low-level model classes—should drive that layer’s public API. <b>You’ll find yourself making more careful decisions about what does or doesn’t go into the API.</b>
 
 The behavior we want to see is - what happens when an API call succeeds and when it fails.
 
 <div style="text-align: center;">Unit tests are great for test all the conditional branches and edge cases very fast on the other hand if we do it with acceptance/integration would be too inefficient.</div>
 
+```ruby
+# create a file spec/unit/app/api_spec.rb
+require_relative '../app/api'
+
+module ExpenseTracker
+  RSpec.describe API do
+    describe 'POST /expenses' do
+      context 'when the expense is successfully recorded' do
+        it 'returns the expense id'
+        it 'responds with a 200 (OK)'
+      end
+
+      context 'when the expense fails validation' do
+        it 'returns an error message'
+        it 'responds with a 422 (Unprocessable entity)'
+      end
+    end
+  end
+end
+```
+Hit the console with `bundle exec rspec 04-acceptance-specs/01/expense_tracker/app/api_spec.rb` all tests shoudl appear as "pending".
+
+We are still modeling the API so we want something like this:
+
+```ruby
+result = @ledger.record({ 'some' => 'data' })
+result.success? # => a Boolean
+result.expense_id # => a number
+result.error_message # => a string or nil
+```
+
+Remember, we're testing the API class, not the bahavior.
+
+This is the perfect spot for `test doubles`. A test double is an object that stands in for another one during a test. 
+
+To create a stand-in for an instance of a particular class, you’ll use RSpec’s `instance_double` method, and pass it the name of the class you’re imitating. <a href="https://martinfowler.com/bliki/TestDouble.html" target="_blank">Martin Fowler's article about test double</a>
+
+
+Add the follwoing code to file `04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb`
+
+```ruby
+require_relative '../app/api'
+require 'rack/test'
+
+module ExpenseTracker
+  RecordResult = Struct.new(:success?, :expense_id, :error_message)
+
+  RSpec.describe API do
+    include Rack::Test::Methods
+
+    def app
+      API.new(ledger: ledger)
+    end
+
+    let(:ledger) { instance_double('ExpenseTracker::Ledger') }
+
+    describe 'POST /expenses' do
+      context 'when the expense is successfully recorded' do
+        it 'returns the expense id'
+        it 'responds with a 200 (OK)'
+      end
+
+      context 'when the expense fails validation' do
+        it 'returns an error message'
+        it 'responds with a 422 (Unprocessable entity)'
+      end
+    end
+  end
+end
+```
+
+As with the acceptance specs, you’ll be using `Rack::Test` to route HTTP requests to the API class. Eventually, we'll move the `RecordResult` class into the codebase.
+
+<b>The seam between layers is where integration bugs hide. Using a simple value object like a `RecordResult` or `Struct` between layers makes it easier to isolate code and trust your tests.</b> <a href="https://www.destroyallsoftware.com/talks/boundaries" target="_blank">Article related to catching bugs between layers.</a>
+
+
+the whole point of the Ledger test double
+is that it will return a canned success or failure response
+
+🔦 If you feel a bit lost here is a summary of the 3 files we have written in chapter 5. 🔎
+
+`api.rb`: Defines a thin HTTP API (Sinatra app). It’s the boundary/interface between the outside world and your app logic.
+
+- Parse incoming HTTP requests
+
+- Forward them to your application logic (Ledger object)
+
+- Return an HTTP response (JSON with status codes)
+
+It's like a router/controller in Rails.
+
+`api_spec.rb`: Tests the API in isolation using test doubles, to control its behavior and avoid hitting the database or real logic.
+
+This is a unit test for your API layer.
+
+You’re using an `instance_double` of `Ledger` to isolate the API layer and check:
+
+- Does the API route call ledger.record?
+
+- Does it return the expected response if ledger.record is successful?
+
+- What happens if ledger.record fails?
+
+`expense_tracker_spec.rb`: <b>Acceptance-level (end-to-end) spec.</b> It tests the whole system, using real logic (no doubles), to ensure the full behavior works.
+
+- It sends POST requests with expense data.
+
+- It sends a GET request to retrieve expenses for a given day.
+
+- It checks whether the correct data is returned.
+
+- It tests the full stack: HTTP → Sinatra → Ledger → persistence.
+
+`initialize(ledger:)`: Adds dependency injection so the API can be wired up with either real objects (in end-to-end tests) or test doubles (in unit tests).
+
+
+
+
+
+
+As a recap If you ever need to see the full backtrace, you still can; just pass the --backtrace or -b flag to RSpec.
+
+dependency injection DI in ruby
+
+test double
 ### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
 
 ### Part III — RSpec Core.
