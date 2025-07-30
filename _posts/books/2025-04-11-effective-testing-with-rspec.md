@@ -749,9 +749,9 @@ It will use [Sinatra](https://sinatrarb.com/) as router and not rails since we d
 
 We need a small JSON APIs and Sinatra will do the job.
 
-<b>Acceptance specs => which checks the behavior of the application as a whole. (It makes me think like a smoke check for the core flow.)</b>
+<b>Acceptance specs => which checks the behavior of the application as a whole. By the end of the chapter, we’ll have the skeleton of a live app and a spec to test it (It makes me think like a smoke check for the core flow.)</b>
 
-Also, we used a "outside-in development" which means start woking at outermost layer (the user interface or network protoco) and work your way inward to the classes and methods that contain the logic.
+Also, we used a "outside-in development" which means start working at outermost layer (the HTTP request/response cycle) and work your way inward to the classes and methods that contain the logic.
 
 Create a directory and add `bundler`
 
@@ -777,7 +777,7 @@ gem 'sinatra' # implement the web application
 
 It’s easy to feel overwhelmed as we’re deciding what to test first. Where do we start?
 
-What’s the <b>core of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.</b>
+ <b>What’s thecore of the project? What’s the one thing we agree our API should do? It should faithfully save the expenses we record.</b>
 
 We’re only going to use two of the most basic features of HTTP in these examples:
 • A `GET` request reads data from the app.
@@ -1015,11 +1015,10 @@ In another terminal you can try out your server with the following command:
 ```ruby
 ➜  rspec-book git:(master) ✗ curl localhost:9292/expenses/2017-06-10 -w "\n"
 [] # this is due to our 04-acceptance-specs/01/expense_tracker/app/api.rb GET route ✅
-
+```
 To recap of this chapter we began a project about tracking expenses that will register and search them, with only 2 actions. We set up `bundler` since we need more libraries than RSpec, such as Sinatra, SQlite, Rack, WEBrick, etc.
 
-We started with an outside-in approach where we defined the outer layer of the app in this case the `POST` endpoint. We were encouraged to think deeply about the public API and what type of data we wanted back as a response. Then we started building the classes, and we made progress by clearing one error at a time. We used two new matchers `include` and `a_kind_of` and lastly we refactored an method for persisting a Hash of expenses and booted up the web server with `bundle exec rackup`. It's important to mention that all these requests are simulated.
-``` 
+We started with an outside-in approach where we defined the outer layer of the app in this case the `POST` endpoint. We were encouraged to think deeply about the public API and what type of data we wanted back as a response. Then we started building the classes, and we made progress by clearing one error at a time. We used two new matchers `include`, `a_kind_of` and `contain_exactly` which we didn't use but was mentioned and lastly we refactored an method for persisting a Hash of expenses and booted up the web server with `bundle exec rackup`. It's important to mention that all these requests are simulated.
 
 ### Part II — Chapter 5. Testing in isolation: Unit specs. {#chapter-5}
 
@@ -1290,6 +1289,8 @@ As a recap If you ever need to see the full backtrace, you still can; just pass 
 dependency injection DI in ruby
 
 test double
+
+verifying doubles
 ### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
 
 ### Part III — RSpec Core.
