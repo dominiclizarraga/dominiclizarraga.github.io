@@ -1067,7 +1067,7 @@ result.expense_id # => a number
 result.error_message # => a string or nil
 ```
 
-Remember, we're testing the API class, not the bahavior.
+Remember, we're testing the API class, not the behavior.
 
 This is the perfect spot for `test doubles`. A test double is an object that stands in for another one during a test. 
 
