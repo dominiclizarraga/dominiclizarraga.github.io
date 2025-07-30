@@ -1281,6 +1281,150 @@ module ExpenseTracker
 end
 ```
 
+The last excersice is to add `GET /expenses/:date` starting from writing down tests:
+- [x] Write the `describe` block, then the `context`, the `it` blocks.
+- [x] The `API::Sinatra` is already working (we have not defined the storage engine yet)
+- [x] Add `instance_double` of `ledger`(`RecordResult` is no longer needed)
+- [x] Add the method `expenses_on(date)` on the `Ledger`class.
+- [x] Generate a sample data of the JSON we want as return. (The hash should contain amount, date and payee)
+- [x] Modify the `api.rb` since the `GET` route always return empty array. It shoudl handle success and failure too.
+
+Here is the `api.rb` and the `api_spec.rb`
+```ruby
+# 04-acceptance-specs/01/expense_tracker/app/api.rb
+  get '/expenses/:date' do
+    date = params[:date]
+
+    unless /\A\d{4}-\d{2}-\d{2}\z/.match?(date)
+      status 400
+      return JSON.generate({ error: "Invalid date format" })
+    end
+
+    expenses = @ledger.expenses_on(date)
+    if expenses.any?
+      JSON.generate(expenses)
+    else
+      JSON.generate([])
+    end
+  end
+# 04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb
+  module ExpenseTracker
+  RSpec.describe API do
+    include Rack::Test::Methods
+
+    def app
+      API.new(ledger: ledger)
+    end
+
+    let(:ledger) { instance_double('ExpenseTracker::Ledger') }
+
+    describe 'POST /expenses' do
+      context 'when the expense is successfully recorded' do
+        let(:expense) { { 'some' => 'data' } }
+        
+        before do
+          allow(ledger).to receive(:record)
+                        .with(expense)
+                        .and_return(RecordResult.new(true, 417, nil))
+        end
+
+        it 'returns the expense id' do
+          post '/expenses', JSON.generate(expense)
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to include('expense_id' => 417)
+        end
+
+        it 'responds with a 200 (OK)' do
+          post '/expenses', JSON.generate(expense)
+          expect(last_response.status).to eq(200)
+        end
+      end
+
+      context 'when the expense fails validation' do
+        let(:expense) { { 'some' => 'data' } }
+        
+        before do
+          allow(ledger).to receive(:record)
+                        .with(expense)
+                        .and_return(RecordResult.new(false, 417, "Expense incomplete"))
+        end
+
+        it 'returns an error message' do
+          post '/expenses', JSON.generate(expense)
+
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to include('error' => 'Expense incomplete')
+        end
+
+        it 'responds with a 422 (Unprocessable entity)' do
+          post '/expenses', JSON.generate(expense)
+          expect(last_response.status).to eq(422)
+        end
+      end
+    end
+
+    describe "GET /expenses/:date" do
+      context "when expenses exist on given date" do
+        let(:expense_canned_response) { [ {"amount" => 5.50, "date" => '2017-06-10', "payee" => "Starbucks"} ] }
+
+        before do
+          allow(ledger).to receive(:expenses_on)
+                        .with('2017-06-10')
+                        .and_return(expense_canned_response)
+        end
+
+        it "returns the expense records as JSON" do
+          get '/expenses/2017-06-10'
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to eq(expense_canned_response)
+        end
+
+        it "responds with a 200 (OK)" do
+          get '/expenses/2017-06-10'
+          expect(last_response.status).to eq(200)
+        end
+      end
+
+      context "when expenses don't exist on given date" do
+        let(:expense_not_found) { [] }
+
+        before do
+          allow(ledger).to receive(:expenses_on)
+                          .with('2017-05-12')
+                          .and_return(expense_not_found)
+        end
+
+        it "returns an empty array as JSON" do
+          get '/expenses/2017-05-12'
+          parsed = JSON.parse(last_response.body)
+          expect(parsed).to eq(expense_not_found)
+        end
+
+        it "responds with a 200 (OK)" do
+          get '/expenses/2017-05-12'
+          expect(last_response.status).to eq(200)
+        end
+      end
+
+      context "when the date format is not valid" do
+        it "returns a 400 Bad Request" do
+          get '/expenses/2012,12,12'
+          expect(last_response.status).to eq(400)
+        end
+
+        it "returns an error message" do
+          get '/expenses/2012,12,12'
+          expect(JSON.parse(last_response.body)).to eq({ "error" => "Invalid date format" })
+        end
+      end
+    end
+  end
+end
+
+
+
+```
+
 These refactored specs report "just the facts" of the expected behavior.
 
 
