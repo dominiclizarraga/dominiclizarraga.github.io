@@ -1413,14 +1413,28 @@ I'll add more routes and test cases so that I can practice more
 - GET /categories
 - GET /expenses?category=Food&date=2025-07-10 (this one needs `query params`, we're currently using `route params`)
 
-As a recap If you ever need to see the full backtrace, you still can; just pass the --backtrace or -b flag to RSpec.
+In this chapter, we explored how to move from `acceptance tests` — which ensure that the entire application works as a whole — to `unit tests`, which isolate specific parts of the code, such as routing logic.
 
-dependency injection DI in ruby
+Unit tests typically run without a live server or real database, and instead focus on one class or method at a time. The benefits of this approach are faster test execution and clearer identification of where errors occur.
 
-test double
+Rather than calling methods directly on the API class, we simulated HTTP requests using the `Rack::Test` interface. This aligns with the common testing principle of exercising a class through its public interface, which leads to better design decisions and a more user-focused API.
 
-verifying doubles
+We also examined the `Ledger` class and introduced dependency injection (DI). In Ruby, this is as simple as passing an object as an argument to the constructor, like so:
 
+```ruby
+initialize(ledger: Ledger.new)
+```
+This technique makes it easier to swap in test doubles when testing, allowing us to isolate the API class from the actual persistence layer.
+
+A test double is a generic term for objects that stand in for real ones during testing. Depending on the testing framework, they might be called mocks, stubs, fakes, or spies. In RSpec, we use the term double. Our goal was to create a fake Ledger object to test only the API logic — without involving real data storage — making the tests faster and more focused. `instance_double(class_to_fake)`
+
+We also encountered verifying doubles, a powerful RSpec feature that ensures your test doubles reflect the real object’s interface. This helps avoid fragile tests. In our case, forgetting to instantiate the Ledger correctly caused RSpec to raise an error — a valuable signal that our double wasn’t matching the actual interface.
+
+If you ever need to inspect a full error stack trace during testing, you can run RSpec with the `--backtrace` or `-b` flag:
+
+```ruby
+bundle exec rspec -b
+```
 
 ### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
 

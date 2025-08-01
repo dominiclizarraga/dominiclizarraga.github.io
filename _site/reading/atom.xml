@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-07-31T22:17:32-07:00</updated>
+  <updated>2025-07-31T22:38:39-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -1520,13 +1520,26 @@ Every behavior you specify in a test is another point of coupling between your t
   &lt;li&gt;GET /expenses?category=Food&amp;amp;date=2025-07-10 (this one needs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;query params&lt;/code&gt;, we’re currently using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;route params&lt;/code&gt;)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;As a recap If you ever need to see the full backtrace, you still can; just pass the –backtrace or -b flag to RSpec.&lt;/p&gt;
+&lt;p&gt;In this chapter, we explored how to move from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;acceptance tests&lt;/code&gt; — which ensure that the entire application works as a whole — to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;unit tests&lt;/code&gt;, which isolate specific parts of the code, such as routing logic.&lt;/p&gt;
 
-&lt;p&gt;dependency injection DI in ruby&lt;/p&gt;
+&lt;p&gt;Unit tests typically run without a live server or real database, and instead focus on one class or method at a time. The benefits of this approach are faster test execution and clearer identification of where errors occur.&lt;/p&gt;
 
-&lt;p&gt;test double&lt;/p&gt;
+&lt;p&gt;Rather than calling methods directly on the API class, we simulated HTTP requests using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Rack::Test&lt;/code&gt; interface. This aligns with the common testing principle of exercising a class through its public interface, which leads to better design decisions and a more user-focused API.&lt;/p&gt;
 
-&lt;p&gt;verifying doubles&lt;/p&gt;
+&lt;p&gt;We also examined the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ledger&lt;/code&gt; class and introduced dependency injection (DI). In Ruby, this is as simple as passing an object as an argument to the constructor, like so:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;ledger: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This technique makes it easier to swap in test doubles when testing, allowing us to isolate the API class from the actual persistence layer.&lt;/p&gt;
+
+&lt;p&gt;A test double is a generic term for objects that stand in for real ones during testing. Depending on the testing framework, they might be called mocks, stubs, fakes, or spies. In RSpec, we use the term double. Our goal was to create a fake Ledger object to test only the API logic — without involving real data storage — making the tests faster and more focused. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;instance_double(class_to_fake)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We also encountered verifying doubles, a powerful RSpec feature that ensures your test doubles reflect the real object’s interface. This helps avoid fragile tests. In our case, forgetting to instantiate the Ledger correctly caused RSpec to raise an error — a valuable signal that our double wasn’t matching the actual interface.&lt;/p&gt;
+
+&lt;p&gt;If you ever need to inspect a full error stack trace during testing, you can run RSpec with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--backtrace&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-b&lt;/code&gt; flag:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;chapter-6&quot;&gt;Part II — Chapter 6. Getting real. Integration specs.&lt;/h3&gt;
 
