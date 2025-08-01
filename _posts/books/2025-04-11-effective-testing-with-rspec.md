@@ -1056,7 +1056,7 @@ module ExpenseTracker
   end
 end
 ```
-Hit the console with `bundle exec rspec 04-acceptance-specs/01/expense_tracker/app/api_spec.rb` all tests shoudl appear as "pending".
+Hit the console with `bundle exec rspec 04-acceptance-specs/01/expense_tracker/app/api_spec.rb` all tests should appear as "pending".
 
 We are still modeling the API so we want something like this:
 
@@ -1067,9 +1067,9 @@ result.expense_id # => a number
 result.error_message # => a string or nil
 ```
 
-Remember, we're testing the API class, not the behavior.
+Remember, we're testing the `API` class, not the behavior.
 
-This is the perfect spot for `test doubles`. A test double is an object that stands in for another one during a test. 
+This is the perfect spot for `test doubles`. <b>A test double is an object that stands in for another one during a test.</b>
 
 To create a stand-in for an instance of a particular class, you’ll use RSpec’s `instance_double` method, and pass it the name of the class you’re imitating. <a href="https://martinfowler.com/bliki/TestDouble.html" target="_blank">Martin Fowler's article about test double</a>
 
@@ -1125,7 +1125,7 @@ It's like a router/controller in Rails.
 
 `api_spec.rb`: Tests the API in isolation using test doubles, to control its behavior and avoid hitting the database or real logic.
 
-This is a unit test for your API layer.
+This is a `unit test` for your API layer.
 
 You’re using an `instance_double` of `Ledger` to isolate the API layer and check:
 
@@ -1145,7 +1145,7 @@ You’re using an `instance_double` of `Ledger` to isolate the API layer and che
 
 - It tests the full stack: HTTP → Sinatra → Ledger → persistence.
 
-`initialize(ledger:)`: Adds dependency injection so the API can be wired up with either real objects (in end-to-end tests) or test doubles (in unit tests).
+`initialize(ledger:)`: Adds "dependency injection" so the API can be wired up with either real objects (in end-to-end tests) or test doubles (in unit tests).
 
 ```ruby
 # 04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb
@@ -1190,7 +1190,7 @@ module ExpenseTracker
   end
 end
 ```
-The `allow` method configures the test double's behavior: when the calle in this case the `API` class invokes `.record` the double will return a new `RecordResult` instance.
+The `allow` method configures the test double's behavior: when the call in this case the `API` class invokes `.record` the double will return a new `RecordResult` instance.
 
 Also, please notice that the `expense` hash doesn't contain real data, this is ok since the whole point of the Ledger test double is that it will return a canned success or failure response.
 
@@ -1217,12 +1217,37 @@ Top 4 slowest examples (0.03167 seconds, 91.4% of total time):
 Let's handle success and failure of the request in the `api.rb`
 
 ```ruby
+# 04-acceptance-specs/01/expense_tracker/app/api.rb
+require 'sinatra/base'
+require 'json'
+require_relative 'ledger'
+module ExpenseTracker
+  class API < Sinatra::Base
+    def initialize(ledger: Ledger.new)
+      @ledger = ledger
+      super()
+    end
+  
+    post '/expenses' do
+      request.body.rewind
+      expense = JSON.parse(request.body.read)
+      result = @ledger.record(expense)
+
+      if result.success?
+        JSON.generate('expense_id' => result.expense_id)
+      else
+        status 422
+        JSON.generate('error' => result.error_message)
+      end
+    end
+  end
+end
+
+# 04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb
 require_relative '../../app/api'
 require 'rack/test'
 
 module ExpenseTracker
-  RecordResult = Struct.new(:success?, :expense_id, :error_message)
-
   RSpec.describe API do
     include Rack::Test::Methods
 
@@ -1232,7 +1257,6 @@ module ExpenseTracker
 
     let(:ledger) { instance_double('ExpenseTracker::Ledger') }
 
-    
     describe 'POST /expenses' do
       context 'when the expense is successfully recorded' do
         let(:expense) { { 'some' => 'data' } }
@@ -1289,7 +1313,8 @@ The last excersice is to add `GET /expenses/:date` starting from writing down te
 - [x] Generate a sample data of the JSON we want as return. (The hash should contain amount, date and payee)
 - [x] Modify the `api.rb` since the `GET` route always return empty array. It shoudl handle success and failure too.
 
-Here is the `api.rb` and the `api_spec.rb`
+Here is the `api.rb` and the `api_spec.rb`. These refactored specs report "just the facts" of the expected behavior.
+
 ```ruby
 # 04-acceptance-specs/01/expense_tracker/app/api.rb
   get '/expenses/:date' do
@@ -1308,7 +1333,7 @@ Here is the `api.rb` and the `api_spec.rb`
     end
   end
 # 04-acceptance-specs/01/expense_tracker/spec/unit/api_spec.rb
-  module ExpenseTracker
+module ExpenseTracker
   RSpec.describe API do
     include Rack::Test::Methods
 
@@ -1317,51 +1342,6 @@ Here is the `api.rb` and the `api_spec.rb`
     end
 
     let(:ledger) { instance_double('ExpenseTracker::Ledger') }
-
-    describe 'POST /expenses' do
-      context 'when the expense is successfully recorded' do
-        let(:expense) { { 'some' => 'data' } }
-        
-        before do
-          allow(ledger).to receive(:record)
-                        .with(expense)
-                        .and_return(RecordResult.new(true, 417, nil))
-        end
-
-        it 'returns the expense id' do
-          post '/expenses', JSON.generate(expense)
-          parsed = JSON.parse(last_response.body)
-          expect(parsed).to include('expense_id' => 417)
-        end
-
-        it 'responds with a 200 (OK)' do
-          post '/expenses', JSON.generate(expense)
-          expect(last_response.status).to eq(200)
-        end
-      end
-
-      context 'when the expense fails validation' do
-        let(:expense) { { 'some' => 'data' } }
-        
-        before do
-          allow(ledger).to receive(:record)
-                        .with(expense)
-                        .and_return(RecordResult.new(false, 417, "Expense incomplete"))
-        end
-
-        it 'returns an error message' do
-          post '/expenses', JSON.generate(expense)
-
-          parsed = JSON.parse(last_response.body)
-          expect(parsed).to include('error' => 'Expense incomplete')
-        end
-
-        it 'responds with a 422 (Unprocessable entity)' do
-          post '/expenses', JSON.generate(expense)
-          expect(last_response.status).to eq(422)
-        end
-      end
-    end
 
     describe "GET /expenses/:date" do
       context "when expenses exist on given date" do
@@ -1420,13 +1400,18 @@ Here is the `api.rb` and the `api_spec.rb`
     end
   end
 end
-
-
-
 ```
+I'll add more routes and test cases so that I can practice more
 
-These refactored specs report "just the facts" of the expected behavior.
-
+- GET /expenses – List all expenses (not just by date)
+- GET /expense/:id
+------------- These should added once we setup SQlite -------------
+- DELETE /expenses/:id – Delete a specific expense
+- PUT /expenses/:id – Update an existing expense
+- GET /expenses/stats/:month – Show monthly summary
+- POST /budgets – Set a budget limit for a category or month
+- GET /categories
+- GET /expenses?category=Food&date=2025-07-10 (this one needs `query params`, we're currently using `route params`)
 
 As a recap If you ever need to see the full backtrace, you still can; just pass the --backtrace or -b flag to RSpec.
 
@@ -1435,6 +1420,8 @@ dependency injection DI in ruby
 test double
 
 verifying doubles
+
+
 ### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
 
 ### Part III — RSpec Core.
