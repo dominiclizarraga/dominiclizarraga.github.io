@@ -31,6 +31,8 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 
 Picture of the book!
 
+Where should i put this testing heuristics  Given-When-Then scenarios
+
 The forward is written by Tom Stewart author of [Understanding Computation](https://computationbook.com/) And he expresses something that picked my curiosity: 
 
 > After all, the big challenge of test-driven development is not knowing how to write tests, but knowing how to listen to them. For your tests to be worth the bites they are written in, they must be able to speak to you about how well the underlying program is designed and implemented and, crucially, you must be able to hear them. The words and ideas baked into RSpec are carefully chosen to heighten your sensitivity to this kind of feedback. As you play with its expressive little pieces you will develop a test for what a good test looks like, and the occasional stumble over a test that now seems harder or uglier or way more annoying than necessary will start you on a journey of discovery that leads to a better design for that part of your code base.”
@@ -1437,6 +1439,18 @@ bundle exec rspec -b
 ```
 
 ### Part II — Chapter 6. Getting real. Integration specs. {#chapter-6}
+
+Now we have a solid HTTP routing layer designed with the help of unit specs. These specs assummed that the underlying dependencies would eventually be implemented.
+
+Now, it's time to write those dependecies for real.
+
+Add the `sequel` and `sqlite` gems:
+
+```ruby
+bundle add sequel sqlite3
+```
+Remember we need to have 3 differents databases for testing, development and production so that we dont clobber with real data.
+
 
 ### Part III — RSpec Core.
 
