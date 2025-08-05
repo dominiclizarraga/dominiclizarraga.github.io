@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-07-31T22:38:39-07:00</updated>
+  <updated>2025-08-04T21:18:30-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -67,6 +67,8 @@
 &lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Chapter 1. Getting Started.&lt;/h3&gt;
 
 &lt;p&gt;Picture of the book!&lt;/p&gt;
+
+&lt;p&gt;Where should i put this testing heuristics  Given-When-Then scenarios&lt;/p&gt;
 
 &lt;p&gt;The forward is written by Tom Stewart author of &lt;a href=&quot;https://computationbook.com/&quot;&gt;Understanding Computation&lt;/a&gt; And he expresses something that picked my curiosity:&lt;/p&gt;
 
@@ -1542,6 +1544,16 @@ Every behavior you specify in a test is another point of coupling between your t
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h3 id=&quot;chapter-6&quot;&gt;Part II — Chapter 6. Getting real. Integration specs.&lt;/h3&gt;
+
+&lt;p&gt;Now we have a solid HTTP routing layer designed with the help of unit specs. These specs assummed that the underlying dependencies would eventually be implemented.&lt;/p&gt;
+
+&lt;p&gt;Now, it’s time to write those dependecies for real.&lt;/p&gt;
+
+&lt;p&gt;Add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sequel&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sqlite&lt;/code&gt; gems:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;bundle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sequel&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlite3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Remember we need to have 3 differents databases for testing, development and production so that we dont clobber with real data.&lt;/p&gt;
 
 &lt;h3 id=&quot;part-iii--rspec-core&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
 
