@@ -4,7 +4,7 @@ categories: blog
 layout: post
 ---
 
-With my recent journey of gaining more testing experience with chatGPt help, and seeing some kind of pattern that after writing the exercises from the book [Efective testing with RSpec by Myron Marston and Ian Dees](/2025/04/11-effective-testing-with-rspec.html) I shared the idea with the LLM, and it helped me build the following.
+With my recent journey of gaining more testing experience with chatGPt help, and seeing some kind of pattern that after writing the exercises from the book [Efective testing with RSpec by Myron Marston and Ian Dees](/2025/04/11/effective-testing-with-rspec.html) I shared the idea with the LLM, and it helped me build the following.
 
 First thing that poped my my was the Arrange, Act, Assert so i did used that one to guide the LLM to what type of output I wanted.
 
