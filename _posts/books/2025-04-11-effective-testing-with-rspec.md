@@ -1451,6 +1451,57 @@ bundle add sequel sqlite3
 ```
 Remember we need to have 3 differents databases for testing, development and production so that we dont clobber with real data.
 
+Then add the 3 files (2 for configurations and 1 for the expenses migration)
+```ruby
+# 04-acceptance-specs/01/expense_tracker/config/sequel.rb
+require 'sequel'
+DB = Sequel.sqlite("./db/#{ENV.fetch('RACK_ENV', 'development')}.db")
+
+# 04-acceptance-specs/01/expense_tracker/spec/support/db.rb
+# suite-level hook.
+# The following code will make sure the database structure is set up and empty,
+# ready for your specs to add data to it
+
+RSpec.configure do |c|
+  c.before(:suite) do
+    Sequel.extension :migration
+    Sequel::Migrator.run(DB, 'db/migrations')
+    DB[:expenses].truncate
+  end
+end
+
+# 04-acceptance-specs/01/expense_tracker/db/migrations/0001_create_expenses.rb
+Sequel.migration do
+  change do
+    create_table :expenses do
+      primary_key :id
+      String :payee
+      Float :amount
+      Date :date
+    end
+  end
+end
+```
+Then run the migration with `bundle exec sequel -m ./db/migrations sqlite://db/development.db --echo`
+
+Outout you may see:
+
+```ruby
+2025-08-05 13:32:31 INFO: (0.001937s) PRAGMA foreign_keys = 1
+2025-08-05 13:32:31 INFO: (0.000010s) PRAGMA case_sensitive_like = 1
+2025-08-05 13:32:31 INFO: (0.001011s) SELECT sqlite_version()
+2025-08-05 13:32:31 INFO: (0.000890s) CREATE TABLE IF NOT EXISTS `schema_info` (`version` integer DEFAULT (0) NOT NULL)
+2025-08-05 13:32:31 INFO: (0.000039s) SELECT * FROM `schema_info` LIMIT 0
+2025-08-05 13:32:31 INFO: (0.000029s) SELECT 1 AS 'one' FROM `schema_info` LIMIT 1
+2025-08-05 13:32:31 INFO: (0.000415s) INSERT INTO `schema_info` (`version`) VALUES (0)
+2025-08-05 13:32:31 INFO: (0.000050s) SELECT count(*) AS 'count' FROM `schema_info` LIMIT 1
+2025-08-05 13:32:31 INFO: (0.000028s) SELECT `version` FROM `schema_info` LIMIT 1
+2025-08-05 13:32:31 INFO: Begin applying migration version 1, direction: up
+2025-08-05 13:32:31 INFO: (0.000512s) CREATE TABLE `expenses` (`id` integer NOT NULL PRIMARY KEY AUTOINCREMENT, `payee` varchar(255), `amount` double precision, `date` date)
+2025-08-05 13:32:31 INFO: (0.000423s) UPDATE `schema_info` SET `version` = 1
+2025-08-05 13:32:31 INFO: Finished applying migration version 1, direction: up, took 0.001072 seconds
+```
+
 
 ### Part III — RSpec Core.
 
