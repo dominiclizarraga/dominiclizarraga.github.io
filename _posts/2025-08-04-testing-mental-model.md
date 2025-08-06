@@ -98,9 +98,9 @@ parsed = JSON.parse(last_response.body)
 
 # 6. Prove
 expect(parsed).to eq(expenses)
+```
 📌 Final Tip: Turn It into Muscle Memory
 Every time you write a controller- or API-level test, mentally repeat:
-```
 
 <b>"Double, Data, Allow → Request, Parse, Expect"</b>
 

@@ -1463,7 +1463,7 @@ DB = Sequel.sqlite("./db/#{ENV.fetch('RACK_ENV', 'development')}.db")
 # ready for your specs to add data to it
 
 RSpec.configure do |c|
-  c.before(:suite) do
+  c.before(:suite) do 
     Sequel.extension :migration
     Sequel::Migrator.run(DB, 'db/migrations')
     DB[:expenses].truncate
@@ -1482,6 +1482,8 @@ Sequel.migration do
   end
 end
 ```
+Regarding the `before(:suite) hook` A typical hook will run before each example. This one will run just once: after all the specs have been loaded, but before the first one actually runs. That’s what before(:suite) hooks are for.
+
 Then run the migration with `bundle exec sequel -m ./db/migrations sqlite://db/development.db --echo`
 
 Outout you may see:
@@ -1501,7 +1503,77 @@ Outout you may see:
 2025-08-05 13:32:31 INFO: (0.000423s) UPDATE `schema_info` SET `version` = 1
 2025-08-05 13:32:31 INFO: Finished applying migration version 1, direction: up, took 0.001072 seconds
 ```
+Then we had to create a `spec/ledger_spec.rb` which will test out the `Ledger` class behavior.
 
+```ruby
+require_relative '../../../app/ledger'
+require_relative '../../../config/sequel'
+require_relative '../../support/db'
+
+module ExpenseTracker
+  RSpec.describe Ledger, :aggregate_failures do
+    let(:ledger) { Ledger.new }
+    let(:expense) do
+      {
+        'payee' => 'Starbucks',
+        'amount' => 5.75,
+        'date' => '2017-06-10'
+      }
+    end
+
+    describe '#record' do
+      context "with a valid expense" do
+        it "succesfully saves the expense in the DB" do
+          result = ledger.record(expense)
+
+          expect(result).to be_success
+          expect(DB[:expenses].all).to match [a_hash_including(
+            id: result.expense_id,
+            payee: 'Starbucks',
+            amount: 5.75,
+            date: Date.iso8601('2017-06-10')
+          )]
+        end
+      end
+    end
+  end
+end
+```
+
+And don't forget to add the logic into the `Ledger` class
+
+```ruby
+  def record(expense)
+    DB[:expenses].insert(expense)
+    id = DB[:expenses].max(:id)
+    RecordResult.new(true, id, nil)
+  end
+```
+Here we jsut leveraged 2 new matchers `be_success` and `match [a_hash_including]` This particular example we detoured a bit from TDD since we declared 2 `expects` under the same `it` block but we did it judiciously since every test that touches the DB is slower so if we follow rigorously one expect per test case we’re going to be repeating that setup and teardown many times.
+
+Also, we did added the metada `:aggregate_failures` so that RSpec doesn't abort execution at the first error but to run all tests even with failures!
+
+
+
+
+
+
+
+
+
+Conclusion: while searching some other RSpec keywords i found this useful [RSpec cheat sheet from Thoughtbot](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec.pdf)
+
+:aggregate_failures
+
+match [a_hash_including(...)],
+
+be_success
+
+Any spec that touches the database
+is going to be slower
+
+By judiciously combining a couple of
+assertions, we’re keeping our suite speedy
 
 ### Part III — RSpec Core.
 
