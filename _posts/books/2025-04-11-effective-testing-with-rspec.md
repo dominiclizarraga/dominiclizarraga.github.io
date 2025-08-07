@@ -1549,12 +1549,58 @@ And don't forget to add the logic into the `Ledger` class
     RecordResult.new(true, id, nil)
   end
 ```
-Here we jsut leveraged 2 new matchers `be_success` and `match [a_hash_including]` This particular example we detoured a bit from TDD since we declared 2 `expects` under the same `it` block but we did it judiciously since every test that touches the DB is slower so if we follow rigorously one expect per test case we’re going to be repeating that setup and teardown many times.
+Here we just leveraged 2 new matchers `be_success` and `match [a_hash_including]` This particular example we detoured a bit from TDD since we declared 2 `expects` under the same `it` block but we did it judiciously since every test that touches the DB is slower so if we follow rigorously one expect per test case we’re going to be repeating that setup and teardown many times.
 
 Also, we did added the metada `:aggregate_failures` so that RSpec doesn't abort execution at the first error but to run all tests even with failures!
 
+With this out of the way, let's add a test for invalid records
 
+```ruby
+  it "rejects the expense as invalid" do
+    expense.delete('payee')
 
+    result = ledger.record(expense)
+
+    expect(result).not_to be_success
+    expect(result.expense_id).to eq(nil)
+    expect(result.error_message).to include('`payee` is required')
+
+    expect(DB[:expenses].count).to eq(0)
+  end
+```
+This will break our test, but that's all the purpose of the red-green-refactor cycle. Now let's add the valdiation for `Ledger class`
+
+```ruby
+class Ledger
+  def record(expense)
+    unless expense['payee']
+      return RecordResult.new(false, nil, '`payee` is required')
+    end
+
+    DB[:expenses].insert(expense)
+    id = DB[:expenses].max(:id)
+    RecordResult.new(true, id, nil)
+  end
+end
+```
+
+Something important that authors mention is that everytime we run the test suite we are adding records to our db which is not good practice, therefore they suggest to add the next RSpec configuration for leeting RSpec that everytime it finds `:db` tag, it should perform a DB transaction which will entails seting up the DB before running the tests and wiping out after the test suite is ran.
+
+```ruby
+# suppor/db.rb
+c.around(:example, :db) do |example|
+  DB.transaction(rollback: :always) { example.run }
+end
+```
+
+Here is a detailed list of steps that this script will do:
+
+1. RSpec calls our `around hook`, passing it the example we’re running.
+2. Inside the hook, we tell Sequel to start a new database transaction.
+3. Sequel calls the inner block, in which we tell RSpec to run the example.
+4. The body of the example finishes running.
+5. Sequel rolls back the transaction, wiping out any changes we made to the database.
+6. The around hook finishes, and RSpec moves on to the next example.
 
 
 
@@ -1574,6 +1620,12 @@ is going to be slower
 
 By judiciously combining a couple of
 assertions, we’re keeping our suite speedy
+
+--bisect
+
+RSpec’s --bisect helps you find and isolate order-dependent test failures.
+
+When your tests fail only when run in a certain order (like when test A runs before test B), that’s called an order dependency
 
 ### Part III — RSpec Core.
 
