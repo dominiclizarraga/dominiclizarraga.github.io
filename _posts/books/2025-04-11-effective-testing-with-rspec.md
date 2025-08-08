@@ -1602,30 +1602,67 @@ Here is a detailed list of steps that this script will do:
 5. Sequel rolls back the transaction, wiping out any changes we made to the database.
 6. The around hook finishes, and RSpec moves on to the next example.
 
+Now let's jump to implement the `GET /expenses_on(:date)` endpoint. First start with the test
+
+```ruby
+describe "#expenses_on" do
+  it "returns all expenses for the date provided" do
+    result_1 = ledger.record(expense.merge('date' => '2017-06-10'))
+    result_2 = ledger.record(expense.merge('date' => '2017-06-10'))
+    result_3 = ledger.record(expense.merge('date' => '2017-06-11'))
+
+    expect(ledger.expenses_on('2017-06-10')).to contain_exactly(
+      a_hash_including(id: result_1.expense_id),
+      a_hash_including(id: result_2.expense_id)
+    )
+  end
+
+  it "returns an empty array when there are no matching expenses" do
+    expect(ledger.expenses_on('2017-06-10')). to eq([])
+  end
+end
+
+# then the ruby logic
+
+def expenses_on(date)
+  DB[:expenses].where(date: date).all
+end
+```
+This should pass all good!
 
 
 
 
 
-Conclusion: while searching some other RSpec keywords i found this useful [RSpec cheat sheet from Thoughtbot](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec.pdf)
+Conclusion: while searching some other RSpec keywords i found this useful [RSpec cheat sheet from Thoughtbot](https://thoughtbot.com/upcase/test-driven-rails-resources/rspec.pdf) also we used the `:aggregate_failures` feature twice. This option allows the RSpec to continue running the entire test suite even when a test fails. We first applied it at the individual test case level, and then moved it up to an example group, which signaled RSpec to apply that behavior to the entire group.
 
-:aggregate_failures
+We also introduced two new matchers: `be_success` and `match a_hash_including`.
 
-match [a_hash_including(...)],
 
-be_success
+Another key point we learned is that every spec interacting with the database will run more slowly. Because of this, we need to be judicious when applying the TDD methodology, which encourages writing one expect per test case. In some situations, we combined multiple expect statements within the same test case to speed up execution.
 
-Any spec that touches the database
-is going to be slower
+Finally, we explored the `--bisect` command, which is useful for identifying order-dependent tests. An order dependency occurs when a test fails only if another specific test runs before it. The `--bisect` command automatically isolates the minimal set of examples that cause the failure by repeatedly running subsets of your tests.
 
-By judiciously combining a couple of
-assertions, we’re keeping our suite speedy
+Example:
 
---bisect
+```ruby```
+# First, run with a specific seed to reproduce the failure
+rspec --seed 12345
 
-RSpec’s --bisect helps you find and isolate order-dependent test failures.
+# If you see a failure, run:
+rspec --seed 12345 --bisect
+```
 
-When your tests fail only when run in a certain order (like when test A runs before test B), that’s called an order dependency
+Sample output:
+
+```ruby
+Bisect started using options: "--seed 12345"
+Reducing test suite by half...
+...
+The minimal reproduction command is:
+rspec ./spec/foo_spec.rb[1:3] ./spec/bar_spec.rb[1:5] --seed 12345
+```
+This tells you exactly which tests together trigger the failure, so you can debug the cause. It’s essentially automated detective work for the classic “this test only fails when that other one runs first” problem.
 
 ### Part III — RSpec Core.
 
