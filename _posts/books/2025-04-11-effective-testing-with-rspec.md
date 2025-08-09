@@ -1668,6 +1668,97 @@ This tells you exactly which tests together trigger the failure, so you can debu
 
 ### Part III — Chapter 7. Structuring code examples. {#chapter-7}
 
+mental model of "where things go" (either files or groups or examples or setup!)
+written short, clear examples that epxlain exactly what the expected behavior of the code is
+laid examples into logical groups, not oly to share setup but foor keep related specs together
+
+you'll learn how to organize specs into groups, you'll know where to put shared setup code and the trade-offs.
+
+This will make the tests easier to read and maintain.
+
+well-structures specs are about more than tidiness, sometimes you attach special behavior to certain examples or groups, like setting up a database or adding a custom error handling. the mechanism of metada (:tags) relies on good grouping.
+
+
+Every RSpec is the example group in other testing Frameworks it is called test case class and it has multiple purposes column gives a logical structure for understanding how individual examples relate to one another, describes the context such as a particular class, method or situation of what you are testing, provides a ruby class to act as a scope for your shared logic, such as hooks let definition and helper methods, runs, set up and tear down code shared by several examples.
+
+The basics includes group examples, examples and expectations. describe and it's aliases, it and it's aliases
+
+ describe creates an example group.This is the place where you put what you say you are testing the description can be either a string a ruby class, a module or an object when you use a class it has some advantages because it requires the class to exist and to be spelled correctly, Also you place here the tag filtering with extra information and that tag will be applied to the nested examples
+
+ it creates a single example,  you pass a description of the behavior you are specifying as with describe you can also pass custom metadata to make it more specific remember that for bdd the crucial part is to “getting the words right”.
+
+Now, so much alternatives for describe that makes more sense when the examples within that group all relate to a single class method or module that alternative is context which will make it more readable and considering that this is for the long term maintainability, and it will show the intent behind the code another alternative is example instead of the it and it may be used when you are providing several data examples rather than several sentence about the subject or describing a behavior it will read much more clearly and lastly we have the specified instead of the it 
+
+RSpec ouncil provides the flexibility for adding the names you want in the book shows how you can combine these gym with binding.pry  and how you can add an alias to the spec_helper.rb file and use that in your Cascade or example and that will add the `pry: true`to metadata to its respective example group or single example and with this you can quickly toggle the pry behavior on and off just by adding or removing the name you define in the spec_helper.rb.
+
+Sharing, logic the main three organization tools are let definitions, hooks, and helper methods below is a code snippet that contains all of the three
+
+CODEEE
+
+We have used the LED definition several times in this book they are great for setting up anything that can be initialized in a line or two of code, and they give you the lazy evaluation for free which means that they are not going to be run until you actually invoke them.
+
+ then we have the hooks that are for situations where they let definition block just won't cut it. the important thing about hooks is the one and how often you want the hook to run.
+
+“ writing a hook involves two concepts. the type of hook controls when it runs relative to your examples. the scope controls how often your hook runs.”
+
+For the when the hook should run we have three different types before, after, and around. as the name implies, you're before hook will run before your examples. after hooks I guarantee to run after your examples, even if the example fails or did before hook races an example. this hooks are intended to clean up after your setup logic and specs. this style of hook is easy to read, but it does split the setup and tear down logic into two halves that we have to keep track of.
+
+When your database cleanup logic doesn't fit neatly into a transactional around HOOK, we recommend using a before hook for the following reasons: 
+if you forget to add the before hook to a particular spec the failure will happen in that example rather than a later one. 
+when you run a single example to diagnose a failure the records will stick around in the database so that you can investigate them.
+
+ the around hook it's a bit more complex because they sandwich your spec code inside your hook, so part of the hook runs before the example and part runs after. the behavior of these two Snippets is the same; it is just a question of which reads better for your application.
+
+CODEEEE
+
+Then we have the config hooks and this is if you need to run your hooks for multiple groups. you can Define the hooks once for your entire Suite in the configuration typically spec _ helper.rb
+
+CODEEE
+
+ and with this they will run for every example in your test Suite note the trade-off here: Global hooks reduced duplication but can lead to surprising action at a distance effect in your aspects. hooks inside example groups are easier to follow but it is easy to leave out an important Hook by mistake when you are creating a new spec file.
+
+ we do recommend only use config hooks for things that are not essential for understanding how your specs work. the Beats of logic  that isolate each example, such as a database transaction or environment sandboxing, or prime candidates.
+
+ we prefer to keep things simple and run our hooks unconditionally. if, however, our config hooks are only needed by a subset of examples on particularly if they are as low, we will use metadata to make sure they run only for the subset that need them.
+
+ now that we have seen when to run the hooks either before or after or around let's see the scope.
+
+ this is meant when I hook needs to do a really timing tensive operation like creating a bunch of database tables or launching a live web server running the hook once per second will be cost provided. for this cases you can run the hook just once for the entire Suite of specs or once per example group. hooks take a symbol like sweet or context argument to modify this code.
+
+CODEEE
+
+ we only consider using context hook scope for side effects such as launching a web browser, that's satisfy both of the following two conditions: 
+
+ does not interact with things that have a per example life cycle
+ is noticeable slow to run
+
+ when you use a context hook scope your responsible for cleaning up any resulting state otherwise, it can cause other specs to pass or fail incorrectly
+
+ this is particularly common problem with database code. any records created in a before context hook scope will not run in your per example database transactions. the records will stick around after the example groups 
+
+If you need to run a piece of setup call just once, before the first example begins that's what :suite
+
+There may be some old syntax that you may find in code bases which is 
+Old new
+before(:each) became before(:example)
+before(:all) became before(:suite)
+
+Something important when a example group is nested the before hooks run from the outside in and the after hooks run from the inside out.
+
+ when to use hooks we have seen that hooks serve two different purposes: 
+
+removing duplicate it or incidental details that will distract readers from the point of your example.
+
+ expressing the English descriptions of your example groups as executable code 
+
+
+
+
+
+
+
+
+
 ### Part III — Chapter 8. Slicing and dicing specs with metadata. {#chapter-8}
 
 ### Part III — Chapter 9. Configuring RSpec. {#chapter-9}
