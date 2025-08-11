@@ -67,11 +67,11 @@ As soon as I saw it, felt like my mentor was talking to me again:
 
 - Understand the domain
 - Stare at the input, see what changes in the output
-- Devise how to achieve those modifications
+- Devise how to achieve those modifications (do i need an array, hash or counter variable to store any type of result?)
 - If outcome is expected, then improve
 
 Where I'm getting with this is that if I knew that we were only to receive integers as inputs and that the song based on that input, was always going to be the same except the pronouns and numbers, I could have hardcoded the solution (not saying it's an easy approach to come up with) but I apporach it with a more flexible design with interpolation and conditionals but definetely I overcomplicated the solution.
 
 Something that I notice in this course as in the [Efective testing with RSpec by Myron Marston and Ian Dees](/2025/04/11/effective-testing-with-rspec.html) is that authors encourage to tackle test one by one even though it souns obvios to avoid cluterring your temrinal with errors sometimes we want to see the full picture but their approach is very effective.
 
-Lesson learned, read througly the problem, understand the inputs, outputs, if possible make a hand-written drawing, understand what changes, and lastly if the result is the expected, refine it. It also reminds me of the [PEDAC method](https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f).
+Lesson learned, read througly the problem, understand the inputs, outputs, if possible make a hand-written drawing, understand what changes, do i need a data structure? and lastly if the result is the expected, refine it. It also reminds me of the [PEDAC method](https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f).
