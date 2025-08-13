@@ -27,6 +27,7 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 7. [Structuring code examples.](#chapter-7)
 8. [Slicing and dicing specs with metadata.](#chapter-8)
 9. [Configuring RSpec.](#chapter-9)
+10. [Exploring RSpec expectations.](#chapter-10)
 
 
 ### Part I — Chapter 1. Getting Started. {#chapter-1}
@@ -2427,7 +2428,11 @@ you can configure rspec into basic ways:
 
 Command line configurations
 
- to see all available command line options, run `rspec  –help`
+ to see all available command line options, run `rspec  –help` and you'll see in you terminal options for:
+ - calling, loading files or directories
+ - tweak the output (formatting, write output in a file, backtrace, color, no color)
+ - filtering/tags, (match a word, only run a specific example, all failures, next failure)
+ - Utility (Initialize your project with RSpec, run RSpec version)
 
 R s p e c already asked the two most important directories to load path your projects leave and expect folders.
 
@@ -2464,9 +2469,102 @@ R s p e c already asked the two most important directories to load path your pro
   </tbody>
 </table>
 
- something to keep in mind is that the order that we have listed above is how options take precedence, local options will override more global ones. For instance, if your project has
---profile 5 set in its .rspec file, you could override this setting by putting --no-profile
-in the project’s .rspec-local file.
+ something to keep in mind is that the order that we have listed above is how options take precedence, local options will override more global ones. For instance, if your project has `--profile 5` set in its `.rspec` file, you could override this setting by putting `--no-profile` in the project’s .`rspec-local` file.
+
+Using a custom formatter
+
+ a question for matter is a regular Ruby class that registers itself with rspec to receive notification.  as your suite runs, rspec notifies the formatter of the events it is subscribed to, such as starting an example group, running an example, or encountering a failure.
+
+R s p e c s built in formatters display failure details, messages and back traces, at the very end of the run. however, as you suite grows and start thinking longer to complete, it can be nice to see failure details as soon as they are cure.
+How far matters work.
+
+ a formatter goes through three main steps:
+ register itself with rspec to receive a specific notifications
+ initialize itself at the beginning of the rsvc Run
+ react to events as they occur
+
+RSpec.configure
+
+We have seen how easily we can set configuration options for a particular spec run via the command line. as convenient as they are this modifications are not available for all the test suit. for the rest will need to call RS p e c. configure inside one or more Ruby files. you can have multiple configure blocks in your code base; if you do rspec will combine the options from all of them.
+
+Cuz we have seen before a hook can run for each example, once for each context, or globally for the entire suit .
+
+We also have other special purpose configuration hook that doesn't fit the typical before, after, around pattern. and example would be
+
+```ruby
+RSpec.configure do |config|
+config.when_first_matching_example_defined(:db) do
+require 'support/db'
+end
+end
+```
+
+This hook uses metadata :db  to perform extra configuration just for the specs that needed.
+
+ while config hooks are great way to reduce duplication and keep your example focused, there are significant downsides if you overuse them:
+ it's low test suit due to extra logic running for every example
+ spec star hotter to understand because their logic is hidden in hooks
+ to avoid this pitfalls you can use a simpler, more explicit technique: using Ruby modules inside your configure blocks.
+
+Sharing code with Ruby modules 
+
+```ruby
+# spec_configure.rb
+class Performer
+include Singing # won't override Performer methods
+prepend Dancing # may override Performer methods
+end
+```
+You can even bring methods into an individual object:
+```ruby
+# spec_configure.rb
+average_person = AveragePerson.new 
+average_person.extend Singing
+```
+
+RSpec provides the same kind of interface inside RSpec.configure blocks. By calling include, prepend, or extend on the config object
+
+```ruby
+RSpec.configure do |config|
+# Brings methods into each example
+config.include ExtraExampleMethods
+# Brings methods into each example,
+# overriding methods with the same name
+# (rarely used)
+config.prepend ImportantExampleMethods
+# Brings methods into each group (alongside let/describe/etc.)
+# Useful for adding to RSpec's domain-specific language
+config.extend ExtraGroupMethods
+end
+```
+These three config methods are great for sharing Ruby methods across the respects. if you need to share more, though such as hooks or let definitions, you will need to define a shirt example group.
+
+```ruby
+# spec_configure.rb
+RSpec.configure do |config|
+config.include_context 'My Shared Group'
+end
+``` 
+Filtering
+
+ we have found the need to run just some of the examples in your suit therefore we have used rsps filtering to run the following subsets of specs:
+ a single example or group by name
+ only the specs matching a certain piece of metadata such as :fast 
+
+Some of the rspec configuration system that we have used inside of our configure block are the following
+
+```ruby
+RSpec.configure do |config|
+ config.filter_run_when_matching :focus # Runs only examples/groups tagged with :focus
+  config.example_status_persistence_file_path = 'spec/examples.txt' # Stores example run status for --only-failures/--next-failure
+  config.filter_gems_from_backtrace 'rack', 'rack-test', 'sequel', 'sinatra' # Removes listed gems from failure backtraces
+  config.filter_run_when_matching :focus # Duplicate line; same as first setting above
+end
+```
+And if I was reviewing the directory of the exercises from Facebook are realized that the configure block is almost everywhere either from the root directory to a specific model specs files where we need it a more granually effect on the test running
+
+As a conclusion for this chapter we have explored that we have two ways to configure the rspec testing framework one is from the command line and the other is with the configure method. command line options are easy to discover and they are one off to modify the next output the next format or to run a subset of tests on the other hand with configure method covers the whole test suit and also we can have more control as we declare those configure blocks inside of the files 
+
 
 
 ### Part IV — RSpec expectations.
