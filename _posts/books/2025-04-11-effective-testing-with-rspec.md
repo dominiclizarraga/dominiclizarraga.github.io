@@ -2412,14 +2412,62 @@ Here are some other examples of metadata that we have seen before
   </tbody>
 </table>
 
-
-
-
-
-
-
-
 ### Part III — Chapter 9. Configuring RSpec. {#chapter-9}
+
+As you have work through there exercises in this book, you have often change RS specs Behavior to make it a better tool for your needs here are just a few of the things that you have customized:
+
+ set up until you're down a test database, but only for the examples that require one
+ report every failing expectation in an example not just the first one
+ run just examples that you are focusing on at the moment
+ 
+
+you can configure rspec into basic ways:
+ on rspec.configure block:  provides access to all configuration options: since the block lives in your code, you will typically use it to make permanent changes
+ command line options: provides access to some configurations options, typically one off settings
+
+Command line configurations
+
+ to see all available command line options, run `rspec  –help`
+
+R s p e c already asked the two most important directories to load path your projects leave and expect folders.
+
+ we have filtering options like the following
+
+ we have output options like the following
+
+ and if you want to save this options to customize the behavior for everyone we have three different options
+
+<table>
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>Usage</th>
+      <th>Gotcha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>~/.rspec</td>
+      <td>Stores global personal RSpec preferences for all projects on your machine.</td>
+      <td>Affects every project; avoid settings that could break others’ test runs if shared.</td>
+    </tr>
+    <tr>
+      <td>./.rspec</td>
+      <td>Project-level defaults; should contain only essential settings agreed upon by the team.</td>
+      <td>Overusing for personal prefs can cause conflicts; always commit only team-approved settings.</td>
+    </tr>
+    <tr>
+      <td>./.rspec-local</td>
+      <td>Per-project personal preferences; lives alongside the project’s <code>.rspec</code> file.</td>
+      <td>Exclude from version control; every developer may have their own version.</td>
+    </tr>
+  </tbody>
+</table>
+
+ something to keep in mind is that the order that we have listed above is how options take precedence, local options will override more global ones. For instance, if your project has
+--profile 5 set in its .rspec file, you could override this setting by putting --no-profile
+in the project’s .rspec-local file.
+
 
 ### Part IV — RSpec expectations.
 
