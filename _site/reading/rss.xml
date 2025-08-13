@@ -54,8 +54,9 @@
   &lt;li&gt;&lt;a href=&quot;#chapter-4&quot;&gt;Starting On the Outside: Acceptance Specs.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;Testing in isolation: Unit specs.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-6&quot;&gt;Getting real: Integration specs.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;#chapter-5&quot;&gt;pending.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-7&quot;&gt;Structuring code examples.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-8&quot;&gt;Slicing and dicing specs with metadata.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-9&quot;&gt;Configuring RSpec.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Chapter 1. Getting Started.&lt;/h3&gt;
@@ -1549,9 +1550,652 @@ Every behavior you specify in a test is another point of coupling between your t
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;Remember we need to have 3 differents databases for testing, development and production so that we dont clobber with real data.&lt;/p&gt;
 
+&lt;p&gt;Then add the 3 files (2 for configurations and 1 for the expenses migration)&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/config/sequel.rb&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;sequel&apos;&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Sequel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sqlite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;./db/&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;RACK_ENV&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;development&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;.db&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/spec/support/db.rb&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# suite-level hook.&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# The following code will make sure the database structure is set up and empty,&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# ready for your specs to add data to it&lt;/span&gt;
+
+&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;before&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:suite&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; 
+    &lt;span class=&quot;no&quot;&gt;Sequel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;extension&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:migration&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;Sequel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Migrator&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;db/migrations&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;truncate&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 04-acceptance-specs/01/expense_tracker/db/migrations/0001_create_expenses.rb&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Sequel&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;migration&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;change&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;create_table&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;primary_key&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:payee&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;Float&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:amount&lt;/span&gt;
+      &lt;span class=&quot;no&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:date&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Regarding the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;before(:suite) hook&lt;/code&gt; A typical hook will run before each example. This one will run just once: after all the specs have been loaded, but before the first one actually runs. That’s what before(:suite) hooks are for.&lt;/p&gt;
+
+&lt;p&gt;Then run the migration with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bundle exec sequel -m ./db/migrations sqlite://db/development.db --echo&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Outout you may see:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.001937&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PRAGMA&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foreign_keys&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000010&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PRAGMA&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;case_sensitive_like&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.001011&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sqlite_version&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000890&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`version`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000039&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000029&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;one&apos;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000415&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INTO&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`version`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;VALUES&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000050&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AS&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;count&apos;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000028&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`version`&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;LIMIT&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Begin&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applying&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;direction: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000512&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`expenses`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`id`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;integer&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KEY&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;AUTOINCREMENT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`payee`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`amount`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;precision&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`date`&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.000423&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;UPDATE&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`schema_info`&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;SET&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`version`&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;2025&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;05&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;31&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;INFO&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Finished&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;applying&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;migration&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;direction: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;up&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;took&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.001072&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Then we had to create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spec/ledger_spec.rb&lt;/code&gt; which will test out the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ledger&lt;/code&gt; class behavior.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require_relative&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;../../../app/ledger&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require_relative&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;../../../config/sequel&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require_relative&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;../../support/db&apos;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;module&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;ExpenseTracker&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:aggregate_failures&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Starbucks&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;amount&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;#record&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;with a valid expense&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;succesfully saves the expense in the DB&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+          &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_success&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;match&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a_hash_including&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+            &lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;expense_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;ss&quot;&gt;payee: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Starbucks&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;ss&quot;&gt;amount: &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;5.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+            &lt;span class=&quot;ss&quot;&gt;date: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;iso8601&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And don’t forget to add the logic into the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ledger&lt;/code&gt; class&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;RecordResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Here we just leveraged 2 new matchers &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_success&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match [a_hash_including]&lt;/code&gt; This particular example we detoured a bit from TDD since we declared 2 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expects&lt;/code&gt; under the same &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;it&lt;/code&gt; block but we did it judiciously since every test that touches the DB is slower so if we follow rigorously one expect per test case we’re going to be repeating that setup and teardown many times.&lt;/p&gt;
+
+&lt;p&gt;Also, we did added the metada &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:aggregate_failures&lt;/code&gt; so that RSpec doesn’t abort execution at the first error but to run all tests even with failures!&lt;/p&gt;
+
+&lt;p&gt;With this out of the way, let’s add a test for invalid records&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;rejects the expense as invalid&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;delete&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;result&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;not_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_success&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;expense_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;error_message&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;`payee` is required&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This will break our test, but that’s all the purpose of the red-green-refactor cycle. Now let’s add the valdiation for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ledger class&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Ledger&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;unless&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;payee&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;RecordResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;`payee` is required&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+    &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;max&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;RecordResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Something important that authors mention is that everytime we run the test suite we are adding records to our db which is not good practice, therefore they suggest to add the next RSpec configuration for leeting RSpec that everytime it finds &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:db&lt;/code&gt; tag, it should perform a DB transaction which will entails seting up the DB before running the tests and wiping out after the test suite is ran.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# suppor/db.rb&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;around&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:db&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;transaction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;rollback: :always&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is a detailed list of steps that this script will do:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;RSpec calls our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;around hook&lt;/code&gt;, passing it the example we’re running.&lt;/li&gt;
+  &lt;li&gt;Inside the hook, we tell Sequel to start a new database transaction.&lt;/li&gt;
+  &lt;li&gt;Sequel calls the inner block, in which we tell RSpec to run the example.&lt;/li&gt;
+  &lt;li&gt;The body of the example finishes running.&lt;/li&gt;
+  &lt;li&gt;Sequel rolls back the transaction, wiping out any changes we made to the database.&lt;/li&gt;
+  &lt;li&gt;The around hook finishes, and RSpec moves on to the next example.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now let’s jump to implement the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GET /expenses_on(:date)&lt;/code&gt; endpoint. First start with the test&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;#expenses_on&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;returns all expenses for the date provided&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result_1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result_2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;result_3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;merge&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;date&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;2017-06-11&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;expenses_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;contain_exactly&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;a_hash_including&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result_1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;expense_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;a_hash_including&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;id: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;result_2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;expense_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;returns an empty array when there are no matching expenses&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;expenses_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;2017-06-10&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([])&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# then the ruby logic&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;expenses_on&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;DB&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;where&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;date: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;all&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This should pass all good!&lt;/p&gt;
+
+&lt;p&gt;Conclusion: while searching some other RSpec keywords i found this useful &lt;a href=&quot;https://thoughtbot.com/upcase/test-driven-rails-resources/rspec.pdf&quot;&gt;RSpec cheat sheet from Thoughtbot&lt;/a&gt; also we used the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:aggregate_failures&lt;/code&gt; feature twice. This option allows the RSpec to continue running the entire test suite even when a test fails. We first applied it at the individual test case level, and then moved it up to an example group, which signaled RSpec to apply that behavior to the entire group.&lt;/p&gt;
+
+&lt;p&gt;We also introduced two new matchers: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_success&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;match a_hash_including&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Another key point we learned is that every spec interacting with the database will run more slowly. Because of this, we need to be judicious when applying the TDD methodology, which encourages writing one expect per test case. In some situations, we combined multiple expect statements within the same test case to speed up execution.&lt;/p&gt;
+
+&lt;p&gt;Finally, we explored the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--bisect&lt;/code&gt; command, which is useful for identifying order-dependent tests. An order dependency occurs when a test fails only if another specific test runs before it. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--bisect&lt;/code&gt; command automatically isolates the minimal set of examples that cause the failure by repeatedly running subsets of your tests.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-ruby```&quot;&gt;# First, run with a specific seed to reproduce the failure
+rspec --seed 12345
+
+# If you see a failure, run:
+rspec --seed 12345 --bisect
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sample output:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;Bisect&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;started&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;options: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--seed 12345&quot;&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Reducing&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;suite&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;by&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;half&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;The&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;minimal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reproduction&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;is:
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;foo_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seed&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12345&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;This tells you exactly which tests together trigger the failure, so you can debug the cause. It’s essentially automated detective work for the classic “this test only fails when that other one runs first” problem.&lt;/p&gt;
+
 &lt;h3 id=&quot;part-iii--rspec-core&quot;&gt;Part III — RSpec Core.&lt;/h3&gt;
 
 &lt;h3 id=&quot;chapter-7&quot;&gt;Part III — Chapter 7. Structuring code examples.&lt;/h3&gt;
+
+&lt;p&gt;we’ve gained the mental model of “where things go” (either files or groups or examples or setup!)&lt;/p&gt;
+
+&lt;p&gt;we’vve have written short, clear examples that explain exactly what the expected behavior of the code is
+laid examples into logical groups, not oly to share setup but foor keep related specs together&lt;/p&gt;
+
+&lt;p&gt;you’ll learn how to organize specs into groups, you’ll know where to put shared setup code and the trade-offs.&lt;/p&gt;
+
+&lt;p&gt;This will make the tests easier to read and maintain.&lt;/p&gt;
+
+&lt;p&gt;well-structures specs are about more than tidiness, sometimes you attach special behavior to certain examples or groups, like setting up a database or adding a custom error handling. the mechanism of metada (:tags) relies on good grouping.&lt;/p&gt;
+
+&lt;p&gt;Getting the words right.&lt;/p&gt;
+
+&lt;p&gt;Every RSpec is the example group in other testing Frameworks it is called test case class and it has multiple purposes:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;gives a logical structure for understanding how individual examples relate to one another&lt;/li&gt;
+  &lt;li&gt;describes the context such as a particular class, method or situation of what you are testing,&lt;/li&gt;
+  &lt;li&gt;provides a ruby class to act as a scope for your shared logic, such as hooks let definition and helper methods,&lt;/li&gt;
+  &lt;li&gt;runs, set up and tear down code shared by several examples.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The basic includes group examples, examples and expectations.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;describe&lt;/code&gt; creates an example group. This is the place where you put what you say you are testing, the description can be either a string a ruby class, a module or an object. when you use a class it has some advantages because it requires the class to exist and to be spelled correctly, Also you place here the tag filtering with extra information and that tag will be applied to the nested examples&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;it&lt;/code&gt; creates a single example,  you pass a description of the behavior you are specifying as with describe you can also pass custom metadata to make it more specific remember that for bdd the crucial part is to “getting the words right”.&lt;/p&gt;
+
+&lt;p&gt;Now, so much alternatives for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;describe&lt;/code&gt; that makes more sense when the examples within that group all relate to a single class method or module that alternative is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;context&lt;/code&gt; which will make it more readable and considering that this is for the long term maintainability, and it will show the intent behind the code.&lt;/p&gt;
+
+&lt;p&gt;another alternative is &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;example&lt;/code&gt; instead of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;it&lt;/code&gt; and it may be used when you are providing several data examples rather than several sentence about the subject or describing a behavior it will read much more clearly and lastly we have the specified instead of the it&lt;/p&gt;
+
+&lt;p&gt;RSpec also provides the flexibility for adding the names you want in the book shows how you can combine this gem with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binding.pry&lt;/code&gt;  and how you can add an alias to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spec_helper.rb&lt;/code&gt; file and use that in your Cascade or example and that will add the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pry: true&lt;/code&gt;to metadata to its respective example group or single example and with this you can quickly toggle the pry behavior on and off just by adding or removing the name you define in the spec_helper.rb.&lt;/p&gt;
+
+&lt;p&gt;Sharing logic.&lt;/p&gt;
+
+&lt;p&gt;the main three organization tools are &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;let&lt;/code&gt; definitions, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hooks&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helper methods&lt;/code&gt; below is a code snippet that contains all of the three&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;POST a successful expense&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# let definitions&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instance_double&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;ExpenseTracker::Ledger&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;some&apos;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;data&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# hook&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;allow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ledger&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;receive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:record&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expense&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;and_return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RecordResult&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;417&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# helper method&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;parsed_last_response&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;parse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;last_response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We have used the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;let&lt;/code&gt; definition several times in this book they are great for setting up anything that can be initialized in a line or two of code, and they give you the lazy evaluation for free which means that they are not going to be run until you actually invoke them.&lt;/p&gt;
+
+&lt;p&gt;then we have the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hooks&lt;/code&gt; that are for situations where they &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;let&lt;/code&gt; definition block just won’t cut it. the important thing about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hooks&lt;/code&gt; is the one and how often you want the hook to run.&lt;/p&gt;
+
+&lt;p&gt;Hooks.&lt;/p&gt;
+
+&lt;p&gt;“writing a hook involves two concepts. the type of hook controls &lt;b&gt;when it runs&lt;/b&gt; relative to your examples. the scope controls &lt;b&gt;how often your hook runs.&lt;/b&gt;”&lt;/p&gt;
+
+&lt;p&gt;For the when the hook should run we have three different types before, after, and around. as the name implies, you’re before hook will run before your examples. after hooks guarantee to run after your examples, even if the example fails or did before hook races an example. this hooks are intended to clean up after your setup logic and specs. this style of hook is easy to read, but it does split the setup and tear down logic into two halves that we have to keep track of.&lt;/p&gt;
+
+&lt;p&gt;When your database cleanup logic doesn’t fit neatly into a transactional around HOOK, we recommend using a before hook for the following reasons: 
+if you forget to add the before hook to a particular spec the failure will happen in that example rather than a later one. 
+when you run a single example to diagnose a failure the records will stick around in the database so that you can investigate them.&lt;/p&gt;
+
+&lt;p&gt;the around hook it’s a bit more complex because they sandwich your spec code inside your hook, so part of the hook runs before the example and part runs after. the behavior of these two Snippets is the same; it is just a question of which reads better for your application.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MyApp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Configuration&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;around&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;original_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_hash&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;original_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then we have the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config hooks&lt;/code&gt; and this is if you need to run your hooks for multiple groups. you can define the hooks once for your entire Suite in the configuration typically &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spec _ helper.rb&lt;/code&gt;and they’ll run for every example in your test suite&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configure&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;config&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;around&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:example&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;original_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_hash&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;ENV&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;replace&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;original_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and with this they will run for every example in your test suite note the trade-off here:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Global hooks reduced duplication but can lead to surprising action at a distance effect in your aspects.&lt;/li&gt;
+  &lt;li&gt;hooks inside example groups are easier to follow but it is easy to leave out an important Hook by mistake when you are creating a new spec file.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;we do recommend only use config hooks for things that are not essential for understanding how your specs work. the Beats of logic  that isolate each example, such as a database transaction or environment sandboxing, or prime candidates.&lt;/p&gt;
+
+&lt;p&gt;we prefer to keep things simple and run our hooks unconditionally. if, however, our config hooks are only needed by a subset of examples on particularly if they are as low, we will use metadata to make sure they run only for the subset that need them.&lt;/p&gt;
+
+&lt;p&gt;now that we have seen when to run the hooks either before or after or around let’s see the scope.&lt;/p&gt;
+
+&lt;p&gt;this is meant when I hook needs to do a really timing tensive operation like creating a bunch of database tables or launching a live web server running the hook once per second will be cost provided. for this cases you can run the hook just once for the entire Suite of specs or once per example group. hooks take a symbol like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:suite&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:context&lt;/code&gt; argument to modify this code.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Web interface to my thermostat&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;before&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;WebBrowser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;launch&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;after&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;no&quot;&gt;WebBrowser&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shutdown&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;we only consider using context hook scope for side effects such as launching a web browser, that’s satisfy both of the following two conditions:&lt;/p&gt;
+
+&lt;p&gt;does not interact with things that have a per example life cycle
+ is noticeable slow to run&lt;/p&gt;
+
+&lt;p&gt;when you use a context hook scope your responsible for cleaning up any resulting state otherwise, it can cause other specs to pass or fail incorrectly&lt;/p&gt;
+
+&lt;p&gt;this is particularly common problem with database code. any records created in a before context hook scope will not run in your per example database transactions. the records will stick around after the example groups&lt;/p&gt;
+
+&lt;p&gt;If you need to run a piece of setup call just once, before the first example begins that’s what :suite&lt;/p&gt;
+
+&lt;p&gt;There may be some old syntax that you may find in code bases which is 
+Old new
+before(:each) became before(:example)
+before(:all) became before(:suite)&lt;/p&gt;
+
+&lt;p&gt;Something important when a example group is nested the before hooks run from the outside in and the after hooks run from the inside out.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;when to use hooks we have seen that hooks serve two different purposes: &lt;b&gt;&lt;/b&gt;&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;removing duplicate it or incidental details that will distract readers from the point of your example.&lt;/p&gt;
+
+&lt;p&gt;expressing the English descriptions of your example groups as executable code&lt;/p&gt;
+
+&lt;p&gt;Abusing RSpec hooks will make you skip all over your spec directory to trace program flow.&lt;/p&gt;
+
+&lt;p&gt;Helper methods.&lt;/p&gt;
+
+&lt;p&gt;Sometimes, we can get too clever for our own good and misuse these constructs in an effort to remove every last bit of repetition from our specs. Let’s see an example&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BerlinTransitTicket&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BerlinTransitTicket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# These values depend on `let` definitions&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;# defined in the nested contexts below!&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;#&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;starting_station&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;starting_station&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ending_station&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ending_station&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:fare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fare&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;when starting in zone A&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:starting_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Bundestag&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;and ending in zone B&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ending_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Leopoldplatz&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;costs €2.70&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.7&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;and ending in zone C&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:ending_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Birkenwerder&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;costs €3.30&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fare&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.3&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;With all these jumps around we have welcomed a behavior defined by the TDD community calls this separation of cause and effect a mystery guest &lt;a href=&quot;https://thoughtbot.com/blog/mystery-guest&quot;&gt;link&lt;/a&gt;, now let’s see how would be with a smart usage of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helpmer methods&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BerlinTransitTicket&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fare_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;starting_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ending_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BerlinTransitTicket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;starting_station&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;starting_station&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ending_station&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ending_station&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;ticket&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fare&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;when starting in zone A and ending in zone B&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;costs €2.70&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fare_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Bundestag&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Leopoldplatz&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.7&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;when starting in zone A and ending in zone C&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;costs €3.30&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fare_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Bundestag&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Birkenwerder&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.3&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;Now, it’s explicit exactly what behavior we’re testing, without our needing to repeat the details of the ticketing API. (these helper methods can be extracted into modules and be glued together by calling &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;include&lt;/code&gt; into the group example)&lt;/p&gt;
+
+&lt;p&gt;Sharing examples groups&lt;/p&gt;
+
+&lt;p&gt;As we have seen, plain old Ruby modules work really nicely for sharing helper methods across example Scripts. but that’s all they can share. if you want to reuse an example, a let construct or a hook, you will need to reach for another two; shared example groups.&lt;/p&gt;
+
+&lt;p&gt;RS pack provides multiple ways to create and use shared sample grips. this come in paris, with one method for defining a Share Group and another for using it:&lt;/p&gt;
+
+&lt;p&gt;-shared_context and include_context are for reusing common setup and helper logic..&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;shared_example and include_exampleAre for reusing examples..&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;there is one more way to share behavior that is different, though. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;it_behaves_like&lt;/code&gt; creates a new, nested example to hold the shared code. the difference lies in how as isolated the shared behavior is from the rest of your examples.&lt;/p&gt;
+
+&lt;p&gt;Sharing context&lt;/p&gt;
+
+&lt;p&gt;Sooner or later, dough, you will find that you want to share some let declarations or hooks instead.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;basic_authorize&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;test_user&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;test_password&apos;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This hook cannot go into your modules. plane will be modules are not aware of our aspect constructs such as hooks. instead, you can convert your module to a shared context:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shared_context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;API helpers&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Rack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Methods&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;app&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;ExpenseTracker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;API&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;before&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;basic_authorize&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;test_user&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;test_password&apos;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;End&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here is how we use it:&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Expense Tracker API&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:db&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;include_context&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;API helpers&apos;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# .&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Remember that sharing context is for reusing common setup and helper logic.&lt;/p&gt;
+
+&lt;p&gt;Sharing examples.&lt;/p&gt;
+
+&lt;p&gt;One of the most powerful ideas in software is defining a single interface with multiple implementation for example your web app might need to cash data in a key Value Store there are many implementation of this idea each which its own advantages over the others let’s see one example of these RS pack Behavior “shared_example”&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;hash_kv_store&apos;&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HashKVStore&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HashKVStore&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;allows you to fetch previously stored values&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Ruby&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;linux&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Ruby&apos;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;linux&apos;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;raises a KeyError when you fetch an unknown key&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;raise_error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;KeyError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;To test a second implementation of this interface such as a disk-backed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FileKVStore&lt;/code&gt; – you could copy and paste the entire spec and replace all occurrences of HashKVStore store with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;FileKVStore&lt;/code&gt;. but then you will have to add any new common Behavior to both specs files. we will have to manually keep it two specs files in sync.&lt;/p&gt;
+
+&lt;p&gt;This is exactly the kind of duplication that shared example groups can help you fix.  To make the switch, move your describe block into its own file and change it to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;shared_example&lt;/code&gt; block taking an argument and use that argument in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;let(:kv_store)&lt;/code&gt; declaration&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;shared_examples&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;KV store&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kv_store_class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;➤&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;let&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kv_store_class&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;allows you to fetch previously stored values&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Ruby&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;linux&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:language&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Ruby&apos;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;linux&apos;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;raises a KeyError when you fetch an unknown key&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kv_store&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;fetch&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;raise_error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;KeyError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;End&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And we use it with the following code snippet:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;hash_kv_store&apos;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;support/kv_store_shared_examples&apos;&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HashKVStore&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it_behaves_like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;KV store&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HashKVStore&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Nesting&lt;/p&gt;
+
+&lt;p&gt;In the introduction to this section, we mentioned that you can include shared
+examples with either include_examples or it_behaves_like call. So far, we’ve just used
+It_behaves_like.&lt;/p&gt;
+
+&lt;p&gt;Calling include_examplesyou’d get two let declarations for :kv_store: one for HashKVStore and one for FileKVStore.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;include_examples_twice_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;documentation&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stores&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;allows&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previously&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stored&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;raises&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KeyError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unknown&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;allows&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previously&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stored&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;raises&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KeyError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unknown&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Finished&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.00355&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;took&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.10257&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;examples&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failures&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using it_behaves_like avoids this issue:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;Key-value stores&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it_behaves_like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;KV store&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;HashKVStore&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;it_behaves_like&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;KV store&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;FileKVStore&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;End&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This would output:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;$&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;spec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;it_behaves_like_twice_spec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;format&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;documentation&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Key&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stores&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;behaves&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KV&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;allows&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previously&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stored&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;raises&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KeyError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unknown&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;behaves&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;like&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KV&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;store&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;allows&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;previously&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stored&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;raises&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;KeyError&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fetch&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unknown&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;key&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Finished&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.00337&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;took&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.09726&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seconds&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;examples&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;failures&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When in doubt, choose it behaves like&lt;/p&gt;
+
+&lt;p&gt;it behaves like it’s almost always the one you want. it ensures that the contents of the Share Group don’t leak into the surrounding context and interact with your other examples.&lt;/p&gt;
+
+&lt;p&gt;we recommend using include examples only when you are sure that shared example context on conflict with anything in the surrounding group.&lt;/p&gt;
+
+&lt;p&gt;This is a table that wraps up all the key Concepts that we saw:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Concept&lt;/th&gt;
+      &lt;th&gt;Usage&lt;/th&gt;
+      &lt;th&gt;Gotcha&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;describe&lt;/td&gt;
+      &lt;td&gt;Creates an example group for a class, module, object, or string; can combine with string; supports metadata.&lt;/td&gt;
+      &lt;td&gt;Passing a class enforces existence and correct spelling; vague descriptions reduce clarity.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;context&lt;/td&gt;
+      &lt;td&gt;Alias for &lt;code&gt;describe&lt;/code&gt; when grouping by situation or condition.&lt;/td&gt;
+      &lt;td&gt;Misuse can make specs awkward (“describe when boiling”).&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;it&lt;/td&gt;
+      &lt;td&gt;Defines a single example with behavior description; supports metadata.&lt;/td&gt;
+      &lt;td&gt;Reads awkwardly if not describing a subject.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;example&lt;/td&gt;
+      &lt;td&gt;Alias for &lt;code&gt;it&lt;/code&gt;; better for listing data cases.&lt;/td&gt;
+      &lt;td&gt;None — just improves readability.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;specify&lt;/td&gt;
+      &lt;td&gt;Alias for &lt;code&gt;it&lt;/code&gt;; use when neither &lt;code&gt;it&lt;/code&gt; nor &lt;code&gt;example&lt;/code&gt; reads well.&lt;/td&gt;
+      &lt;td&gt;None — clarity preference only.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hooks&lt;/td&gt;
+      &lt;td&gt;Shared setup/teardown logic with &lt;code&gt;before&lt;/code&gt;, &lt;code&gt;after&lt;/code&gt;, or &lt;code&gt;around&lt;/code&gt;.&lt;/td&gt;
+      &lt;td&gt;Overuse can cause “mystery guest” indirection; keep near usage.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;before(:example)&lt;/td&gt;
+      &lt;td&gt;Runs before each example (default scope).&lt;/td&gt;
+      &lt;td&gt;Forgetting in a spec causes failure there; can hide setup details.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;after(:example)&lt;/td&gt;
+      &lt;td&gt;Runs after each example, even on failure.&lt;/td&gt;
+      &lt;td&gt;Setup/teardown split can be harder to follow; prefer &lt;code&gt;before&lt;/code&gt; for DB cleanup.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;around(:example)&lt;/td&gt;
+      &lt;td&gt;Wraps code before and after an example in one block.&lt;/td&gt;
+      &lt;td&gt;Only supports &lt;code&gt;:example&lt;/code&gt; scope; can be harder to read.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;config hooks&lt;/td&gt;
+      &lt;td&gt;Hooks in &lt;code&gt;RSpec.configure&lt;/code&gt; for the whole suite.&lt;/td&gt;
+      &lt;td&gt;Risk of “action at a distance”; use for incidental details.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;scopes&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;:example&lt;/code&gt; (default), &lt;code&gt;:context&lt;/code&gt; (once/group), &lt;code&gt;:suite&lt;/code&gt; (once/suite).&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;:context&lt;/code&gt; can leak state; &lt;code&gt;:suite&lt;/code&gt; only in config; avoid old &lt;code&gt;:each&lt;/code&gt;/&lt;code&gt;:all&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;global hooks&lt;/td&gt;
+      &lt;td&gt;Config hooks affecting all examples.&lt;/td&gt;
+      &lt;td&gt;Can cause unintended side effects; harder to trace.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;hooks inside example groups&lt;/td&gt;
+      &lt;td&gt;Hooks scoped to one group.&lt;/td&gt;
+      &lt;td&gt;Easier to follow, but may be missed in new files.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;before(:context)&lt;/td&gt;
+      &lt;td&gt;Runs once before all examples in a group.&lt;/td&gt;
+      &lt;td&gt;Avoid for DB records or per-example lifecycle items; must clean up state.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;let definition&lt;/td&gt;
+      &lt;td&gt;Lazily defines a memoized helper variable.&lt;/td&gt;
+      &lt;td&gt;Overuse can hide cause/effect; nested overrides may confuse.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;helper method&lt;/td&gt;
+      &lt;td&gt;Ruby method in example group for setup or reuse.&lt;/td&gt;
+      &lt;td&gt;Avoid hiding essential details far away; inline when important.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;shared_context + include_context&lt;/td&gt;
+      &lt;td&gt;Share &lt;code&gt;let&lt;/code&gt;, hooks, and helpers across groups.&lt;/td&gt;
+      &lt;td&gt;Plain Ruby modules can’t hold RSpec constructs; merging may override definitions.&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;shared_examples + include_examples&lt;/td&gt;
+      &lt;td&gt;Share examples; &lt;code&gt;include_examples&lt;/code&gt; pastes into current group.&lt;/td&gt;
+      &lt;td&gt;Multiple includes can cause collisions (e.g., &lt;code&gt;let&lt;/code&gt; overwrites).&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;it_behaves_like&lt;/td&gt;
+      &lt;td&gt;Runs shared examples in a nested group, avoiding collisions.&lt;/td&gt;
+      &lt;td&gt;Adds extra nesting in output; almost always preferred to &lt;code&gt;include_examples&lt;/code&gt;.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h3 id=&quot;chapter-8&quot;&gt;Part III — Chapter 8. Slicing and dicing specs with metadata.&lt;/h3&gt;
 

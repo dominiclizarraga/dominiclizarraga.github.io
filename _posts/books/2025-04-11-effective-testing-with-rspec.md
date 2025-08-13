@@ -24,8 +24,10 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 4. [Starting On the Outside: Acceptance Specs.](#chapter-4)
 5. [Testing in isolation: Unit specs.](#chapter-5)
 6. [Getting real: Integration specs.](#chapter-6)
-5. [pending.](#chapter-5)
-5. [pending.](#chapter-5)
+7. [Structuring code examples.](#chapter-7)
+8. [Slicing and dicing specs with metadata.](#chapter-8)
+9. [Configuring RSpec.](#chapter-9)
+
 
 ### Part I — Chapter 1. Getting Started. {#chapter-1}
 
@@ -1668,8 +1670,9 @@ This tells you exactly which tests together trigger the failure, so you can debu
 
 ### Part III — Chapter 7. Structuring code examples. {#chapter-7}
 
-mental model of "where things go" (either files or groups or examples or setup!)
-written short, clear examples that epxlain exactly what the expected behavior of the code is
+we've gained the mental model of "where things go" (either files or groups or examples or setup!)
+
+we've have written short, clear examples that explain exactly what the expected behavior of the code is
 laid examples into logical groups, not oly to share setup but foor keep related specs together
 
 you'll learn how to organize specs into groups, you'll know where to put shared setup code and the trade-offs.
@@ -1678,30 +1681,57 @@ This will make the tests easier to read and maintain.
 
 well-structures specs are about more than tidiness, sometimes you attach special behavior to certain examples or groups, like setting up a database or adding a custom error handling. the mechanism of metada (:tags) relies on good grouping.
 
+Getting the words right.
 
-Every RSpec is the example group in other testing Frameworks it is called test case class and it has multiple purposes column gives a logical structure for understanding how individual examples relate to one another, describes the context such as a particular class, method or situation of what you are testing, provides a ruby class to act as a scope for your shared logic, such as hooks let definition and helper methods, runs, set up and tear down code shared by several examples.
+Every RSpec is the example group in other testing Frameworks it is called test case class and it has multiple purposes:
+- gives a logical structure for understanding how individual examples relate to one another
+- describes the context such as a particular class, method or situation of what you are testing, 
+- provides a ruby class to act as a scope for your shared logic, such as hooks let definition and helper methods, 
+- runs, set up and tear down code shared by several examples.
 
-The basics includes group examples, examples and expectations. describe and it's aliases, it and it's aliases
+The basic includes group examples, examples and expectations.
 
- describe creates an example group.This is the place where you put what you say you are testing the description can be either a string a ruby class, a module or an object when you use a class it has some advantages because it requires the class to exist and to be spelled correctly, Also you place here the tag filtering with extra information and that tag will be applied to the nested examples
+ `describe` creates an example group. This is the place where you put what you say you are testing, the description can be either a string a ruby class, a module or an object. when you use a class it has some advantages because it requires the class to exist and to be spelled correctly, Also you place here the tag filtering with extra information and that tag will be applied to the nested examples
 
- it creates a single example,  you pass a description of the behavior you are specifying as with describe you can also pass custom metadata to make it more specific remember that for bdd the crucial part is to “getting the words right”.
+ `it` creates a single example,  you pass a description of the behavior you are specifying as with describe you can also pass custom metadata to make it more specific remember that for bdd the crucial part is to “getting the words right”.
 
-Now, so much alternatives for describe that makes more sense when the examples within that group all relate to a single class method or module that alternative is context which will make it more readable and considering that this is for the long term maintainability, and it will show the intent behind the code another alternative is example instead of the it and it may be used when you are providing several data examples rather than several sentence about the subject or describing a behavior it will read much more clearly and lastly we have the specified instead of the it 
+Now, so much alternatives for `describe` that makes more sense when the examples within that group all relate to a single class method or module that alternative is `context` which will make it more readable and considering that this is for the long term maintainability, and it will show the intent behind the code. 
 
-RSpec ouncil provides the flexibility for adding the names you want in the book shows how you can combine these gym with binding.pry  and how you can add an alias to the spec_helper.rb file and use that in your Cascade or example and that will add the `pry: true`to metadata to its respective example group or single example and with this you can quickly toggle the pry behavior on and off just by adding or removing the name you define in the spec_helper.rb.
+another alternative is `example` instead of the `it` and it may be used when you are providing several data examples rather than several sentence about the subject or describing a behavior it will read much more clearly and lastly we have the specified instead of the it 
 
-Sharing, logic the main three organization tools are let definitions, hooks, and helper methods below is a code snippet that contains all of the three
+RSpec also provides the flexibility for adding the names you want in the book shows how you can combine this gem with `binding.pry`  and how you can add an alias to the `spec_helper.rb` file and use that in your Cascade or example and that will add the `pry: true`to metadata to its respective example group or single example and with this you can quickly toggle the pry behavior on and off just by adding or removing the name you define in the spec_helper.rb.
 
-CODEEE
+Sharing logic.
 
-We have used the LED definition several times in this book they are great for setting up anything that can be initialized in a line or two of code, and they give you the lazy evaluation for free which means that they are not going to be run until you actually invoke them.
+the main three organization tools are `let` definitions, `hooks`, and `helper methods` below is a code snippet that contains all of the three
 
- then we have the hooks that are for situations where they let definition block just won't cut it. the important thing about hooks is the one and how often you want the hook to run.
+```ruby
+RSpec.describe 'POST a successful expense' do
+  # let definitions
+  let(:ledger) { instance_double('ExpenseTracker::Ledger') }
+  let(:expense) { { 'some' => 'data' } }
+  # hook
+  before do
+    allow(ledger).to receive(:record)
+    .with(expense)
+    .and_return(RecordResult.new(true, 417, nil))
+  end
+  # helper method
+  def parsed_last_response
+    JSON.parse(last_response.body)
+  end
+end
+```
 
-“ writing a hook involves two concepts. the type of hook controls when it runs relative to your examples. the scope controls how often your hook runs.”
+We have used the `let` definition several times in this book they are great for setting up anything that can be initialized in a line or two of code, and they give you the lazy evaluation for free which means that they are not going to be run until you actually invoke them.
 
-For the when the hook should run we have three different types before, after, and around. as the name implies, you're before hook will run before your examples. after hooks I guarantee to run after your examples, even if the example fails or did before hook races an example. this hooks are intended to clean up after your setup logic and specs. this style of hook is easy to read, but it does split the setup and tear down logic into two halves that we have to keep track of.
+ then we have the `hooks` that are for situations where they `let` definition block just won't cut it. the important thing about `hooks` is the one and how often you want the hook to run.
+
+ Hooks.
+
+"writing a hook involves two concepts. the type of hook controls <b>when it runs</b> relative to your examples. the scope controls <b>how often your hook runs.</b>”
+
+For the when the hook should run we have three different types before, after, and around. as the name implies, you're before hook will run before your examples. after hooks guarantee to run after your examples, even if the example fails or did before hook races an example. this hooks are intended to clean up after your setup logic and specs. this style of hook is easy to read, but it does split the setup and tear down logic into two halves that we have to keep track of.
 
 When your database cleanup logic doesn't fit neatly into a transactional around HOOK, we recommend using a before hook for the following reasons: 
 if you forget to add the before hook to a particular spec the failure will happen in that example rather than a later one. 
@@ -1709,13 +1739,31 @@ when you run a single example to diagnose a failure the records will stick aroun
 
  the around hook it's a bit more complex because they sandwich your spec code inside your hook, so part of the hook runs before the example and part runs after. the behavior of these two Snippets is the same; it is just a question of which reads better for your application.
 
-CODEEEE
+```ruby
+RSpec.describe MyApp::Configuration do
+  around(:example) do |ex|
+    original_env = ENV.to_hash
+    ex.run
+    ENV.replace(original_env)
+  end
+end
+```
 
-Then we have the config hooks and this is if you need to run your hooks for multiple groups. you can Define the hooks once for your entire Suite in the configuration typically spec _ helper.rb
+Then we have the `config hooks` and this is if you need to run your hooks for multiple groups. you can define the hooks once for your entire Suite in the configuration typically `spec _ helper.rb`and they’ll run for every example in your test suite
 
-CODEEE
+```ruby
+RSpec.configure do |config|
+  config.around(:example) do |ex|
+    original_env = ENV.to_hash
+    ex.run
+    ENV.replace(original_env)
+  end
+end
+```
 
- and with this they will run for every example in your test Suite note the trade-off here: Global hooks reduced duplication but can lead to surprising action at a distance effect in your aspects. hooks inside example groups are easier to follow but it is easy to leave out an important Hook by mistake when you are creating a new spec file.
+ and with this they will run for every example in your test suite note the trade-off here:
+ - Global hooks reduced duplication but can lead to surprising action at a distance effect in your aspects. 
+ - hooks inside example groups are easier to follow but it is easy to leave out an important Hook by mistake when you are creating a new spec file.
 
  we do recommend only use config hooks for things that are not essential for understanding how your specs work. the Beats of logic  that isolate each example, such as a database transaction or environment sandboxing, or prime candidates.
 
@@ -1723,9 +1771,18 @@ CODEEE
 
  now that we have seen when to run the hooks either before or after or around let's see the scope.
 
- this is meant when I hook needs to do a really timing tensive operation like creating a bunch of database tables or launching a live web server running the hook once per second will be cost provided. for this cases you can run the hook just once for the entire Suite of specs or once per example group. hooks take a symbol like sweet or context argument to modify this code.
+ this is meant when I hook needs to do a really timing tensive operation like creating a bunch of database tables or launching a live web server running the hook once per second will be cost provided. for this cases you can run the hook just once for the entire Suite of specs or once per example group. hooks take a symbol like `:suite` or `:context` argument to modify this code.
 
-CODEEE
+```ruby
+RSpec.describe 'Web interface to my thermostat' do
+  before(:context) do
+    WebBrowser.launch
+  end
+  after(:context) do
+    WebBrowser.shutdown
+  end
+end
+```
 
  we only consider using context hook scope for side effects such as launching a web browser, that's satisfy both of the following two conditions: 
 
@@ -1745,21 +1802,622 @@ before(:all) became before(:suite)
 
 Something important when a example group is nested the before hooks run from the outside in and the after hooks run from the inside out.
 
- when to use hooks we have seen that hooks serve two different purposes: 
+ <b>when to use hooks we have seen that hooks serve two different purposes: <b/>
 
 removing duplicate it or incidental details that will distract readers from the point of your example.
 
  expressing the English descriptions of your example groups as executable code 
 
+Abusing RSpec hooks will make you skip all over your spec directory to trace program flow.
+
+Helper methods.
+
+Sometimes, we can get too clever for our own good and misuse these constructs in an effort to remove every last bit of repetition from our specs. Let's see an example
+
+```ruby
+RSpec.describe BerlinTransitTicket do
+  let(:ticket) { BerlinTransitTicket.new }
+
+  before do
+    # These values depend on `let` definitions
+    # defined in the nested contexts below!
+    #
+    ticket.starting_station = starting_station
+    ticket.ending_station = ending_station
+  end
+
+  let(:fare) { ticket.fare }
+
+  context 'when starting in zone A' do
+    let(:starting_station) { 'Bundestag' }
+
+    context 'and ending in zone B' do
+    let(:ending_station) { 'Leopoldplatz' }
+
+    it 'costs €2.70' do
+      expect(fare).to eq 2.7
+    end
+  end
+
+  context 'and ending in zone C' do
+    let(:ending_station) { 'Birkenwerder' }
+
+    it 'costs €3.30' do
+      expect(fare).to eq 3.3
+    end
+  end
+end
+```
+With all these jumps around we have welcomed a behavior defined by the TDD community calls this separation of cause and effect a mystery guest [link](https://thoughtbot.com/blog/mystery-guest), now let's see how would be with a smart usage of `helpmer methods`
+
+```ruby
+RSpec.describe BerlinTransitTicket do
+  def fare_for(starting_station, ending_station)
+    ticket = BerlinTransitTicket.new
+    ticket.starting_station = starting_station
+    ticket.ending_station = ending_station
+    ticket.fare
+  end
+  context 'when starting in zone A and ending in zone B' do
+    it 'costs €2.70' do
+    expect(fare_for('Bundestag', 'Leopoldplatz')).to eq 2.7
+    end
+  end
+  context 'when starting in zone A and ending in zone C' do
+    it 'costs €3.30' do
+    expect(fare_for('Bundestag', 'Birkenwerder')).to eq 3.3
+    end
+  end
+end
+```
+Now, it’s explicit exactly what behavior we’re testing, without our needing to repeat the details of the ticketing API. (these helper methods can be extracted into modules and be glued together by calling `include` into the group example)
+
+Sharing examples groups
+
+As we have seen, plain old Ruby modules work really nicely for sharing helper methods across example Scripts. but that's all they can share. if you want to reuse an example, a let construct or a hook, you will need to reach for another two; shared example groups.
+
+ RS pack provides multiple ways to create and use shared sample grips. this come in paris, with one method for defining a Share Group and another for using it:
+
+-shared_context and include_context are for reusing common setup and helper logic..
+- shared_example and include_exampleAre for reusing examples..
+
+ there is one more way to share behavior that is different, though. `it_behaves_like` creates a new, nested example to hold the shared code. the difference lies in how as isolated the shared behavior is from the rest of your examples.
+
+Sharing context
+
+Sooner or later, dough, you will find that you want to share some let declarations or hooks instead.
+
+```ruby
+before do
+basic_authorize 'test_user', 'test_password'
+end
+```
+
+This hook cannot go into your modules. plane will be modules are not aware of our aspect constructs such as hooks. instead, you can convert your module to a shared context:
+
+```ruby
+RSpec.shared_context 'API helpers' do
+include Rack::Test::Methods
+def app
+ExpenseTracker::API.new
+end
+before do
+basic_authorize 'test_user', 'test_password'
+end
+End
+```
+
+Here is how we use it:
+```ruby
+RSpec.describe 'Expense Tracker API', :db do
+include_context 'API helpers'
+# .
+```
+
+Remember that sharing context is for reusing common setup and helper logic.
+
+Sharing examples.
+
+One of the most powerful ideas in software is defining a single interface with multiple implementation for example your web app might need to cash data in a key Value Store there are many implementation of this idea each which its own advantages over the others let's see one example of these RS pack Behavior “shared_example”
+
+```ruby
+require 'hash_kv_store'
+RSpec.describe HashKVStore do
+let(:kv_store) { HashKVStore.new }
+it 'allows you to fetch previously stored values' do
+kv_store.store(:language, 'Ruby')
+kv_store.store(:os, 'linux')
+expect(kv_store.fetch(:language)).to eq 'Ruby'
+expect(kv_store.fetch(:os)).to eq 'linux'
+end
+it 'raises a KeyError when you fetch an unknown key' do
+expect { kv_store.fetch(:foo) }.to raise_error(KeyError)
+end
+end
+```
+To test a second implementation of this interface such as a disk-backed `FileKVStore` – you could copy and paste the entire spec and replace all occurrences of HashKVStore store with `FileKVStore`. but then you will have to add any new common Behavior to both specs files. we will have to manually keep it two specs files in sync.
+
+This is exactly the kind of duplication that shared example groups can help you fix.  To make the switch, move your describe block into its own file and change it to a `shared_example` block taking an argument and use that argument in the `let(:kv_store)` declaration 
+
+```ruby
+RSpec.shared_examples 'KV store' do |kv_store_class|
+➤ let(:kv_store) { kv_store_class.new }
+it 'allows you to fetch previously stored values' do
+kv_store.store(:language, 'Ruby')
+kv_store.store(:os, 'linux')
+expect(kv_store.fetch(:language)).to eq 'Ruby'
+expect(kv_store.fetch(:os)).to eq 'linux'
+end
+it 'raises a KeyError when you fetch an unknown key' do
+expect { kv_store.fetch(:foo) }.to raise_error(KeyError)
+end
+End
+```
+
+And we use it with the following code snippet:
+
+```ruby
+require 'hash_kv_store'
+require 'support/kv_store_shared_examples'
+RSpec.describe HashKVStore do
+it_behaves_like 'KV store', HashKVStore
+end
+```
+
+Nesting
+
+In the introduction to this section, we mentioned that you can include shared
+examples with either include_examples or it_behaves_like call. So far, we’ve just used
+It_behaves_like.
+
+Calling include_examplesyou’d get two let declarations for :kv_store: one for HashKVStore and one for FileKVStore.
+
+```ruby
+$ rspec spec/include_examples_twice_spec.rb --format documentation
+Key-value stores
+allows you to fetch previously stored values
+raises a KeyError when you fetch an unknown key
+allows you to fetch previously stored values
+raises a KeyError when you fetch an unknown key
+Finished in 0.00355 seconds (files took 0.10257 seconds to load)
+4 examples, 0 failures
+```
+
+Using it_behaves_like avoids this issue:
+
+```ruby
+RSpec.describe 'Key-value stores' do
+it_behaves_like 'KV store', HashKVStore
+it_behaves_like 'KV store', FileKVStore
+End
+```
+
+This would output:
+
+```ruby
+$ rspec spec/it_behaves_like_twice_spec.rb --format documentation
+Key-value stores
+behaves like KV store
+allows you to fetch previously stored values
+raises a KeyError when you fetch an unknown key
+behaves like KV store
+allows you to fetch previously stored values
+raises a KeyError when you fetch an unknown key
+Finished in 0.00337 seconds (files took 0.09726 seconds to load)
+4 examples, 0 failures
+```
+
+When in doubt, choose it behaves like
+
+ it behaves like it's almost always the one you want. it ensures that the contents of the Share Group don't leak into the surrounding context and interact with your other examples.
+
+ we recommend using include examples only when you are sure that shared example context on conflict with anything in the surrounding group. 
 
 
+This is a table that wraps up all the key Concepts that we saw:
 
-
-
-
-
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Usage</th>
+      <th>Gotcha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>describe</td>
+      <td>Creates an example group for a class, module, object, or string; can combine with string; supports metadata.</td>
+      <td>Passing a class enforces existence and correct spelling; vague descriptions reduce clarity.</td>
+    </tr>
+    <tr>
+      <td>context</td>
+      <td>Alias for <code>describe</code> when grouping by situation or condition.</td>
+      <td>Misuse can make specs awkward (“describe when boiling”).</td>
+    </tr>
+    <tr>
+      <td>it</td>
+      <td>Defines a single example with behavior description; supports metadata.</td>
+      <td>Reads awkwardly if not describing a subject.</td>
+    </tr>
+    <tr>
+      <td>example</td>
+      <td>Alias for <code>it</code>; better for listing data cases.</td>
+      <td>None — just improves readability.</td>
+    </tr>
+    <tr>
+      <td>specify</td>
+      <td>Alias for <code>it</code>; use when neither <code>it</code> nor <code>example</code> reads well.</td>
+      <td>None — clarity preference only.</td>
+    </tr>
+    <tr>
+      <td>hooks</td>
+      <td>Shared setup/teardown logic with <code>before</code>, <code>after</code>, or <code>around</code>.</td>
+      <td>Overuse can cause “mystery guest” indirection; keep near usage.</td>
+    </tr>
+    <tr>
+      <td>before(:example)</td>
+      <td>Runs before each example (default scope).</td>
+      <td>Forgetting in a spec causes failure there; can hide setup details.</td>
+    </tr>
+    <tr>
+      <td>after(:example)</td>
+      <td>Runs after each example, even on failure.</td>
+      <td>Setup/teardown split can be harder to follow; prefer <code>before</code> for DB cleanup.</td>
+    </tr>
+    <tr>
+      <td>around(:example)</td>
+      <td>Wraps code before and after an example in one block.</td>
+      <td>Only supports <code>:example</code> scope; can be harder to read.</td>
+    </tr>
+    <tr>
+      <td>config hooks</td>
+      <td>Hooks in <code>RSpec.configure</code> for the whole suite.</td>
+      <td>Risk of “action at a distance”; use for incidental details.</td>
+    </tr>
+    <tr>
+      <td>scopes</td>
+      <td><code>:example</code> (default), <code>:context</code> (once/group), <code>:suite</code> (once/suite).</td>
+      <td><code>:context</code> can leak state; <code>:suite</code> only in config; avoid old <code>:each</code>/<code>:all</code>.</td>
+    </tr>
+    <tr>
+      <td>global hooks</td>
+      <td>Config hooks affecting all examples.</td>
+      <td>Can cause unintended side effects; harder to trace.</td>
+    </tr>
+    <tr>
+      <td>hooks inside example groups</td>
+      <td>Hooks scoped to one group.</td>
+      <td>Easier to follow, but may be missed in new files.</td>
+    </tr>
+    <tr>
+      <td>before(:context)</td>
+      <td>Runs once before all examples in a group.</td>
+      <td>Avoid for DB records or per-example lifecycle items; must clean up state.</td>
+    </tr>
+    <tr>
+      <td>after(:example)</td>
+      <td>Runs after each example; used for cleanup, even if the example fails.</td>
+      <td>Splits setup and teardown logic across hooks, making flow harder to follow; prefer <code>before</code> for database cleanup.</td>
+    </tr>
+    <tr>
+      <td>let definition</td>
+      <td>Lazily defines a memoized helper variable.</td>
+      <td>Overuse can hide cause/effect; nested overrides may confuse.</td>
+    </tr>
+    <tr>
+      <td>helper method</td>
+      <td>Ruby method in example group for setup or reuse.</td>
+      <td>Avoid hiding essential details far away; inline when important.</td>
+    </tr>
+    <tr>
+      <td>shared_context + include_context</td>
+      <td>Share <code>let</code>, hooks, and helpers across groups.</td>
+      <td>Plain Ruby modules can’t hold RSpec constructs; merging may override definitions.</td>
+    </tr>
+    <tr>
+      <td>shared_examples + include_examples</td>
+      <td>Share examples; <code>include_examples</code> pastes into current group.</td>
+      <td>Multiple includes can cause collisions (e.g., <code>let</code> overwrites).</td>
+    </tr>
+    <tr>
+      <td>it_behaves_like</td>
+      <td>Runs shared examples in a nested group, avoiding collisions.</td>
+      <td>Adds extra nesting in output; almost always preferred to <code>include_examples</code>.</td>
+    </tr>
+  </tbody>
+</table>
 
 ### Part III — Chapter 8. Slicing and dicing specs with metadata. {#chapter-8}
+
+Slicing and Dicing specs with Metadata
+
+In this chapter we are going to learn what type of information are spec stores for each example that it is run how to add more information to that previous stack coma and how to read it, how to perform expensive setup only when we need it and how to run just a subset of tests.
+
+ over the course of this book, we have far away cute principle that has made our specs faster, more reliable, and easier to use: “ run just the code you need.”
+ when you are isolating a failure, run just the feeling example.
+ when you are modifying a class, run just it's unit tests.
+ when you've got expensive setup code, only run it for the specs where you need it.
+
+ a key piece of RS pack that's made many of these practices possible is its powerful metadata system. metadata undergirds many of our aspects features, and rs back exposes the same system for your use.
+
+Defining metadata
+
+ where do I keep information about the context my specs are running in? by contact, we mean things like:
+ example configuration open parentheses for example, Mark as escaped or pending close parentheses
+ source code locations
+ status of the previous run
+ how one example runs differently than others for example needing a web browser or a DB
+
+ without some way of attaching data to examples, you and the are aspect maintainers will be stock juggling Global variables and writing a bunch of bookkeeping code..
+
+RSpec solution to this problem couldn't beSimpler:  a plain Ruby hash. every example an example group gets its own such hash, known as the metadata hash.RSpec  populates this hash with any metadata you have explicitly chat the example with, plus some useful entries of its own.
+
+If you create the following file and you run the test you will see the next information on your terminal:
+
+```ruby
+require 'pp'
+RSpec.describe Hash do
+it 'is used by RSpec for metadata' do |example|
+pp example.metadata
+end
+end
+
+# this w ould be the output
+
+$ rspec spec/metadata_spec.rb
+{:block=>
+#<Proc:0x007fa6fc07e6a8@~/code/metadata/spec/metadata_spec.rb:4>,
+:description_args=>["is used by RSpec for metadata"],
+:description=>"is used by RSpec for metadata",
+:full_description=>"Hash is used by RSpec for metadata",
+:described_class=>Hash,
+:file_path=>"./spec/metadata_spec.rb",
+:line_number=>4,
+:location=>"./spec/metadata_spec.rb:4",
+:absolute_file_path=>
+"~/code/metadata/spec/metadata_spec.rb",
+:rerun_file_path=>"./spec/metadata_spec.rb",
+:scoped_id=>"1:1",
+:execution_result=>
+#<RSpec::Core::Example::ExecutionResult:0x007ffda2846a78
+@started_at=2017-06-13 13:34:00 -0700>,
+:example_group=>
+{:block=>
+#<Proc:0x007fa6fb914bb0@~/code/metadata/spec/metadata_spec.rb:3>,
+« truncated »
+:shared_group_inclusion_backtrace=>[],
+:last_run_status=>"unknown"}
+.
+Finished in 0.00279 seconds (files took 0.09431 seconds to load)
+1 example, 0 failures
+```
+
+Listen if it shows something that we haven't talked about before: getting access to your examples properties at the wrong time. you can  so by having your eight block take an argument. it will pass an object representing the currently running example.
+
+ the call to example that metadata returns a hash containing all the metadata.  kiss like description just the string we passed to it, full description includes the checks passed to the describe, describe class, fire path, example groups and last round status with four different values as past, pending, failed or unknown
+
+Custom metadata
+
+ if we want to add extra metadata to our examples in order to identify it better or to one our colleagues we can do it with the next procedure:
+
+```ruby
+require 'pp'
+RSpec.describe Hash do
+➤ it 'is used by RSpec for metadata', :fast do |example|
+pp example.metadata
+end
+end
+
+# this will save`:fast=>true`, we can also add more than one, for example :fast, :focus 
+```
+
+Then we can call those example that contain the :fast meta tag with `$ rspec --tag fast`
+
+We can also do it for all examples by adding it to `spec_helper.rb`
+
+```ruby
+RSpec.configure do |config|
+config.define_derived_metadata(file_path: /spec\/unit/) do |meta|
+meta[:fast] = true
+end
+end
+```
+
+Default metadata
+
+As we saw previously with the tag `:aggreagate_failures`Which will run all the test even when they fail, we can add these two all of the examples again adding it to the RSpec.configure
+
+```ruby
+RSpec.configure do |config|
+config.define_derived_metadata do |meta|
+# Sets the flag unconditionally;
+# doesn't allow examples to opt out
+meta[:aggregate_failures] = true
+end
+end
+```
+Here is something important that if we don't want to use that metal type the next code will be overwritten by the global setting: 
+
+```ruby
+RSpec.describe 'Billing', aggregate_failures: false do
+context 'using the fake payment service' do
+before do
+expect(MyApp.config.payment_gateway).to include('sandbox')
+end
+# ...
+end
+end
+```
+
+Therefore we need to tweak it a little bit in order to allow the example group to follow its own rules we need to add a conditional to the spec helper 
+
+```ruby
+RSpec.configure do |config|
+config.define_derived_metadata do |meta|
+meta[:aggregate_failures] = true unless meta.key?(:aggregate_failures)
+end
+end
+```
+
+I say recap of this chapter we can conclude that it will be hash is created every time we run our test Suite and wouldn't that hash we can find configurations, where the code is located, status of the example, we can even add our own tags And we can print that hash at the wrong time with `.metadata`
+
+Selecting which specs to run
+
+When you are running your specs, you often want to change which ones you include. in this section we are going to show you a few different situations where this kind of slicing and dicing comes in handy.
+
+ most of the time when we start writing our tests, we don't run then Tire so. we are either running unit spec for a specific class we are designing or we are kicking off some integration specs to catch regressions.
+
+ one example to exclude some examples is the following tag:
+
+```ruby
+RSpec.configure do |config|
+config.filter_run_excluding :jruby_only unless RUBY_PLATFORM == 'java'
+end
+```
+
+The `filter_run_excluding` call indicates which examples we’re leaving out. The flip side to that method is filter_run_including, or just filter_run for short.
+
+This style of filtering is pretty brute-force. If no examples match the filter, RSpec will run nothing at all.
+A more generally useful approach is to use filter_run_when_matching. With this method, if nothing matches the filter, RSpec just ignores it.
+
+Remember that `RSpec.configure` block are permanent settings, baked into your setup code. They’ll be in effect every time you run RSpec.
+
+If you want to run your specific subset of tests from command line you can do it with the following
+```ruby
+$ rspec --tag fast # this will run just the examples tagged with :fast 
+
+# this will do exactly the opposite, run all except the tests tagged with :fast
+$ rspec --tag ~fast
+```
+
+Sharing code conditionally
+
+ we discussed three ways to share code across many examples groups:
+ top level config hooks
+ modules containing helper methods
+ shared context containingRSpec constructs such as Hooks and let blocks
+
+Metadata is what enables this flexibility, and you can use it with all the culture and techniques we listed earlier:
+
+Config hooks. pass a filter expression as a second argument to config.before, config.after or config.aroundTo run that hook only for example matching the filter.
+```ruby
+# spec/spec_helper.rb
+RSpec.configure do |config|
+  config.before(:example, :db) do
+    puts "Setting up database for this example..."
+  end
+
+  config.after(:example, slow: true) do
+    puts "Cleaning up after a slow example..."
+  end
+
+  config.around(:example, api: true) do |example|
+    puts "Before API example"
+    example.run
+    puts "After API example"
+  end
+end
+
+# Usage in a spec:
+RSpec.describe "Some feature" do
+  it "needs database setup", :db do
+    # ...
+  end
+
+  it "is a slow example", slow: true do
+    # ...
+  end
+
+  it "calls the API", api: true do
+    # ...
+  end
+end
+```
+ modules. at the filter expression to the end of your config that include call in order to include a module and it's helper methods conditionally. this also works for similar `config.extend` and `config.prepend`
+
+ ```ruby
+ # spec/support/api_helpers.rb
+module APIHelpers
+  def api_call(path)
+    # pretend API call here
+  end
+end
+
+# spec/spec_helper.rb
+RSpec.configure do |config|
+  config.include APIHelpers, api: true
+end
+
+# Usage:
+RSpec.describe "API requests", :api do
+  it "can call the API" do
+    api_call("/status")
+  end
+end
+```
+
+ shared context. just ask with modules, at a filter expression  when calling config.include_contest.  this will bring in your shirt let constructs among other things into just example groups you want.
+
+ ```ruby
+ # spec/support/api_context.rb
+RSpec.shared_context "API context" do
+  let(:auth_token) { "secret" }
+end
+
+# spec/spec_helper.rb
+RSpec.configure do |config|
+  config.include_context "API context", api: true
+end
+
+# Usage:
+RSpec.describe "Authenticated API request", :api do
+  it "uses the auth token" do
+    expect(auth_token).to eq "secret"
+  end
+end
+```
+
+Here are some other examples of metadata that we have seen before
+
+<table>
+  <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Usage</th>
+      <th>Gotcha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>:aggregate_failures</td>
+      <td>Allows multiple expectations in an example to run before failing, showing all failures together.</td>
+      <td>Without it, the first failing expectation stops the example; can hide which expectation failed first.</td>
+    </tr>
+    <tr>
+      <td>:pending</td>
+      <td>Marks an example as pending (not yet implemented or expected to fail).</td>
+      <td>If the example passes, RSpec flags it as a failure to remind you to remove <code>:pending</code>.</td>
+    </tr>
+    <tr>
+      <td>:order</td>
+      <td>Sets run order for examples (e.g., <code>:random</code>, <code>:defined</code>).</td>
+      <td>Random order may expose order dependencies; <code>:defined</code> can hide them.</td>
+    </tr>
+    <tr>
+      <td>:skip</td>
+      <td>Skips the example or group entirely without running it.</td>
+      <td>Easy to forget skipped tests; may hide failing scenarios if left in place.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
 
 ### Part III — Chapter 9. Configuring RSpec. {#chapter-9}
 

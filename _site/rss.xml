@@ -12,9 +12,91 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
+      <title>OOP Sandi Metz - week 1</title>
+      <dc:creator>dom lizarraga</dc:creator>
+      <description>&lt;p&gt;I’ve started a 12-week walkthrough of &lt;a href=&quot;https://sandimetz.com/courses&quot;&gt;Practical Object-Oriented Design Course&lt;/a&gt; by Sandi Metz, and we’re reading the first two chapters of &lt;a href=&quot;https://sandimetz.com/99bottles&quot;&gt;99 botles&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are the highlights from the first session:&lt;/p&gt;
+
+&lt;p&gt;We were tasked to complete as much possible the coding and make all tests pass within 15 mins. The test was about singing the &lt;a href=&quot;https://www.99-bottles-of-beer.net/lyrics.html&quot;&gt;99 bottles of beer song&lt;/a&gt; which is a song counting down bottles of beer.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;SIDE NOTE: I asked chatGPT about this song after I solved the excercise which is wrong. My mentor has always told me to figure out as much as I can on the domain model! And since it was the 1st time i kknew about this song I missed very important details, for instance: knowing the highest number possible is 99 and the lowest is 0. It may have changed my approach.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The minitests expected a concatenated string and at a first glance I idetified that numbers and a few words were changing as we were counting-down.&lt;/p&gt;
+
+&lt;p&gt;I tried to follow conventions like short classes, short methods and so on. so firstly I made sure I was outputting the correct string and then pinpointed the numbers that needed the counting-down and came up with the method name &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bottle_count_phrase&lt;/code&gt; because it was meant for toggling from the words&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bottle&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bottles&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;no more bottles&lt;/code&gt; (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;gt; 1 (greater than 1)&lt;/code&gt; respectively) and the integer change by substracting 1.&lt;/p&gt;
+
+&lt;p&gt;I tried the first version and worked, so I advanced to the next test, until I faced the pronoun that changes (“one” or “it”), after identifing the possible variables, in this case only 2, I procced to firstly write down an if statemtn that later became a ternary operator.&lt;/p&gt;
+
+&lt;p&gt;With these possibles paths and having the 4 tests in green this was my solution:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottles&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;song&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;characters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;song&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottle_count_phrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; of beer on the wall, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottle_count_phrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Take &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;removal_pronoun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; down and pass it around, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottle_count_phrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;bottle_count_phrase&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles_remaining&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_bottles_remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;no more bottles&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;elsif&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number_of_bottles_remaining&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles_remaining&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottle&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles_remaining&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottles&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;removal_pronoun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;number_of_bottles&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;one&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;it&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After this excercise we are encourage to see Sandi’s solution which is the following:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;No more bottles of beer on the wall, no more bottles of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Go to the store and buy some more, 99 bottles of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;1 bottle of beer on the wall, 1 bottle of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Take it down and pass it around, no more bottles of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;when&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;2 bottles of beer on the wall, 2 bottles of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Take one down and pass it around, 1 bottle of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottles of beer on the wall, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottles of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Take one down and pass it around, &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;number&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottles of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;As soon as I saw it, felt like my mentor was talking to me again:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Understand the domain&lt;/li&gt;
+  &lt;li&gt;Stare at the input, see what changes in the output&lt;/li&gt;
+  &lt;li&gt;Devise how to achieve those modifications (do i need an array, hash or counter variable to store any type of result?)&lt;/li&gt;
+  &lt;li&gt;If outcome is expected, then improve&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Where I’m getting with this is that if I knew that we were only to receive integers as inputs and that the song based on that input, was always going to be the same except the pronouns and numbers, I could have hardcoded the solution (not saying it’s an easy approach to come up with) but I apporach it with a more flexible design with interpolation and conditionals but definetely I overcomplicated the solution.&lt;/p&gt;
+
+&lt;p&gt;Something that I notice in this course as in the &lt;a href=&quot;/2025/04/11/effective-testing-with-rspec.html&quot;&gt;Efective testing with RSpec by Myron Marston and Ian Dees&lt;/a&gt; is that authors encourage to tackle test one by one even though it souns obvios to avoid cluterring your temrinal with errors sometimes we want to see the full picture but their approach is very effective.&lt;/p&gt;
+
+&lt;p&gt;Lesson learned, read througly the problem, understand the inputs, outputs, if possible make a hand-written drawing, understand what changes, do i need a data structure? and lastly if the result is the expected, refine it. It also reminds me of the &lt;a href=&quot;https://medium.com/launch-school/solving-coding-problems-with-pedac-29141331f93f&quot;&gt;PEDAC method&lt;/a&gt;.&lt;/p&gt;
+</description>
+      <pubDate>Sat, 09 Aug 2025 00:00:00 -0700</pubDate>
+      <link>http://localhost:4000/2025/08/09/oop-sandi-metz-week-1.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2025/08/09/oop-sandi-metz-week-1.html</guid>
+    </item>
+    
+    <item>
       <title>Mental model for writing tests</title>
       <dc:creator>dom lizarraga</dc:creator>
-      <description>&lt;p&gt;With my recent journey of gaining more testing experience with chatGPt help, and seeing some kind of pattern that after writing the exercises from the book &lt;a href=&quot;/2025/04/11-effective-testing-with-rspec.html&quot;&gt;Efective testing with RSpec by Myron Marston and Ian Dees&lt;/a&gt; I shared the idea with the LLM, and it helped me build the following.&lt;/p&gt;
+      <description>&lt;p&gt;With my recent journey of gaining more testing experience with chatGPt help, and seeing some kind of pattern that after writing the exercises from the book &lt;a href=&quot;/2025/04/11/effective-testing-with-rspec.html&quot;&gt;Efective testing with RSpec by Myron Marston and Ian Dees&lt;/a&gt; I shared the idea with the LLM, and it helped me build the following.&lt;/p&gt;
 
 &lt;p&gt;First thing that poped my my was the Arrange, Act, Assert so i did used that one to guide the LLM to what type of output I wanted.&lt;/p&gt;
 
@@ -113,9 +195,9 @@ Assert the expected response&lt;/p&gt;
 
 &lt;span class=&quot;c1&quot;&gt;# 6. Prove&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;parsed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expenses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;err&quot;&gt;📌&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Final&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Tip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Turn&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;It&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;into&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Muscle&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Memory&lt;/span&gt;
-&lt;span class=&quot;no&quot;&gt;Every&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;write&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;or&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;API&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;level&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mentally&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;repeat:
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;📌 Final Tip: Turn It into Muscle Memory
+Every time you write a controller- or API-level test, mentally repeat:&lt;/p&gt;
 
 &lt;p&gt;&lt;b&gt;“Double, Data, Allow → Request, Parse, Expect”&lt;/b&gt;&lt;/p&gt;
 
@@ -842,16 +924,6 @@ So in order to increase the quality of your customer service at the internet sca
       <pubDate>Wed, 07 Feb 2024 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2024/02/07/follow-as-polymorphic.html</link>
       <guid isPermaLink="true">http://localhost:4000/2024/02/07/follow-as-polymorphic.html</guid>
-    </item>
-    
-    <item>
-      <title>Beginner guide to Docker 🐳</title>
-      <dc:creator>dom lizarraga</dc:creator>
-      <description>&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
-</description>
-      <pubDate>Sun, 28 Jan 2024 00:00:00 -0800</pubDate>
-      <link>http://localhost:4000/2024/01/28/beginner-guide-docker.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2024/01/28/beginner-guide-docker.html</guid>
     </item>
     
   </channel>
