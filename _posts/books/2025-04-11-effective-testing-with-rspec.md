@@ -2567,33 +2567,347 @@ As a conclusion for this chapter we have explored that we have two ways to confi
 
 ### Part IV — RSpec expectations.
 
+With rspec-expectations, you can easily express expected outcomes about your code. It uses simple matcher objects that can be composed in useful, powerful ways. 
+
+We’ll dig into how rspec-expectations works, how to compose matchers, and why doing so is useful.
+
 ### Part IV — Chapter 10. Exploring RSpec expectations. {#chapter-10}
 
-In r s p e c corn, we saw how rspec core helps you structure your test code into example groups and example. but having a sound structure is not enough for writing good tests. if our specs run code without looking at the output, we are not really testing anything, except the code doesn't crash outright. that's where rsvec expectations comes in. it provides an API for a specifying expected outcomes.
+In RSpec Core, we saw how rspec-core helps you structure your test code into example groups and examples. but having a sound structure is not enough for writing good tests. If our specs run code without looking at the output, we are not really testing anything, except the code doesn't crash outright. That's where RSpec-expectations comes in. it provides an API for a specifying expected outcomes.
 
- hrspec example should contain one or more expectations. these express what you expect to be true at a specific point in your code.
+RSpec example should contain one or more expectations. These express what you expect to be true at a specific point in your code.
 
- in this chapter, we'll see how one crucial part of expectations – the matcher can be combined in useful new ways.
+ In this chapter, we'll see how one crucial part of expectations – the matcher can be combined in useful new ways.
 
-CODEEE
+```ruby
+ratio = 22 / 7.0
+expect(ratio).to be_within(0.1).of(Math::PI)
+numbers = [13, 3, 99]
+expect(numbers).to all be_odd
+alphabet = ('a'..'z').to_a
+expect(alphabet).to start_with('a').and end_with('z')
+```
 
- the primary goal of rspec expectations is clarity, both in the examples you write and in the output when something goes wrong.
+ the primary goal of rspec-expectations is clarity, both in the examples you write and in the output when something goes wrong.
 
  parts of an expectation
 
-CODEE
+```ruby
+expect(deck.cards.count).to eq(52), 'not playing with a full deck'
+```
 
  while there is some variety here, the syntax consistently uses just a few example parts:
- a subject - the thing you are testing, that is, and instance of a ruby class
+ a subject - the thing you are testing, that is, an instance of a Ruby class.
  A matcher - an object that specifies what you expect to be true about the subject, and provides the past or fail logic
 ( optionally) a custom failure message
 
-IMAGE
+<div>
+  <img src="/../graphics/projects/subject_matcher_message.jpeg" alt="exploring_expectartion_rspec" style="width:600px; display: block; margin: 0 auto;" />
+</div>
+
+irb session
+
+```ruby
+irb(main):001> require 'rspec/expectations'
+=> true
+irb(main):002> include RSpec::Matchers
+=> Object
+irb(main):003> expect(1).to eq(1)
+=> true
+irb(main):004> expect(1).to eq(2)
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>':  (RSpec::Expectations::ExpectationNotMetError)
+expected: 2
+     got: 1
+(compared using ==)
+```
 
 Wrapping your subject with expect
- Ruby begins evaluating your expectation at the expect method. 
 
-CODE EXAMPLE
+Ruby begins evaluating your expectation at the `expect` method. 
+
+Let’s go to irb session again:
+
+```ruby
+irb(main):005> expect_one = expect(1)
+=> 
+#<RSpec::Expectations::ValueExpectationTarget:0x000000013ad9...
+irb(main):006> expect_one
+=> 
+#<RSpec::Expectations::ValueExpectationTarget:0x000000013ad99708
+ @target=1>
+```
+
+Here, our subject is the number one. we have wrapped in the `expect` method to give ourself a place to attach methods like `to` or `not_to`. in other words the `expect` methods wraps are object in a test friendly adapter. 
+
+Side note: prior versions of RSpec expect method what should and should_not respectively.
+
+Using a matcher
+
+ if expect wraps your object for testing, then the mattress actually performs the test. the matter checks that the subject satisfies its criteria. mattress can compare numbers, find patterns in text, examine deeply nested data structures or perform any custom Behavior you need.
+
+ they RSpec::Matchers module chips with built in methods to create matchers:
+
+```ruby
+irb(main):007> be_one = eq(1)
+=> 
+#<RSpec::Matchers::BuiltIn::Eq:0x000000013abf9808
+...
+irb(main):008> be_one
+=> 
+#<RSpec::Matchers::BuiltIn::Eq:0x000000013abf9808
+ @expected=1>
+```
+This matcher can’t do anything on its own; we still need to combine it with the subject we saw in the previous section
+
+Please, notice how `expect(1)` built an ExpectationTarget object internally returns:
+
+@target → is the actual value you passed in (1 in our example).
+
+This object is just a holder for that value, plus some helper methods like .to and .not_to
+
+Then, with eq(1) built a matcher object (in this case RSpec::Matchers::BuiltIn::Eq).
+
+And internally @expected → is the value you want to match against (1 here).
+
+```ruby
+irb(main):011> expect_one.to(be_one)
+=> true
+irb(main):012> expect_one.not_to(be_one)
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>':  (RSpec::Expectations::ExpectationNotMetError)
+expected: value != 1
+     got: 1
+
+(compared using ==)
+```
+The `to` method tries to match the subject (in this case, the integer 1) against the provided matcher. If there’s a match, the method returns `true`; if not, it bails with a detailed `failure message`.
+
+The `not_to` method does the opposite:
+
+```ruby
+irb(main):017> expect_one.not_to eq(be_one)
+=> true
+irb(main):014> expect(1).not_to eq(2)
+=> true
+```
+
+When you think of RSpec expectations as being just a couple of simple Ruby objects glued together, the syntax becomes clear. You’ll use parentheses with the `expect` method call, a dot to attach the `to` or `not_to` method, and a space leading up to the `matcher` (maybe `eq`).
+
+Custom failure messages.
+
+ let's see an example of a very brief Ruby code that will show us a technically correct error however we can make it more explicit by adding an alternate failure message along to the matcher `to` or `not_to`
+
+```ruby
+irb(main):018> resp = Struct.new(:status, :body).new(400, 'unknown query param `sort`')
+=> #<struct  status=400, body="unknown query param `sort`">
+irb(main):019> expect(resp.status).to eq(200)
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>':  (RSpec::Expectations::ExpectationNotMetError)
+expected: 200
+     got: 400
+
+(compared using ==)
+
+irb(main):020> expect(resp.status).to eq(200), "Got a #{resp.status}: #{resp.body}"
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': Got a 400: unknown query param `sort` (RSpec::Expectations::ExpectationNotMetError)
+```
+
+When the matchers default failure message doesn't provide enough detail, a customer message maybe just what you need. you can save time by writing your own matches instead if you find yourself using the same message repeatedly 
+
+RSpec expectations vs traditional asserts
+
+Assertions are simpler to explain than RSpec’s expectations—and simplicity is a good thing—but that doesn’t necessarily make one better than the other.
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Why</th>
+      <th>Code example (very brief)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Composability</td>
+      <td>Matchers are first-class objects that can be combined and used flexibly.</td>
+      <td><code>expect(score).to be > 5 & be < 10</code></td>
+    </tr>
+    <tr>
+      <td>Negation</td>
+      <td>Any matcher can be negated with <code>not_to</code> without writing a separate refute method.</td>
+      <td><code>expect(user.active?).not_to be true</code></td>
+    </tr>
+    <tr>
+      <td>Readability</td>
+      <td>Syntax reads like an English sentence describing the expected outcome.</td>
+      <td><code>expect(order.total).to eq 100</code></td>
+    </tr>
+    <tr>
+      <td>More useful errors</td>
+      <td>Failure messages clearly show which part failed, unlike generic assertions.</td>
+      <td><code>expect([13, 2, 3, 99]).to all be_odd</code></td>
+    </tr>
+  </tbody>
+</table>
+
+How matchers work
+
+Any Ruby object can be used as a matcher as long as it implements a minimal set of methods, let’s build one in irb
+
+```ruby
+irb(main):021> matcher = Object.new
+=> #<Object:0x0000000138954280>
+irb(main):022> expect(1).to matcher
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-expectations-3.13.5/lib/rspec/matchers.rb:968:in 'RSpec::Matchers#method_missing': undefined method 'matches?' for #<Object:0x0000000138954280> (NoMethodError)
+Did you mean?  match
+```
+This expectation has triggered a NoMethodError exception. RSpec expects every matcher to implement a `matches?` method, which takes an object and returns `true` if the object matches (and `false` otherwise).
+
+```ruby
+irb(main):027* def matcher.matches?(actual)
+irb(main):028*   actual == 1
+irb(main):029> end
+=> :matches?
+irb(main):030> expect(1).to matcher
+=> true
+```
+
+When the match fails, RSpec expectations calls the matcher’s failure_message method
+
+```ruby
+irb(main):031> expect(2).to matcher
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-expectations-3.13.5/lib/rspec/matchers.rb:968:in 'RSpec::Matchers#method_missing': undefined method 'failure_message' for #<Object:0x0000000138954280> (NoMethodError)
+# here we implemented the .failure_message
+irb(main):035* def matcher.failure_message
+irb(main):036*   'expected object to equal 1'
+irb(main):037> end
+=> :failure_message
+irb(main):038> expect(2).to matcher
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': expected object to equal 1 (RSpec::Expectations::ExpectationNotMetError)
+```
+These two methods `matches?` and `failure_message`  are all you need to define a simple matcher.
+
+Composing matchers
+
+Where the matchers really shine is when you compose them with other mattress to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. here are a few different ways to compose matchers:
+
+<table>
+  <thead>
+    <tr>
+      <th>Technique</th>
+      <th>Usage</th>
+      <th>Code example (very brief)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pass matcher into another</td>
+      <td>Use a matcher as an argument to another matcher.</td>
+      <td><code>expect(result).to start_with a_string_matching(/Hello/)</code></td>
+    </tr>
+    <tr>
+      <td>Embed in Array/Hash</td>
+      <td>Place matchers inside arrays or hashes to match structure and values.</td>
+      <td><code>expect(user).to match(name: a_string_starting_with("A"))</code></td>
+    </tr>
+    <tr>
+      <td>Logical operators</td>
+      <td>Combine matchers with <code>&amp;</code> (and) or <code>|</code> (or).</td>
+      <td><code>expect(score).to be &gt; 5 &amp; be &lt; 10</code></td>
+    </tr>
+  </tbody>
+</table>
+
+
+How matchers match objects
+
+Matchers build on top of Ruby's standard protocols in order to provide composability: the humble === method. This method, often called “three equals” or “case equality” defines a category to which other objects may or may not be long. most of the time you wont call it directly from production code. Instead, Ruby will call it for you inside each one class of a case expression 
+
+```ruby
+irb(main):039* def describe_value(value)
+irb(main):040*   case value
+irb(main):041*   when be_within(0.1).of(Math::PI) then 'Pi'
+irb(main):042*   when be_within(0.1).of(2 * Math::PI) then 'Double Pi'
+irb(main):043*   end
+irb(main):044> end
+=> :describe_value
+irb(main):045> describe_value(3.14159)
+=> "Pi"
+irb(main):046> describe_value(6.28319)
+=> "Double Pi"
+```
+RSPc expectations perform the same check internally that Ruby's case statement does: they call === on the object you pass in. that object can be anything, including another matcher.
+
+Passing one matcher into another
+
+It may not be obvious why you would need to pass a matcher to another matcher. that say you expect a particular array to start with a value that's near pi. with rspec, you can pass the `be_within(0.1).of(Math::PI)` matcher matcher into the `start_with`
+
+```ruby
+irb(main):047> numbers = [3.14159, 1.734, 4.273]
+=> [3.14159, 1.734, 4.273]
+irb(main):048> expect(numbers).to start_with( be_within(0.1).of(Math::PI) )
+=> true
+
+irb(main):049> expect([]).to start_with( a_value_within(0.1).of(Math::PI) )
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': expected [] to start with a value within 0.1 of 3.141592653589793
+```
+Embedding matches in Array and hash data structures
+
+This ability to compose matchers—by passing them into one another, or by embedding them in data structures—lets you be as precise or as vague as you need to be.
+
+In other matchers like `match_array` or `contain_exactly`, RSpec does recursively apply matchers inside arrays and hashes, but start_with (and end_with) do not.
+
+```ruby
+irb(main):069* presidents = [
+irb(main):070* { name: 'George Washington', birth_year: 1732 },
+irb(main):071* { name: 'John Adams', birth_year: 1735 },
+irb(main):072* { name: 'Thomas Jefferson', birth_year: 1743 },
+irb(main):073* # ...
+irb(main):074> ]
+=> 
+[{name: "George Washington", birth_year: 1732},
+...
+irb(main):075* expect(presidents).to start_with(
+irb(main):076*   match(name: 'George Washington', birth_year: a_value_between(1730, 1740)),
+irb(main):077*   match(name: 'John Adams', birth_year: a_value_between(1730, 1740))
+irb(main):078> )
+=> true
+```
+
+Combining matters with logical and or operators
+
+There’s another way to combine matchers: compound matcher expressions. Every built-in matcher has two methods (and and or).
+
+```ruby
+irb(main):079> alphabet = ('a'..'z').to_a
+irb(main):080> 
+=> 
+["a",
+...
+irb(main):081> expect(alphabet).to start_with('a').and end_with('z')
+irb(main):082> 
+=> true
+irb(main):083> stoplight_color = %w[ green red yellow ].sample
+irb(main):084> 
+=> "yellow"
+irb(main):085> expect(stoplight_color).to eq('green').or eq('red').or eq('yellow')
+irb(main):086> 
+=> true
+```
+
+You can use the words and/or, or you can use the & and | operators
+
+Generated example descriptions
+
+Matchers have another useful ability over simpler assert methods: they’re selfdescribing.
+
+```ruby
+irb(main):087> start_with(1).description
+=> "start with 1"
+irb(main):088> (start_with(1) & end_with(9)).description
+=> "start with 1 and end with 9"
+irb(main):089> contain_exactly( a_string_starting_with(1) & ending_with(9) ).description
+=> "contain exactly (a string starting with 1 and ending with 9)"
+```
+As you can see, the descriptions of composed and compound matchers include the description of each part.
 
 
 ### Part IV — Chapter 11. Matchers included in RSpec expectations. {#chapter-11}
