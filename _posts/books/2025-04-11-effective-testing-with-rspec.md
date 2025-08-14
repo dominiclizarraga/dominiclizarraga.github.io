@@ -2565,11 +2565,36 @@ And if I was reviewing the directory of the exercises from Facebook are realized
 
 As a conclusion for this chapter we have explored that we have two ways to configure the rspec testing framework one is from the command line and the other is with the configure method. command line options are easy to discover and they are one off to modify the next output the next format or to run a subset of tests on the other hand with configure method covers the whole test suit and also we can have more control as we declare those configure blocks inside of the files 
 
-
-
 ### Part IV — RSpec expectations.
 
 ### Part IV — Chapter 10. Exploring RSpec expectations. {#chapter-10}
+
+In r s p e c corn, we saw how rspec core helps you structure your test code into example groups and example. but having a sound structure is not enough for writing good tests. if our specs run code without looking at the output, we are not really testing anything, except the code doesn't crash outright. that's where rsvec expectations comes in. it provides an API for a specifying expected outcomes.
+
+ hrspec example should contain one or more expectations. these express what you expect to be true at a specific point in your code.
+
+ in this chapter, we'll see how one crucial part of expectations – the matcher can be combined in useful new ways.
+
+CODEEE
+
+ the primary goal of rspec expectations is clarity, both in the examples you write and in the output when something goes wrong.
+
+ parts of an expectation
+
+CODEE
+
+ while there is some variety here, the syntax consistently uses just a few example parts:
+ a subject - the thing you are testing, that is, and instance of a ruby class
+ A matcher - an object that specifies what you expect to be true about the subject, and provides the past or fail logic
+( optionally) a custom failure message
+
+IMAGE
+
+Wrapping your subject with expect
+ Ruby begins evaluating your expectation at the expect method. 
+
+CODE EXAMPLE
+
 
 ### Part IV — Chapter 11. Matchers included in RSpec expectations. {#chapter-11}
 
