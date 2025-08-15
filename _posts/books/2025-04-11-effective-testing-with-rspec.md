@@ -28,6 +28,7 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 8. [Slicing and dicing specs with metadata.](#chapter-8)
 9. [Configuring RSpec.](#chapter-9)
 10. [Exploring RSpec expectations.](#chapter-10)
+11. [Matchers included in RSpec expectations.](#chapter-11)
 
 
 ### Part I — Chapter 1. Getting Started. {#chapter-1}
@@ -2909,8 +2910,57 @@ irb(main):089> contain_exactly( a_string_starting_with(1) & ending_with(9) ).des
 ```
 As you can see, the descriptions of composed and compound matchers include the description of each part.
 
-
 ### Part IV — Chapter 11. Matchers included in RSpec expectations. {#chapter-11}
+
+Matchers included in RSpec expectations
+
+In the previous chapter, you learn how to write expectations To check your codes behavior. you got to know the Babies part of an expectation like a subject and the matcher.
+
+ now, it is time to take a closer look at mattress. you have called them in your specs and combine them with other matchers.  r s p e c chips with a ton of useful mattress to help you specify exactly how you want the code to behave.
+
+ the mattress in rspec expectations fall into three growth categories:
+primitive matches for basic data types like strings, numbers and so on
+ high order matchers that can take other mattress as inputs, then apply them across collections
+ Block matches for checking properties of code including blocks, exceptions, and side effects
+ primitive matches
+ the word primitive in a programming language refers to a breath and butter data type that cannot be broken down into a smaller pieces. booleans, integers, and floating Point numbers are all primitives.
+
+ primitive matches are similar. they have simple, precise definitions that cannot be broken down any further. they are not meant to accept other matches as input ( but you can go the other direction, passing them into other matches). typically, they just passed the operation you are performing - and equality check, for example a straight through the subject of the expectation./
+
+ a quality and identity
+ most fundamentals matchers are all concerned with variations of the question “ are these two things the same?”,  depending on the context, the same my refer to one of the several things:
+ identity: for example, to reference to one object
+ hash key equality: two objects of the same type and value such as two copies of the string “hello”
+ value equality: two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0
+
+Value equality
+ most of the time, this matter is the one you want. however sometimes you have a more specific me. CODEEEE
+
+ Identity
+
+CODEEE
+ this test will likely give you a false assurances. if the underlying cash is misbehaving or was never implemented, the calculation will just run again and produce a new word list in the same order. because both erase have the same contents, your test will incorrectly pass.
+
+ instead, you would like to know whether or not first try and second try are actually referring to the same underlaying object, not just two copies with identical contents.
+
+For these strict year comparison, you will use equal matcher, which hands off to rubies equal method behind the scenes:
+
+CODEEE if you prefer you can also use BX as an alias for equal to emphasize that this matcher is about identity rather than value equality
+
+CODEEE 
+
+Hash key equality
+
+ programmers rarely check hash key equality directly. that's the name implies, it is used to check that two values should be considered the same hash key
+
+ r s p e c eql matcher, based on Ruby's built-in eql? method, checks for hash key equality. generally, it behaves the same as the eq matcher (since eq?Generally behaves the same as ==) one notable difference is that eql? considers integers and floating Point numbers to be different
+
+CODEEE
+
+When in doubt, use `eq`
+
+ all of these different ways to compare objects can seem confusing, when you are not sure which math chair is right, try eq first, in most situations, value equality is the one you need.
+
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
 
