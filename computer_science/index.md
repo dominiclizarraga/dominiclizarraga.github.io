@@ -14,6 +14,7 @@ description: 'My collection of Computer Science Notes'
 
 - [Programming: Beyond the basics](/computer_science/beyond-the-basics/)
 - [Computer Systems](/computer_science/systems/)
+- [Algorithms and Data Structures](/computer_science/algorithms-and-data-structures/)
 - [Networking](/computer_science/networking/)
 - [Databases](/computer_science/database/)
 
