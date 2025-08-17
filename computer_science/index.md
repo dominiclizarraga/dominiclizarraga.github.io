@@ -18,6 +18,7 @@ description: 'My collection of Computer Science Notes'
 - [Computer Networks](/computer_science/computer-networks/)
 - [Operating Systems](/computer_science/operating-systems/)
 - [Relational Databases](/computer_science/relational-databases/)
+- [Distributed Systems](/computer_science/distributed-systems/)
 
 --------------
 
