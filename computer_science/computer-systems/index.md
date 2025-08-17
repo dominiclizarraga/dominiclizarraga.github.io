@@ -10,7 +10,7 @@ description: 'Your notes on Computer Systems'
 </strong>
 
 <div class='writing nu'>
-  {% for post in site.categories.systems %}
+  {% for post in site.categories.computer-systems %}
     <div><a title='#{{ forloop.rindex }}' href='{{ post.url }}'>{{ post.title }}</a></div>
     <time>{{ post.date | date: "%Y-%m-%d" }}</time>
   {% endfor %}
