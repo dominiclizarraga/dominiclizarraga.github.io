@@ -3,13 +3,13 @@
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>http://localhost:4000/</loc>
-    <lastmod>2025-08-14T13:53:38-07:00</lastmod>
+    <lastmod>2025-08-16T20:44:22-07:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>http://localhost:4000/about/</loc>
-    <lastmod>2025-08-14T13:53:38-07:00</lastmod>
+    <lastmod>2025-08-16T20:44:22-07:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -318,6 +318,14 @@
       
     </url>
   
+  
+    <url>
+      <loc>http://localhost:4000/2025/08/16/99-bottles-of-oop.html</loc>
+      <lastmod>2025-08-16T00:00:00-07:00</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.5</priority>
+      
+    </url>
   
     <url>
       <loc>http://localhost:4000/2025/05/17/thoughtbot-ebook-testing.html</loc>

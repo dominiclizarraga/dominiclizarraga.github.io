@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-14T13:53:38-07:00</updated>
+  <updated>2025-08-16T20:44:22-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -11,6 +11,43 @@
     <name>dom lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
+  
+  <entry>
+    <title>99 bottles of OOP by Sandi Metz</title>
+    <link href="http://localhost:4000/2025/08/16/99-bottles-of-oop.html"/>
+    <updated>2025-08-16T00:00:00-07:00</updated>
+    <id>http://localhost:4000/2025/08/16/99-bottles-of-oop</id>
+    <content type="html">&lt;p&gt;In my journey to improve my testing skills I found this &lt;a href=&quot;https://books.thoughtbot.com/assets/testing-rails.pdf&quot;&gt;Thoughtbot ebook&lt;/a&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Introduction.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;Pending.&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Writing code is the process of working your way to the next stable end point, not the end point itself. You don’t know the answer in advance, but instead, you are seeking it.&lt;/p&gt;
+
+&lt;p&gt;This book documents every step down every path of code, and so provides a guided-tour of the
+decisions made along the way. It not only shows how good code looks when it’s done, it reveals
+the thoughts that produced it.&lt;/p&gt;
+
+&lt;h3 id=&quot;introduction&quot;&gt;Introduction.&lt;/h3&gt;
+
+&lt;h3 id=&quot;chapter-1&quot;&gt;Rediscovering simplicity.&lt;/h3&gt;
+
+&lt;p&gt;Experience has taught you that
+most code will someday change, and you’ve begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.&lt;/p&gt;
+
+&lt;p&gt;Where you once optimized code for understandability, you now focus on its changeability. Your
+code is less concrete but more abstract—you’ve made it initially harder to understand in hopes
+that it will ultimately be easier to maintain.&lt;/p&gt;
+
+&lt;h3 id=&quot;chapter-2&quot;&gt;Pending.&lt;/h3&gt;
+</content>
+    <author>
+      <name>dom lizarraga</name>
+      <uri>http://localhost:4000/about/</uri>
+    </author>
+  </entry>
   
   <entry>
     <title>Testing Rails - Thoughtbot by Josh Steiner and Joël Quenneville.</title>
@@ -64,6 +101,7 @@
   &lt;li&gt;&lt;a href=&quot;#chapter-8&quot;&gt;Slicing and dicing specs with metadata.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-9&quot;&gt;Configuring RSpec.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-10&quot;&gt;Exploring RSpec expectations.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-11&quot;&gt;Matchers included in RSpec expectations.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Chapter 1. Getting Started.&lt;/h3&gt;
@@ -2965,6 +3003,55 @@ How far matters work.&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-11&quot;&gt;Part IV — Chapter 11. Matchers included in RSpec expectations.&lt;/h3&gt;
 
+&lt;p&gt;Matchers included in RSpec expectations&lt;/p&gt;
+
+&lt;p&gt;In the previous chapter, you learn how to write expectations To check your codes behavior. you got to know the Babies part of an expectation like a subject and the matcher.&lt;/p&gt;
+
+&lt;p&gt;now, it is time to take a closer look at mattress. you have called them in your specs and combine them with other matchers.  r s p e c chips with a ton of useful mattress to help you specify exactly how you want the code to behave.&lt;/p&gt;
+
+&lt;p&gt;the mattress in rspec expectations fall into three growth categories:
+primitive matches for basic data types like strings, numbers and so on
+ high order matchers that can take other mattress as inputs, then apply them across collections
+ Block matches for checking properties of code including blocks, exceptions, and side effects
+ primitive matches
+ the word primitive in a programming language refers to a breath and butter data type that cannot be broken down into a smaller pieces. booleans, integers, and floating Point numbers are all primitives.&lt;/p&gt;
+
+&lt;p&gt;primitive matches are similar. they have simple, precise definitions that cannot be broken down any further. they are not meant to accept other matches as input ( but you can go the other direction, passing them into other matches). typically, they just passed the operation you are performing - and equality check, for example a straight through the subject of the expectation./&lt;/p&gt;
+
+&lt;p&gt;a quality and identity
+ most fundamentals matchers are all concerned with variations of the question “ are these two things the same?”,  depending on the context, the same my refer to one of the several things:
+ identity: for example, to reference to one object
+ hash key equality: two objects of the same type and value such as two copies of the string “hello”
+ value equality: two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0&lt;/p&gt;
+
+&lt;p&gt;Value equality
+ most of the time, this matter is the one you want. however sometimes you have a more specific me. CODEEEE&lt;/p&gt;
+
+&lt;p&gt;Identity&lt;/p&gt;
+
+&lt;p&gt;CODEEE
+ this test will likely give you a false assurances. if the underlying cash is misbehaving or was never implemented, the calculation will just run again and produce a new word list in the same order. because both erase have the same contents, your test will incorrectly pass.&lt;/p&gt;
+
+&lt;p&gt;instead, you would like to know whether or not first try and second try are actually referring to the same underlaying object, not just two copies with identical contents.&lt;/p&gt;
+
+&lt;p&gt;For these strict year comparison, you will use equal matcher, which hands off to rubies equal method behind the scenes:&lt;/p&gt;
+
+&lt;p&gt;CODEEE if you prefer you can also use BX as an alias for equal to emphasize that this matcher is about identity rather than value equality&lt;/p&gt;
+
+&lt;p&gt;CODEEE&lt;/p&gt;
+
+&lt;p&gt;Hash key equality&lt;/p&gt;
+
+&lt;p&gt;programmers rarely check hash key equality directly. that’s the name implies, it is used to check that two values should be considered the same hash key&lt;/p&gt;
+
+&lt;p&gt;r s p e c eql matcher, based on Ruby’s built-in eql? method, checks for hash key equality. generally, it behaves the same as the eq matcher (since eq?Generally behaves the same as ==) one notable difference is that eql? considers integers and floating Point numbers to be different&lt;/p&gt;
+
+&lt;p&gt;CODEEE&lt;/p&gt;
+
+&lt;p&gt;When in doubt, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eq&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;all of these different ways to compare objects can seem confusing, when you are not sure which math chair is right, try eq first, in most situations, value equality is the one you need.&lt;/p&gt;
+
 &lt;h3 id=&quot;chapter-12&quot;&gt;Part IV — Chapter 12. Creating custom matchers.&lt;/h3&gt;
 
 &lt;h3 id=&quot;part-v--rspec-mocks&quot;&gt;Part V — RSpec mocks.&lt;/h3&gt;
@@ -4954,66 +5041,6 @@ A superclass can have many subclasses, but each subclass is permitted have one s
 &lt;p&gt;Without tests, these applications can be neither understood nor safely changed. They add value without increasing costs.&lt;/p&gt;
 
 &lt;p&gt;These are notes I took from the book, nothing is mine.&lt;/p&gt;
-</content>
-    <author>
-      <name>dom lizarraga</name>
-      <uri>http://localhost:4000/about/</uri>
-    </author>
-  </entry>
-  
-  <entry>
-    <title>Eloquent Ruby by Russ Olsen.</title>
-    <link href="http://localhost:4000/2021/05/23/eloquent-ruby.html"/>
-    <updated>2021-05-23T00:00:00-07:00</updated>
-    <id>http://localhost:4000/2021/05/23/eloquent-ruby</id>
-    <content type="html">&lt;p&gt;This is book is not for learning the very basics of Ruby, it’s more for people who have played with the language, the console and maybe built simple web app, I say this because it assumes you know what is an array, how you can manipulate or work with it therefore the book only shows shortcuts for instance methods on arrays, the correct usage of bang (!).&lt;/p&gt;
-
-&lt;p&gt;I contains 3 sections after each chapter, staying out of trouble, in the wild and to wrap up, which has the most important takeaway after the lesson, i.e. “Choose the right control structure”, a real example from a codebase and finally a summary of what it went over.&lt;/p&gt;
-
-&lt;p&gt;The book navigates each lesson through a kind of library system where a Document is created with its author, it plays with the first name and last name of the author, then it adds it to an array, then to a hash in order to have it more well organized.&lt;/p&gt;
-
-&lt;p&gt;It will refresh you some basics methods like inject, map, sort, reverse, push, pop, delete, shift with the bang and without it always keeping in mind that Ruby is an idiomatic language.&lt;/p&gt;
-
-&lt;p&gt;The book dedicates one chapter to learn how to work and mutilate this String class which is something Ruby is pretty smart and after that String brush up it goes to the Regular Expression, It shows you only the basics of how to validate an e-mail, address how to format a date, and it helps you find it easy to use instead of the intimidating appearance it seems to be.&lt;/p&gt;
-
-&lt;p&gt;It has a deep chapter on the usage of symbols, it shows you the difference between a symbol and just string, it brings the symbol characteristics, it’s immutability, its better performance and it’s memory space utilization.&lt;/p&gt;
-
-&lt;p&gt;The core of Ruby on Rails, everything is an object, shows you the keywords, how to treat the self, some instance methods in order to know what class is the object you are evaluating, it also presents why treating everything as an object is a good way because it provides consistency to your application, the difference between public, private, protected methods. how to require external libraries like date for instance and it closes remembering us that virtually everything in Ruby is an object, and virtually all of those objects inherit the basic set of methods from the Object class.&lt;/p&gt;
-
-&lt;div&gt;&lt;img src=&quot;/../graphics/projects/Eloquent_ruby.jpeg&quot; alt=&quot;beginning_rails&quot; style=&quot;width:300px;&quot; /&gt;&lt;/div&gt;
-
-&lt;p&gt;Engineering is all about tradeoffs. just about every engineering decision involves getting something, but at a price, and there is a price to be paid for dynamic typing. In the chapter 8 lays out the difference between dynamic and static programming languages and encourages you to write tests which is the best way 2 make sure your code works as it should, do you need to test it early, you need to test it often, and you certainly need to test it whenever you change it.&lt;/p&gt;
-
-&lt;p&gt;The tests framework used on this book are Unit::Test and RSpec it shows you how to start those tests and make them work with their document class. The author Hardly stresses how important is to write test in order to know how your code is working there is no shortcut, there is no easy way it would save you tons of hours if you do it often.&lt;/p&gt;
-
-&lt;p&gt;The part II of the books goes over the back bone of the language, in this case Classes, Modules and Blocks. Despite shelves full of books on software architecture, and UML diagrams to fill an Art Museum and design meeting that seem to last longer than the pyramids, building software mostly comes down to writing one method after another, methods that stick to doing one thing and doing it well.&lt;/p&gt;
-
-&lt;p&gt;Composing methods for humans, this technique advocates dividing your class up into methods that have three characteristics. first, each message should do a single thing , focus on solving a single aspect of the problem. by concentrating on one thing, your methods are not only easier to write, they are also easier to understand.&lt;/p&gt;
-
-&lt;p&gt;second, each method needs to operate at a single conceptual level: Simply put, don’t mix high level logic with the nitty-gritty details. a method that implements their business logic around say, currency conversions, should not suddenly veer off into the details of how the various accounts are sorted in the database.&lt;/p&gt;
-
-&lt;p&gt;Finally, each method needs to have a name that reflects its purpose. nothing new here, we have all heard endless lectures about picking good method names. the time to listen to all of them haranguing is when you are creating lots of little methods that you are trying to put together into a functional whole.&lt;/p&gt;
-
-&lt;p&gt;Why is building small, well named methods that do one thing such a good idea? it’s not about writing better code for the computer, because the computer does not care. you can code the same algorithm in a handful of large methods or in a myriad of little message and , as long as you’ve gotten the details right, the computer will give you exactly the same answer. the reason you should lean towards smaller methods is that all those compact, easy-to-comprehend methods will help you get the details right.&lt;/p&gt;
-
-&lt;p&gt;Short, easily comprehending methods also have some secondary advantages as well. take the old bit of coding advice that every message should have exactly one way out, so that all of the logic converges at the bottom for a single return.&lt;/p&gt;
-
-&lt;p&gt;the key to preventing your compose methods from turning on you is to remember that every method should have two things going for it. First, it should be short. and second, it should be coherent. In plain English, your method should be compact, but it should also do something.&lt;/p&gt;
-
-&lt;p&gt;Unfortunately, since short is so much easier to remember than coherent, programmers will sometimes go too far in breaking up their methods.
-There is also a chapter that teaches you how to modify normal operators (&amp;lt;, &amp;gt;, +, -, =, %, *) and change their behavior totally, it demonstrates the ups and downs of defining your own operators, and what are they consequences for others users if they don’t know what outcome will they get.&lt;/p&gt;
-
-&lt;p&gt;Chapter 12 and 13 explore the idea behind equality classes, how you can leverage the custom operator by giving them another behavior, how equal? is different from ==, or even ===; all of them have different meaning and the author breaks them all down, next it touches the Singleton and class methods what are their uses, when should you use them, how are they built and again they differences.&lt;/p&gt;
-
-&lt;p&gt;The usage of Class instance variables, instance variables and modules, what are the benefits , the caveats, what happen if a name collision takes place, what can they hold, what are the risks of over using a module and one of the keys of programming which is naming these instances, those classes, these modules. How to include that module into a Class, how to extend the usage of that module, and also how is the look-up procedure when you call a method (Inheritance tree).&lt;/p&gt;
-
-&lt;p&gt;An easy rule of thumb for naming modules is that if you find yourself creating a lot of names that all start with the same word, perhaps ‘TonsOTonerPrintQueue’ and ‘TonsOTonerPrintAdministration’, then you just may need a ‘TonsOToner’ module.&lt;/p&gt;
-
-&lt;p&gt;The book also covers iterators with 3 chapters, they’re different ways of calling, the usage of yield (Execute around), the naming convention, how to enable a class to use more than 40 methods coming from the enumerable module, the usage of rescue, begin, raise; Come on errors when using execute around which can be for instance forget about exceptions; because execute around is all about warranties. The whole idea of execute around is that the color is warranty that this will happen before the code fires and that will happen after.&lt;/p&gt;
-
-&lt;p&gt;The technique “execute later “ is when you add a parameter prefix with an ampersand, some practical examples of lambdas and procs as well and lastly it touches some of the metaprogramming topics to modify subclasses, to use the method_missing method In order to rescue one execution and provide an exception.&lt;/p&gt;
-
-&lt;p&gt;Updating existing classes, fixing broken classes, what is the monkey patching? Dealing with DSL and XML, what are the Gems package, how to consume them, nuts and bolts of gems, where are they located and also how to build a gem publish them and make it public.&lt;/p&gt;
 </content>
     <author>
       <name>dom lizarraga</name>
