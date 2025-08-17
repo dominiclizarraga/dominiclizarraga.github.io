@@ -1,7 +1,7 @@
 ---
 title: "This is a test for beyond programming"
-categories: [computer_science, beyond]
+categories: [computer_science, beyond-the-basics]
 layout: post
 ---
 
-BEYOND
+Beyond the basics I
