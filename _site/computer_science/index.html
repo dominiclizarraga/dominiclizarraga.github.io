@@ -669,7 +669,7 @@ var documents = [{
     "id": 4,
     "url": "http://localhost:4000/computer_science/",
     "title": "Computer Science Notes",
-    "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com. Courses:  Programming: Beyond the basics Computer Systems Algorithms and Data Structures Computer Networks Operating Systems Databases   This is a test for Breath first algo  2025-07-08   This is a test for Algorithms and Data Structures  2025-07-01   This is a recursive post  2025-06-10   This is a test for beyond programming  2025-05-02   Websockets post  2025-04-16   Computer systems Test Post  2025-03-09   Networking Test Post  2025-03-08   Operating Systems - open source  2024-08-17   This is a test for Operating Systems  2024-08-15   This is a test for db  2024-05-06   This is a test for db  2024-05-06   UTF-8, bits, bytes and binary numbers!  2024-05-05 "
+    "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com. Courses:  Programming: Beyond the basics Computer Systems Algorithms and Data Structures Computer Networks Operating Systems Relational Databases   This is a test for Breath first algo  2025-07-08   This is a test for Algorithms and Data Structures  2025-07-01   This is a recursive post  2025-06-10   This is a test for beyond programming  2025-05-02   Websockets post  2025-04-16   Computer systems Test Post  2025-03-09   Networking Test Post  2025-03-08   Operating Systems - open source  2024-08-17   This is a test for Operating Systems  2024-08-15   This is a test for ACID  2024-05-06   This is a test for Relational Database  2024-05-06   UTF-8, bits, bytes and binary numbers!  2024-05-05 "
     }, {
     "id": 5,
     "url": "http://localhost:4000/computer_science/operating-systems/",
@@ -677,19 +677,19 @@ var documents = [{
     "body": " Notes on Operating Systems  {% for post in site. categories. operating-systems %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 6,
-    "url": "http://localhost:4000/computer_science/database/",
-    "title": "Computer Systems Notes",
-    "body": " Notes on Databases  {% for post in site. categories. database %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
-    }, {
-    "id": 7,
     "url": "http://localhost:4000/computer_science/algorithms-and-data-structures/",
     "title": "Algorithms and Data Structures Notes",
     "body": " Notes on Programming: Algorithms and Data Structures  {% for post in site. categories. algorithms-and-data-structures %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
-    "id": 8,
+    "id": 7,
     "url": "http://localhost:4000/computer_science/beyond-the-basics/",
     "title": "Computer Systems Notes",
     "body": " Notes on Programming: Beyond the Basics  {% for post in site. categories. beyond-the-basics %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    }, {
+    "id": 8,
+    "url": "http://localhost:4000/computer_science/relational-databases/",
+    "title": "Computer Systems Notes",
+    "body": " Notes on Relational Databases  {% for post in site. categories. relational-databases %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 9,
     "url": "http://localhost:4000/computer_science/systems/",
@@ -812,14 +812,14 @@ var documents = [{
     "body": "2024/08/15 - Test for a Linux ! "
     }, {
     "id": 33,
-    "url": "http://localhost:4000/2024/05/06/this-is-a-test-2.html",
-    "title": "This is a test for db",
-    "body": "2024/05/06 - Test for a database course "
+    "url": "http://localhost:4000/2024/05/06/why-acid.html",
+    "title": "This is a test for ACID",
+    "body": "2024/05/06 - Why ACID in postgres "
     }, {
     "id": 34,
-    "url": "http://localhost:4000/2024/05/06/this-is-a-test-2-copy.html",
-    "title": "This is a test for db",
-    "body": "2024/05/06 - Test for a database course "
+    "url": "http://localhost:4000/2024/05/06/what-is-vacum.html",
+    "title": "This is a test for Relational Database",
+    "body": "2024/05/06 - What is VACUM "
     }, {
     "id": 35,
     "url": "http://localhost:4000/2024/05/05/utf-8-bits-bytes-binary.html",
@@ -1166,7 +1166,7 @@ function lunr_search(term) {
   <li><a href="/computer_science/algorithms-and-data-structures/">Algorithms and Data Structures</a></li>
   <li><a href="/computer_science/computer-networks/">Computer Networks</a></li>
   <li><a href="/computer_science/operating-systems/">Operating Systems</a></li>
-  <li><a href="/computer_science/database/">Databases</a></li>
+  <li><a href="/computer_science/relational-databases/">Relational Databases</a></li>
 </ul>
 
 <hr />
@@ -1200,10 +1200,10 @@ function lunr_search(term) {
     <div><a title="#4" href="/2024/08/15/linux.html">This is a test for Operating Systems</a></div>
     <time>2024-08-15</time>
   
-    <div><a title="#3" href="/2024/05/06/this-is-a-test-2.html">This is a test for db</a></div>
+    <div><a title="#3" href="/2024/05/06/why-acid.html">This is a test for ACID</a></div>
     <time>2024-05-06</time>
   
-    <div><a title="#2" href="/2024/05/06/this-is-a-test-2-copy.html">This is a test for db</a></div>
+    <div><a title="#2" href="/2024/05/06/what-is-vacum.html">This is a test for Relational Database</a></div>
     <time>2024-05-06</time>
   
     <div><a title="#1" href="/2024/05/05/utf-8-bits-bytes-binary.html">UTF-8, bits, bytes and binary numbers!</a></div>

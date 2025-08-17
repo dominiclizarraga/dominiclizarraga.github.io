@@ -671,7 +671,7 @@ var documents = [{
     "id": 4,
     "url": "http://localhost:4000/computer_science/",
     "title": "Computer Science Notes",
-    "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com. Courses:  Programming: Beyond the basics Computer Systems Algorithms and Data Structures Computer Networks Operating Systems Databases {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    "body": " I’ve committed to gaining depth in computer science, and here are the notes I’m taking along with the lessons on csprimer. com. Courses:  Programming: Beyond the basics Computer Systems Algorithms and Data Structures Computer Networks Operating Systems Relational Databases {% for post in site. categories. computer_science %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 5,
     "url": "http://localhost:4000/computer_science/operating-systems/",
@@ -679,19 +679,19 @@ var documents = [{
     "body": " Notes on Operating Systems  {% for post in site. categories. operating-systems %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 6,
-    "url": "http://localhost:4000/computer_science/database/",
-    "title": "Computer Systems Notes",
-    "body": " Notes on Databases  {% for post in site. categories. database %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
-    }, {
-    "id": 7,
     "url": "http://localhost:4000/computer_science/algorithms-and-data-structures/",
     "title": "Algorithms and Data Structures Notes",
     "body": " Notes on Programming: Algorithms and Data Structures  {% for post in site. categories. algorithms-and-data-structures %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
-    "id": 8,
+    "id": 7,
     "url": "http://localhost:4000/computer_science/beyond-the-basics/",
     "title": "Computer Systems Notes",
     "body": " Notes on Programming: Beyond the Basics  {% for post in site. categories. beyond-the-basics %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
+    }, {
+    "id": 8,
+    "url": "http://localhost:4000/computer_science/relational-databases/",
+    "title": "Computer Systems Notes",
+    "body": " Notes on Relational Databases  {% for post in site. categories. relational-databases %}  {{ post. title }}  {{ post. date | date:  %Y-%m-%d  }} {% endfor %}"
     }, {
     "id": 9,
     "url": "http://localhost:4000/computer_science/systems/",
@@ -814,14 +814,14 @@ var documents = [{
     "body": "2024/08/15 - Test for a Linux ! "
     }, {
     "id": 33,
-    "url": "http://localhost:4000/2024/05/06/this-is-a-test-2.html",
-    "title": "This is a test for db",
-    "body": "2024/05/06 - Test for a database course "
+    "url": "http://localhost:4000/2024/05/06/why-acid.html",
+    "title": "This is a test for ACID",
+    "body": "2024/05/06 - Why ACID in postgres "
     }, {
     "id": 34,
-    "url": "http://localhost:4000/2024/05/06/this-is-a-test-2-copy.html",
-    "title": "This is a test for db",
-    "body": "2024/05/06 - Test for a database course "
+    "url": "http://localhost:4000/2024/05/06/what-is-vacum.html",
+    "title": "This is a test for Relational Database",
+    "body": "2024/05/06 - What is VACUM "
     }, {
     "id": 35,
     "url": "http://localhost:4000/2024/05/05/utf-8-bits-bytes-binary.html",

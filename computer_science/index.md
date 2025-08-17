@@ -17,7 +17,7 @@ description: 'My collection of Computer Science Notes'
 - [Algorithms and Data Structures](/computer_science/algorithms-and-data-structures/)
 - [Computer Networks](/computer_science/computer-networks/)
 - [Operating Systems](/computer_science/operating-systems/)
-- [Databases](/computer_science/database/)
+- [Relational Databases](/computer_science/relational-databases/)
 
 --------------
 
