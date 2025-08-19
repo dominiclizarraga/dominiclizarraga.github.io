@@ -2789,7 +2789,7 @@ These two methods `matches?` and `failure_message`  are all you need to define a
 
 <div style="text-align: center;">Composing matchers</div>
 
-Where the matchers really shine is when you compose them with other mattress to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. Here are a few different ways to compose matchers:
+Where the matchers really shine is when you compose them with other matchers to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. Here are a few different ways to compose matchers:
 
 <table>
   <thead>
@@ -2913,55 +2913,93 @@ As you can see, the descriptions of composed and compound matchers include the d
 
 ### Part IV — Chapter 11. Matchers included in RSpec expectations. {#chapter-11}
 
-Matchers included in RSpec expectations
+In the previous chapter, we learned how to write expectations to check your codes behavior. We got to know the various parts of an expectation like a subject and the matcher.
 
-In the previous chapter, you learn how to write expectations To check your codes behavior. you got to know the Babies part of an expectation like a subject and the matcher.
+Now, it's time to take a closer look at matchers. You have called them in your specs and combine them with other matchers.  RSpec ships with a ton of useful matchers to help you specify exactly how you want the code to behave.
 
- now, it is time to take a closer look at mattress. you have called them in your specs and combine them with other matchers.  r s p e c chips with a ton of useful mattress to help you specify exactly how you want the code to behave.
+The matchers in RSpec expectations fall into three growth categories:
 
- the mattress in rspec expectations fall into three growth categories:
-primitive matches for basic data types like strings, numbers and so on
- high order matchers that can take other mattress as inputs, then apply them across collections
- Block matches for checking properties of code including blocks, exceptions, and side effects
- primitive matches
- the word primitive in a programming language refers to a breath and butter data type that cannot be broken down into a smaller pieces. booleans, integers, and floating Point numbers are all primitives.
+- Primitive: matches for basic data types like strings, numbers and so on
+- High order matchers: that can take other matchers as inputs, then apply them across collections
+- Block matches: for checking properties of code including blocks, exceptions, and side effects
+ 
+Primitive matches
+ 
+The word primitive in a programming language refers to a breath and butter data type that cannot be broken down into a smaller pieces. booleans, integers, and floating point numbers are all primitives.
 
- primitive matches are similar. they have simple, precise definitions that cannot be broken down any further. they are not meant to accept other matches as input ( but you can go the other direction, passing them into other matches). typically, they just passed the operation you are performing - and equality check, for example a straight through the subject of the expectation./
+Primitive matchers are similar. They have simple, precise definitions that cannot be broken down any further. They are not meant to accept other matchers as input (but you can go the other direction, passing them into other matchers). Typically, they just pass the operation you are performing - and equality check, for example a straight through the subject of the expectation.
 
- a quality and identity
- most fundamentals matchers are all concerned with variations of the question “ are these two things the same?”,  depending on the context, the same my refer to one of the several things:
- identity: for example, to reference to one object
- hash key equality: two objects of the same type and value such as two copies of the string “hello”
- value equality: two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0
+Equality and identity
+ 
+Most fundamentals matchers are all concerned with variations of the question: “are these two things the same?”,  depending on the context. "The same" might refer to one of the several things:
+
+- Identity: for example, two references to one object
+
+- Hash key equality: two objects of the same type and value, such as two copies of the string “hello”.
+
+- Value equality: two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0
 
 Value equality
- most of the time, this matter is the one you want. however sometimes you have a more specific me. CODEEEE
 
- Identity
+Most of the time, Ruby programmers are concerned  with the last of these: <b>value equality</b>, embodied in Ruby's === operator.
 
-CODEEE
- this test will likely give you a false assurances. if the underlying cash is misbehaving or was never implemented, the calculation will just run again and produce a new word list in the same order. because both erase have the same contents, your test will incorrectly pass.
+This matcher is the one you want. However, sometimes you have a more specific me. 
 
- instead, you would like to know whether or not first try and second try are actually referring to the same underlaying object, not just two copies with identical contents.
+```ruby
+expect(Math.sqrt(9)).to eq(3)
+# equivalent to:
+Math.sqrt(9) == 3
+```
 
-For these strict year comparison, you will use equal matcher, which hands off to rubies equal method behind the scenes:
+Identity
 
-CODEEE if you prefer you can also use BX as an alias for equal to emphasize that this matcher is about identity rather than value equality
+```ruby
+perms = Permutations.new
+first_try = perms.of(long_word_list)
+second_try = perms.of(long_word_list)
+expect(second_try).to eq(first_try)
+```
 
-CODEEE 
+This test will likely give you a false assurances. If the underlying cache is misbehaving or was never implemented, the calculation will just run again and produce a new word list in the same order. Because both arrays have the same contents, your test will incorrectly pass.
+
+<b>Instead, you would like to know whether or not `first_try` and `second_try` are actually referring to the same underlaying object, not just two copies with identical contents.</b>
+
+For this stricter comparison, you will use `equal` matcher, which hands off to Ruby's `equal?` method behind the scenes:
+
+```ruby
+expect(second_try).to equal(first_try)
+```
+
+If you prefer you can also use `be(x)` as an alias for `equal(x)` to emphasize that this matcher is about <b>identity rather than value equality</b>
+
+```ruby
+expect(RSpec.configuration).to be(RSpec.configuration)
+```
 
 Hash key equality
 
- programmers rarely check hash key equality directly. that's the name implies, it is used to check that two values should be considered the same hash key
+Programmers rarely check hash key equality directly. As the name implies, it's used to check that two values should be considered the same Hash key.
 
- r s p e c eql matcher, based on Ruby's built-in eql? method, checks for hash key equality. generally, it behaves the same as the eq matcher (since eq?Generally behaves the same as ==) one notable difference is that eql? considers integers and floating Point numbers to be different
+RSpec `eql` matcher, based on Ruby's built-in `eql?` method, checks for hash key equality. Generally, it behaves the same as the `eq` matcher (since `eql?` always considers integers and floating point numbers to be different.
 
-CODEEE
+```ruby
+# 3 == 3.0:
+expect(3).to eq(3.0)
+# ...but 3.eql?(3.0) is false:
+expect(3).not_to eql(3.0)
+```
 
-When in doubt, use `eq`
+This behavior allows 3 and 3.0 to be used as different keys in the same hash.
 
- all of these different ways to compare objects can seem confusing, when you are not sure which math chair is right, try eq first, in most situations, value equality is the one you need.
+When in doubt, try `eq` first ‼️ (In most situations, value equality is the one you need.)
 
+Variations
+
+All three of these matchers have aliases that read better in composed matcher expressions:
+
+- `an_object_eq_to` aliases `eq`
+- `an_object_equal_to` aliases `equal`
+- `an_object_eql_to` aliases `eql`
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
 
