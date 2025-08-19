@@ -2704,29 +2704,32 @@ How far matters work.&lt;/p&gt;
 
 &lt;p&gt;In RSpec Core, we saw how rspec-core helps you structure your test code into example groups and examples. but having a sound structure is not enough for writing good tests. If our specs run code without looking at the output, we are not really testing anything, except the code doesn’t crash outright. That’s where RSpec-expectations comes in. it provides an API for a specifying expected outcomes.&lt;/p&gt;
 
-&lt;p&gt;RSpec example should contain one or more expectations. These express what you expect to be true at a specific point in your code.&lt;/p&gt;
+&lt;p&gt;RSpec example should contain one or more expectations. This express what you expect to be true at a specific point in your code.&lt;/p&gt;
 
 &lt;p&gt;In this chapter, we’ll see how one crucial part of expectations – the matcher can be combined in useful new ways.&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;ratio&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;7.0&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ratio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_within&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;PI&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
 &lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;numbers&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;all&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_odd&lt;/span&gt;
+
 &lt;span class=&quot;n&quot;&gt;alphabet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;z&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_a&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alphabet&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start_with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;end_with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;z&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;the primary goal of rspec-expectations is clarity, both in the examples you write and in the output when something goes wrong.&lt;/p&gt;
+&lt;p&gt;The primary goal of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rspec-expectations&lt;/code&gt; is clarity, both in the examples you write and in the output when something goes wrong.&lt;/p&gt;
 
-&lt;p&gt;parts of an expectation&lt;/p&gt;
+&lt;p&gt;Parts of an expectation:&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deck&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;cards&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;count&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;52&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;not playing with a full deck&apos;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;while there is some variety here, the syntax consistently uses just a few example parts:
- a subject - the thing you are testing, that is, an instance of a Ruby class.
- A matcher - an object that specifies what you expect to be true about the subject, and provides the past or fail logic
-( optionally) a custom failure message&lt;/p&gt;
+&lt;p&gt;While there is some variety here, the syntax consistently uses just a few example parts:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A subject - the thing you are testing, that is, an instance of a Ruby class.&lt;/li&gt;
+  &lt;li&gt;A matcher - an object that specifies what you expect to be true about the subject, and provides the past or fail logic&lt;/li&gt;
+  &lt;li&gt;(Optionally) a custom failure message&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div&gt;
   &lt;img src=&quot;/../graphics/projects/subject_matcher_message.jpeg&quot; alt=&quot;exploring_expectartion_rspec&quot; style=&quot;width:600px; display: block; margin: 0 auto;&quot; /&gt;
@@ -2762,15 +2765,15 @@ How far matters work.&lt;/p&gt;
  &lt;span class=&quot;vi&quot;&gt;@target&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Here, our subject is the number one. we have wrapped in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect&lt;/code&gt; method to give ourself a place to attach methods like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not_to&lt;/code&gt;. in other words the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect&lt;/code&gt; methods wraps are object in a test friendly adapter.&lt;/p&gt;
+&lt;p&gt;Here, our subject is the number 1. We have wrapped in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect&lt;/code&gt; method to give ourself a place to attach methods like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not_to&lt;/code&gt;. in other words the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect&lt;/code&gt; methods wraps are object in a test friendly adapter.&lt;/p&gt;
 
-&lt;p&gt;Side note: prior versions of RSpec expect method what should and should_not respectively.&lt;/p&gt;
+&lt;p&gt;Side note: prior versions of RSpec expect method what &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;should&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;should_not&lt;/code&gt; respectively.&lt;/p&gt;
 
 &lt;p&gt;Using a matcher&lt;/p&gt;
 
-&lt;p&gt;if expect wraps your object for testing, then the mattress actually performs the test. the matter checks that the subject satisfies its criteria. mattress can compare numbers, find patterns in text, examine deeply nested data structures or perform any custom Behavior you need.&lt;/p&gt;
+&lt;p&gt;If &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect&lt;/code&gt; wraps your object for testing, then the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matcher&lt;/code&gt; actually performs the test. The matcher checks that the subject satisfies its criteria. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matcher&lt;/code&gt; can compare numbers, find patterns in text, examine deeply nested data structures or perform any custom Behavior you need.&lt;/p&gt;
 
-&lt;p&gt;they RSpec::Matchers module chips with built in methods to create matchers:&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RSpec::Matchers&lt;/code&gt; module ships with built-in methods to create matchers:&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;007&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_one&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; 
@@ -2781,17 +2784,17 @@ How far matters work.&lt;/p&gt;
 &lt;span class=&quot;c1&quot;&gt;#&amp;lt;RSpec::Matchers::BuiltIn::Eq:0x000000013abf9808&lt;/span&gt;
  &lt;span class=&quot;vi&quot;&gt;@expected&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;This matcher can’t do anything on its own; we still need to combine it with the subject we saw in the previous section&lt;/p&gt;
+&lt;p&gt;This &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matcher&lt;/code&gt; can’t do anything on its own; we still need to combine it with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;subject&lt;/code&gt; we saw in the previous section.&lt;/p&gt;
 
-&lt;p&gt;Please, notice how &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect(1)&lt;/code&gt; built an ExpectationTarget object internally returns:&lt;/p&gt;
+&lt;p&gt;Please, notice how &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect(1)&lt;/code&gt; built an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ExpectationTarget&lt;/code&gt; object internally returns:&lt;/p&gt;
 
-&lt;p&gt;@target → is the actual value you passed in (1 in our example).&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@target&lt;/code&gt; → is the actual value you passed in (1 in our example).&lt;/p&gt;
 
-&lt;p&gt;This object is just a holder for that value, plus some helper methods like .to and .not_to&lt;/p&gt;
+&lt;p&gt;This object is just a holder for that value, plus some helper methods like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.to&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.not_to&lt;/code&gt;&lt;/p&gt;
 
-&lt;p&gt;Then, with eq(1) built a matcher object (in this case RSpec::Matchers::BuiltIn::Eq).&lt;/p&gt;
+&lt;p&gt;Then, with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eq(1)&lt;/code&gt; built a matcher object (in this case &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RSpec::Matchers::BuiltIn::Eq&lt;/code&gt;).&lt;/p&gt;
 
-&lt;p&gt;And internally @expected → is the value you want to match against (1 here).&lt;/p&gt;
+&lt;p&gt;And internally &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@expected&lt;/code&gt; → is the value you want to match against (1 here).&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;011&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expect_one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;be_one&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
@@ -2816,7 +2819,7 @@ How far matters work.&lt;/p&gt;
 
 &lt;p&gt;Custom failure messages.&lt;/p&gt;
 
-&lt;p&gt;let’s see an example of a very brief Ruby code that will show us a technically correct error however we can make it more explicit by adding an alternate failure message along to the matcher &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not_to&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let’s see an example of a very brief Ruby code that will show us a technically correct error however we can make it more explicit by adding an alternate failure message along to the matcher &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;to&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;not_to&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;01&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;resp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Struct&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:body&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;unknown query param `sort`&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#&amp;lt;struct  status=400, body=&quot;unknown query param `sort`&quot;&amp;gt;&lt;/span&gt;
@@ -2831,9 +2834,9 @@ How far matters work.&lt;/p&gt;
 &lt;span class=&quot;sr&quot;&gt;/Users/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dominiclizarraga&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rbenv&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;versions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ruby&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gems&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gems&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;support&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rspec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;support&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;110&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:in&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;block in &amp;lt;module:Support&amp;gt;&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Got&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unknown&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;query&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;param&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`sort`&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Expectations&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ExpectationNotMetError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;When the matchers default failure message doesn’t provide enough detail, a customer message maybe just what you need. you can save time by writing your own matches instead if you find yourself using the same message repeatedly&lt;/p&gt;
+&lt;p&gt;When the matchers default failure message doesn’t provide enough detail, a custom message maybe just what you need. You can save time by writing your own matches instead if you find yourself using the same message repeatedly.&lt;/p&gt;
 
-&lt;p&gt;RSpec expectations vs traditional asserts&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;RSpec expectations vs traditional asserts&lt;/div&gt;
 
 &lt;p&gt;Assertions are simpler to explain than RSpec’s expectations—and simplicity is a good thing—but that doesn’t necessarily make one better than the other.&lt;/p&gt;
 
@@ -2842,7 +2845,7 @@ How far matters work.&lt;/p&gt;
     &lt;tr&gt;
       &lt;th&gt;Concept&lt;/th&gt;
       &lt;th&gt;Why&lt;/th&gt;
-      &lt;th&gt;Code example (very brief)&lt;/th&gt;
+      &lt;th&gt;Code example&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
@@ -2871,7 +2874,7 @@ How far matters work.&lt;/p&gt;
 
 &lt;p&gt;How matchers work&lt;/p&gt;
 
-&lt;p&gt;Any Ruby object can be used as a matcher as long as it implements a minimal set of methods, let’s build one in irb&lt;/p&gt;
+&lt;p&gt;Any Ruby object can be used as a matcher as long as it implements a minimal set of methods (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.matches?&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.failure_message&lt;/code&gt;), let’s build one in irb&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;021&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;matcher&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Object&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#&amp;lt;Object:0x0000000138954280&amp;gt;&lt;/span&gt;
@@ -2903,16 +2906,16 @@ How far matters work.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;p&gt;These two methods &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;matches?&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;failure_message&lt;/code&gt;  are all you need to define a simple matcher.&lt;/p&gt;
 
-&lt;p&gt;Composing matchers&lt;/p&gt;
+&lt;div style=&quot;text-align: center;&quot;&gt;Composing matchers&lt;/div&gt;
 
-&lt;p&gt;Where the matchers really shine is when you compose them with other mattress to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. here are a few different ways to compose matchers:&lt;/p&gt;
+&lt;p&gt;Where the matchers really shine is when you compose them with other matchers to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. Here are a few different ways to compose matchers:&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
     &lt;tr&gt;
       &lt;th&gt;Technique&lt;/th&gt;
       &lt;th&gt;Usage&lt;/th&gt;
-      &lt;th&gt;Code example (very brief)&lt;/th&gt;
+      &lt;th&gt;Code example&lt;/th&gt;
     &lt;/tr&gt;
   &lt;/thead&gt;
   &lt;tbody&gt;
@@ -2950,7 +2953,7 @@ How far matters work.&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;046&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;describe_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;6.28319&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Double Pi&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;RSPc expectations perform the same check internally that Ruby’s case statement does: they call === on the object you pass in. that object can be anything, including another matcher.&lt;/p&gt;
+&lt;p&gt;RSpec expectations perform the same check internally that Ruby’s case statement does: they call === on the object you pass in. that object can be anything, including another matcher.&lt;/p&gt;
 
 &lt;p&gt;Passing one matcher into another&lt;/p&gt;
 
@@ -2988,7 +2991,7 @@ How far matters work.&lt;/p&gt;
 
 &lt;p&gt;Combining matters with logical and or operators&lt;/p&gt;
 
-&lt;p&gt;There’s another way to combine matchers: compound matcher expressions. Every built-in matcher has two methods (and and or).&lt;/p&gt;
+&lt;p&gt;There’s another way to combine matchers: compound matcher expressions. Every built-in matcher has two methods (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;and&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;or&lt;/code&gt;).&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alphabet&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;a&apos;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;z&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_a&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;irb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;080&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; 
@@ -3006,14 +3009,7 @@ How far matters work.&lt;/p&gt;
 &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;table&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;You can use the words and/or, or you can use the &amp;amp; and&lt;/td&gt;
-      &lt;td&gt;operators&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
+&lt;p&gt;You can use the words &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;and/or&lt;/code&gt;, or you can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;|&lt;/code&gt; operators&lt;/p&gt;
 
 &lt;p&gt;Generated example descriptions&lt;/p&gt;
 
@@ -3030,54 +3026,229 @@ How far matters work.&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-11&quot;&gt;Part IV — Chapter 11. Matchers included in RSpec expectations.&lt;/h3&gt;
 
-&lt;p&gt;Matchers included in RSpec expectations&lt;/p&gt;
+&lt;p&gt;In the previous chapter, we learned how to write expectations to check your codes behavior. We got to know the various parts of an expectation like a subject and the matcher.&lt;/p&gt;
 
-&lt;p&gt;In the previous chapter, you learn how to write expectations To check your codes behavior. you got to know the Babies part of an expectation like a subject and the matcher.&lt;/p&gt;
+&lt;p&gt;Now, it’s time to take a closer look at matchers. You have called them in your specs and combine them with other matchers.  RSpec ships with a ton of useful matchers to help you specify exactly how you want the code to behave.&lt;/p&gt;
 
-&lt;p&gt;now, it is time to take a closer look at mattress. you have called them in your specs and combine them with other matchers.  r s p e c chips with a ton of useful mattress to help you specify exactly how you want the code to behave.&lt;/p&gt;
+&lt;p&gt;The matchers in RSpec expectations fall into three growth categories:&lt;/p&gt;
 
-&lt;p&gt;the mattress in rspec expectations fall into three growth categories:
-primitive matches for basic data types like strings, numbers and so on
- high order matchers that can take other mattress as inputs, then apply them across collections
- Block matches for checking properties of code including blocks, exceptions, and side effects
- primitive matches
- the word primitive in a programming language refers to a breath and butter data type that cannot be broken down into a smaller pieces. booleans, integers, and floating Point numbers are all primitives.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Primitive: matchers for basic data types like strings, numbers and so on&lt;/li&gt;
+  &lt;li&gt;High order matchers: that can take other matchers as inputs, then apply them across collections&lt;/li&gt;
+  &lt;li&gt;Block matches: for checking properties of code including blocks, exceptions, and side effects.&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;primitive matches are similar. they have simple, precise definitions that cannot be broken down any further. they are not meant to accept other matches as input ( but you can go the other direction, passing them into other matches). typically, they just passed the operation you are performing - and equality check, for example a straight through the subject of the expectation./&lt;/p&gt;
+&lt;p&gt;Primitive matches&lt;/p&gt;
 
-&lt;p&gt;a quality and identity
- most fundamentals matchers are all concerned with variations of the question “ are these two things the same?”,  depending on the context, the same my refer to one of the several things:
- identity: for example, to reference to one object
- hash key equality: two objects of the same type and value such as two copies of the string “hello”
- value equality: two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0&lt;/p&gt;
+&lt;p&gt;The word primitive in a programming language refers to a breath and butter data type that cannot be broken down into a smaller pieces. booleans, integers, and floating point numbers are all primitives.&lt;/p&gt;
 
-&lt;p&gt;Value equality
- most of the time, this matter is the one you want. however sometimes you have a more specific me. CODEEEE&lt;/p&gt;
+&lt;p&gt;Primitive matchers are similar. They have simple, precise definitions that cannot be broken down any further. They are not meant to accept other matchers as input (but you can go the other direction, passing them into other matchers). Typically, they just pass the operation you are performing - and equality check, for example a straight through the subject of the expectation.&lt;/p&gt;
 
-&lt;p&gt;Identity&lt;/p&gt;
+&lt;p&gt;Equality and identity&lt;/p&gt;
 
-&lt;p&gt;CODEEE
- this test will likely give you a false assurances. if the underlying cash is misbehaving or was never implemented, the calculation will just run again and produce a new word list in the same order. because both erase have the same contents, your test will incorrectly pass.&lt;/p&gt;
+&lt;p&gt;Most fundamentals matchers are all concerned with variations of the question: “are these two things the same?”,  depending on the context. “The same” might refer to one of the several things:&lt;/p&gt;
 
-&lt;p&gt;instead, you would like to know whether or not first try and second try are actually referring to the same underlaying object, not just two copies with identical contents.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span style=&quot;color: orange;&quot;&gt;Identity:&lt;/span&gt; for example, two references to one object&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span style=&quot;color: green;&quot;&gt;Hash key equality:&lt;/span&gt; two objects of the same type and value, such as two copies of the string “hello”.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span style=&quot;color: blue;&quot;&gt;Value equality:&lt;/span&gt; two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;p&gt;For these strict year comparison, you will use equal matcher, which hands off to rubies equal method behind the scenes:&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;color: blue;&quot;&gt;Value equality&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;CODEEE if you prefer you can also use BX as an alias for equal to emphasize that this matcher is about identity rather than value equality&lt;/p&gt;
+&lt;p&gt;Most of the time, Ruby programmers are concerned with the last of these: &lt;b&gt;value equality&lt;/b&gt;, embodied in Ruby’s === operator.&lt;/p&gt;
 
-&lt;p&gt;CODEEE&lt;/p&gt;
+&lt;p&gt;This matcher is the one you want. However, sometimes you have a more specific me.&lt;/p&gt;
 
-&lt;p&gt;Hash key equality&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# equivalent to:&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sqrt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;programmers rarely check hash key equality directly. that’s the name implies, it is used to check that two values should be considered the same hash key&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;color: orange;&quot;&gt;Identity&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;r s p e c eql matcher, based on Ruby’s built-in eql? method, checks for hash key equality. generally, it behaves the same as the eq matcher (since eq?Generally behaves the same as ==) one notable difference is that eql? considers integers and floating Point numbers to be different&lt;/p&gt;
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;perms&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Permutations&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;first_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;long_word_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;second_try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;perms&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;long_word_list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second_try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;CODEEE&lt;/p&gt;
+&lt;p&gt;This test will likely give you a false assurances. If the underlying cache is misbehaving or was never implemented, the calculation will just run again and produce a new word list in the same order. Because both arrays have the same contents, your test will incorrectly pass.&lt;/p&gt;
 
-&lt;p&gt;When in doubt, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eq&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Instead, you would like to know whether or not &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;first_try&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;second_try&lt;/code&gt; are actually referring to the same underlaying object, not just two copies with identical contents.&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;all of these different ways to compare objects can seem confusing, when you are not sure which math chair is right, try eq first, in most situations, value equality is the one you need.&lt;/p&gt;
+&lt;p&gt;For this stricter comparison, you will use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;equal&lt;/code&gt; matcher, which hands off to Ruby’s &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;equal?&lt;/code&gt; method behind the scenes:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second_try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;equal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first_try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you prefer you can also use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be(x)&lt;/code&gt; as an alias for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;equal(x)&lt;/code&gt; to emphasize that this matcher is about &lt;b&gt;identity rather than value equality&lt;/b&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;configuration&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;span style=&quot;color: green;&quot;&gt;Hash key equality&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Programmers rarely check hash key equality directly. As the name implies, it’s used to check that two values should be considered the same Hash key.&lt;/p&gt;
+
+&lt;p&gt;RSpec &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eql&lt;/code&gt; matcher, based on Ruby’s built-in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eql?&lt;/code&gt; method, checks for hash key equality. Generally, it behaves the same as the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eq&lt;/code&gt; matcher since &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eql?&lt;/code&gt; always considers integers and floating point numbers to be different.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 3 == 3.0:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# ...but 3.eql?(3.0) is false:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;not_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eql&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This behavior allows 3 and 3.0 to be used as different keys in the same hash.&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; font-weight: bold; border: 1px solid black; padding: 1px;&quot;&gt;
+  When in doubt, try `eq` first. (In most situations, value equality is the one you need.)
+&lt;/div&gt;
+
+&lt;p&gt;Variations&lt;/p&gt;
+
+&lt;p&gt;All three of these matchers have aliases that read better in composed matcher expressions:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;span style=&quot;color: blue;&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;an_object_eq_to&lt;/code&gt; aliases &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eq&lt;/code&gt;&lt;/span&gt; (identity)&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: orange;&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;an_object_equal_to&lt;/code&gt; aliases &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;equal&lt;/code&gt;&lt;/span&gt; (value equality)&lt;/li&gt;
+  &lt;li&gt;&lt;span style=&quot;color: green;&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;an_object_eql_to&lt;/code&gt; aliases &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eql&lt;/code&gt;&lt;/span&gt; (hash key equality)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For instance, consider the following expectation that checks a list of Ruby classes:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Regexp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The intent was to require the actual Ruby String class to be present. Higher-order matchers like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;include&lt;/code&gt; check
+their arguments with the three-quals operator, ===. In this case, RSpec ends up checking String === ‘a string’, which returns true.&lt;/p&gt;
+
+&lt;p&gt;The fix is to pass the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;an_object_eq_to&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Regexp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;an_object_eq_to&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;==&lt;/code&gt; asks: “Is this the exact same thing?”&lt;/p&gt;
+
+&lt;p&gt;Truthiness&lt;/p&gt;
+
+&lt;p&gt;While Ruby has literal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; values, it allows any object to be used in a conditional. The rules are very simple &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nil&lt;/code&gt; are both treated as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;, and everything else is treated as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; even the numbers 0.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_truthy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_truthy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;not_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_truthy&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;not_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_truthy&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# ...and on the flip side:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_falsey&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_falsey&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;not_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_falsey&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;not_to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_falsey&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If you want to specify that the value is precisely equal to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt;, simply use one of the equality matchers we described in the last section:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;odd?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;odd?&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;false&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Alises:&lt;/p&gt;
+
+&lt;p&gt;• &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_truthy&lt;/code&gt; is aliased as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a_truthy_value&lt;/code&gt;.
+• &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_falsey&lt;/code&gt; is aliased as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_falsy&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a_falsey_value&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a_falsy_value&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Operator comparisons&lt;/p&gt;
+
+&lt;p&gt;We have used the&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be&lt;/code&gt; method with arguments before, as in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect(answer).to be(42).&lt;/code&gt; This method has another form, one without arguments. with it you can perform greater-than and less-than comparisons:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;a string&apos;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/foo/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;food&apos;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;In each case, RSpec uses your operator such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;==&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;&lt;/code&gt; to compare the actual and the matcher on the first line, be == 1, is equivalent to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eq(1)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Delta and range comparisons&lt;/p&gt;
+
+&lt;p&gt;Checking two floats for exact equality will frequently cause failures&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;…&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;then&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;you&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;get&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;failure:
+expected: &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;
+&lt;span class=&quot;ss&quot;&gt;got: &lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.30000000000000004&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compared&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Absolute difference&lt;/p&gt;
+
+&lt;p&gt;Instead of looking for exact equality with floats, you should use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_within&lt;/code&gt; matcher:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_within&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.0001&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Relative difference&lt;/p&gt;
+
+&lt;p&gt;Equally useful is the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;percent_of&lt;/code&gt; method, where you give a relative difference instead:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;town_population&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1237&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;town_population&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_within&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;percent_of&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;A single &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_within&lt;/code&gt; matcher supports both absolute and relative values, based on which method you chain off of it&lt;/p&gt;
+
+&lt;p&gt;Ranges&lt;/p&gt;
+
+&lt;p&gt;Sometimes, it’s a better fit to express your expected values in terms of a range, rather than a target value and delta.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;town_population&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_between&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;750&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;` be_within&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt; is aliased to &lt;/code&gt;a_value_within&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt; and &lt;/code&gt;be_between&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt; is aliased to &lt;/code&gt;a_value_between`&lt;/p&gt;
+
+&lt;p&gt;Dynamic predicates&lt;/p&gt;
+
+&lt;p&gt;A predicate is a method that answers a question with a Boolean answer. For example, Ruby’s Array class provides an empty? method rather than is_empty.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_empty&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can alternately use a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_a_&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_an_&lt;/code&gt; prefix for predicates that are nouns.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_admin&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_an_admin&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;name: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Harry Potter&apos;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;age: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;house: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;Gryffindor&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;have_key&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:age&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;How Dynamic Predicate Matchers Work&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You write: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;expect(user).to be_admin&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;RSpec sees: “Hmm, I don’t recognize &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_admin&lt;/code&gt;, but it follows the pattern &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_*&lt;/code&gt;”&lt;/li&gt;
+  &lt;li&gt;RSpec transforms it: Strips off &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;be_&lt;/code&gt;, adds &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;?&lt;/code&gt;, and calls that method on the subject&lt;/li&gt;
+  &lt;li&gt;RSpec actually calls: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;user.admin?&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# What you write          →  What RSpec calls&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_admin&lt;/span&gt;    &lt;span class=&quot;err&quot;&gt;→&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;admin?&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([]).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_empty&lt;/span&gt;      &lt;span class=&quot;err&quot;&gt;→&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;[].&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;empty?&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_blank&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;→&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;blank?&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;expect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;be_valid&lt;/span&gt;     &lt;span class=&quot;err&quot;&gt;→&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;obj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;valid?&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Trade-offs&lt;/p&gt;
+
+&lt;p&gt;As readable and useful as Dynamic predicate math chairs can be, they do have some trade-offs. For example if you want to test for exact true or false results and another bigger problem is documentation, because Dynamic matters are generated on the fly, they have no documentation.&lt;/p&gt;
+
+&lt;p&gt;High-order matchers&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-12&quot;&gt;Part IV — Chapter 12. Creating custom matchers.&lt;/h3&gt;
 

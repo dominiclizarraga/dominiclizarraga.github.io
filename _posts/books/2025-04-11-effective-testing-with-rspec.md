@@ -2919,9 +2919,9 @@ Now, it's time to take a closer look at matchers. You have called them in your s
 
 The matchers in RSpec expectations fall into three growth categories:
 
-- Primitive: matches for basic data types like strings, numbers and so on
+- Primitive: matchers for basic data types like strings, numbers and so on
 - High order matchers: that can take other matchers as inputs, then apply them across collections
-- Block matches: for checking properties of code including blocks, exceptions, and side effects
+- Block matches: for checking properties of code including blocks, exceptions, and side effects.
  
 Primitive matches
  
@@ -2933,15 +2933,15 @@ Equality and identity
  
 Most fundamentals matchers are all concerned with variations of the question: “are these two things the same?”,  depending on the context. "The same" might refer to one of the several things:
 
-- Identity: for example, two references to one object
+- <span style="color: orange;">Identity:</span> for example, two references to one object
 
-- Hash key equality: two objects of the same type and value, such as two copies of the string “hello”.
+- <span style="color: green;">Hash key equality:</span> two objects of the same type and value, such as two copies of the string “hello”.
 
-- Value equality: two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0
+- <span style="color: blue;">Value equality:</span> two objects of compatible types with the same meaning, such as the integer 42 on the floating Point number 42.0
 
-Value equality
+<span style="color: blue;">Value equality</span>
 
-Most of the time, Ruby programmers are concerned  with the last of these: <b>value equality</b>, embodied in Ruby's === operator.
+Most of the time, Ruby programmers are concerned with the last of these: <b>value equality</b>, embodied in Ruby's === operator.
 
 This matcher is the one you want. However, sometimes you have a more specific me. 
 
@@ -2951,7 +2951,7 @@ expect(Math.sqrt(9)).to eq(3)
 Math.sqrt(9) == 3
 ```
 
-Identity
+<span style="color: orange;">Identity</span>
 
 ```ruby
 perms = Permutations.new
@@ -2976,11 +2976,11 @@ If you prefer you can also use `be(x)` as an alias for `equal(x)` to emphasize t
 expect(RSpec.configuration).to be(RSpec.configuration)
 ```
 
-Hash key equality
+<span style="color: green;">Hash key equality</span>
 
 Programmers rarely check hash key equality directly. As the name implies, it's used to check that two values should be considered the same Hash key.
 
-RSpec `eql` matcher, based on Ruby's built-in `eql?` method, checks for hash key equality. Generally, it behaves the same as the `eq` matcher (since `eql?` always considers integers and floating point numbers to be different.
+RSpec `eql` matcher, based on Ruby's built-in `eql?` method, checks for hash key equality. Generally, it behaves the same as the `eq` matcher since `eql?` always considers integers and floating point numbers to be different.
 
 ```ruby
 # 3 == 3.0:
@@ -2991,15 +2991,159 @@ expect(3).not_to eql(3.0)
 
 This behavior allows 3 and 3.0 to be used as different keys in the same hash.
 
-When in doubt, try `eq` first ‼️ (In most situations, value equality is the one you need.)
+<div style="text-align: center; font-weight: bold; border: 1px solid black; padding: 1px;">
+  When in doubt, try `eq` first. (In most situations, value equality is the one you need.)
+</div>
+
 
 Variations
 
 All three of these matchers have aliases that read better in composed matcher expressions:
 
-- `an_object_eq_to` aliases `eq`
-- `an_object_equal_to` aliases `equal`
-- `an_object_eql_to` aliases `eql`
+- <span style="color: blue;">`an_object_eq_to` aliases `eq`</span> (identity)
+- <span style="color: orange;">`an_object_equal_to` aliases `equal`</span> (value equality)
+- <span style="color: green;">`an_object_eql_to` aliases `eql`</span> (hash key equality)
+
+For instance, consider the following expectation that checks a list of Ruby classes:
+
+```ruby
+expect([String, Regexp]).to include(String)
+```
+
+The intent was to require the actual Ruby String class to be present. Higher-order matchers like `include` check
+their arguments with the three-quals operator, ===. In this case, RSpec ends up checking String === 'a string', which returns true.
+
+The fix is to pass the `an_object_eq_to`
+
+```ruby
+expect([String, Regexp]).to include(an_object_eq_to String)
+```
+
+`==` asks: "Is this the exact same thing?"
+
+Truthiness
+
+While Ruby has literal `true` and `false` values, it allows any object to be used in a conditional. The rules are very simple `false` and `nil` are both treated as `false`, and everything else is treated as `true` even the numbers 0.
+
+```ruby
+expect(true).to be_truthy
+expect(0).to be_truthy
+expect(false).not_to be_truthy
+expect(nil).not_to be_truthy
+# ...and on the flip side:
+expect(false).to be_falsey
+expect(nil).to be_falsey
+expect(true).not_to be_falsey
+expect(0).not_to be_falsey
+```
+
+If you want to specify that the value is precisely equal to `true` or `false`, simply use one of the equality matchers we described in the last section:
+
+```ruby
+expect(1.odd?).to be true
+expect(2.odd?).to eq false
+```
+
+Alises:
+
+• `be_truthy` is aliased as `a_truthy_value`.
+• `be_falsey` is aliased as `be_falsy`, `a_falsey_value` and `a_falsy_value`.
+
+Operator comparisons
+
+We have used the`be` method with arguments before, as in `expect(answer).to be(42).` This method has another form, one without arguments. with it you can perform greater-than and less-than comparisons:
+
+```ruby
+expect(1).to be == 1
+expect(1).to be < 2
+expect(1).to be <= 2
+expect(2).to be > 1
+expect(2).to be >= 1
+expect(String).to be === 'a string'
+expect(/foo/).to be =~ 'food'
+```
+
+In each case, RSpec uses your operator such as `==` or `<` to compare the actual and the matcher on the first line, be == 1, is equivalent to `eq(1)`.
+
+Delta and range comparisons 
+
+Checking two floats for exact equality will frequently cause failures
+
+```ruby
+expect(0.1 + 0.2).to eq(0.3)
+…then you get a failure:
+expected: 0.3
+got: 0.30000000000000004
+(compared using ==)
+```
+
+Absolute difference
+
+Instead of looking for exact equality with floats, you should use `be_within` matcher:
+
+```ruby
+expect(0.1 + 0.2).to be_within(0.0001).of(0.3)
+```
+
+Relative difference
+
+Equally useful is the `percent_of` method, where you give a relative difference instead:
+
+```ruby 
+town_population = 1237
+expect(town_population).to be_within(25).percent_of(1000)
+```
+
+A single `be_within` matcher supports both absolute and relative values, based on which method you chain off of it
+
+Ranges
+
+Sometimes, it’s a better fit to express your expected values in terms of a range, rather than a target value and delta.
+
+```ruby
+expect(town_population).to be_between(750, 1250)
+```
+` be_within` is aliased to `a_value_within` and `be_between` is aliased to `a_value_between`
+
+Dynamic predicates
+
+A predicate is a method that answers a question with a Boolean answer. For example, Ruby’s Array class provides an empty? method rather than is_empty.
+
+```ruby
+expect([]).to be_empty
+```
+
+You can alternately use a `be_a_` or `be_an_` prefix for predicates that are nouns.
+
+```ruby
+expect(user).to be_admin
+expect(user).to be_an_admin
+
+hash = { name: 'Harry Potter', age: 17, house: 'Gryffindor' }
+expect(hash).to have_key(:age)
+```
+How Dynamic Predicate Matchers Work
+
+1. You write: `expect(user).to be_admin`
+2. RSpec sees: "Hmm, I don't recognize `be_admin`, but it follows the pattern `be_*`"
+3. RSpec transforms it: Strips off `be_`, adds `?`, and calls that method on the subject
+4. RSpec actually calls: `user.admin?`
+
+```ruby
+# What you write          →  What RSpec calls
+expect(user).to be_admin    →  user.admin?
+expect([]).to be_empty      →  [].empty?
+expect(str).to be_blank     →  str.blank?
+expect(obj).to be_valid     →  obj.valid?
+```
+
+Trade-offs
+
+As readable and useful as Dynamic predicate math chairs can be, they do have some trade-offs. For example if you want to test for exact true or false results and another bigger problem is documentation, because Dynamic matters are generated on the fly, they have no documentation. 
+
+High-order matchers 
+
+
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
 
