@@ -2576,31 +2576,32 @@ We’ll dig into how rspec-expectations works, how to compose matchers, and why 
 
 In RSpec Core, we saw how rspec-core helps you structure your test code into example groups and examples. but having a sound structure is not enough for writing good tests. If our specs run code without looking at the output, we are not really testing anything, except the code doesn't crash outright. That's where RSpec-expectations comes in. it provides an API for a specifying expected outcomes.
 
-RSpec example should contain one or more expectations. These express what you expect to be true at a specific point in your code.
+RSpec example should contain one or more expectations. This express what you expect to be true at a specific point in your code.
 
- In this chapter, we'll see how one crucial part of expectations – the matcher can be combined in useful new ways.
+In this chapter, we'll see how one crucial part of expectations – the matcher can be combined in useful new ways.
 
 ```ruby
 ratio = 22 / 7.0
 expect(ratio).to be_within(0.1).of(Math::PI)
+
 numbers = [13, 3, 99]
 expect(numbers).to all be_odd
+
 alphabet = ('a'..'z').to_a
 expect(alphabet).to start_with('a').and end_with('z')
 ```
 
- the primary goal of rspec-expectations is clarity, both in the examples you write and in the output when something goes wrong.
+The primary goal of `rspec-expectations` is clarity, both in the examples you write and in the output when something goes wrong.
 
- parts of an expectation
+Parts of an expectation:
 
 ```ruby
 expect(deck.cards.count).to eq(52), 'not playing with a full deck'
 ```
-
- while there is some variety here, the syntax consistently uses just a few example parts:
- a subject - the thing you are testing, that is, an instance of a Ruby class.
- A matcher - an object that specifies what you expect to be true about the subject, and provides the past or fail logic
-( optionally) a custom failure message
+While there is some variety here, the syntax consistently uses just a few example parts:
+ - A subject - the thing you are testing, that is, an instance of a Ruby class.
+ - A matcher - an object that specifies what you expect to be true about the subject, and provides the past or fail logic
+ - (Optionally) a custom failure message
 
 <div>
   <img src="/../graphics/projects/subject_matcher_message.jpeg" alt="exploring_expectartion_rspec" style="width:600px; display: block; margin: 0 auto;" />
@@ -2638,15 +2639,15 @@ irb(main):006> expect_one
  @target=1>
 ```
 
-Here, our subject is the number one. we have wrapped in the `expect` method to give ourself a place to attach methods like `to` or `not_to`. in other words the `expect` methods wraps are object in a test friendly adapter. 
+Here, our subject is the number 1. We have wrapped in the `expect` method to give ourself a place to attach methods like `to` or `not_to`. in other words the `expect` methods wraps are object in a test friendly adapter. 
 
-Side note: prior versions of RSpec expect method what should and should_not respectively.
+Side note: prior versions of RSpec expect method what `should` and `should_not` respectively.
 
 Using a matcher
 
- if expect wraps your object for testing, then the mattress actually performs the test. the matter checks that the subject satisfies its criteria. mattress can compare numbers, find patterns in text, examine deeply nested data structures or perform any custom Behavior you need.
+If `expect` wraps your object for testing, then the `matcher` actually performs the test. The matcher checks that the subject satisfies its criteria. `matcher` can compare numbers, find patterns in text, examine deeply nested data structures or perform any custom Behavior you need.
 
- they RSpec::Matchers module chips with built in methods to create matchers:
+The `RSpec::Matchers` module ships with built-in methods to create matchers:
 
 ```ruby
 irb(main):007> be_one = eq(1)
@@ -2658,17 +2659,17 @@ irb(main):008> be_one
 #<RSpec::Matchers::BuiltIn::Eq:0x000000013abf9808
  @expected=1>
 ```
-This matcher can’t do anything on its own; we still need to combine it with the subject we saw in the previous section
+This `matcher` can’t do anything on its own; we still need to combine it with the `subject` we saw in the previous section.
 
-Please, notice how `expect(1)` built an ExpectationTarget object internally returns:
+Please, notice how `expect(1)` built an `ExpectationTarget` object internally returns:
 
-@target → is the actual value you passed in (1 in our example).
+`@target` → is the actual value you passed in (1 in our example).
 
-This object is just a holder for that value, plus some helper methods like .to and .not_to
+This object is just a holder for that value, plus some helper methods like `.to` and `.not_to`
 
-Then, with eq(1) built a matcher object (in this case RSpec::Matchers::BuiltIn::Eq).
+Then, with `eq(1)` built a matcher object (in this case `RSpec::Matchers::BuiltIn::Eq`).
 
-And internally @expected → is the value you want to match against (1 here).
+And internally `@expected` → is the value you want to match against (1 here).
 
 ```ruby
 irb(main):011> expect_one.to(be_one)
@@ -2695,7 +2696,7 @@ When you think of RSpec expectations as being just a couple of simple Ruby objec
 
 Custom failure messages.
 
- let's see an example of a very brief Ruby code that will show us a technically correct error however we can make it more explicit by adding an alternate failure message along to the matcher `to` or `not_to`
+Let's see an example of a very brief Ruby code that will show us a technically correct error however we can make it more explicit by adding an alternate failure message along to the matcher `to` or `not_to`
 
 ```ruby
 irb(main):018> resp = Struct.new(:status, :body).new(400, 'unknown query param `sort`')
@@ -2711,9 +2712,9 @@ irb(main):020> expect(resp.status).to eq(200), "Got a #{resp.status}: #{resp.bod
 /Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': Got a 400: unknown query param `sort` (RSpec::Expectations::ExpectationNotMetError)
 ```
 
-When the matchers default failure message doesn't provide enough detail, a customer message maybe just what you need. you can save time by writing your own matches instead if you find yourself using the same message repeatedly 
+When the matchers default failure message doesn't provide enough detail, a custom message maybe just what you need. You can save time by writing your own matches instead if you find yourself using the same message repeatedly.
 
-RSpec expectations vs traditional asserts
+<div style="text-align: center;">RSpec expectations vs traditional asserts</div>
 
 Assertions are simpler to explain than RSpec’s expectations—and simplicity is a good thing—but that doesn’t necessarily make one better than the other.
 
@@ -2722,7 +2723,7 @@ Assertions are simpler to explain than RSpec’s expectations—and simplicity i
     <tr>
       <th>Concept</th>
       <th>Why</th>
-      <th>Code example (very brief)</th>
+      <th>Code example</th>
     </tr>
   </thead>
   <tbody>
@@ -2751,7 +2752,7 @@ Assertions are simpler to explain than RSpec’s expectations—and simplicity i
 
 How matchers work
 
-Any Ruby object can be used as a matcher as long as it implements a minimal set of methods, let’s build one in irb
+Any Ruby object can be used as a matcher as long as it implements a minimal set of methods (`.matches?` and `.failure_message`), let’s build one in irb
 
 ```ruby
 irb(main):021> matcher = Object.new
@@ -2786,16 +2787,16 @@ irb(main):038> expect(2).to matcher
 ```
 These two methods `matches?` and `failure_message`  are all you need to define a simple matcher.
 
-Composing matchers
+<div style="text-align: center;">Composing matchers</div>
 
-Where the matchers really shine is when you compose them with other mattress to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. here are a few different ways to compose matchers:
+Where the matchers really shine is when you compose them with other mattress to specify exactly what you expect and nothing more. the result is more robust tests and fewer false failures. Here are a few different ways to compose matchers:
 
 <table>
   <thead>
     <tr>
       <th>Technique</th>
       <th>Usage</th>
-      <th>Code example (very brief)</th>
+      <th>Code example</th>
     </tr>
   </thead>
   <tbody>
@@ -2835,7 +2836,7 @@ irb(main):045> describe_value(3.14159)
 irb(main):046> describe_value(6.28319)
 => "Double Pi"
 ```
-RSPc expectations perform the same check internally that Ruby's case statement does: they call === on the object you pass in. that object can be anything, including another matcher.
+RSpec expectations perform the same check internally that Ruby's case statement does: they call === on the object you pass in. that object can be anything, including another matcher.
 
 Passing one matcher into another
 
@@ -2875,7 +2876,7 @@ irb(main):078> )
 
 Combining matters with logical and or operators
 
-There’s another way to combine matchers: compound matcher expressions. Every built-in matcher has two methods (and and or).
+There’s another way to combine matchers: compound matcher expressions. Every built-in matcher has two methods (`and` and `or`).
 
 ```ruby
 irb(main):079> alphabet = ('a'..'z').to_a
@@ -2894,7 +2895,7 @@ irb(main):086>
 => true
 ```
 
-You can use the words and/or, or you can use the & and | operators
+You can use the words `and/or`, or you can use the `&` and `|` operators
 
 Generated example descriptions
 
