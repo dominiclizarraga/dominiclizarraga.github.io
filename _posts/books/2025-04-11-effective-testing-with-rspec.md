@@ -3339,8 +3339,129 @@ Quick reference for the different uses:
 <div style="text-align: center;">
   <img src="/../graphics/projects/effective_testing_with_rspec_matcher_diagram.png" 
        alt="matcher_quick_reference_diagram" 
-       style="width:400px;" />
+       style="width:600px;" />
 </div>
+
+Block matchers
+
+With all the expectations we have seen so far, we have past regular Ruby objects into expect: 
+```ruby
+expect(3).to eq(3)
+
+ this is fine for checking properties of your data. but sometimes you need to check properties of a piece of code. for example, perhaps a certain piece of code is supposed to raise an exception. 
+```ruby
+expect { raise 'boom' }.to raise_error('boom')
+```
+
+Rsbec will run the block and watch for the specific side effects you specify: exceptions, mutating variables, I/O and so on.
+
+ Raising and throwing 
+
+R s p e c provides matters for both of the situations: that are properly named race error and throw SYM
+
+ race error
+
+ first, let's look at race error also known as race exception. this matter is very flexible, supporting multiple forms:
+
+ race error with no arguments match if any error is raised
+ race error( some error class) matches if some error class or soup class is raised
+
+ race error(‘message error’) matches if an error is raised with a message exactly equal to a giving a string
+
+ raise error(/some Rejects/) matches if an error is raised with a message matching a given pattern
+
+ you can also combine these criteria if the class and the message are important 
+
+raise_error(SomeErrorClass, "some message")
+• raise_error(SomeErrorClass, /some regex/)
+• raise_error(SomeErrorClass).with_message("some message")
+• raise_error(SomeErrorClass).with_message(/some regex/)
+
+```ruby
+expect {
+'hello'.world
+}.to raise_error(an_object_having_attributes(name: :world))
+```
+There are a couple of caches with race error that can lead can lead to false positives. furious, race error with no arguments will match any error and it cannot tell the difference between exceptions you did or did not mean to throw.
+
+ for example if you rename a method but forget to update your spec on my Ruby will throw a effort ever. and over serious race Arrow will swallow this exception and respect will pass.
+
+ always include some kind of detail – either I specific custom ever class or a snippet from the message – that is unique to the specific race statement you are testing
+
+  throw symbol
+ exceptions are designed for, well, exceptional situation such as an error in a program logic. they are not suited for everyday control flow, so just jumping out of a deeply nasty nasty look or a methyl. for situation like this, Ruby provides the Federal construct.
+
+```ruby
+expect { throw :found }.to throw_symbol(:found)
+
+expect { throw :found, 10 }.to throw_symbol(:found, a_value > 9)
+```
+
+Yielding
+
+ blocks are one of rubies most distinctive features. they allow you to pass around little chunks of code using an easy to read syntax 
+
+```ruby
+def self.just_yield
+  puts "[just_yield] about to yield"
+  yield
+  puts "[just_yield] after yield"
+end
+
+RSpec.describe "yield_control demo" do
+  it "shows the flow" do
+    expect { |block_checker|
+      puts "[expect block] calling just_yield with block_checker"
+      just_yield(&block_checker)
+      puts "[expect block] returned from just_yield"
+    }.to yield_control
+  end
+end
+
+#output
+[expect block] calling just_yield with block_checker
+[just_yield] about to yield
+[just_yield] after yield
+[expect block] returned from just_yield
+```
+
+You can also add with these Guild arguments, no arguments and successive arguments
+
+ Mutation
+
+ here we use the change matcher that will help you specify the sort of mutation you are expecting 
+
+```ruby
+array = [1, 2, 3]
+expect { array << 4 }.to change { array.size }
+```
+The matcher performs the following actions in turn:
+1. Run your change block and store the result, array.size, as the before value
+2. Run the code under test, array << 4
+3. Run your change block a second time and store the result, array.size, as the
+after value
+4. Pass the expectation if the before and after values are different
+
+This expectation checks whether or not the expectation changed
+
+If you need to be more specific and highlight the amount of the change you can use:
+
+Specifically, you can use by, by_at_least, or by_at_most to specify the amount of the change:
+```ruby
+expect { array.concat([1, 2, 3]) }.to change { array.size }.by(3)
+expect { array.concat([1, 2, 3]) }.to change { array.size }.by_at_least(2)
+expect { array.concat([1, 2, 3]) }.to change { array.size }.by_at_most(4)
+```
+ and also we have the front and two if you want to know the exact before and after values 
+```ruby
+expect { array << 4 }.to change { array.size }.from(3)
+expect { array << 5 }.to change { array.size }.to(5)
+expect { array << 6 }.to change { array.size }.from(5).to(6)
+expect { array << 7 }.to change { array.size }.to(7).from(6)
+```
+Summary of this chapter:
+
+
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
 
