@@ -29,6 +29,7 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 9. [Configuring RSpec.](#chapter-9)
 10. [Exploring RSpec expectations.](#chapter-10)
 11. [Matchers included in RSpec expectations.](#chapter-11)
+12. [Creating custom matchers.](#chapter-12)
 
 
 ### Part I — Chapter 1. Getting Started. {#chapter-1}
@@ -2921,7 +2922,7 @@ The matchers in RSpec expectations fall into three growth categories:
 
 - Primitive: matchers for basic data types like strings, numbers and so on
 - High order matchers: that can take other matchers as inputs, then apply them across collections
-- Block matches: for checking properties of code including blocks, exceptions, and side effects.
+- Block matchers: for checking properties of code including blocks, exceptions, and side effects.
  
 Primitive matches
  
@@ -3018,8 +3019,6 @@ The fix is to pass the `an_object_eq_to`
 ```ruby
 expect([String, Regexp]).to include(an_object_eq_to String)
 ```
-
-`==` asks: "Is this the exact same thing?"
 
 Truthiness
 
@@ -3141,11 +3140,211 @@ Trade-offs
 
 As readable and useful as Dynamic predicate math chairs can be, they do have some trade-offs. For example if you want to test for exact true or false results and another bigger problem is documentation, because Dynamic matters are generated on the fly, they have no documentation. 
 
-High-order matchers 
+Higher-order matchers 
+
+All the matchers seen so far are primitives. Now, we are going to look at higher order matchers that is, matchers that you can pass other matchers into. With this technique, you can build up composed matchers that specify exactly the behavior you need.
+
+ Collections and strings
+
+ RSpec ships with six different matches for dealing with data structures:
+
+<table>
+  <thead>
+    <tr>
+      <th>Matcher</th>
+      <th>Usage</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>include</td>
+      <td>Checks that certain items are present (any order).</td>
+      <td><code>expect([1, 2, 3]).to include(2, 3)</code></td>
+    </tr>
+    <tr>
+      <td>start_with</td>
+      <td>Checks that items appear at the beginning.</td>
+      <td><code>expect([1, 2, 3]).to start_with(1, 2)</code></td>
+    </tr>
+    <tr>
+      <td>end_with</td>
+      <td>Checks that items appear at the end.</td>
+      <td><code>expect("foobar").to end_with("bar")</code></td>
+    </tr>
+    <tr>
+      <td>all</td>
+      <td>Checks that all elements satisfy a matcher.</td>
+      <td><code>expect([1, 3, 5]).to all be_odd</code></td>
+    </tr>
+    <tr>
+      <td>match</td>
+      <td>Matches a data structure exactly (order matters for arrays).</td>
+      <td><code>expect([1, 2]).to match([be_odd, be_even])</code></td>
+    </tr>
+    <tr>
+      <td>contain_exactly</td>
+      <td>Checks that a collection has exactly these items (order doesn't matter).</td>
+      <td><code>expect([1, 2, 3]).to contain_exactly(3, 2, 1)</code></td>
+    </tr>
+  </tbody>
+</table>
 
 
+All of these matchers also work with strings, with a few minor differences.
+
+Include
+
+The `include` matcher is one of the most flexible.  By using `include` rather than a structure matcher like `eq` or `match`, you can specify just the elements you care about. The collection can contain unrelated items, and your test will still pass.
+
+At its simplest, the `include` matcher works on any object with an `include?` method. Strings and arrays both support this method.
+
+```ruby
+expect('a string').to include('str')
+expect([1, 2, 3]).to include(3)
+
+hash = { name: 'Harry Potter', age: 17, house: 'Gryffindor' }
+expect(hash).to include(:name)
+expect(hash).to include(age: 17)
+```
+
+It also accepts a variable number of arguments so that you can specify multiple substrings, array items, hash keys or key-value pairs:
+
+```ruby
+expect('a string').to include('str', 'ing')
+expect([1, 2, 3]).to include(3, 2)
+
+expect(hash).to include(:name, :age)
+expect(hash).to include(name: 'Harry Potter', age: 17)
+```
+
+This works well, but there is a gotcha related to variable numbers of items. Consider this example:
+
+```ruby
+expecteds = [3, 2]
+expect([1, 2, 3]).to include(expecteds)
+
+# failure message
+expected [1, 2, 3] to include [3, 2]
+
+# possible solutions:
+
+expect([1, [3, 2]]).to include([3, 2])
+expect([1, 2, 3]).to include(*expecteds)
+```
+
+`start_with` and `end_with`
+
+These two matchers are useful when you care about the content of a string or a collection at the start or end but don't care about the rest.
+
+```ruby
+expect('a string').to start_with('a str').and end_with('ng')
+expect([1, 2, 3]).to start_with(1).and end_with(3)
+
+# use separately 
+expect([1, 2, 3]).to start_with(1, 2)
+expect([1, 2, 3]).to end_with(2, 3)
+
+# aliases and compounding 
+
+expect(['list', 'of', 'words']).to start_with(
+  a_string_ending_with('st')
+  ).and end_with(
+  a_string_starting_with('wo')
+)
+```
+
+all
+
+The `all` matcher is somewhat of an oddity: it is the only built-in matter that is not a verb, and it is the only one that always takes another matcher as an argument:
+
+```ruby
+numbers = [1, 2, 3]
+expect(numbers).to all be_even
+```
+This expression does exactly what it says: it expects all the numbers in the array to be even.
+
+One gotcha to be aware of is that, like `Enumerable#all?`, this matcher passes against an empty array. This can lead to surprises. Example:
+
+```ruby
+def self.evens_up_to(n = 0)
+0.upto(n).select(&:odd?)
+end
+expect(evens_up_to).to all be_even
+```
+Our expectation didn’t fail and we forgot to pass an argument to `evens_up_to`
+
+```ruby
+RSpec::Matchers.define_negated_matcher :be_non_empty, :be_empty
+expect(evens_up_to).to be_non_empty.and all be_even
+```
+
+We’re using another RSpec feature, define_negated_matcher, to create a new `be_non_empty` matcher that’s the opposite of `be_empty`.
+
+Now, the expectation correctly flags the broken method as failing:
+
+```ruby
+expected `[].empty?` to return false, got true
+```
+
+Match
+
+If you call JSON or XML APIs, you often end up with deeply nested arrays and hashes.
+
+As you did with `eq`, you provide a data structure that’s laid out like the result you’re expecting. `match` is more flexible
+
+```ruby
+children = [
+{ name: 'Coen', age: 6 },
+{ name: 'Daphne', age: 4 },
+{ name: 'Crosby', age: 2 }
+]
+
+expect(children).to match [
+{ name: 'Coen', age: a_value > 5 },
+{ name: 'Daphne', age: a_value_between(3, 5) },
+{ name: 'Crosby', age: a_value < 3 }
+]
+
+#it works with strings too
+expect('a string').to match(/str/)
+expect('a string').to match('str')
+```
+
+Contain_exactly
+
+We’ve seen that match checks data structures more loosely than `eq`; `contain_exactly` is even looser. <b>The difference is that `match` requires a specific order, whereas `contain_exactly` ignores ordering.</b>
+
+```ruby
+expect(children).to contain_exactly(
+{ name: 'Daphne', age: a_value_between(3, 5) },
+{ name: 'Crosby', age: a_value < 3 },
+{ name: 'Coen', age: a_value > 5 }
+)
+expect(children).to contain_exactly(
+{ name: 'Crosby', age: a_value < 3 },
+{ name: 'Coen', age: a_value > 5 },
+{ name: 'Daphne', age: a_value_between(3, 5) }
+)
+```
+
+Which collection matcher should I use?
+
+With a half dozen collection matches to pick from, you may wonder which one is the best for your situation. In general, we <b>recommend you use the loosest matter that still specifies the behavior you care about.</b>
+
+Using a loose matcher makes your specs less brittle: it prevents incidental details from causing an unexpected failure.
+
+Quick reference for the different uses:
+
+<div style="text-align: center;">
+  <img src="/../graphics/projects/effective_testing_with_rspec_matcher_diagram.png" 
+       alt="matcher_quick_reference_diagram" 
+       style="width:400px;" />
+</div>
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
+
+
 
 ### Part V — RSpec mocks.
 
