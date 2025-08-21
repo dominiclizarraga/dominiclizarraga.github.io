@@ -3604,7 +3604,328 @@ Block matchers
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
 
+Creating custom matchers
 
+In the previous chapter, we took a tour of the matchers that ship with RSpec. We can be productive with them on simpler projects, they may be or what you need.
+
+Eventually, though, you are going to hit the limits of the built-in matchers. Because they are meant for testing general purpose Ruby code, they require you to speak in Ruby terms rather than your projects terms.
+
+For example please take a look at the next expectations:
+
+Without custom matchers:
+
+```ruby
+expect(art_show.tickets_sold.count).to eq(0)
+expect(u2_concert.tickets_sold.count).to eq(u2_concert.capacity)
+```
+
+With custom matchers
+```ruby
+expect(art_show).to have_no_tickets_sold
+expect(u2_concert).to be_sold_out
+```
+
+We have added to custom matchers `have_no_tickets_sold` and `be_sold_out`, so that we can describe the behavior in terms of `events` and `tickets`. These are the terms that the rest of the project team would use.
+
+> This reminds me of this Martin Fowler talk: https://www.youtube.com/watch?v=pGB5g-Do3qI
+
+> He cites an exercise by Kent Beck, where he asked team members: “Describe how the system works using only four objects.”
+> If they all chose the same objects, he could deduce that the team had good coherence. Otherwise, if they picked different objects, it showed that the team lacked cohesion.
+
+When we write clear, easy to use custom matchers, you gain several benefits:
+
+- you stand a greater chance of building what your stakeholders want
+- you reduce the cost of API changes (because you need only update your match)
+- you can provide better failure messages when something
+- and you improve the test output, example:
+
+Without custom matchers:
+```ruby
+expected: 0
+got: 2
+(compared using ==)
+expected: 10000
+got: 9900
+(compared using ==)
+```
+
+With custom matchers
+```ruby
+expected #<Event "Art Show" (capacity: 100)> to have no tickets sold, but had 2
+expected #<Event "U2 Concert" (capacity: 10000)> to be sold out, but had 100 unsold tickets
+```
+
+Not only does this report to speak out the main language, it also provides additional details such as what specific events we are testing here.
+
+Delegating to existing matchers using helper methods.
+
+We are going to start with a technique we have already used to keep your code organized: `helper methods`
+
+This is a test that we used when we built the expense tracker app
+
+```ruby
+expect(ledger.expenses_on('2017-06-10')).to contain_exactly(
+  a_hash_including(id: result_1.expense_id),
+  a_hash_including(id: result_2.expense_id)
+)
+```
+This matcher got the job done. Notice, though, how it expresses the expectation in terms of Ruby objects: hashes and IDs.
+
+Let's use the main language of the project:
+```ruby
+expect(ledger.expenses_on('2017-06-10')).to contain_exactly(
+  an_expense_identified_by(result_1.expense_id),
+  an_expense_identified_by(result_2.expense_id)
+)
+
+#  spec/spec_helper.rb
+module ExpenseTrackerMatchers
+  def an_expense_identified_by(id)
+    a_hash_including(id: id)
+  end
+end
+
+RSpec.configure do |config|
+  config.include ExpenseTrackerMatchers
+```
+
+We are delegating to another matcher but there is a gotcha that may bring about a false positive so let's make this match more robust.
+
+This data structure would make the test pass
+
+```ruby
+{
+  id: 1,
+  email: 'john.doe@example.com',
+  role: 'admin'
+}
+
+# let’s add the payee, amount and date by using compounding “.and”
+def an_expense_identified_by(id)
+  a_hash_including(id: id).and including(:payee, :amount, :date)
+end
+```
+
+RSpec allows you to create aliases for different matchers, this is how you can define them:
+
+Example of RSpec built-in:
+```ruby
+# a_value_within as an alias of the be_within matcher
+expect(results).to start_with a_value_within(0.1).of(Math::PI)
+```
+Inside of the file 12-creating-custom-matchers/05/custom_matchers.rb
+
+```ruby
+RSpec::Matchers.alias_matcher :an_admin, :be_an_admin
+
+# will produce
+>> be_an_admin.description
+=> "be an admin"
+>> an_admin.description
+=> "an admin"
+```
+
+The alias_matcher method can also take a block:
+
+```ruby
+RSpec::Matchers.alias_matcher :an_admin, :be_an_admin do |old_description|
+old_description.sub('be an admin', 'a superuser')
+end
+
+# will produce
+>> an_admin.description
+=> "a superuser"
+```
+
+Also you can create negating matchers
+
+From this:
+```ruby
+expect(correct_grammar).to_not split_infinitives
+```
+
+To this
+
+```ruby
+expect(correct_grammar).to avoid_splitting_infinitives
+
+RSpec::Matchers.define_negated_matcher :avoid_splitting_infinitives, :split_infinitives
+```
+
+As with alias_matcher, you pass the name of the new matcher, followed by the old one. The avoid_splitting_infinitives matcher will now behave as the negation of split_infinitives.
+
+Using the matcher DSL.
+
+Let's go back to the expense tracker app with built and let's say that we are going to build a custom `have_a_balance_of` matcher that helps with expectations
+
+```ruby
+expect(account).to have_a_balance_of(30)
+```
+
+There are two ways to build a matcher like the one we just show
+
+- Using a master DSL
+- Creating a ruby class (any Ruby class can define a matcher, if it implements the matter protocol)
+
+Let's start with the matcher DSL 
+
+To define a matcher using the DSL, we call `RSpec::Matchers.define`, passing the matcher name and a block containing the matcher definition:
+
+```ruby
+RSpec::Matchers.define :have_a_balance_of do |amount|
+  match { |account| account.current_balance == amount }
+end
+```
+
+The outer block receives any arguments passed to the matcher. When a spec calls `have_a_balance_of(amount)`, RSpec will pass the amount into this block.
+
+The match method defines the actual match/no-match logic. The inner block receives the subject of the expectation (the account), and returns a truthy value if the account balance matches the expected amount.
+
+Here’s the output that it produces when a spec fails:
+```ruby
+1) `have_a_balance_of(amount)` fails when the balance does not match
+Failure/Error: expect(account).to have_a_balance_of(35)
+expected #<Account name="Checking"> to have a balance of 35
+# ./spec/initial_account_spec.rb:17:in `block (2 levels) in <top
+```
+The failure message tells us that the account should have had a balance of 35. But it doesn’t say what the actual balance was.
+
+> it reminds me to the phrase “These two methods matches? and failure_message are all you need to define a simple matcher.” in chapter 10. Let’s add the failure_message
+
+```ruby
+RSpec::Matchers.define :have_a_balance_of do |amount|
+  match { |account| account.current_balance == amount }
+➤ failure_message { |account| super() + failure_reason(account) }
+➤ failure_message_when_negated { |account| super() + failure_reason(account) }
+
+private
+  def failure_reason(account)
+    ", but had a balance of #{account.current_balance}"
+  end
+end
+```
+Now this new matcher will work with `expect(...).to(...)` and for `expect(...).not_to(...)`
+See the next failure message once we added these 2 new methods:
+
+```ruby
+1) `have_a_balance_of(amount)` fails when the balance does not match
+Failure/Error: expect(account).to have_a_balance_of(35)
+expected #<Account name="Checking"> to have a balance of 35, but had a balance of 30
+# ./spec/initial_account_spec.rb:17:in `block (2 levels) in <top
+```
+
+If we need to add a fluent interface like:
+
+• be_within(0.1).of(50)
+• change { ... }.from(x).to(y)
+• output(/warning/).to_stderr
+
+We can do it by defining again starting with the matcher:
+
+```ruby
+expect(account).to have_a_balance_of(10).as_of(Date.new(2017, 6, 12))
+```
+
+And within out matcher file we add the `as_of()`
+
+```ruby
+RSpec::Matchers.define :have_a_balance_of do |amount|
+➤ chain(:as_of) { |date| @as_of_date = date }
+  match { |account| account_balance(account) == amount }
+  failure_message { |account| super() + failure_reason(account) }
+  failure_message_when_negated { |account| super() + failure_reason(account) }
+
+  private
+
+  def failure_reason(account)
+    ", but had a balance of #{account_balance(account)}"
+  end
+
+  def account_balance(account)
+    if @as_of_date
+      account.balance_as_of(@as_of_date)
+    else
+      account.current_balance
+    end
+  end
+end
+```
+
+Defining a matcher class
+
+If we need a little more control or my prefer to define the matter in the most explicit way possible we need to create a ruby class matcher.
+
+```ruby
+class HaveABalanceOf
+  include RSpec::Matchers::Composable
+
+  def initialize(amount)
+    @amount = amount
+  end
+
+  def as_of(date)
+    @as_of_date = date
+    self
+  end
+
+  def matches?(account)
+    @account = account
+    values_match?(@amount, account_balance)
+  end
+
+  def description
+    if @as_of_date
+      "have a balance of #{description_of(@amount)} as of #{@as_of_date}"
+    else
+      "have a balance of #{description_of(@amount)}"
+    end
+  end
+
+  def failure_message
+    "expected #{@account.inspect} to #{description}" + failure_reason
+  end
+
+  def failure_message_when_negated
+    "expected #{@account.inspect} not to #{description}" + failure_reason
+  end
+
+  private
+
+  def failure_reason
+    ", but had a balance of #{account_balance}"
+  end
+
+  def account_balance
+    if @as_of_date
+      @account.balance_as_of(@as_of_date)
+    else
+      @account.current_balance
+    end
+  end
+end
+```
+
+Let’s walk through:
+
+RSpec integration, within matcher.rb
+
+```ruby
+module AccountMatchers
+  def have_a_balance_of(amount)
+    HaveABalanceOf.new(amount)
+  end
+end
+
+RSpec.configure do |config|
+  config.include AccountMatchers
+end
+```
+
+However, in certain situations the custom matcher class is a better fit:
+
+• If your matcher is going to be used hundreds or thousands of times, writing your own class avoids a bit of extra overhead inherent in how the DSL is evaluated.
+• Some teams prefer more explicit code.
+• If you leave out the RSpec::Matchers::Composable mixin, your matcher won’t have any dependencies on RSpec and will work in non-RSpec contexts.
 
 ### Part V — RSpec mocks.
 
