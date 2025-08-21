@@ -130,6 +130,7 @@ T&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-10&quot;&gt;Exploring RSpec expectations.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-11&quot;&gt;Matchers included in RSpec expectations.&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-12&quot;&gt;Creating custom matchers.&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#chapter-13&quot;&gt;Understanding test doubles.&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;h3 id=&quot;chapter-1&quot;&gt;Part I — Chapter 1. Getting Started.&lt;/h3&gt;
@@ -3983,7 +3984,7 @@ See the next failure message once we added these 2 new methods:&lt;/p&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Let’s walk through&lt;/p&gt;
+&lt;p&gt;Let’s walk through:&lt;/p&gt;
 
 &lt;p&gt;RSpec integration, within matcher.rb&lt;/p&gt;
 

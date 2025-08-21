@@ -30,6 +30,7 @@ Here are the notes, examples, and quotes that stood out to me while reading.
 10. [Exploring RSpec expectations.](#chapter-10)
 11. [Matchers included in RSpec expectations.](#chapter-11)
 12. [Creating custom matchers.](#chapter-12)
+13. [Understanding test doubles.](#chapter-13)
 
 
 ### Part I — Chapter 1. Getting Started. {#chapter-1}
@@ -3930,6 +3931,8 @@ However, in certain situations the custom matcher class is a better fit:
 ### Part V — RSpec mocks.
 
 ### Part V — Chapter 13. Understanding test doubles. {#chapter-13}
+
+
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
 
