@@ -3930,6 +3930,10 @@ However, in certain situations the custom matcher class is a better fit:
 
 ### Part V — RSpec mocks.
 
+A robust test suite will run fast, be deterministic, and cover all essential code paths.
+
+Unfortunately, dependencies often get in the way of these goals. We can't reliably test code while it is integrated with other libraries or systems. Test doubles, including mock objects allow you to tightly control the environment in which your test run
+
 ### Part V — Chapter 13. Understanding test doubles. {#chapter-13}
 
 

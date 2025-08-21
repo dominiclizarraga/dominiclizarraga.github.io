@@ -4007,6 +4007,10 @@ See the next failure message once we added these 2 new methods:&lt;/p&gt;
 
 &lt;h3 id=&quot;part-v--rspec-mocks&quot;&gt;Part V — RSpec mocks.&lt;/h3&gt;
 
+&lt;p&gt;A robust test suite will run fast, be deterministic, and cover all essential code paths.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, dependencies often get in the way of these goals. We can’t reliably test code while it is integrated with other libraries or systems. Test doubles, including mock objects allow you to tightly control the environment in which your test run&lt;/p&gt;
+
 &lt;h3 id=&quot;chapter-13&quot;&gt;Part V — Chapter 13. Understanding test doubles.&lt;/h3&gt;
 
 &lt;h3 id=&quot;chapter-14&quot;&gt;Part V — Chapter 14. Customizing test doubles.&lt;/h3&gt;
