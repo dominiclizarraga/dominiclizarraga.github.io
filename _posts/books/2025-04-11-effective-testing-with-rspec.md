@@ -3461,6 +3461,145 @@ expect { array << 7 }.to change { array.size }.to(7).from(6)
 ```
 Summary of this chapter:
 
+Primitive matchers
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Usage</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Equality (eq)</td>
+      <td>Value equality: two objects that mean the same.</td>
+      <td><code>expect(42).to eq 42.0</code></td>
+    </tr>
+    <tr>
+      <td>Identity (equal)</td>
+      <td>Object identity: same object reference.</td>
+      <td><code>expect(a).to equal(a)</code></td>
+    </tr>
+    <tr>
+      <td>Hash key equality (eql)</td>
+      <td>Equality as defined by Hash key rules.</td>
+      <td><code>expect(:a).to eql(:a)</code></td>
+    </tr>
+    <tr>
+      <td>Aliases</td>
+      <td><code>an_object_eq_to</code> → eq<br><code>an_object_equal_to</code> → equal<br><code>an_object_eql_to</code> → eql</td>
+      <td><code>expect(x).to an_object_eq_to(y)</code></td>
+    </tr>
+    <tr>
+      <td>Truthiness</td>
+      <td>Checks truthy/falsey values.</td>
+      <td><code>expect(true).to be_truthy</code></td>
+    </tr>
+    <tr>
+      <td>Operator comparison</td>
+      <td>Delegates to Ruby’s operators.</td>
+      <td><code>expect(5).to be &gt; 3</code></td>
+    </tr>
+    <tr>
+      <td>Delta & Range</td>
+      <td>Approximate numeric comparisons.</td>
+      <td><code>expect(3.14).to be_within(0.01).of(3.15)</code></td>
+    </tr>
+    <tr>
+      <td>Dynamic predicates</td>
+      <td>Calls Ruby predicate methods.</td>
+      <td><code>expect([]).to be_empty</code></td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>Recommendation:</strong> When in doubt, use <code>eq</code>. Value equality is the one you need most often.</td>
+    </tr>
+  </tbody>
+</table>
+
+Higher order matchers
+<table>
+  <thead>
+    <tr>
+      <th>Matcher</th>
+      <th>Usage</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>include</td>
+      <td>Requires certain items to be present (any order).</td>
+      <td><code>expect([1,2,3]).to include(2,3)</code></td>
+    </tr>
+    <tr>
+      <td>start_with</td>
+      <td>Checks items at the beginning.</td>
+      <td><code>expect([1,2,3]).to start_with(1)</code></td>
+    </tr>
+    <tr>
+      <td>end_with</td>
+      <td>Checks items at the end.</td>
+      <td><code>expect("hello").to end_with("lo")</code></td>
+    </tr>
+    <tr>
+      <td>all</td>
+      <td>Applies a matcher to all elements.</td>
+      <td><code>expect([1,3,5]).to all be_odd</code></td>
+    </tr>
+    <tr>
+      <td>match</td>
+      <td>Matches against a pattern (array/hash/string/regex). Requires order.</td>
+      <td><code>expect({a:1,b:2}).to match(a: be &gt; 0, b: be &lt; 3)</code></td>
+    </tr>
+    <tr>
+      <td>contain_exactly</td>
+      <td>Checks that only the given items are present, ignoring order.</td>
+      <td><code>expect([1,2,3]).to contain_exactly(3,1,2)</code></td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>Recommendation:</strong> Prefer the loosest matcher that still specifies the behavior you care about. For example, use <code>contain_exactly</code> when order doesn’t matter to avoid brittle specs. Match when order matter</td>
+    </tr>
+  </tbody>
+</table>
+
+Block matchers
+<table>
+  <thead>
+    <tr>
+      <th>Matcher</th>
+      <th>Usage</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>raise_error</td>
+      <td>Asserts exceptions raised in a block.</td>
+      <td>
+        <code>expect { 1/0 }.to raise_error(ZeroDivisionError)</code><br>
+        <code>expect { foo }.to raise_error("bad")</code><br>
+        <code>expect { bar }.to raise_error(/pattern/)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>yield_control</td>
+      <td>Checks that a block yields.</td>
+      <td><code>expect { |b| obj.call(&b) }.to yield_control</code></td>
+    </tr>
+    <tr>
+      <td>change</td>
+      <td>Asserts that a block mutates state.</td>
+      <td>
+        <code>expect { arr &lt;&lt; 1 }.to change { arr.size }.by(1)</code><br>
+        <code>expect { arr &lt;&lt; 2 }.to change { arr.size }.from(1).to(2)</code>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>Recommendation:</strong> Use <code>change</code> when you care about mutations, <code>yield</code> when testing block semantics, and always make <code>raise_error</code> specific to avoid false positives.</td>
+    </tr>
+  </tbody>
+</table>
 
 
 ### Part IV — Chapter 12. Creating custom matchers. {#chapter-12}
