@@ -3932,10 +3932,251 @@ However, in certain situations the custom matcher class is a better fit:
 
 A robust test suite will run fast, be deterministic, and cover all essential code paths.
 
-Unfortunately, dependencies often get in the way of these goals. We can't reliably test code while it is integrated with other libraries or systems. Test doubles, including mock objects allow you to tightly control the environment in which your test run
+Unfortunately, dependencies often get in the way of these goals. We can't reliably test code while it is integrated with other libraries or systems. Test doubles, including mock objects allow you to tightly control the environment in which your test run.
 
 ### Part V — Chapter 13. Understanding test doubles. {#chapter-13}
 
+In this chapter we will see:
+
+- How doubles can isolate your code from your dependencies, the difference between mocks, stubs, spies and null objects
+- How to add test double behavior to an existing Ruby object
+- and how to keep your doubles and your real objects in sync
+
+In movies, a stunt double stands in for an actor, absorbing a punch or a fall when the actor cannot or should not do so. In test frameworks liek RSpec, test double fulfills the same role. It stands in for another object doing testing.
+
+When we wrote the API unit specs for our expense tracker app, we treated the storage engine layer as if it were behaving exactly how we needed it, even though that the layer had not been written yet.
+
+this hability to try to isolate parts of your system while you are testing it is super powerful. With test doubles, we can:
+
+- Exercise hard to reach code paths, such as ever handling and reliable third-party service
+- Wright specs for a layer of your system before you have built it its dependencies
+- Use an API while you are still designing it so that you can fix problems with the design before the implementation
+- Demonstrate how a component Works relative to its neighbors
+
+Types of test doubles:
+
+Test doubles have two characteristics one is the usage mode ( what you are using it for and what you are expecting to) and the other is how the double is creating,  the origin.
+
+Here are the usage modes:
+
+- Stub:  returns canned responses, avoiding any meaningful computation or i/o
+- Mock: expects a specific messages: will raise an error if it doesn't receive them by the end of the example
+- Null Object: a benign test double that can stand in for any object: returns itself in response to any message
+- Spy: records the message it receives so that you can check that later
+
+Now here are the origins:
+
+- Pure double: a double whose behavior comes entirely from the test framework; this is what people normally think of when they talk about mock objects
+
+- Partial double: an existing Ruby object that takes on some tests that will behavior, it's an interface is a mixture of real and fake implementations
+
+- Verifying double totally fake like a pure double, but constraints it's interface based on a real object like a partial double; provides a safer test double by verifying that it matches the API
+
+- Stubbed constant: a ruby constant such as a class or module name, which you create, remove or replace for a single test 
+
+Any given test of what we have both on our origin and a usage mode. and you can mix them for instance have a pure double acting as a stub, or a verifying double acting as a spy
+
+Usage mode: mocks, stubs and Spies
+
+In an irb session call mock RSpec library. RSpec’s `double` method creates a generic test double that you can use in any mode.
+
+```ruby
+irb(main):001> require 'rspec/mocks/standalone'
+=> true
+irb(main):002> ledger = double
+=> #<Double (anonymous)>
+```
+
+This double acts like an ordinary Ruby object. As you send messages to it (in other words, call methods on it), it will accept some messages and reject others.
+
+The difference is that a generic double gives you more debugging information than a regular Ruby object.
+
+```ruby
+irb(main):003> ledger.record(an: :expense)
+
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': #<Double (anonymous)> received unexpected message :record with ({an: :expense}) (RSpec::Mocks::MockExpectationError)
+```
+
+When we sent this message (`.record`), the double raised an exception. Doubles are strict by default: they will reject all messages except the ones you’ve specifically allowed.
+
+RSpec shows both the message name and arguments we sent to our double; this is already more information than a typical Ruby NoMethodError.
+
+We can get a little more detail in the error message by naming the role the double plays
+
+```ruby
+irb(main):004> ledger = double('Ledger')
+=> #<Double "Ledger">
+
+irb(main):005> ledger.record(an: :expense)
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': #<Double "Ledger"> received unexpected message :record with ({an: :expense}) (RSpec::Mocks::MockExpectationError)
+```
+
+This extra information comes in handy when you’re using multiple doubles in the same example.
+
+This same double method can create any of the other kinds of test doubles you’ll use in your specs: stubs, mocks, spies, and null objects.
+
+Stubs
+
+Stubs are simple. They return preprogrammed, canned responses. Stubs are best for when you’re simulating query methods—that is, <b>methods that return a value but don’t perform side effects.</b>
+
+The simplest way to define a stub is to pass a hash of method names and return values to the double method:
+
+```ruby
+irb(main):006> http_response = double('HTTPResponse', status: 200, body: 'OK')
+=> #<Double "HTTPResponse">
+irb(main):007> http_response.status
+=> 200
+irb(main):008> http_response.body
+=> "OK"
+```
+
+An alternative, you can perform these two steps for creating the stub and setting up the canned messages
+
+```ruby
+irb(main):009> http_response = double('HTTPResponse')
+=> #<Double "HTTPResponse">
+irb(main):010> allow(http_response).to receive_messages(status: 200, body: 'OK')
+=> {status: 200, body: "OK"}
+irb(main):011> http_response.status
+=> 200
+irb(main):012> http_response.body
+=> "OK"
+```
+
+Stubs watch for specific messages and return the same value each time they receive a given message. They don’t act differently based on their arguments.
+
+```ruby
+irb(main):013> http_response.status(:args, :are, :ignored)
+=> 200
+irb(main):014> http_response.body(:blocks, :are, :also) { :ignored }
+=> "OK"
+```
+
+Stubs help with a specific kind of behavior—the kind that can be verified just by looking at return values.
+1. Query data from a dependency
+2. Perform a computation on that data
+3. Return a result
+
+Your specifications can verify the object's behavior simply by examining the return value in step 3. The only responsibility of the stub is to provide a suitable response to the query in step 1.
+
+Mocks
+
+With these, it’s not a return value that you care about, but rather a side effect. Here’s a typical sequence:
+
+1. Receive an event from the system
+2. Make a decision based on that event
+3. Perform an action that has a side effect
+
+For instance, a chat bot’s Reply feature may receive a text message, decide how to reply, and then post a message in the chat room. 
+
+To test this behavior, it’s not enough for your test double to provide a fixed return value at step 3. <b>It needs to make sure the object triggered the side effect of posting a message correctly.</b>
+
+To use a mock object, you’ll pre-program it with a set of messages it’s supposed to receive. These are called message expectations. By combining the expect method with a matcher:
+
+```ruby
+irb(main):015>ledger = double('Ledger')
+irb(main):016> expect(ledger).to receive(:record)
+=> #<RSpec::Mocks::MessageExpectation #<Double "Ledger">.record(any arguments)>
+```
+Once you’ve created a mock object, you’ll typically pass it into the code you’re testing. At the end of each RSpec example, RSpec verifies that all mocks received their expected messages.
+
+```ruby
+irb(main):016> RSpec::Mocks.verify
+(irb):15:in '<main>': (Double "Ledger").record(*(any args)) (RSpec::Mocks::MockExpectationError)
+    expected: 1 time with any arguments
+    received: 0 times with any arguments
+```
+
+Because the mock Ledger didn’t receive the messages it was expecting, it raises a MockExpectationError message.
+
+You can also specify the opposite behavior:
+
+```ruby
+irb(main):017> expect(ledger).not_to receive(:reset)
+=> #<RSpec::Mocks::MessageExpectation #<Double "Ledger">.reset(any arguments)>
+irb(main):018> ledger.reset
+/Users/dominiclizarraga/.rbenv/versions/3.4.2/lib/ruby/gems/3.4.0/gems/rspec-support-3.13.4/lib/rspec/support.rb:110:in 'block in <module:Support>': (Double "Ledger").reset(no args) (RSpec::Mocks::MockExpectationError)
+    expected: 0 times with any arguments
+    received: 1 time
+```
+We see a failure because the mock object received a message it was specifically expecting not to receive.
+
+Null objects
+
+The test doubles you’ve defined so far are strict: they require you to declare in advance what messages are allowed. But when your test double needs to receive several messages, having to spell each one out can make your tests brittle, you may want a test double that’s a little more forgiving.
+
+You can convert any test double to a null object by calling `as_null_object` on it:
+
+```ruby
+irb(main):019> yoshi = double('Yoshi').as_null_object
+=> #<Double "Yoshi">
+irb(main):020> yoshi.eat(:apple)
+=> #<Double "Yoshi">
+```
+This type of null object is known as a black hole; it responds to any message sent to it, and always returns itself.
+
+```ruby
+irb(main):021> yoshi.eat(:apple).then_shoot(:shell).then_stomp
+=> #<Double "Yoshi">
+```
+
+If you have a `ChatBot` class that interacts with a `room` and a `user`, you may want to test these collaborations separately. While you’re focusing on the `user` related specs, you can use a `null object `for the `room`.
+
+Spies
+
+One downside of traditional mocks is that they disrupt the normal Arrange/Act/Assert sequence you’re used to in your tests.
+
+See the next code:
+
+```ruby
+irb(main):022* class Game
+irb(main):023*   def self.play(character)
+irb(main):024*     character.jump
+irb(main):025*   end
+irb(main):026> end
+=> :play
+irb(main):027> mario = double('Mario')
+=> #<Double "Mario">
+irb(main):028> expect(mario).to receive(:jump)
+=> #<RSpec::Mocks::MessageExpectation #<Double "Mario">.jump(any arguments)>
+irb(main):029> Game.play(mario)
+=> nil
+```
+
+It feels a bit backwards to have to assert before acting. Spies are one way to restore the traditional flow. All you have to do is change the receive expectation to `have_received`.
+
+```ruby
+irb(main):030> mario = double('Mario').as_null_object
+=> #<Double "Mario">
+irb(main):031> Game.play(mario)
+=> #<Double "Mario">
+irb(main):032> expect(mario).to have_received(:jump)
+=> nil
+```
+
+When you spy on objects with `have_received`, you’ll either need to use null objects or explicitly allow the expected messages
+
+```ruby
+irb(main):033> mario = double('Mario')
+=> #<Double "Mario">
+irb(main):034> allow(mario).to receive(:jump)
+=> #<RSpec::Mocks::MessageExpectation #<Double "Mario">.jump(any arguments)>
+irb(main):035> Game.play(mario)
+=> nil
+irb(main):036> expect(mario).to have_received(:jump)
+=> nil
+
+# another way is using `spy` keyword which is an alias
+
+irb(main):037> mario = spy('Mario')
+=> #<Double "Mario">
+irb(main):038> Game.play(mario)
+=> #<Double "Mario">
+irb(main):039> expect(mario).to have_received(:jump)
+=> nil
+```
+
+Here us a chatGPT explanation for `null obejcts` and `spies`
 
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
