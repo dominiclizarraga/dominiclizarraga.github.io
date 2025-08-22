@@ -4176,7 +4176,112 @@ irb(main):039> expect(mario).to have_received(:jump)
 => nil
 ```
 
-Here us a chatGPT explanation for `null obejcts` and `spies`
+Here, we used a chatGPT explanation for `null obejcts` and `spies`
+
+Scenario: ChatBot
+
+```ruby
+class ChatBot
+  def initialize(room)
+    @room = room
+  end
+
+  def reply_to(message)
+    if message == "hi"
+      @room.post("hello 👋")
+    else
+      @room.post("🤔")
+    end
+  end
+end
+```
+
+Null Object
+
+Suppose you only care about testing how the bot decides what to say, not whether it really posted to the room.
+
+Instead of stubbing every possible method on Room, we just use a null object:
+
+```ruby
+RSpec.describe ChatBot do
+  it "returns a response without caring about the room" do
+    room = double("Room").as_null_object  # accepts any message
+    bot = ChatBot.new(room)
+
+    bot.reply_to("hi")
+    # no error, even though we didn’t define room.post
+  end
+end
+```
+
+`as_null_object` is useful when the collaborator is irrelevant to the test — it "swallows" all messages without complaints.
+
+Spy
+
+Now let’s say we do care that `room.post` got called correctly.
+Using a spy, we can check after the action:
+
+```ruby
+RSpec.describe ChatBot do
+  it "posts a greeting when user says hi" do
+    room = spy("Room")
+    bot = ChatBot.new(room)
+
+    bot.reply_to("hi")
+
+    expect(room).to have_received(:post).with("hello 👋")
+  end
+end
+```
+
+Notice the flow:
+
+Arrange: create spy
+Act: call method
+Assert: verify with `have_received`
+
+This keeps the familiar Arrange–Act–Assert pattern, unlike mocks where you must set the expectation before acting.
+
+Combining `as_null_object` and Spies
+
+Sometimes, you want an object that:
+
+- Accepts any call (like a null object)
+
+- But you can still inspect later what happened (like a spy)
+
+That’s exactly what spy (or double(...).as_null_object + have_received) gives you.
+
+```ruby
+room = double("Room").as_null_object
+bot = ChatBot.new(room)
+
+bot.reply_to("bye")
+
+expect(room).to have_received(:post).with("🤔")
+
+# or equivalently:
+
+room = spy("Room")
+bot = ChatBot.new(room)
+
+bot.reply_to("bye")
+
+expect(room).to have_received(:post).with("🤔")
+
+```
+
+🔑 Key Takeaways
+
+Null Object (`as_null_object`): ignores everything, returns itself → great when collaborator doesn’t matter.
+
+Spy (spy or `have_received`): records what happened → great when you want to assert after-the-fact.
+
+spy("Name") is basically shorthand for double("Name").as_null_object.
+
+chatGPT session ended.
+
+Origins: Pure, Partial, and Verifying Doubles
 
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
