@@ -3938,45 +3938,45 @@ Unfortunately, dependencies often get in the way of these goals. We can't reliab
 
 In this chapter we will see:
 
-- How doubles can isolate your code from your dependencies, the difference between mocks, stubs, spies and null objects
-- How to add test double behavior to an existing Ruby object
-- and how to keep your doubles and your real objects in sync
+- How doubles can isolate your code from your dependencies, the difference between mocks, stubs, spies and null objects.
+- How to add test double behavior to an existing Ruby object.
+- and how to keep your doubles and your real objects in sync.
 
-In movies, a stunt double stands in for an actor, absorbing a punch or a fall when the actor cannot or should not do so. In test frameworks liek RSpec, test double fulfills the same role. It stands in for another object doing testing.
+In movies, a stunt double stands in for an actor, absorbing a punch or a fall when the actor cannot or should not do so. In test frameworks like RSpec, test double fulfills the same role. It stands in for another object doing testing.
 
 When we wrote the API unit specs for our expense tracker app, we treated the storage engine layer as if it were behaving exactly how we needed it, even though that the layer had not been written yet.
 
-this hability to try to isolate parts of your system while you are testing it is super powerful. With test doubles, we can:
+This ability to isolate parts of your system while you are testing it is super powerful. With test doubles, we can:
 
-- Exercise hard to reach code paths, such as ever handling and reliable third-party service
-- Write specs for a layer of your system before you have built it its dependencies
-- Use an API while you are still designing it so that you can fix problems with the design before the implementation
-- Demonstrate how a component Works relative to its neighbors
+- Exercise hard to reach code paths, such as ever handling and reliable third-party service.
+- Write specs for a layer of your system before you have built it its dependencies.
+- Use an API while you are still designing it so that you can fix problems with the design before the implementation.
+- Demonstrate how a component Works relative to its neighbors.
 
 Types of test doubles:
 
-Test doubles have two characteristics one is the usage mode ( what you are using it for and what you are expecting to) and the other is how the double is creating,  the origin.
+Test doubles have two characteristics one is the usage mode (what you are using it for and what you are expecting to) and the other is how the double is created, the origin.
 
 Here are the usage modes:
 
-- Stub:  returns canned responses, avoiding any meaningful computation or i/o
-- Mock: expects a specific messages: will raise an error if it doesn't receive them by the end of the example
-- Null Object: a benign test double that can stand in for any object: returns itself in response to any message
-- Spy: records the message it receives so that you can check that later
+- Stub: returns canned responses, avoiding any meaningful computation or I/O.
+- Mock: expects a specific messages: will raise an error if it doesn't receive them by the end of the example.
+- Null Object: a benign test double that can stand in for any object: returns itself in response to any message.
+- Spy: records the message it receives so that you can check that later.
 
 Now here are the origins:
 
-- Pure double: a double whose behavior comes entirely from the test framework; this is what people normally think of when they talk about mock objects
+- Pure double: a double whose behavior comes entirely from the test framework; this is what people normally think of when they talk about mock objects.
 
-- Partial double: an existing Ruby object that takes on some tests that will behavior, it's an interface is a mixture of real and fake implementations
+- Partial double: an existing Ruby object that takes on some tests that will behavior, it's an interface is a mixture of real and fake implementations.
 
-- Verifying double totally fake like a pure double, but constraints it's interface based on a real object like a partial double; provides a safer test double by verifying that it matches the API
+- Verifying double totally fake like a pure double, but constraints it's interface based on a real object like a partial double; provides a safer test double by verifying that it matches the API.
 
-- Stubbed constant: a ruby constant such as a class or module name, which you create, remove or replace for a single test 
+- Stubbed constant: a ruby constant such as a class or module name, which you create, remove or replace for a single test.
 
-Any given test of what we have both on our origin and a usage mode. and you can mix them for instance have a pure double acting as a stub, or a verifying double acting as a spy
+Any given test of what we have both on our origin and a usage mode and you can mix them for instance have a pure double acting as a stub, or a verifying double acting as a spy.
 
-Usage mode: mocks, stubs and spies
+Usage mode: mocks, stubs and spies.
 
 Generic test double
 
@@ -4001,9 +4001,9 @@ irb(main):003> ledger.record(an: :expense)
 
 When we sent this message (`.record`), the double raised an exception. Doubles are strict by default: they will reject all messages except the ones you’ve specifically allowed.
 
-RSpec shows both the message name and arguments we sent to our double; this is already more information than a typical Ruby NoMethodError.
+RSpec shows both the message name and arguments we sent to our double; this is already more information than a typical Ruby `NoMethodError`.
 
-We can get a little more detail in the error message by naming the role the double plays
+We can get a little more details in the error message by naming the role the double plays:
 
 ```ruby
 irb(main):004> ledger = double('Ledger')
@@ -4019,7 +4019,7 @@ This same double method can create any of the other kinds of test doubles you’
 
 Stubs
 
-Stubs are simple. They return preprogrammed, canned responses. Stubs are best for when you’re simulating query methods—that is, <b>methods that return a value but don’t perform side effects.</b>
+Stubs are simple. They return preprogrammed, canned responses. Stubs are best for when you’re simulating query methods that is, <b>methods that return a value but don’t perform side effects.</b>
 
 The simplest way to define a stub is to pass a hash of method names and return values to the double method:
 
@@ -4032,7 +4032,7 @@ irb(main):008> http_response.body
 => "OK"
 ```
 
-An alternative, you can perform these two steps for creating the stub and setting up the canned messages
+An alternative, you can perform these two steps for creating the stub and setting up the canned messages:
 
 ```ruby
 irb(main):009> http_response = double('HTTPResponse')
@@ -4063,7 +4063,7 @@ Your specifications can verify the object's behavior simply by examining the ret
 
 Mocks
 
-With these, it’s not a return value that you care about, but rather a side effect. Here’s a typical sequence:
+With these, it’s not a return value that you care about, <b>but rather a side effect.</b> Here’s a typical sequence:
 
 1. Receive an event from the system
 2. Make a decision based on that event
@@ -4089,7 +4089,7 @@ irb(main):016> RSpec::Mocks.verify
     received: 0 times with any arguments
 ```
 
-Because the mock Ledger didn’t receive the messages it was expecting, it raises a MockExpectationError message.
+Because the mock Ledger didn’t receive the messages it was expecting, it raises a `MockExpectationError` message.
 
 You can also specify the opposite behavior:
 
@@ -4115,7 +4115,7 @@ irb(main):019> yoshi = double('Yoshi').as_null_object
 irb(main):020> yoshi.eat(:apple)
 => #<Double "Yoshi">
 ```
-This type of null object is known as a black hole; it responds to any message sent to it, and always returns itself.
+This type of null object is known as a black hole; <b>it responds to any message sent to it, and always returns itself.</b>
 
 ```ruby
 irb(main):021> yoshi.eat(:apple).then_shoot(:shell).then_stomp
@@ -4178,7 +4178,7 @@ irb(main):039> expect(mario).to have_received(:jump)
 => nil
 ```
 
-Here, we used a chatGPT explanation for `null obejcts` and `spies`
+Here, we used a chatGPT explanation for `null obejcts` and `spies` 🤖
 
 Scenario: ChatBot
 
@@ -4287,16 +4287,17 @@ Origins: pure, partial, and verifying doubles
 
 Now that we have seen the different usage modes of the tests doubles, let's look at where they come from.
 
- Pure doubles
+Pure doubles
 
- all of the test doubles you have written so far in this chapter are pure doubles: they are purpose-built by rspec mocks and consist entirely of behavior you add to them. you can pass them into your project code just as if they were the real thing.
- pure doubles are flexible and easy to get started with. they are best for testing code where you can pass in dependencies. unfortunately, real world projects are not always so test your friendly, and you will need to turn to more powerful techniques.
+All of the test doubles you have written so far in this chapter are pure doubles: they are purpose-built by RSpec mocks and consist entirely of behavior you add to them. You can pass them into your project code just as if they were the real thing.
 
-partial doubles
+Pure doubles are flexible and easy to get started with. They are best for testing code where you can pass in dependencies. Unfortunately, real world projects are not always so test-friendly, and you will need to turn to more powerful techniques.
 
- sometimes, the code you are testing does not give you an easy way to inject dependencies. a hard coded class name may be looking three layers deep in the API you are calling. for instance, a lot of Ruby projects called time now without providing a way to override the behavior during testing.
+Partial doubles
 
- to test these kinds of code bases, you can use a partial double. this app marking and stopping Behavior to an existing Ruby objects. that means any object in your system can be a partial towel. all you have to do is expect or allow a specific message.
+Sometimes, the code you are testing does not give you an easy way to inject dependencies, a hard coded class name may be looking three layers deep in the API you are calling. For instance, a lot of Ruby projects called `Time.now` without providing a way to override the behavior during testing.
+
+To test these kinds of codebases, you can use a partial double. This add mocking and stubbing behavior to an existing Ruby objects. That means any object in your system can be a partial double. All you have to do is expect or allow a specific message.
 
 ```ruby
 => true
@@ -4308,9 +4309,9 @@ irb(main):006> random.rand
 => 0.1234
 ```
 
-In this knee pad, you have created an instance of a ruby random number generator, and then replace its friend method with one that returns a can value.
+In this snippet, you have created an instance of a Ruby random number generator, and then replace its `rand` method with one that returns a can value.
 
- you can also use a partial double as a spy using the `expect().to have_received` form
+You can also use a partial double as a spy using the `expect().to have_received` form
 
 ```ruby
 irb(main):009> allow(Dir).to receive(:mktmpdir).and_yield('/path/to/tmp')
@@ -4322,11 +4323,11 @@ irb(main):011> expect(Dir).to have_received(:mktmpdir)
 => nil
 ```
 
-You could permit any message using a spy or as no object or explicitly allow just the message you want. with partial doubles, you can only do that later.
+You could permit any message using a `spy` or `as_null_object` or explicitly `allow` just the message you want. With partial doubles, you can only do that later.
 
- rspec will repair it all your changes at the end of each example. there will be object will go back to its original behavior.
+<b>RSpec will revert it all your changes at the end of each example. there will be object will go back to its original behavior.</b>
 
- since we are experimenting in Standalone mode we need to call the tear down explicitly to clean up what happened.
+Since we are experimenting in stand-alone mode we need to call the tear down explicitly to clean up what happened.
 
 ```ruby
 irb(main):012> RSpec::Mocks.teardown
@@ -4337,17 +4338,17 @@ irb(main):014> random.rand
 => 0.30073063313880466
 ```
 
- test doubles have short lifetimes
+Test doubles have short lifetimes
 
- r s p e c tears down all your test doubles at the end of each example. that means they want to play while we are s p e c features that leave outside the typical prayer examples, such as before context hooks. you can work around some of these limitations with a method name with temporary scope.
+RSpec tears down all your test doubles at the end of each example. That means they wont to play well with RSpec features that leave outside the typical per-examples, such as `before(:context)` hooks. You can work around some of these limitations with a method name `with_temporary_scope`.
 
- partial doubles are useful but we consider them as a school smell a superficial sign that might lead to a deeper design issue. 
+Partial doubles are useful but we consider them as a code smell, a superficial sign that might lead to a deeper design issue. 
 
 Verifying doubles
 
-The upside of test doubles is that they can stand in for a dependency you do not want to track into your test. the downside is that the double and the dependency can drift out of sync with each other. verifying doubles can protect you from this kind of drift
+The upside of test doubles is that they can stand in for a dependency you do not want to track into your test. The downside is that the double and the dependency can drift out of sync with each other. Verifying doubles can protect you from this kind of drift.
 
- while we wrote the expense tracker app we Touch briefly on verifying doubles when we marked The Ledger class because it didn't exist yet. here is a simplified version
+While we wrote the expense tracker app we touch briefly on `verifying doubles` when we marked the `Ledger` class because it didn't exist yet. Here is a simplified version
 
 ```ruby
 ledger = double('ExpenseTracker::Ledger')
@@ -4360,41 +4361,41 @@ JSON.generate('expense_id' => result.expense_id)
 end
 ```
 
-The Ledger class didn’t exist yet; the test double provided enough of an implementation for your routing specs to pass
+The Ledger class didn’t exist yet; the test double provided enough of an implementation for your routing specs to pass.
 
-Consider what will happen if at some point you rename the Ledger#record method to Ledger#record_expense but forgot to update their routing code. Your specs would still pass, since they are still providing fake record method. But your code will fail in real world use, because it is trying to call a method that no longer exist. These kinds of false positives can kill confidence in your unit specs.
+Consider what will happen if at some point you rename the `Ledger#record` method to `Ledger#record_expense` but forgot to update their routing code. Your specs would still pass, since they are still providing fake `record` method. But your code will fail in real world use, because it is trying to call a method that no longer exist. These kinds of false positives can kill confidence in your unit specs.
 
-You avoided this drive in your expense tracker project by using a verifying double. to do so, you call instance double in place of double, passing the name of The Ledger class.
+You avoided this drive in your expense tracker project by using a `verifying double` to do so, you call `instance_double` in place of double, passing the name of The `Ledger` class.
 
 ```ruby
 ledger = instance_double('ExpenseTracker::Ledger')
 allow(ledger).to receive(:record)
 ```
 
- with this double in place, RSpec checks that the real Ledger class (if it is loaded) actually response to the record message with the same signature. if you rename this method to record expense, or add or remove arguments, your specs will correctly fail under your update your use of the method and your test double setup.
+With this double in place, RSpec checks that the real `Ledger` class (if it is loaded) actually response to the `record` message with the same signature. If you rename this method to `record_expense`, or add or remove arguments, your specs will correctly fail under your update your use of the method and your test double setup.
 
- use verifying doubles to catch problems earlier
+Use verifying doubles to catch problems earlier
 
- Although your unit specs will have a false positive, you're acceptance specs will still have cut this regression. that's because they use the real versions of the objects, rather than counting on test doubles.
+Although your unit specs will have a false positive, you're `acceptance` specs will still have cut this regression. That's because they use the real versions of the objects, rather than counting on test doubles.
 
- by using verifying doubles in your unit specs you get the best of both worlds. you will catch ours earlier and at less cost, while riding specs that behave correctly when apis change.
+By using `verifying doubles` in your unit specs you get the best of both worlds. You will catch errora earlier and at less cost, while writing specs that behave correctly when APIs change.
 
 RSpec gives you a few different ways to create verifying doubles, based on what it will use as an interface template for the double:
 
-instance_double('SomeClass'):
+- instance_double('SomeClass'):
 Constrains the double’s interface using the instance methods of SomeClass
 
-class_double('SomeClass'):
+- class_double('SomeClass'):
 Constrains the double’s interface using the class methods of SomeClass
 
-object_double(some_object):
+- object_double(some_object):
 Constrains the double’s interface using the methods of some_object, rather than a class; handy for dynamic objects that use method_missing
 
 Stubbed constants
 
 Test doubles are all about controlling the environment your specs running: what classes are available, how certain methods behaves, and so on. a key piece of that environment is the set of Ruby constant available to your code.
 
- for instance, password hashing algorithms are slow by design for security reasons, but you may want to pick them up during testing please see the next code snippet
+For instance, password hashing algorithms are slow by design for security reasons, but you may want to pick them up during testing please see the next code snippet
 
 ```ruby
 class PasswordHash
@@ -4412,21 +4413,21 @@ You can use stub_const to do a number of things:
 • Replace an entire module or class (because these are also constants)
 • Avoid loading an expensive class, using a lightweight fake in its place
 
- sometimes controlling your test environment means removing an existing constant instead of stopping one. for example, if you're writing a library that works either with or without active record, you can hide the active record constant for a specific example:
+Sometimes controlling your test environment means removing an existing constant instead of stopping one. For example, if you're writing a library that works either with or without `ActiveRecord`, you can hide the `ActiveRecord` constant for a specific example:
 
- hiding the ActiveRecord constant like this will cut off access to the entire module. including any nested constants like ActiveRecord::Base. your code won't be able to accidentally use ActiveRecord. just as with partial doubles, any constants you have changed or hidden will be restored at the end of each example.
+Hiding the `ActiveRecord` constant like this will cut off access to the entire module. Including any nested constants like `ActiveRecord::Base`. Your code won't be able to accidentally use `ActiveRecord`. Just as with partial doubles, any constants you have changed or hidden will be restored at the end of each example.
 
 ```ruby
 hide_const('ActiveRecord')
 ```
 
- we have discussed the differences between stops, spice and no objects. in particular we saw how they deal with the following situations:
- receiving expected messages
- Receiving unexpected messages
- Not 
+We have discussed the differences between `stubs`, `spies` and `null_objects`. In particular we saw how they deal with the following situations:
 
- we also looked at the different ways to create test doubles.. pure doubles are entirely fake, whereas partial doubles are real Ruby objects that have fake Behavior at it. verifying doubles fall in between and have the advantages of both with a few of the downsides of either 
+- Receiving expected messages
+- Receiving unexpected messages
+- Not receiving expected messages
 
+We also looked at the different ways to create test doubles.. pure doubles are entirely fake, whereas partial doubles are real Ruby objects that have fake behavior at it. `Verifying doubles` fall in between and have the advantages of both with a few of the downsides of either.
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
 
