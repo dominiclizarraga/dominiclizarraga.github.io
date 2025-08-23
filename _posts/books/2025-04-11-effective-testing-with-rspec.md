@@ -3949,7 +3949,7 @@ When we wrote the API unit specs for our expense tracker app, we treated the sto
 this hability to try to isolate parts of your system while you are testing it is super powerful. With test doubles, we can:
 
 - Exercise hard to reach code paths, such as ever handling and reliable third-party service
-- Wright specs for a layer of your system before you have built it its dependencies
+- Write specs for a layer of your system before you have built it its dependencies
 - Use an API while you are still designing it so that you can fix problems with the design before the implementation
 - Demonstrate how a component Works relative to its neighbors
 
@@ -3976,7 +3976,9 @@ Now here are the origins:
 
 Any given test of what we have both on our origin and a usage mode. and you can mix them for instance have a pure double acting as a stub, or a verifying double acting as a spy
 
-Usage mode: mocks, stubs and Spies
+Usage mode: mocks, stubs and spies
+
+Generic test double
 
 In an irb session call mock RSpec library. RSpec’s `double` method creates a generic test double that you can use in any mode.
 
@@ -4281,7 +4283,7 @@ spy("Name") is basically shorthand for double("Name").as_null_object.
 
 chatGPT session ended.
 
-Origins: Pure, Partial, and Verifying Doubles
+Origins: pure, partial, and verifying doubles
 
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
