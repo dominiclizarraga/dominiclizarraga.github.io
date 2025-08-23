@@ -4285,6 +4285,65 @@ chatGPT session ended.
 
 Origins: pure, partial, and verifying doubles
 
+Now that we have seen the different usage modes of the tests doubles, let's look at where they come from.
+
+ Pure doubles
+
+ all of the test doubles you have written so far in this chapter are pure doubles: they are purpose-built by rspec mocks and consist entirely of behavior you add to them. you can pass them into your project code just as if they were the real thing.
+ pure doubles are flexible and easy to get started with. they are best for testing code where you can pass in dependencies. unfortunately, real world projects are not always so test your friendly, and you will need to turn to more powerful techniques.
+
+partial doubles
+
+ sometimes, the code you are testing does not give you an easy way to inject dependencies. a hard coded class name may be looking three layers deep in the API you are calling. for instance, a lot of Ruby projects called time now without providing a way to override the behavior during testing.
+
+ to test these kinds of code bases, you can use a partial double. this app marking and stopping Behavior to an existing Ruby objects. that means any object in your system can be a partial towel. all you have to do is expect or allow a specific message.
+
+```ruby
+=> true
+irb(main):004> random = Random.new
+=> #<Random:0x0000000122814a20>
+irb(main):005> allow(random).to receive(:rand).and_return(0.1234)
+=> #<RSpec::Mocks::MessageExpectation #<Random:0x0000000122814a20>.rand(any arguments)>
+irb(main):006> random.rand
+=> 0.1234
+```
+
+In this knee pad, you have created an instance of a ruby random number generator, and then replace its friend method with one that returns a can value.
+
+ you can also use a partial double as a spy using the `expect().to have_received` form
+
+```ruby
+irb(main):009> allow(Dir).to receive(:mktmpdir).and_yield('/path/to/tmp')
+=> #<RSpec::Mocks::MessageExpectation #<Dir (class)>.mktmpdir(any arguments)>
+irb(main):010> Dir.mktmpdir { |dir| puts "Dir is: #{dir}" }
+Dir is: /path/to/tmp
+=> nil
+irb(main):011> expect(Dir).to have_received(:mktmpdir)
+=> nil
+```
+
+You could permit any message using a spy or as no object or explicitly allow just the message you want. with partial doubles, you can only do that later.
+
+ rspec will repair it all your changes at the end of each example. there will be object will go back to its original behavior.
+
+ since we are experimenting in Standalone mode we need to call the tear down explicitly to clean up what happened.
+
+```ruby
+irb(main):012> RSpec::Mocks.teardown
+=> #<RSpec::Mocks::RootSpace:0x0000000121f74e10>
+irb(main):013> random.rand
+=> 0.13639968906104905
+irb(main):014> random.rand
+=> 0.30073063313880466
+```
+
+ test doubles have short lifetimes
+
+ r s p e c tears down all your test doubles at the end of each example. that means they want to play while we are s p e c features that leave outside the typical prayer examples, such as before context hooks. you can work around some of these limitations with a method name with temporary scope.
+
+ partial doubles are useful but we consider them as a school smell a superficial sign that might lead to a deeper design issue. 
+
+Verifying doubles
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
 
