@@ -4345,6 +4345,89 @@ irb(main):014> random.rand
 
 Verifying doubles
 
+The upside of test doubles is that they can stand in for a dependency you do not want to track into your test. the downside is that the double and the dependency can drift out of sync with each other. verifying doubles can protect you from this kind of drift
+
+ while we wrote the expense tracker app we Touch briefly on verifying doubles when we marked The Ledger class because it didn't exist yet. here is a simplified version
+
+```ruby
+ledger = double('ExpenseTracker::Ledger')
+allow(ledger).to receive(:record)
+
+post '/expenses' do
+expense = JSON.parse(request.body.read)
+result = @ledger.record(expense)
+JSON.generate('expense_id' => result.expense_id)
+end
+```
+
+The Ledger class didn’t exist yet; the test double provided enough of an implementation for your routing specs to pass
+
+Consider what will happen if at some point you rename the Ledger#record method to Ledger#record_expense but forgot to update their routing code. Your specs would still pass, since they are still providing fake record method. But your code will fail in real world use, because it is trying to call a method that no longer exist. These kinds of false positives can kill confidence in your unit specs.
+
+You avoided this drive in your expense tracker project by using a verifying double. to do so, you call instance double in place of double, passing the name of The Ledger class.
+
+```ruby
+ledger = instance_double('ExpenseTracker::Ledger')
+allow(ledger).to receive(:record)
+```
+
+ with this double in place, RSpec checks that the real Ledger class (if it is loaded) actually response to the record message with the same signature. if you rename this method to record expense, or add or remove arguments, your specs will correctly fail under your update your use of the method and your test double setup.
+
+ use verifying doubles to catch problems earlier
+
+ Although your unit specs will have a false positive, you're acceptance specs will still have cut this regression. that's because they use the real versions of the objects, rather than counting on test doubles.
+
+ by using verifying doubles in your unit specs you get the best of both worlds. you will catch ours earlier and at less cost, while riding specs that behave correctly when apis change.
+
+RSpec gives you a few different ways to create verifying doubles, based on what it will use as an interface template for the double:
+
+instance_double('SomeClass'):
+Constrains the double’s interface using the instance methods of SomeClass
+
+class_double('SomeClass'):
+Constrains the double’s interface using the class methods of SomeClass
+
+object_double(some_object):
+Constrains the double’s interface using the methods of some_object, rather than a class; handy for dynamic objects that use method_missing
+
+Stubbed constants
+
+Test doubles are all about controlling the environment your specs running: what classes are available, how certain methods behaves, and so on. a key piece of that environment is the set of Ruby constant available to your code.
+
+ for instance, password hashing algorithms are slow by design for security reasons, but you may want to pick them up during testing please see the next code snippet
+
+```ruby
+class PasswordHash
+COST_FACTOR = 12
+# ...
+end
+
+stub_const('PasswordHash::COST_FACTOR', 1)
+```
+
+You can use stub_const to do a number of things:
+
+• Define a new constant
+• Replace an existing constant
+• Replace an entire module or class (because these are also constants)
+• Avoid loading an expensive class, using a lightweight fake in its place
+
+ sometimes controlling your test environment means removing an existing constant instead of stopping one. for example, if you're writing a library that works either with or without active record, you can hide the active record constant for a specific example:
+
+ hiding the ActiveRecord constant like this will cut off access to the entire module. including any nested constants like ActiveRecord::Base. your code won't be able to accidentally use ActiveRecord. just as with partial doubles, any constants you have changed or hidden will be restored at the end of each example.
+
+```ruby
+hide_const('ActiveRecord')
+```
+
+ we have discussed the differences between stops, spice and no objects. in particular we saw how they deal with the following situations:
+ receiving expected messages
+ Receiving unexpected messages
+ Not 
+
+ we also looked at the different ways to create test doubles.. pure doubles are entirely fake, whereas partial doubles are real Ruby objects that have fake Behavior at it. verifying doubles fall in between and have the advantages of both with a few of the downsides of either 
+
+
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
 
 ### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
