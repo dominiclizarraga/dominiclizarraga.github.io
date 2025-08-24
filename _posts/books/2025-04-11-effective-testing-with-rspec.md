@@ -4431,6 +4431,95 @@ We also looked at the different ways to create test doubles.. pure doubles are e
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
 
+In this chapter we are going to see how to return, race or deal and value from our double test,How to supply custom behavior, how to ensure that the double test is calling the right arguments and how many times it calls it and in the right order
+
+ configuring responses
+
+ since a test double is meant to standing for a real object, it needs to act like one. you need to be able to configure how a response to the code calling it
+
+ when you allow or expect a message on a test double without specifying how it responds, rspec provides a simple implementations that just returns nil. your test doubles will often need to do something more interesting: return a given value, erase an error, deal to a block, or throw a symbol:
+
+```ruby
+allow(double).to receive(:a_message).and_return(a_return_value)
+allow(double).to receive(:a_message).and_raise(AnException)
+allow(double).to receive(:a_message).and_yield(a_value_to_a_block)
+allow(double).to receive(:a_message).and_throw(:a_symbol, optional_value)
+allow(double).to receive(:a_message) { |arg| do_something_with(arg) }
+# These last two are just for partial doubles:
+allow(object).to receive(:a_message).and_call_original
+allow(object).to receive(:a_message).and_wrap_original { |original| }
+```
+People new to rspec are often surprise at the behavior of expect on a partial double 
+```ruby
+expect(some_existing_object).to receive(:a_message)
+```
+Doesn't just set up an expectation. it also changes the behavior of an existing object. calls to some existing object a message will return Neil and do nothing else. if you want to add a message expectation while retaining the original implementation, you will need to use and_call_original
+
+Returning multiple values
+
+ we previously used and_return keyword when we set up our test double to return the same canned expense item each time it received the record message. sometimes you need to stooped method to do something more sophisticated that return the same value every time it is called you might want to return one value for the first call, and a different one for the second call and so on.
+
+```ruby
+>> allow(random).to receive(:rand).and_return(0.1, 0.2, 0.3)
+=> #<RSpec::Mocks::MessageExpectation #<Double "Random">.rand(any arguments)>
+>> random.rand
+=> 0.1
+>> random.rand
+=> 0.2
+>> random.rand
+=> 0.3
+>> random.rand
+=> 0.3
+>> random.rand
+=> 0.3
+```
+
+Here we give three return values, and they are a n d method returns each one in sequence
+
+ yielding multiple values
+
+ blocks are obiquitous in Ruby, and sometimes your test doubles will need to stand in for it interface that uses blocks. the aptly name and_yield method will configure your double to chill values
+
+```ruby
+extractor = double('TwitterURLExtractor')
+allow(extractor).to receive(:extract_urls_from_twitter_firehose)
+.and_yield('https://rspec.info/', 93284234987)
+.and_yield('https://github.com/', 43984523459)
+.and_yield('https://pragprog.com/', 33745639845)
+```
+
+We chain togetherextract_urls_from_twitter_firehose three and_yield calls. when the code we are testing calls with a block, the method will yield the block three times. each time, the block we receive a URL and a numeric to it. 
+
+Racing exceptions flexibly
+
+ when you're testing exception handling code, you can raise exceptions from your test doubles using the and_raise modifier. this method has a flexible API that mirrors Ruby Ray's method
+
+ in the examples we have shown so far, we've been working with pure test doubles. these doubles have to be told exactly how to respond, because they don't have an existing implementation to modify.
+
+```ruby
+allow(dbl).to receive(:msg).and_raise(AnExceptionClass)
+allow(dbl).to receive(:msg).and_raise('an error message')
+allow(dbl).to receive(:msg).and_raise(AnExceptionClass, 'with a message')
+an_exception_instance = AnExceptionClass.new
+allow(dbl).to receive(:msg).and_raise(an_exception_instance)
+```
+
+ partial doubles are different. since they begin as an real object with a real method implementation, you can base the fake version on the real one
+
+ falling back to the original implementation 
+
+When you are using a partial double to replace a method, sometimes you only want to replace it conditionally. you may want to use a fake implementation for a certain parameters values but fall back on the real method the rest of the time. in this cases, you can expect or allow twice: once like you normally would, and once we and_call_original to provide the default behavior.
+
+```ruby
+# fake implementation for specific arguments:
+allow(File).to receive(:read).with('/etc/passwd').and_raise('HAHA NOPE')
+# fallback:
+allow(File).to receive(:read).and_call_original
+```
+
+
+
+
 ### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
 
 
