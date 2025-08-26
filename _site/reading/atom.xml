@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-25T21:03:57-07:00</updated>
+  <updated>2025-08-25T21:05:22-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -4804,7 +4804,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
   &lt;span class=&quot;nf&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/term/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;at_least&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:twice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ordered&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Summary of conecpter covered in this chpater:&lt;/p&gt;
+&lt;p&gt;Summary of concepts covered in this chpater:&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -4893,6 +4893,8 @@ Constrains the double’s interface using the methods of some_object, rather tha
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;p&gt;Here are some usefull articles i found about the topics we went over, and also i had chatGPT to provide me more details&lt;/p&gt;
 
 &lt;p&gt;https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-and-return&lt;/p&gt;
 

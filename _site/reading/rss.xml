@@ -4795,7 +4795,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
   &lt;span class=&quot;nf&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/term/&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;at_least&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:twice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;ordered&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Summary of conecpter covered in this chpater:&lt;/p&gt;
+&lt;p&gt;Summary of concepts covered in this chpater:&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -4884,6 +4884,8 @@ Constrains the double’s interface using the methods of some_object, rather tha
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+
+&lt;p&gt;Here are some usefull articles i found about the topics we went over, and also i had chatGPT to provide me more details&lt;/p&gt;
 
 &lt;p&gt;https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-and-return&lt;/p&gt;
 

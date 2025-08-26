@@ -4826,10 +4826,13 @@ Summary of concepts covered in this chpater:
   </tbody>
 </table>
 
+Here are some usefull articles i found about the topics we went over, and also i had chatGPT to provide me more details
 
 https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-and-return
 
 https://martinfowler.com/articles/mocksArentStubs.html
+
+https://chatgpt.com/share/68ad328f-1478-800a-9304-90c2de18939a
 
 ### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
 
