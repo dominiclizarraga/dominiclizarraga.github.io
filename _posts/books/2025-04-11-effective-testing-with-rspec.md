@@ -4431,13 +4431,13 @@ We also looked at the different ways to create test doubles.. pure doubles are e
 
 ### Part V — Chapter 14. Customizing test doubles. {#chapter-14}
 
-In this chapter we are going to see how to return, race or deal and value from our double test,How to supply custom behavior, how to ensure that the double test is calling the right arguments and how many times it calls it and in the right order
+In this chapter we are going to see how to return, raise, yield a value from our test double. How to supply custom behavior, how to ensure that the double test is calling the right arguments and how many times it calls it and in the right order.
 
- configuring responses
+Configuring responses
 
- since a test double is meant to standing for a real object, it needs to act like one. you need to be able to configure how a response to the code calling it
+Since a test double is meant to standing for a real object, it needs to act like one. You need to be able to configure how it responds to the code calling it.
 
- when you allow or expect a message on a test double without specifying how it responds, rspec provides a simple implementations that just returns nil. your test doubles will often need to do something more interesting: return a given value, erase an error, deal to a block, or throw a symbol:
+When you `allow` or `expect` a message on a test double without specifying how it responds, RSpec provides a simple implementations that just returns `nil`. Your test doubles will often need to do something more interesting: return a given value, raise an error, yield to a block, or throw a symbol.
 
 ```ruby
 allow(double).to receive(:a_message).and_return(a_return_value)
@@ -4445,19 +4445,23 @@ allow(double).to receive(:a_message).and_raise(AnException)
 allow(double).to receive(:a_message).and_yield(a_value_to_a_block)
 allow(double).to receive(:a_message).and_throw(:a_symbol, optional_value)
 allow(double).to receive(:a_message) { |arg| do_something_with(arg) }
+
 # These last two are just for partial doubles:
 allow(object).to receive(:a_message).and_call_original
 allow(object).to receive(:a_message).and_wrap_original { |original| }
 ```
-People new to rspec are often surprise at the behavior of expect on a partial double 
+
+People new to rspec are often surprise at the behavior of `expect` on a partial double 
+
 ```ruby
 expect(some_existing_object).to receive(:a_message)
 ```
-Doesn't just set up an expectation. it also changes the behavior of an existing object. calls to some existing object a message will return Neil and do nothing else. if you want to add a message expectation while retaining the original implementation, you will need to use and_call_original
+
+Doesn't just set up an expectation. it also changes the behavior of an existing object. Calls to `some_existing_object.message` will return `nil` and do nothing else. If you want to add a message expectation while retaining the original implementation, you will need to use `and_call_original`
 
 Returning multiple values
 
- we previously used and_return keyword when we set up our test double to return the same canned expense item each time it received the record message. sometimes you need to stooped method to do something more sophisticated that return the same value every time it is called you might want to return one value for the first call, and a different one for the second call and so on.
+We previously used `and_return` keyword when we set up our test double to return the same canned expense item each time it received the `record` message. Sometimes you need to stubbed method to do something more sophisticated that return the same value every time it is called. You might want to return one value for the first call, and a different one for the second call and so on.
 
 ```ruby
 >> allow(random).to receive(:rand).and_return(0.1, 0.2, 0.3)
@@ -4474,41 +4478,44 @@ Returning multiple values
 => 0.3
 ```
 
-Here we give three return values, and they are a n d method returns each one in sequence
+Here we give three return values, and they `rand` method returns each one in sequence.
 
- yielding multiple values
+Yielding multiple values
 
- blocks are obiquitous in Ruby, and sometimes your test doubles will need to stand in for it interface that uses blocks. the aptly name and_yield method will configure your double to chill values
+Blocks are ubiquitous in Ruby, and sometimes your test doubles will need to stand in for it interface that uses blocks. The aptly name `and_yield` method will configure your double to yield values
 
 ```ruby
 extractor = double('TwitterURLExtractor')
 allow(extractor).to receive(:extract_urls_from_twitter_firehose)
-.and_yield('https://rspec.info/', 93284234987)
-.and_yield('https://github.com/', 43984523459)
-.and_yield('https://pragprog.com/', 33745639845)
+  .and_yield('https://rspec.info/', 93284234987)
+  .and_yield('https://github.com/', 43984523459)
+  .and_yield('https://pragprog.com/', 33745639845)
 ```
 
-We chain togetherextract_urls_from_twitter_firehose three and_yield calls. when the code we are testing calls with a block, the method will yield the block three times. each time, the block we receive a URL and a numeric to it. 
+We chain together `extract_urls_from_twitter_firehose` three `and_yield` calls. When the code we are testing calls with a block, the method will `yield` the block three times. Each time, the block we receive a `URL` and a `numeric` to it. 
 
-Racing exceptions flexibly
+Raising exceptions flexibly
 
- when you're testing exception handling code, you can raise exceptions from your test doubles using the and_raise modifier. this method has a flexible API that mirrors Ruby Ray's method
+When you're testing exception handling code, you can raise exceptions from your test doubles using the `and_raise` modifier. This method has a flexible API that mirrors Ruby Ray's method.
 
- in the examples we have shown so far, we've been working with pure test doubles. these doubles have to be told exactly how to respond, because they don't have an existing implementation to modify.
+In the examples we have shown so far, we've been working with pure test doubles. These doubles have to be told exactly how to respond, because they don't have an existing implementation to modify.
 
 ```ruby
 allow(dbl).to receive(:msg).and_raise(AnExceptionClass)
 allow(dbl).to receive(:msg).and_raise('an error message')
 allow(dbl).to receive(:msg).and_raise(AnExceptionClass, 'with a message')
+
 an_exception_instance = AnExceptionClass.new
 allow(dbl).to receive(:msg).and_raise(an_exception_instance)
 ```
 
- partial doubles are different. since they begin as an real object with a real method implementation, you can base the fake version on the real one
+Partial doubles are different. Since they begin as an real object with a real method implementation, you can base the fake version on the real one.
 
- falling back to the original implementation 
+Falling back to the original implementation 
 
-When you are using a partial double to replace a method, sometimes you only want to replace it conditionally. you may want to use a fake implementation for a certain parameters values but fall back on the real method the rest of the time. in this cases, you can expect or allow twice: once like you normally would, and once we and_call_original to provide the default behavior.
+When you are using a partial double to replace a method, sometimes you only want to replace it conditionally. You may want to use a fake implementation for a certain parameters values but fall back on the real method the rest of the time.
+
+In these cases, you can `expect` or `allow` twice: once like you normally would, and once we `and_call_original` to provide the default behavior.
 
 ```ruby
 # fake implementation for specific arguments:
@@ -4517,8 +4524,222 @@ allow(File).to receive(:read).with('/etc/passwd').and_raise('HAHA NOPE')
 allow(File).to receive(:read).and_call_original
 ```
 
+Here, we’ve used `with(...)` to constrain which parameter values this stub applies to.
+
+Modifying the return value 
+
+Sometimes, you want to slightly change the behavior of the method you are stubbing, rather than replacing it outright. You may, for instance, need to modify its return value.
+
+RSpec and `and_wrap_original` method, passing it a block containing your custom behavior. Your block will take the original implementation as an argument, which you can `call` at any time. 
+
+This is the technique to stub out a `CustomerService` API to return a subset of customers:
+
+```ruby
+allow(CustomerService).to receive(:all).and_wrap_original do |original|
+  all_customers = original.call
+  all_customers.sort_by(&:id).take(10)
+end
+```
+
+This technique can be handy for acceptance specs, where you want to test against a live service. If the vendor does not provide a test API that only returns a few records, you can call the real API and narrow down the records yourself. By working on just a subset of the data, your  specs will remain snappy.
+
+Tweaking arguments
+
+You can also use `and_wrap_original` to tweak the arguments you pass into a method. Yhis technique comes in handy when the code you are testing uses a lot of hard coded values.
+
+```ruby
+allow(PasswordHash).to receive(:hash_password)
+  .and_wrap_original do |original, cost_factor|
+    original.call(1)
+end
+```
+
+Since both `and_call_original` and `and_wrap_original` need an existing implementation to call, they only make sense for partial doubles.
+
+When you need more flexibility
+
+So far, we have seen several different ways to customize how your test doubles behave. you can return or yield a specific sequence of values, race and exception, and so on.
+
+Sometimes, though, the behavior you need is a slightly outside what this techniques provide. If you are not quite sure how to configure a double to do what you need, you can supply a block containing whatever custom Behavior you need. Simply pass the block to the latest method call in the `received` expression.
+
+Here we are going to simulate an intermented Network failure while we are testing the request succeeds 75% of the time:
+
+```ruby
+counter = 0
+
+allow(weather_api).to receive(:temperature) do |zip_code|
+  counter = (counter + 1) % 4
+  counter.zero? ? raise(Timeout::Error) : 35.0
+end
+```
+
+When your code calls the weather API, RSpec will run this block and depending on how many calls you've made, either return a value or raise a timeout exception
+
+If your block gets any more complex than this example, you might be better off moving into its own Ruby class. Martin Fowler refers to this kind of standing as a fake. fakes particularly are useful when you need to preserve state across multiple method calls.
+
+Setting constraints
+
+Most of the test doubles you have created will accept any input. If you stub a method named `jump` with no other options, RSpec will use your scope whenever you're code calls `jump`, `jump(:with, :arguments)`, or `jump { with_a_block }`.
+
+In this section we are going to look at ways to set constraints on a test double so that RSpec only uses it if your code calls it in a certain.
+
+Constraining argument
+
+You will often want to check that your code is calling a method with the correct parameters. To constrain what arguments your mock object will accept, add a call to `with` to your message exception
+
+```ruby
+expect(movie).to receive(:record_review).with('Great movie!')
+expect(movie).to receive(:record_review).with(/Great/)
+expect(movie).to receive(:record_review).with('Great movie!', 5)
+```
+
+If your code calls the method with arguments that don't match that constraint then the exception remains unsatisfied. RSpec will treat it the same as any other unmet expectation. In this example, we are using expect, meaning that RSpec will report a failure:
+
+```ruby
+>> expect(movie).to receive(:record_review).with('Good')
+=> #<RSpec::Mocks::MessageExpectation #<Double "Jaws">.record_review("Good")>
+>> movie.record_review('Bad')
+RSpec::Mocks::MockExpectationError: #<Double "Jaws"> received ↩
+  :record_review with unexpected arguments
+    expected: ("Good")
+    got: ("Bad")
+« backtrace truncated »
+```
+
+If we had used `allow` instead, RSpec would have looked for another expectation that fit the passed-in arguments: (no failure raised!)
+
+```ruby
+>> allow(imdb).to receive(:rating_for).and_return(3) # default
+=> #<RSpec::Mocks::MessageExpectation #<Double "IMDB">.rating_for(any arguments)>
+>> allow(imdb).to receive(:rating_for).with('Jaws').and_return(5)
+=> #<RSpec::Mocks::MessageExpectation #<Double "IMDB">.rating_for("Jaws")>
+>> imdb.rating_for('Weekend at Bernies')
+=> 3
+>> imdb.rating_for('Jaws')
+=> 5
+```
+Your test doubles can require something as simple as a specific value, or as sophisticated as any custom logic you can devise.
+
+Argument placeholders
+
+When a message takes several arguments, you maker more about some than others. In the next example we are stubbing a shoppingcart `add_product` method that takes a name, a numeric id, and then vendor specific code. If we only care about the name, you can pass they worth `anything` as a placeholder for the others
+
+```ruby
+expect(cart).to receive(:add_product).with('Hoodie', anything, anything)
+```
+
+You can also represent a sequence of anything placeholders with `any_args`
+
+```ruby
+expect(cart).to receive(:add_product).with('Hoodie', any_args)
+```
+
+The counterpart to `any_args` is `no_args`:
+```ruby
+expect(database).to receive(:delete_all_the_things).with(no_args)
+```
+
+Hashes and keyword arguments
+
+Ruby APIs, especially ones written before Ruby 2.0 came out
+
+```ruby
+class BoxOffice
+  def find_showtime(options)
+    # ...
+  end
+end
+
+box_office.find_showtime(movie: 'Jaws')
+box_office.find_showtime(movie: 'Jaws', zip_code: 97204)
+box_office.find_showtime(movie: 'Jaws', city: 'Portland', state: 'OR')
+```
+
+When you’re testing code that calls such a method, you can use RSpec’s `hash_including` to specify which keys must be present. All three of these `find_showtime` calls would match the following constraint:
+
+```ruby
+expect(box_office).to receive(:find_showtime)
+  .with(hash_including(movie: 'Jaws'))
+```
+
+<b> Flexible constraints like `hash_including` make your specs less brittle. Rather than having to give all the keys of your hash, you can give just the ones you care about. If the value of an unimportant key changes, your specs needn’t fail. </b>
+
+Ruby 2.0 added keyword arguments
+
+```ruby
+class BoxOffice
+  def find_showtime(movie:, zip_code: nil, city: nil, state: nil)
+    # ...
+  end
+end
+```
+The good news is that the `hash_including` constraint works just as well with keyword arguments as it does with old-style option hashes.
+
+RSpec also provides a `hash_excluding` constraint to specify that a hash must not include a particular key
+
+Custom logic
+
+When you have written a bunch of constraints, you will inevitably find yourself repeating the same complex constraint in several specs. occasionally, you will need logic that's too involve to express as a simple constraint. In both of these situations, you can supply your own custom logic
+
+For example, if you have several specs that shoudl call `find_showtime` with cities in `Oregon`, you can wrap this constraint in a custom rspec matter:
+
+```ruby
+RSpec::Matchers.define :a_city_in_oregon do
+  match { |options| options[:state] == 'OR' && options[:city] }
+end
+
+# usage of .with
+expect(box_office).to receive(:find_showtime).with(a_city_in_oregon)
+```
+
+You can constrain arguments using an ordinary Ruby value, a regular expression, one of RSpec-mocks provided constraints or any built-in or custom matcher. Behind the scenes, rspec marks Compares method arguments using the `===` operator.
+
+Custom argument constraints can reduce repetition and make your expectations easier to understand. 
+
+Constraining how many times a method gets called
+
+In addition to constraining a method arguments, you can also specify how many times it should be called. 
+
+```ruby
+client = instance_double('NasdaqClient')
+expect(client).to receive(:current_price).thrice.and_raise(Timeout::Error)
+stock_ticker = StockTicker.new(client)
+100.times { stock_ticker.price('AAPL') }
+```
+
+Even though we’re calling `stock_ticker.price `many times, we expect the circuit breaker to stop hitting the network after the `third` simulated timeout error. 
+
+As you might guess from the name `thrice`, RSpec also provides `once` and `twice` modifiers. Since the English language doesn’t provide any multiplicative adverbs after 3, you’ll need to switch to the more verbose `exactly(n).times`
+
+```ruby
+expect(client).to receive(:current_price).exactly(4).times
+```
+
+Ordering
+
+Normally, RSpec doesn’t care what order you send messages to a test double:
+
+```ruby
+expect(greeter).to receive(:hello).ordered
+expect(greeter).to receive(:goodbye).ordered
+# The following will fail:
+greeter.goodbye
+greeter.hello
+```
+
+Using ordered is a sign that your specs may be too coupled to one particular implementation/
+
+You can use all of the types of constraints we’ve seen here—arguments, call counts, and ordering—together in one expectation:
+
+```ruby
+expect(catalog).to receive(:search).
+  with(/term/).at_least(:twice).ordered
+```
 
 
+https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-and-return
+
+https://martinfowler.com/articles/mocksArentStubs.html
 
 ### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
 
