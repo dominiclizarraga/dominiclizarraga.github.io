@@ -4736,6 +4736,96 @@ expect(catalog).to receive(:search).
   with(/term/).at_least(:twice).ordered
 ```
 
+Summary of concepts covered in this chpater:
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Usage</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>and_return</td>
+      <td>Configure test double to return specific values</td>
+      <td>
+        <code>allow(double).to receive(:msg).and_return(value)</code><br>
+        <code>allow(double).to receive(:msg).and_return(0.1, 0.2, 0.3)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>and_raise</td>
+      <td>Configure test double to raise exceptions</td>
+      <td>
+        <code>allow(double).to receive(:msg).and_raise(AnException)</code><br>
+        <code>allow(double).to receive(:msg).and_raise('error message')</code>
+      </td>
+    </tr>
+    <tr>
+      <td>and_yield</td>
+      <td>Configure test double to yield values to blocks</td>
+      <td>
+        <code>allow(extractor).to receive(:extract_urls)</code><br>
+        <code>&nbsp;&nbsp;.and_yield('https://rspec.info/', 123)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>and_call_original</td>
+      <td>Fall back to original implementation (partial doubles)</td>
+      <td>
+        <code>allow(File).to receive(:read).with('/etc/passwd').and_raise('NOPE')</code><br>
+        <code>allow(File).to receive(:read).and_call_original</code>
+      </td>
+    </tr>
+    <tr>
+      <td>and_wrap_original</td>
+      <td>Modify behavior of original method</td>
+      <td>
+        <code>allow(CustomerService).to receive(:all).and_wrap_original do |orig|</code><br>
+        <code>&nbsp;&nbsp;orig.call.take(10)</code><br>
+        <code>end</code>
+      </td>
+    </tr>
+    <tr>
+      <td>with</td>
+      <td>Constrain arguments that mock will accept</td>
+      <td>
+        <code>expect(movie).to receive(:record_review).with('Great!')</code><br>
+        <code>expect(cart).to receive(:add_product).with('Hoodie', anything)</code>
+      </td>
+    </tr>
+    <tr>
+      <td>hash_including</td>
+      <td>Match hashes containing specific keys</td>
+      <td>
+        <code>expect(box_office).to receive(:find_showtime)</code><br>
+        <code>&nbsp;&nbsp;.with(hash_including(movie: 'Jaws'))</code>
+      </td>
+    </tr>
+    <tr>
+      <td>Call count modifiers</td>
+      <td>Specify how many times method should be called</td>
+      <td>
+        <code>expect(client).to receive(:current_price).thrice</code><br>
+        <code>expect(client).to receive(:price).exactly(4).times</code>
+      </td>
+    </tr>
+    <tr>
+      <td>ordered</td>
+      <td>Enforce specific order of method calls</td>
+      <td>
+        <code>expect(greeter).to receive(:hello).ordered</code><br>
+        <code>expect(greeter).to receive(:goodbye).ordered</code>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3"><strong>Key Insight:</strong> Use <code>expect</code> vs <code>allow</code> wisely - <code>expect</code> changes behavior AND sets expectations, while <code>allow</code> only changes behavior. Custom blocks provide ultimate flexibility when built-in modifiers aren't enough.</td>
+    </tr>
+  </tbody>
+</table>
+
 
 https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-and-return
 
