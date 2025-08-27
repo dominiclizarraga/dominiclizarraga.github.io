@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-25T21:05:22-07:00</updated>
+  <updated>2025-08-25T21:06:57-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -4899,6 +4899,8 @@ Constrains the double’s interface using the methods of some_object, rather tha
 &lt;p&gt;https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-and-return&lt;/p&gt;
 
 &lt;p&gt;https://martinfowler.com/articles/mocksArentStubs.html&lt;/p&gt;
+
+&lt;p&gt;https://chatgpt.com/share/68ad328f-1478-800a-9304-90c2de18939a&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-15&quot;&gt;Part V — Chapter 15. Using test doubles effectively.&lt;/h3&gt;
 
