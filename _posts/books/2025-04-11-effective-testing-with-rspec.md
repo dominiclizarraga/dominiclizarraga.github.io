@@ -1852,7 +1852,7 @@ RSpec.describe BerlinTransitTicket do
   end
 end
 ```
-With all these jumps around we have welcomed a behavior defined by the TDD community calls this separation of cause and effect a mystery guest [link](https://thoughtbot.com/blog/mystery-guest), now let's see how would be with a smart usage of `helpmer methods`
+With all these jumps around we have welcomed a behavior defined by the TDD community calls this separation of cause and effect a mystery guest [link](https://thoughtbot.com/blog/mystery-guest), now let's see how would be with a smart usage of `helper methods`
 
 ```ruby
 RSpec.describe BerlinTransitTicket do
@@ -1880,9 +1880,9 @@ Sharing examples groups
 
 As we have seen, plain old Ruby modules work really nicely for sharing helper methods across example Scripts. but that's all they can share. if you want to reuse an example, a let construct or a hook, you will need to reach for another two; shared example groups.
 
- RS pack provides multiple ways to create and use shared sample grips. this come in paris, with one method for defining a Share Group and another for using it:
+ RSpec provides multiple ways to create and use shared sample grips. This come in pairs, with one method for defining a share group and another for using it:
 
--shared_context and include_context are for reusing common setup and helper logic..
+- shared_context and include_context are for reusing common setup and helper logic..
 - shared_example and include_exampleAre for reusing examples..
 
  there is one more way to share behavior that is different, though. `it_behaves_like` creates a new, nested example to hold the shared code. the difference lies in how as isolated the shared behavior is from the rest of your examples.
@@ -4833,6 +4833,8 @@ https://stackoverflow.com/questions/28006913/rspec-allow-expect-vs-just-expect-a
 https://martinfowler.com/articles/mocksArentStubs.html
 
 https://chatgpt.com/share/68ad328f-1478-800a-9304-90c2de18939a
+
+https://share.google/aimode/SFNEx3Z7x6YM1nYTJ
 
 ### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
 

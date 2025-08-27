@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-25T21:06:57-07:00</updated>
+  <updated>2025-08-27T11:47:35-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -2014,7 +2014,7 @@ before(:all) became before(:suite)&lt;/p&gt;
   &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;With all these jumps around we have welcomed a behavior defined by the TDD community calls this separation of cause and effect a mystery guest &lt;a href=&quot;https://thoughtbot.com/blog/mystery-guest&quot;&gt;link&lt;/a&gt;, now let’s see how would be with a smart usage of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helpmer methods&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;With all these jumps around we have welcomed a behavior defined by the TDD community calls this separation of cause and effect a mystery guest &lt;a href=&quot;https://thoughtbot.com/blog/mystery-guest&quot;&gt;link&lt;/a&gt;, now let’s see how would be with a smart usage of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helper methods&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;no&quot;&gt;RSpec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;describe&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BerlinTransitTicket&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;fare_for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;starting_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ending_station&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -2041,10 +2041,10 @@ before(:all) became before(:suite)&lt;/p&gt;
 
 &lt;p&gt;As we have seen, plain old Ruby modules work really nicely for sharing helper methods across example Scripts. but that’s all they can share. if you want to reuse an example, a let construct or a hook, you will need to reach for another two; shared example groups.&lt;/p&gt;
 
-&lt;p&gt;RS pack provides multiple ways to create and use shared sample grips. this come in paris, with one method for defining a Share Group and another for using it:&lt;/p&gt;
+&lt;p&gt;RSpec provides multiple ways to create and use shared sample grips. This come in pairs, with one method for defining a share group and another for using it:&lt;/p&gt;
 
-&lt;p&gt;-shared_context and include_context are for reusing common setup and helper logic..&lt;/p&gt;
 &lt;ul&gt;
+  &lt;li&gt;shared_context and include_context are for reusing common setup and helper logic..&lt;/li&gt;
   &lt;li&gt;shared_example and include_exampleAre for reusing examples..&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -4902,7 +4902,29 @@ Constrains the double’s interface using the methods of some_object, rather tha
 
 &lt;p&gt;https://chatgpt.com/share/68ad328f-1478-800a-9304-90c2de18939a&lt;/p&gt;
 
+&lt;p&gt;https://share.google/aimode/SFNEx3Z7x6YM1nYTJ&lt;/p&gt;
+
 &lt;h3 id=&quot;chapter-15&quot;&gt;Part V — Chapter 15. Using test doubles effectively.&lt;/h3&gt;
+
+&lt;p&gt;In this chapter we will see:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;the construction of an environment for each spec&lt;/li&gt;
+  &lt;li&gt;how to providde test doubles to the code we are testing&lt;/li&gt;
+  &lt;li&gt;what are the most common pitfalls and how to&lt;/li&gt;
+  &lt;li&gt;how to improve our code by applying this sign feedback from our test&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Using test doubles effectively&lt;/p&gt;
+
+&lt;p&gt;Over the previous two chapters, we have tried out mocks, stubs, spies and null objects. We have learned which situation each is best for. We have also seen how to configure their behavior, and how to check that a double is called correctly. Now, we would like to talk about the trade-offs. Although we frequently use doubles in our tests, I will be the first to acknowledge that doing so incurs some risk.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Code that passes the test but fails in production, because the test doubles don’t behave enough like a real.&lt;/li&gt;
+  &lt;li&gt;Brittle tests that fail after a refactoring, even though the new coat is working correctly&lt;/li&gt;
+  &lt;li&gt;Do-nothing tests that only end up checking your doubles&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Construction or test environment&lt;/p&gt;
 
 </content>
     <author>
