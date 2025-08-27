@@ -4836,4 +4836,19 @@ https://chatgpt.com/share/68ad328f-1478-800a-9304-90c2de18939a
 
 ### Part V — Chapter 15. Using test doubles effectively. {#chapter-15}
 
+In this chapter we will see:
+- the construction of an environment for each spec
+- how to providde test doubles to the code we are testing
+- what are the most common pitfalls and how to
+- how to improve our code by applying this sign feedback from our test
+
+Using test doubles effectively
+
+Over the previous two chapters, we have tried out mocks, stubs, spies and null objects. We have learned which situation each is best for. We have also seen how to configure their behavior, and how to check that a double is called correctly. Now, we would like to talk about the trade-offs. Although we frequently use doubles in our tests, I will be the first to acknowledge that doing so incurs some risk.
+
+- Code that passes the test but fails in production, because the test doubles don't behave enough like a real.
+- Brittle tests that fail after a refactoring, even though the new coat is working correctly
+- Do-nothing tests that only end up checking your doubles
+
+Construction or test environment
 
