@@ -236,7 +236,349 @@ These questions reflect core concepts of the problem, yet none of their answers 
 
 ### 1.1.2. Speculatively General
 
+This next solution errs in a different direction. It does many things well but can’t resist indulging in unnecessary complexity. 
 
+```ruby
+class Bottles
+  NoMore = lambda do |verse|
+    "No more bottles of beer on the wall, " +
+    "no more bottles of beer.\n" +
+    "Go to the store and buy some more, " +
+    "99 bottles of beer on the wall.\n"
+  end
+
+  LastOne = lambda do |verse|
+    "1 bottle of beer on the wall, " +
+    "1 bottle of beer.\n" +
+    "Take it down and pass it around, " +
+    "no more bottles of beer on the wall.\n"
+  end
+
+  Penultimate = lambda do |verse|
+    "2 bottles of beer on the wall, " +
+    "2 bottles of beer.\n" +
+    "Take one down and pass it around, " +
+    "1 bottle of beer on the wall.\n"
+  end
+
+  Default = lambda do |verse|
+    "#{verse.number} bottles of beer on the wall, " +
+    "#{verse.number} bottles of beer.\n" +
+    "Take one down and pass it around, " +
+    "#{verse.number - 1} bottles of beer on the wall.\n"
+  end
+
+  def song
+    verses(99, 0)
+  end
+
+  def verses(finish, start)
+    (finish).downto(start).map {|verse_number|
+      verse(verse_number) }.join("\n")
+  end
+
+  def verse(number)
+    verse_for(number).text
+  end
+
+  def verse_for(number)
+    case number
+    when 0 then Verse.new(number, &NoMore)
+    when 1 then Verse.new(number, &LastOne)
+    when 2 then Verse.new(number, &Penultimate)
+    else Verse.new(number, &Default)
+    end
+  end
+end
+
+class Verse
+  attr_reader :number
+  def initialize(number, &lyrics)
+    @number = number
+    @lyrics = lyrics
+  end
+
+  def text
+    @lyrics.call self
+  end
+end
+```
+
+To summarize, sending verse(number) to an instance of Bottles invokes verse_for(number), which uses the value of number to select the correct lambda on which to create and return an instance of Verse. The verse method then sends text to the returned Verse, which in turn sends call to the lambda, passing self as an argument. This invokes the lambda, which may or may not actually use the argument that was passed. 
+
+This example answers better the next questions in comparison to first example:
+
+1. How many verse variants are there?
+There are four verse variants (look at the constants).
+
+2. Which verses are most alike? In what way?
+Verses 3-99 are most alike (as evidenced by the fact that all are produced by the Default variant).
+
+3. Which verses are most different? In what way?
+Verses 0, 1 and 2 are clearly different from 3-99, although it’s not obvious in what way.
+
+4. What is the rule to determine which verse should be sung next?
+Buried deep within the NoMore lambda is a hard-coded "99," which might cause one to infer that verse 99 follows verse 0.
+
+Now, the value/cost questions:
+
+1. How difficult was it to write?
+There’s far more code here than is needed to pass the tests. This unnecessary code took time to write.
+
+2. How hard is it to understand?
+The many levels of indirection are confusing. Their existence implies necessity, but you could study this code for a long time without discerning why they are needed.
+
+3. How expensive will it be to change?
+The mere fact that indirection exists suggests that it’s important. You may feel compelled to understand its purpose before making changes.
+
+As you can see from these answers, this solution does a good job of exposing core concepts, but does a bad job of being worth its cost.
+
+The code does two basic things. First, it defines templates for each kind of verse (lines 2-28), and second, it chooses the appropriate template for a specific verse number and renders that verse’s lyrics (lines 39-63).
+
+Notice that the verse templates contain all of the information needed to answer the domain questions.
+
+But it’s not the templates that are costly; it’s the code that chooses a template and renders the lyrics for a verse. This choosing/rendering code is overly complicated
+
+### 1.1.3. Concretely Abstract
+
+This solution valiantly attempts to name the concepts in the domain
+
+```ruby
+class Bottles
+  def song
+    verses(99, 0)
+  end
+
+  def verses(bottles_at_start, bottles_at_end)
+    bottles_at_start.downto(bottles_at_end).map do |bottles|
+      verse(bottles)
+    end.join("\n")
+  end
+
+  def verse(bottles)
+    Round.new(bottles).to_s
+  end
+end
+
+class Round
+  attr_reader :bottles
+
+  def initialize(bottles)
+    @bottles = bottles
+  end
+
+  def to_s
+    challenge + response
+  end
+
+  def challenge
+    bottles_of_beer.capitalize + " " + on_wall + ", " +
+    bottles_of_beer + ".\n"
+  end
+
+  def response
+    go_to_the_store_or_take_one_down + ", " +
+    bottles_of_beer + " " + on_wall + ".\n"
+  end
+
+  def bottles_of_beer
+    "#{anglicized_bottle_count} #{pluralized_bottle_form} of #{beer}"
+  end
+
+  def beer
+    "beer"
+  end
+
+  def on_wall
+    "on the wall"
+  end
+
+  def pluralized_bottle_form
+    last_beer? ? "bottle" : "bottles"
+  end
+
+  def anglicized_bottle_count
+    all_out? ? "no more" : bottles.to_s
+  end
+
+  def go_to_the_store_or_take_one_down
+    if all_out?
+      @bottles = 99
+      buy_new_beer
+    else
+      lyrics = drink_beer
+      @bottles -= 1
+      lyrics
+    end
+  end
+
+  def buy_new_beer
+    "Go to the store and buy some more"
+  end
+
+  def drink_beer
+    "Take #{it_or_one} down and pass it around"
+  end
+
+  def it_or_one
+    last_beer? ? "it" : "one"
+  end
+
+  def all_out?
+    bottles.zero?
+  end
+
+  def last_beer?
+    bottles == 1
+  end
+end
+```
+This solution is characterized by having many small methods. This is normally a good thing, but somehow in this case it’s gone badly wrong. Have a look at how this solution does on the domain questions:
+
+1. How many verse variants are there?
+It’s almost impossible to tell.
+
+2. Which verses are most alike? In what way?
+Ditto.
+
+3. Which verses are most different? In what way?
+Ditto.
+
+4. What is the rule to determine which verse should be sung next?
+Ditto.
+
+Value/cost questions.
+
+1. How difficult was it to write?
+Difficult. This clearly took a fair amount of thought and time.
+
+2. How hard is it to understand?
+The individual methods are easy to understand, but despite this, it’s tough to get a sense of the entire song. The parts don’t seem to add up to the whole.
+
+3. How expensive will it be to change?
+While changing the code inside any individual method is cheap, in many cases, one simple change will cascade and force many other changes.
+
+It’s obvious that the author of this code was committed to doing the right thing, and that they carefully followed the Red, Green, Refactor style of writing code. It looks as though these strings were refactored into separate methods at the first sign of duplication.
+
+DRY reduces change costs by eliminating duplication, but increases understanding costs through indirection. Use DRY when the savings from easier maintenance outweigh the complexity of following abstract layers.
+
+The `beer` method centralizes the drink name in one location. To change from "beer" to "Kool-Aid," you only modify line 42, avoiding scattered string updates throughout the codebase.
+
+But then look at these other method names, and how many time they're used:
+
+```ruby
+def bottles_of_beer
+def buy_new_beer
+def drink_beer
+def last_beer?
+```
+
+This small change in requirements forces a change in many places, which is exactly the problem DRY promises to avoid.
+
+When you name a method `beer` that returns "beer," you tie the method name to its current implementation. This breaks when you change the implementation to return "Kool-Aid." <b>You should name methods not after what they do, but after what they mean, what they represent in the context of your domain. </b>The method should be called `beverage` because that's what it represents in the song's context - one level of abstraction higher than the specific implementation.
+
+```ruby
+# from
+def beverage
+ "beer"
+end
+
+# to:
+def beverage
+  "Kool-Aid"
+end
+```
+<b>Therefore, one lesson to be gleaned from this solution is that you should name methods after the concept they represent rather than how they currently behave. However, notice that even if you edited the code to improve every method name, this code still isn’t quite right.</b>
+
+Changing the name of the beer method to beverage makes it easy to replace the string "beer" with the string "Kool-Aid" but does nothing to improve this code’s score on the domain questions.
+
+### 1.1.4. Shameless Green
+
+None of the solutions shown thus far do very well on the value/cost questions. First example (Incomprehensibly Concise), cares only for terseness (brevity). 
+
+Second example (Speculatively General) tries for extensibility but achieves unwarranted complexity (too much lambdas usage). 
+
+The heart of the third example (Concretely Abstract) is in the right place, but it can’t get its feet out of the mud (too many methods, difficult to follow).
+
+<b>Speculatively General and Concretely Abstract were both written with an eye toward reducing future costs. The failure here is not bad intention—it’s insufficient patience. </b>
+
+This next example is patient and so provides an antidote for all that has come before.
+
+```ruby
+class Bottles
+  def song
+    verses(99, 0)
+  end
+
+  def verses(upper, lower)
+    upper.downto(lower).map {|i| verse(i)}.join("\n")
+  end
+
+  def verse(number)
+    case number
+    when 0
+      "No more bottles of beer on the wall, " +
+      "no more bottles of beer.\n" +
+      "Go to the store and buy some more, " +
+      "99 bottles of beer on the wall.\n"
+    when 1
+      "1 bottle of beer on the wall, " +
+      "1 bottle of beer.\n" +
+      "Take it down and pass it around, " +
+      "no more bottles of beer on the wall.\n"
+    when 2
+      "2 bottles of beer on the wall, " +
+      "2 bottles of beer.\n" +
+      "Take one down and pass it around, " +
+      "1 bottle of beer on the wall.\n"
+    else
+      "#{number} bottles of beer on the wall, " +
+      "#{number} bottles of beer.\n" +
+      "Take one down and pass it around, " +
+      "#{number-1} bottles of beer on the wall.\n"
+    end
+  end
+end
+```
+
+The most immediately apparent quality of this code is how very simple it is. The code is gratifyingly easy to comprehend. 
+
+Domain questions.
+
+1. How many verse variants are there?
+Clearly, four.
+
+2. Which verses are most alike? In what way?
+3-99, where only the verse number varies.
+
+3. Which verses are most different? In what way?
+0, 1 and 2 are different from 3-99, though figuring out how requires parsing strings with your eyes.
+
+4. What is the rule to determine which verse should be sung next?
+This is still not explicit. The 0 verse contains a deeply buried, hard-coded 99.
+
+Value/cost questions:
+
+1. How difficult was this to write?
+It was easy to write.
+
+2. How hard is it to understand?
+It is easy to understand.
+
+3. How expensive will it be to change?
+It will be cheap to change. Even though the verse strings are duplicated, if one verse changes it’s easy to keep the others in sync.
+
+<b>By the criteria that have been established, Shameless Green is clearly the best solution, yet almost no one writes it.</b>
+
+Most programmers have a powerful urge to do more, but sometimes it’s best to stop right here.
+
+When you DRY out duplication or create a method to name a bit of code, you add levels of indirection that make it more abstract. In theory these abstractions make code easier to understand and change, <b>but in practice they often achieve the opposite.</b> One of the biggest challenges of design is knowing when to stop, and deciding well requires making judgments about code.
+
+### 1.2. Judging Code
+
+Summary 
+
+questions on domain, and value/cost
 
 ### Test Driving Shameless Green {#chapter-2}
 
