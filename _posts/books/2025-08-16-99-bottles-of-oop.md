@@ -21,13 +21,13 @@ rating: 5.0
 
 ### Introduction.
 
-Writing code is the process of working your way to the next stable end point, not the end point itself. You don’t know the answer in advance, but instead, you are seeking it.
+Writing code is the process of <b>working your way to the next stable end point, not the end point itself.</b> You don’t know the answer in advance, but instead, you are seeking it.
 
 This book documents every step down every path of code, and so provides a guided-tour of the decisions made along the way. It not only shows how good code looks when it’s done, it reveals the thoughts that produced it.
 
 ### Rediscovering Simplicity {#chapter-1}
 
-Experience has taught you thatmost code will someday change, and you've begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.
+Experience has taught you that most code will someday change, and you've begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.
 
 Where you once optimized code for understandability, you now focus on its changeability. Your code is less concrete but more abstract -you've made it initially harder to understand in hopes that it will ultimately be easier to maintain.
 
@@ -72,7 +72,7 @@ end
 ```
 - `total_in_cents` no longer shows how the conversion happens.
 
-- Whoever calls total_in_cents only knows: “I send a message `convert_to_cents`”—they don’t directly know that it multiplies by 100 and converts to integer.
+- Whoever calls `total_in_cents` only knows: “I send a message `convert_to_cents`” they don’t directly know that it multiplies by 100 and converts to integer.
 
 - So if later someone asks: “Wait, does this return a float or an integer?” — you can’t see that directly in the `total_in_cents` method anymore. You must chase down into `convert_to_cents` to know.
 
@@ -164,9 +164,9 @@ This book is about finding the right abstraction.
 
 ### 1.1. Simplifying Code
 
-The code you write should meet two often-contradictory goals. It must remain concrete enough to be understood while simultaneously being abstract enough to allow for change.
+The code you write should meet two often-contradictory goals. <b>It must remain concrete enough to be understood while simultaneously being abstract enough to allow for change.</b>
 
-Code can range on a spectrum from very concrete (one long, detailed procedure) to very abstract (many tiny classes and methods). The best solutions usually aren’t at the extremes but somewhere in the middle, where the code is both understandable and easy to change. The programmer’s job is to find that balance.
+Code can range on a spectrum from very concrete (one long, detailed procedure) to very abstract (many tiny classes and methods). <b>The best solutions usually aren’t at the extremes but somewhere in the middle, where the code is both understandable and easy to change. The programmer’s job is to find that balance.</b>
 
 This section discusses four different solutions to the "99 Bottles of Beer" problem.
 
@@ -217,7 +217,7 @@ Creating a method requires identifying the code you’d like to extract and deci
 
 When you first write a piece of code, you obviously know what it does. Therefore, during initial development, the price you pay for poor names is relatively low. <b>However, code is read many more times than it is written, and its ultimate cost is often very high and paid by someone else.</b>
 
-Code is also charged with doing what it’s supposed to do now as well as being easy to alter so that it can do more later.
+<i>Code is also charged with doing what it’s supposed to do now as well as being easy to alter so that it can do more later.</i>
 
 1. How difficult was it to write?
 2. How hard is it to understand?
@@ -232,7 +232,7 @@ If this solution would be openly exposed the "99 Bottles" domain, a brief glance
 3. Which verses are most different, and in what way?
 4. What is the rule to determine which verse comes next?
 
-These questions reflect core concepts of the problem, yet none of their answers are apparent in this solution. The number of variants, the difference between the variants, and the algorithm for looping are distressingly obscure. This code does not reflect its domain, and therefore you can infer that it was difficult to write and will be a challenge to change. 
+<b>These questions reflect core concepts of the problem</b>, yet none of their answers are apparent in this solution. The number of variants, the difference between the variants, and the algorithm for looping are distressingly obscure. This code does not reflect its domain, and therefore you can infer that it was difficult to write and will be a challenge to change. 
 
 ### 1.1.2. Speculatively General
 
@@ -304,7 +304,7 @@ class Verse
 end
 ```
 
-To summarize, sending verse(number) to an instance of Bottles invokes verse_for(number), which uses the value of number to select the correct lambda on which to create and return an instance of Verse. The verse method then sends text to the returned Verse, which in turn sends call to the lambda, passing self as an argument. This invokes the lambda, which may or may not actually use the argument that was passed. 
+To summarize, sending `verse(number)` to an instance of `Bottles` invokes `verse_for(number)`, which uses the value of `number` to select the correct `lambda` on which to create and return an instance of `Verse`. The `verse` method then sends text to the returned `Verse`, which in turn sends `call` to the `lambda`, passing `self` as an argument. This invokes the `lambda`, which may or may not actually use the argument that was passed. 
 
 This example answers better the next questions in comparison to first example:
 
@@ -331,7 +331,7 @@ The many levels of indirection are confusing. Their existence implies necessity,
 3. How expensive will it be to change?
 The mere fact that indirection exists suggests that it’s important. You may feel compelled to understand its purpose before making changes.
 
-As you can see from these answers, this solution does a good job of exposing core concepts, but does a bad job of being worth its cost.
+As you can see from these answers, <i>this solution does a good job of exposing core concepts, but does a bad job of being worth its cost.</i>
 
 The code does two basic things. First, it defines templates for each kind of verse (lines 2-28), and second, it chooses the appropriate template for a specific verse number and renders that verse’s lyrics (lines 39-63).
 
@@ -341,7 +341,7 @@ But it’s not the templates that are costly; it’s the code that chooses a tem
 
 ### 1.1.3. Concretely Abstract
 
-This solution valiantly attempts to name the concepts in the domain
+This solution valiantly attempts to name the concepts in the domain:
 
 ```ruby
 class Bottles
@@ -460,7 +460,7 @@ While changing the code inside any individual method is cheap, in many cases, on
 
 It’s obvious that the author of this code was committed to doing the right thing, and that they carefully followed the Red, Green, Refactor style of writing code. It looks as though these strings were refactored into separate methods at the first sign of duplication.
 
-DRY reduces change costs by eliminating duplication, but increases understanding costs through indirection. Use DRY when the savings from easier maintenance outweigh the complexity of following abstract layers.
+<b>DRY reduces change costs by eliminating duplication, but increases understanding costs through indirection.</b> Use DRY when the savings from easier maintenance outweigh the complexity of following abstract layers.
 
 The `beer` method centralizes the drink name in one location. To change from "beer" to "Kool-Aid," you only modify line 42, avoiding scattered string updates throughout the codebase.
 
@@ -572,9 +572,11 @@ It will be cheap to change. Even though the verse strings are duplicated, if one
 
 Most programmers have a powerful urge to do more, but sometimes it’s best to stop right here.
 
-When you DRY out duplication or create a method to name a bit of code, you add levels of indirection that make it more abstract. In theory these abstractions make code easier to understand and change, <b>but in practice they often achieve the opposite.</b> One of the biggest challenges of design is knowing when to stop, and deciding well requires making judgments about code.
+<b>When you DRY out duplication or create a method to name a bit of code, you add levels of indirection that make it more abstract. In theory these abstractions make code easier to understand and change, but in practice they often achieve the opposite.</b> One of the biggest challenges of design is knowing when to stop, and deciding well requires making judgments about code.
 
 ### 1.2. Judging Code
+
+
 
 Summary 
 
