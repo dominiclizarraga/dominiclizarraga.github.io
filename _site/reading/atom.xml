@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-27T17:30:45-07:00</updated>
+  <updated>2025-08-27T19:10:30-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -33,18 +33,226 @@
 
 &lt;p&gt;Writing code is the process of working your way to the next stable end point, not the end point itself. You don’t know the answer in advance, but instead, you are seeking it.&lt;/p&gt;
 
-&lt;p&gt;This book documents every step down every path of code, and so provides a guided-tour of the
-decisions made along the way. It not only shows how good code looks when it’s done, it reveals
-the thoughts that produced it.&lt;/p&gt;
+&lt;p&gt;This book documents every step down every path of code, and so provides a guided-tour of the decisions made along the way. It not only shows how good code looks when it’s done, it reveals the thoughts that produced it.&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-1&quot;&gt;Rediscovering Simplicity&lt;/h3&gt;
 
-&lt;p&gt;Experience has taught you that
-most code will someday change, and you’ve begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.&lt;/p&gt;
+&lt;p&gt;Experience has taught you thatmost code will someday change, and you’ve begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.&lt;/p&gt;
 
-&lt;p&gt;Where you once optimized code for understandability, you now focus on its changeability. Your
-code is less concrete but more abstract—you’ve made it initially harder to understand in hopes
-that it will ultimately be easier to maintain.&lt;/p&gt;
+&lt;p&gt;Where you once optimized code for understandability, you now focus on its changeability. Your code is less concrete but more abstract -you’ve made it initially harder to understand in hopes that it will ultimately be easier to maintain.&lt;/p&gt;
+
+&lt;p&gt;OOD doesn’t claim to be free; it merely asserts that its benefits outweigh its costs.&lt;/p&gt;
+
+&lt;p&gt;Design decisions inevitably involve trade-offs. There’s always a cost. For example, if you’ve duplicated a bit of code in many places, the Don’t Repeat Yourself (DRY) principle tells you to extract the duplication into a single common method and then invoke this new method in place of the old code. DRY is a great idea, but that doesn’t mean it’s free.&lt;/p&gt;
+
+&lt;p&gt;The price you pay for DRYing out code is that the invoker of the new method no longer knows the result, only the message it should send. If you’re willing to pay this price, that is, you are willing to be ignorant of the actual behavior, the reward you reap is that when the behavior changes, you need alter your code in only one place.&lt;/p&gt;
+
+&lt;p&gt;Example:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# before DRY&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Invoice&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;total_in_cents&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:price&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_i&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;discount_in_cents&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;discount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_i&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# after DRY&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Invoice&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;total_in_cents&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;convert_to_cents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;line_items&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:price&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;discount_in_cents&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;convert_to_cents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;discount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;kp&quot;&gt;private&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;convert_to_cents&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;to_i&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;total_in_cents&lt;/code&gt; no longer shows how the conversion happens.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Whoever calls total_in_cents only knows: “I send a message &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;convert_to_cents&lt;/code&gt;”—they don’t directly know that it multiplies by 100 and converts to integer.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;So if later someone asks: “Wait, does this return a float or an integer?” — you can’t see that directly in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;total_in_cents&lt;/code&gt; method anymore. You must chase down into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;convert_to_cents&lt;/code&gt; to know.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Did you divide one large class into many small ones? You can now reuse the new classes independently of one another, but it’s no longer obvious how they fit together for the original case.&lt;/p&gt;
+
+&lt;p&gt;Have you injected a dependency instead of hard-coding the class name of a collaborator? The receiver can now freely depend on new and previously unforeseen objects, but it must remain ignorant of their actual class.&lt;/p&gt;
+
+&lt;p&gt;The examples above change code by increasing its level of abstraction.&lt;/p&gt;
+
+&lt;p&gt;DRYing out code inserts a level of indirection between the place that uses behavior and the place that defines it.&lt;/p&gt;
+
+&lt;p&gt;Breaking one large class into many forces the creation of something new to embody the relationship between the pieces.&lt;/p&gt;
+
+&lt;p&gt;Injecting a dependency transforms the receiver into something that depends on an abstract role rather than a concrete class.&lt;/p&gt;
+
+&lt;p&gt;Design is thus about picking the right abstractions. If you choose well, your code will be expressive, understandable and flexible.&lt;/p&gt;
+
+&lt;table&gt;
+ &lt;thead&gt;
+   &lt;tr&gt;
+     &lt;th&gt;Benefits&lt;/th&gt;
+     &lt;th&gt;Cons&lt;/th&gt;
+   &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+   &lt;tr&gt;
+     &lt;td colspan=&quot;2&quot;&gt;&lt;strong&gt;DRY (Don&apos;t Repeat Yourself)&lt;/strong&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;
+       • Eliminates code duplication&lt;br /&gt;
+       • Single source of truth for behavior&lt;br /&gt;
+       • Easier maintenance - change in one place&lt;br /&gt;
+       • Reduces bugs from inconsistent implementations
+     &lt;/td&gt;
+     &lt;td&gt;
+       • Adds level of indirection between usage and definition&lt;br /&gt;
+       • Can make code harder to understand&lt;br /&gt;
+       • May create premature abstractions&lt;br /&gt;
+       • Debugging requires jumping between files/methods
+     &lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td colspan=&quot;2&quot;&gt;&lt;strong&gt;Dependency Injection&lt;/strong&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;
+       • Enables flexible composition with unforeseen objects&lt;br /&gt;
+       • Improves testability with mock objects&lt;br /&gt;
+       • Reduces coupling between classes&lt;br /&gt;
+       • Supports polymorphism and duck typing
+     &lt;/td&gt;
+     &lt;td&gt;
+       • Receiver must remain ignorant of actual class types&lt;br /&gt;
+       • Increases complexity of object construction&lt;br /&gt;
+       • Can make dependencies less obvious&lt;br /&gt;
+       • Requires abstract thinking about roles vs. classes
+     &lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td colspan=&quot;2&quot;&gt;&lt;strong&gt;Single Responsibility Principle (Divide Large Classes)&lt;/strong&gt;&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;
+       • Classes can be reused independently&lt;br /&gt;
+       • Easier to test individual components&lt;br /&gt;
+       • More focused, cohesive responsibilities&lt;br /&gt;
+       • Simpler to understand each piece in isolation
+     &lt;/td&gt;
+     &lt;td&gt;
+       • No longer obvious how pieces fit together&lt;br /&gt;
+       • Requires new abstractions to coordinate parts&lt;br /&gt;
+       • Can lead to over-engineering&lt;br /&gt;
+       • May scatter related logic across multiple files
+     &lt;/td&gt;
+   &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;However, if you get the abstractions wrong, your code will be convoluted, confusing, and costly.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, abstractions are hard, and even with the best of intentions, it’s easy to get them wrong.&lt;/p&gt;
+
+&lt;p&gt;Early abstractions are often not quite right, and therefore they create a catch-22. You can’t create the right abstraction until you fully understand the code, but the existence of the wrong abstraction may prevent you from ever doing so.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;This suggests that you should not reach for abstractions, but instead, you should resist them until they absolutely insist upon being created.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;This book is about finding the right abstraction.&lt;/p&gt;
+
+&lt;h3 id=&quot;11-simplifying-code&quot;&gt;1.1. Simplifying Code&lt;/h3&gt;
+
+&lt;p&gt;The code you write should meet two often-contradictory goals. It must remain concrete enough to be understood while simultaneously being abstract enough to allow for change.&lt;/p&gt;
+
+&lt;p&gt;Code can range on a spectrum from very concrete (one long, detailed procedure) to very abstract (many tiny classes and methods). The best solutions usually aren’t at the extremes but somewhere in the middle, where the code is both understandable and easy to change. The programmer’s job is to find that balance.&lt;/p&gt;
+
+&lt;p&gt;This section discusses four different solutions to the “99 Bottles of Beer” problem.&lt;/p&gt;
+
+&lt;h3 id=&quot;111-incomprehensibly-concise&quot;&gt;1.1.1. Incomprehensibly Concise&lt;/h3&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottles&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;song&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;verses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verses&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;downto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;No more&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottle&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;s&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot; of beer on the wall, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;no more&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottle&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;s&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Take &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;one&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;it&apos;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; down and pass it around&quot;&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Go to the store and buy some more&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&apos;no more&apos;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; bottle&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&apos;s&apos;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot; of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This first solution embeds a great deal of logic into the verse string. The code above performs a neat trick. It manages to be concise to the point of incomprehensibility while simultaneously retaining loads of duplication.&lt;/p&gt;
+
+&lt;p&gt;Consistency (in conditionals)&lt;/p&gt;
+
+&lt;p&gt;The style of the conditionals is inconsistent. Most use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ternary&lt;/code&gt; form, other statements are made conditional by adding a trailing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;if&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Every time the style of the conditionals changes, the reader has to press a mental reset button and start thinking anew.&lt;/p&gt;
+
+&lt;p&gt;Duplication&lt;/p&gt;
+
+&lt;p&gt;The code duplicates both data and logic. Having multiple copies of the strings “of beer” and “on the wall” isn’t great, but at least string duplication is easy to see and understand. Logic, however, is harder to comprehend than data, and duplicated logic is doubly so.&lt;/p&gt;
+
+&lt;p&gt;Names&lt;/p&gt;
+
+&lt;p&gt;The most obvious point to be made about the names in the verse method is that there aren’t any. The verse string contains embedded logic. Each bit of logic serves some purpose, and it is up to you to construct a mental map of what these
+purposes might be.&lt;/p&gt;
+
+&lt;p&gt;This code would be easier to understand if it did not place that burden upon you.&lt;/p&gt;
+
+&lt;p&gt;Creating a method requires identifying the code you’d like to extract and deciding on a method name. This, in turn, requires naming the concept, and naming things is just plain hard. In the case above, it’s especially hard. This code not only contains many hidden concepts, but those concepts are mixed together. Combining many ideas into a small section of code makes it difficult to isolate and name any single concept.&lt;/p&gt;
+
+&lt;p&gt;When you first write a piece of code, you obviously know what it does. Therefore, during initial development, the price you pay for poor names is relatively low. &lt;b&gt;However, code is read many more times than it is written, and its ultimate cost is often very high and paid by someone else.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;Code is also charged with doing what it’s supposed to do now as well as being easy to alter so that it can do more later.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;How difficult was it to write?&lt;/li&gt;
+  &lt;li&gt;How hard is it to understand?&lt;/li&gt;
+  &lt;li&gt;How expensive will it be to change?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Code is easy to understand when it clearly reflects the problem it’s solving, and thus openly exposes that problem’s domain&lt;/p&gt;
+
+&lt;p&gt;If this solution would be openly exposed the “99 Bottles” domain, a brief glance at the code would answer these questions:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;How many verse variants are there?&lt;/li&gt;
+  &lt;li&gt;Which verses are most alike? In what way?&lt;/li&gt;
+  &lt;li&gt;Which verses are most different, and in what way?&lt;/li&gt;
+  &lt;li&gt;What is the rule to determine which verse comes next?&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;These questions reflect core concepts of the problem, yet none of their answers are apparent in this solution. The number of variants, the difference between the variants, and the algorithm for looping are distressingly obscure. This code does not reflect its domain, and therefore you can infer that it was difficult to write and will be a challenge to change.&lt;/p&gt;
+
+&lt;h3 id=&quot;112-speculatively-general&quot;&gt;1.1.2. Speculatively General&lt;/h3&gt;
 
 &lt;h3 id=&quot;chapter-2&quot;&gt;Test Driving Shameless Green&lt;/h3&gt;
 
