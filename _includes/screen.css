@@ -610,3 +610,16 @@ strong {
   margin-bottom:1rem;
   display:block;
 }
+
+/** CSS style for authors quotes in 99 bottles book notes ------------------------------------------------------- */
+
+.quote-box {
+  margin: 20px auto;
+  padding: 8px 10px;
+  max-width: 600px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  text-align: center;
+  font-size: 14px;
+}

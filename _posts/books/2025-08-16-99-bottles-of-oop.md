@@ -576,11 +576,129 @@ Most programmers have a powerful urge to do more, but sometimes it’s best to s
 
 ### 1.2. Judging Code
 
+You judge code constantly. Writing code requires making choices; the choices you make reflect personal, internalized criteria.
 
+### 1.2.1. Evaluating Code Based on Opinion
+
+Just as "Everybody complains about the weather but nobody does anything about it", everyone has an opinion about what good code looks like, but those opinions usually don’t tell us what action to take to create it. Here are a few definitions of clean code.
+
+<div class="quote-box">
+  <p>I like my code to be elegant and efficient.</p>
+  <p>— Bjarne Stroustrup<br>inventor of C++</p>
+</div>
+
+<div class="quote-box">
+  <p>Clean code is … full of crisp abstractions …</p>
+  <p>— Grady Booch<br>author of Object Oriented Analysis and Design with Applications</p>
+</div>
+
+<div class="quote-box">
+  <p>Clean code was written by someone who cares.</p>
+  <p>— Michael Feathers<br>author of Working Effectively with Legacy Code</p>
+</div>
+
+Your own definition probably follows along these same lines. <b>Any pile of code can be made to work; good code not only works, but is also simple, understandable, expressive and changeable.</b>
+
+The problem with these definitions is that although they accurately describe how good code looks once it’s written, they give no help with achieving this state, and provide little guidance for choosing between competing solutions.
+
+Since form follows function, good code can also be defined simply, and somewhat circularly, as that which provides the highest value for the lowest cost.
+
+Our sense of elegance, expressiveness and simplicity is an outgrowth of our experiences when reading and modifying code. Code that is easy to understand and a pleasure to extend naturally feels simple and elegant.
+
+### 1.2.2. Evaluating Code Based on Facts
+
+Measures that rise to become metrics are backed by research that has stood the test of time. They’ve been scrutinized by many people over many years. You can think of metrics as crowd-sourced opinions about the quality of code.
+
+This section examines three different metrics: Source Lines of Code, Cyclomatic Complexity, and ABC
+
+Source Lines of Code
+
+This one number has been used to predict the total effort needed to develop software, to measure the productivity of those who write it, and to predict the cost of maintaining it.
+
+The metric has the advantage of being easily garnered and reproduced, but suffers from many flaws.
+
+Using SLOC to predict the development effort needed for a new project is done by counting the SLOC of existing projects for which total effort is known, deciding which of those existing projects the new project most resembles, and then running a cost estimation model to make the prediction.
+
+Measuring programmer productivity by counting lines of code assumes that all programmers write equally efficient code.
+
+While the cost of maintenance is related to the size of an application, the way in which code is organized also matters. It is cheaper to maintain a well-designed application than it is to maintain a pile of spaghetti-code.
+
+Cyclomatic Complexity
+
+In 1976, Thomas J. McCabe, Sr. published "A Complexity Measure":
+
+> What is needed is a mathematical technique that will provide a quantitative basis for modularization and allow us to identify software modules that will be difficult to test or maintain.
+
+Think of this algorithm as a little machine that ponders your code and then maps out all the possible routes through every combination of every branch of every conditional. A method with many deeply nested conditionals would score very high, while a method with no conditionals at all would score 0.
+
+Cyclomatic complexity neither predicts application development time nor measures programmer productivity.
+
+Cyclomatic complexity sounds great, and it’s easy to see that it could be useful, but it views the world of code through a narrow lens.
+
+Assignments, Branches and Conditions (ABC) Metric
+
+The problem with cyclomatic complexity is that it doesn’t take everything into account. Code does more than just evaluate conditions; it also assigns values to variables and sends messages. These things add up, and as you do more and more of each, your code becomes increasingly difficult to understand.
+
+In 1997, twenty-one years after the unveiling of cyclomatic complexity, Jerry Fitzpatrick
+published "Applying the ABC Metric to C, C++, and Java". His ABC stands for assignments, branches and conditions, where:
+
+- Assignments is a count of variable assignments.
+- Branches counts not branches of an if statement (as one could forgivably infer) but branches of control, meaning function calls or message sends.
+- Conditions counts conditional logic.
+
+ABC is a measure of complexity. Highly complex code is difficult to understand and change, therefore ABC scores are a proxy for code quality. High scores suggest that code will be hard to test and expensive to maintain.
 
 Summary 
 
-questions on domain, and value/cost
+<table>
+ <thead>
+   <tr>
+     <th>Step</th>
+     <th>Principle</th>
+     <th>Description</th>
+   </tr>
+ </thead>
+ <tbody>
+   <tr>
+     <td>1</td>
+     <td><strong>Start Shameless Green</strong></td>
+     <td>Write the simplest code that works, even if it has duplication. Don't try to be clever or anticipate future needs.</td>
+   </tr>
+   <tr>
+     <td>2</td>
+     <td><strong>Tolerate Duplication</strong></td>
+     <td>Let duplicate code exist until you fully understand the problem domain. Duplication is often better than the wrong abstraction.</td>
+   </tr>
+   <tr>
+     <td>3</td>
+     <td><strong>Resist Premature Abstraction</strong></td>
+     <td>Don't create abstractions until they "absolutely insist upon being created." Wait until the pattern becomes obvious and painful.</td>
+   </tr>
+   <tr>
+     <td>4</td>
+     <td><strong>Name for the Domain, Not Implementation</strong></td>
+     <td>When you do abstract, name methods/classes after what they <em>represent</em> in your problem space (<code>beverage</code> not <code>beer</code>), not their current behavior.</td>
+   </tr>
+   <tr>
+     <td>5</td>
+     <td><strong>Optimize for Change, Not Cleverness</strong></td>
+     <td>Make code easy to understand and modify by future you. Simple, clear code beats concise, clever code every time.</td>
+   </tr>
+   <tr>
+     <td>6</td>
+     <td><strong>Ask the Domain Questions</strong></td>
+     <td>Before changing anything, evaluate if your code clearly reveals: How many variants exist? Which parts are most alike/different? What are the core rules and patterns?</td>
+   </tr>
+   <tr>
+     <td>7</td>
+     <td><strong>Ask the Value/Cost Questions</strong></td>
+     <td>For any solution, honestly assess: How difficult was it to write? How hard is it to understand? How expensive will it be to change?</td>
+   </tr>
+   <tr>
+     <td colspan="3"><strong>The Golden Rule:</strong> If your code doesn't clearly answer the domain questions or fails the value/cost test, step back toward simplicity. The right abstractions will emerge naturally when you understand the problem deeply enough.</td>
+   </tr>
+ </tbody>
+</table>
 
 ### Test Driving Shameless Green {#chapter-2}
 

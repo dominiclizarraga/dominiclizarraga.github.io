@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-27T22:01:29-07:00</updated>
+  <updated>2025-08-28T12:06:24-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -31,13 +31,13 @@
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction.&lt;/h3&gt;
 
-&lt;p&gt;Writing code is the process of working your way to the next stable end point, not the end point itself. You don’t know the answer in advance, but instead, you are seeking it.&lt;/p&gt;
+&lt;p&gt;Writing code is the process of &lt;b&gt;working your way to the next stable end point, not the end point itself.&lt;/b&gt; You don’t know the answer in advance, but instead, you are seeking it.&lt;/p&gt;
 
 &lt;p&gt;This book documents every step down every path of code, and so provides a guided-tour of the decisions made along the way. It not only shows how good code looks when it’s done, it reveals the thoughts that produced it.&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-1&quot;&gt;Rediscovering Simplicity&lt;/h3&gt;
 
-&lt;p&gt;Experience has taught you thatmost code will someday change, and you’ve begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.&lt;/p&gt;
+&lt;p&gt;Experience has taught you that most code will someday change, and you’ve begun to craft it in anticipation of that day. Complexity seems both natural and inevitable.&lt;/p&gt;
 
 &lt;p&gt;Where you once optimized code for understandability, you now focus on its changeability. Your code is less concrete but more abstract -you’ve made it initially harder to understand in hopes that it will ultimately be easier to maintain.&lt;/p&gt;
 
@@ -84,7 +84,7 @@
     &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;total_in_cents&lt;/code&gt; no longer shows how the conversion happens.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Whoever calls total_in_cents only knows: “I send a message &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;convert_to_cents&lt;/code&gt;”—they don’t directly know that it multiplies by 100 and converts to integer.&lt;/p&gt;
+    &lt;p&gt;Whoever calls &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;total_in_cents&lt;/code&gt; only knows: “I send a message &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;convert_to_cents&lt;/code&gt;” they don’t directly know that it multiplies by 100 and converts to integer.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;So if later someone asks: “Wait, does this return a float or an integer?” — you can’t see that directly in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;total_in_cents&lt;/code&gt; method anymore. You must chase down into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;convert_to_cents&lt;/code&gt; to know.&lt;/p&gt;
@@ -179,9 +179,9 @@
 
 &lt;h3 id=&quot;11-simplifying-code&quot;&gt;1.1. Simplifying Code&lt;/h3&gt;
 
-&lt;p&gt;The code you write should meet two often-contradictory goals. It must remain concrete enough to be understood while simultaneously being abstract enough to allow for change.&lt;/p&gt;
+&lt;p&gt;The code you write should meet two often-contradictory goals. &lt;b&gt;It must remain concrete enough to be understood while simultaneously being abstract enough to allow for change.&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;Code can range on a spectrum from very concrete (one long, detailed procedure) to very abstract (many tiny classes and methods). The best solutions usually aren’t at the extremes but somewhere in the middle, where the code is both understandable and easy to change. The programmer’s job is to find that balance.&lt;/p&gt;
+&lt;p&gt;Code can range on a spectrum from very concrete (one long, detailed procedure) to very abstract (many tiny classes and methods). &lt;b&gt;The best solutions usually aren’t at the extremes but somewhere in the middle, where the code is both understandable and easy to change. The programmer’s job is to find that balance.&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;This section discusses four different solutions to the “99 Bottles of Beer” problem.&lt;/p&gt;
 
@@ -231,7 +231,7 @@ purposes might be.&lt;/p&gt;
 
 &lt;p&gt;When you first write a piece of code, you obviously know what it does. Therefore, during initial development, the price you pay for poor names is relatively low. &lt;b&gt;However, code is read many more times than it is written, and its ultimate cost is often very high and paid by someone else.&lt;/b&gt;&lt;/p&gt;
 
-&lt;p&gt;Code is also charged with doing what it’s supposed to do now as well as being easy to alter so that it can do more later.&lt;/p&gt;
+&lt;p&gt;&lt;i&gt;Code is also charged with doing what it’s supposed to do now as well as being easy to alter so that it can do more later.&lt;/i&gt;&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;How difficult was it to write?&lt;/li&gt;
@@ -250,7 +250,7 @@ purposes might be.&lt;/p&gt;
   &lt;li&gt;What is the rule to determine which verse comes next?&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;These questions reflect core concepts of the problem, yet none of their answers are apparent in this solution. The number of variants, the difference between the variants, and the algorithm for looping are distressingly obscure. This code does not reflect its domain, and therefore you can infer that it was difficult to write and will be a challenge to change.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;These questions reflect core concepts of the problem&lt;/b&gt;, yet none of their answers are apparent in this solution. The number of variants, the difference between the variants, and the algorithm for looping are distressingly obscure. This code does not reflect its domain, and therefore you can infer that it was difficult to write and will be a challenge to change.&lt;/p&gt;
 
 &lt;h3 id=&quot;112-speculatively-general&quot;&gt;1.1.2. Speculatively General&lt;/h3&gt;
 
@@ -321,7 +321,7 @@ purposes might be.&lt;/p&gt;
 &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;To summarize, sending verse(number) to an instance of Bottles invokes verse_for(number), which uses the value of number to select the correct lambda on which to create and return an instance of Verse. The verse method then sends text to the returned Verse, which in turn sends call to the lambda, passing self as an argument. This invokes the lambda, which may or may not actually use the argument that was passed.&lt;/p&gt;
+&lt;p&gt;To summarize, sending &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verse(number)&lt;/code&gt; to an instance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Bottles&lt;/code&gt; invokes &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verse_for(number)&lt;/code&gt;, which uses the value of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;number&lt;/code&gt; to select the correct &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lambda&lt;/code&gt; on which to create and return an instance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Verse&lt;/code&gt;. The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verse&lt;/code&gt; method then sends text to the returned &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Verse&lt;/code&gt;, which in turn sends &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;call&lt;/code&gt; to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lambda&lt;/code&gt;, passing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;self&lt;/code&gt; as an argument. This invokes the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lambda&lt;/code&gt;, which may or may not actually use the argument that was passed.&lt;/p&gt;
 
 &lt;p&gt;This example answers better the next questions in comparison to first example:&lt;/p&gt;
 
@@ -361,7 +361,7 @@ The mere fact that indirection exists suggests that it’s important. You may fe
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;As you can see from these answers, this solution does a good job of exposing core concepts, but does a bad job of being worth its cost.&lt;/p&gt;
+&lt;p&gt;As you can see from these answers, &lt;i&gt;this solution does a good job of exposing core concepts, but does a bad job of being worth its cost.&lt;/i&gt;&lt;/p&gt;
 
 &lt;p&gt;The code does two basic things. First, it defines templates for each kind of verse (lines 2-28), and second, it chooses the appropriate template for a specific verse number and renders that verse’s lyrics (lines 39-63).&lt;/p&gt;
 
@@ -371,7 +371,7 @@ The mere fact that indirection exists suggests that it’s important. You may fe
 
 &lt;h3 id=&quot;113-concretely-abstract&quot;&gt;1.1.3. Concretely Abstract&lt;/h3&gt;
 
-&lt;p&gt;This solution valiantly attempts to name the concepts in the domain&lt;/p&gt;
+&lt;p&gt;This solution valiantly attempts to name the concepts in the domain:&lt;/p&gt;
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottles&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;song&lt;/span&gt;
@@ -502,7 +502,7 @@ While changing the code inside any individual method is cheap, in many cases, on
 
 &lt;p&gt;It’s obvious that the author of this code was committed to doing the right thing, and that they carefully followed the Red, Green, Refactor style of writing code. It looks as though these strings were refactored into separate methods at the first sign of duplication.&lt;/p&gt;
 
-&lt;p&gt;DRY reduces change costs by eliminating duplication, but increases understanding costs through indirection. Use DRY when the savings from easier maintenance outweigh the complexity of following abstract layers.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;DRY reduces change costs by eliminating duplication, but increases understanding costs through indirection.&lt;/b&gt; Use DRY when the savings from easier maintenance outweigh the complexity of following abstract layers.&lt;/p&gt;
 
 &lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;beer&lt;/code&gt; method centralizes the drink name in one location. To change from “beer” to “Kool-Aid,” you only modify line 42, avoiding scattered string updates throughout the codebase.&lt;/p&gt;
 
@@ -624,13 +624,137 @@ It will be cheap to change. Even though the verse strings are duplicated, if one
 
 &lt;p&gt;Most programmers have a powerful urge to do more, but sometimes it’s best to stop right here.&lt;/p&gt;
 
-&lt;p&gt;When you DRY out duplication or create a method to name a bit of code, you add levels of indirection that make it more abstract. In theory these abstractions make code easier to understand and change, &lt;b&gt;but in practice they often achieve the opposite.&lt;/b&gt; One of the biggest challenges of design is knowing when to stop, and deciding well requires making judgments about code.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;When you DRY out duplication or create a method to name a bit of code, you add levels of indirection that make it more abstract. In theory these abstractions make code easier to understand and change, but in practice they often achieve the opposite.&lt;/b&gt; One of the biggest challenges of design is knowing when to stop, and deciding well requires making judgments about code.&lt;/p&gt;
 
 &lt;h3 id=&quot;12-judging-code&quot;&gt;1.2. Judging Code&lt;/h3&gt;
 
+&lt;p&gt;You judge code constantly. Writing code requires making choices; the choices you make reflect personal, internalized criteria.&lt;/p&gt;
+
+&lt;h3 id=&quot;121-evaluating-code-based-on-opinion&quot;&gt;1.2.1. Evaluating Code Based on Opinion&lt;/h3&gt;
+
+&lt;p&gt;Just as “Everybody complains about the weather but nobody does anything about it”, everyone has an opinion about what good code looks like, but those opinions usually don’t tell us what action to take to create it. Here are a few definitions of clean code.&lt;/p&gt;
+
+&lt;div class=&quot;quote-box&quot;&gt;
+  &lt;p&gt;I like my code to be elegant and efficient.&lt;/p&gt;
+  &lt;p&gt;— Bjarne Stroustrup&lt;br /&gt;inventor of C++&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;quote-box&quot;&gt;
+  &lt;p&gt;Clean code is … full of crisp abstractions …&lt;/p&gt;
+  &lt;p&gt;— Grady Booch&lt;br /&gt;author of Object Oriented Analysis and Design with Applications&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;quote-box&quot;&gt;
+  &lt;p&gt;Clean code was written by someone who cares.&lt;/p&gt;
+  &lt;p&gt;— Michael Feathers&lt;br /&gt;author of Working Effectively with Legacy Code&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Your own definition probably follows along these same lines. &lt;b&gt;Any pile of code can be made to work; good code not only works, but is also simple, understandable, expressive and changeable.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;The problem with these definitions is that although they accurately describe how good code looks once it’s written, they give no help with achieving this state, and provide little guidance for choosing between competing solutions.&lt;/p&gt;
+
+&lt;p&gt;Since form follows function, good code can also be defined simply, and somewhat circularly, as that which provides the highest value for the lowest cost.&lt;/p&gt;
+
+&lt;p&gt;Our sense of elegance, expressiveness and simplicity is an outgrowth of our experiences when reading and modifying code. Code that is easy to understand and a pleasure to extend naturally feels simple and elegant.&lt;/p&gt;
+
+&lt;h3 id=&quot;122-evaluating-code-based-on-facts&quot;&gt;1.2.2. Evaluating Code Based on Facts&lt;/h3&gt;
+
+&lt;p&gt;Measures that rise to become metrics are backed by research that has stood the test of time. They’ve been scrutinized by many people over many years. You can think of metrics as crowd-sourced opinions about the quality of code.&lt;/p&gt;
+
+&lt;p&gt;This section examines three different metrics: Source Lines of Code, Cyclomatic Complexity, and ABC&lt;/p&gt;
+
+&lt;p&gt;Source Lines of Code&lt;/p&gt;
+
+&lt;p&gt;This one number has been used to predict the total effort needed to develop software, to measure the productivity of those who write it, and to predict the cost of maintaining it.&lt;/p&gt;
+
+&lt;p&gt;The metric has the advantage of being easily garnered and reproduced, but suffers from many flaws.&lt;/p&gt;
+
+&lt;p&gt;Using SLOC to predict the development effort needed for a new project is done by counting the SLOC of existing projects for which total effort is known, deciding which of those existing projects the new project most resembles, and then running a cost estimation model to make the prediction.&lt;/p&gt;
+
+&lt;p&gt;Measuring programmer productivity by counting lines of code assumes that all programmers write equally efficient code.&lt;/p&gt;
+
+&lt;p&gt;While the cost of maintenance is related to the size of an application, the way in which code is organized also matters. It is cheaper to maintain a well-designed application than it is to maintain a pile of spaghetti-code.&lt;/p&gt;
+
+&lt;p&gt;Cyclomatic Complexity&lt;/p&gt;
+
+&lt;p&gt;In 1976, Thomas J. McCabe, Sr. published “A Complexity Measure”:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;What is needed is a mathematical technique that will provide a quantitative basis for modularization and allow us to identify software modules that will be difficult to test or maintain.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Think of this algorithm as a little machine that ponders your code and then maps out all the possible routes through every combination of every branch of every conditional. A method with many deeply nested conditionals would score very high, while a method with no conditionals at all would score 0.&lt;/p&gt;
+
+&lt;p&gt;Cyclomatic complexity neither predicts application development time nor measures programmer productivity.&lt;/p&gt;
+
+&lt;p&gt;Cyclomatic complexity sounds great, and it’s easy to see that it could be useful, but it views the world of code through a narrow lens.&lt;/p&gt;
+
+&lt;p&gt;Assignments, Branches and Conditions (ABC) Metric&lt;/p&gt;
+
+&lt;p&gt;The problem with cyclomatic complexity is that it doesn’t take everything into account. Code does more than just evaluate conditions; it also assigns values to variables and sends messages. These things add up, and as you do more and more of each, your code becomes increasingly difficult to understand.&lt;/p&gt;
+
+&lt;p&gt;In 1997, twenty-one years after the unveiling of cyclomatic complexity, Jerry Fitzpatrick
+published “Applying the ABC Metric to C, C++, and Java”. His ABC stands for assignments, branches and conditions, where:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Assignments is a count of variable assignments.&lt;/li&gt;
+  &lt;li&gt;Branches counts not branches of an if statement (as one could forgivably infer) but branches of control, meaning function calls or message sends.&lt;/li&gt;
+  &lt;li&gt;Conditions counts conditional logic.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;ABC is a measure of complexity. Highly complex code is difficult to understand and change, therefore ABC scores are a proxy for code quality. High scores suggest that code will be hard to test and expensive to maintain.&lt;/p&gt;
+
 &lt;p&gt;Summary&lt;/p&gt;
 
-&lt;p&gt;questions on domain, and value/cost&lt;/p&gt;
+&lt;table&gt;
+ &lt;thead&gt;
+   &lt;tr&gt;
+     &lt;th&gt;Step&lt;/th&gt;
+     &lt;th&gt;Principle&lt;/th&gt;
+     &lt;th&gt;Description&lt;/th&gt;
+   &lt;/tr&gt;
+ &lt;/thead&gt;
+ &lt;tbody&gt;
+   &lt;tr&gt;
+     &lt;td&gt;1&lt;/td&gt;
+     &lt;td&gt;&lt;strong&gt;Start Shameless Green&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;Write the simplest code that works, even if it has duplication. Don&apos;t try to be clever or anticipate future needs.&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;2&lt;/td&gt;
+     &lt;td&gt;&lt;strong&gt;Tolerate Duplication&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;Let duplicate code exist until you fully understand the problem domain. Duplication is often better than the wrong abstraction.&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;3&lt;/td&gt;
+     &lt;td&gt;&lt;strong&gt;Resist Premature Abstraction&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;Don&apos;t create abstractions until they &quot;absolutely insist upon being created.&quot; Wait until the pattern becomes obvious and painful.&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;4&lt;/td&gt;
+     &lt;td&gt;&lt;strong&gt;Name for the Domain, Not Implementation&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;When you do abstract, name methods/classes after what they &lt;em&gt;represent&lt;/em&gt; in your problem space (&lt;code&gt;beverage&lt;/code&gt; not &lt;code&gt;beer&lt;/code&gt;), not their current behavior.&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;5&lt;/td&gt;
+     &lt;td&gt;&lt;strong&gt;Optimize for Change, Not Cleverness&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;Make code easy to understand and modify by future you. Simple, clear code beats concise, clever code every time.&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;6&lt;/td&gt;
+   &lt;tr&gt;
+     &lt;td colspan=&quot;3&quot;&gt;&lt;strong&gt;The Golden Rule:&lt;/strong&gt; If your code doesn&apos;t clearly answer the domain questions or fails the value/cost test, step back toward simplicity. The right abstractions will emerge naturally when you understand the problem deeply enough.&lt;/td&gt;
+   &lt;/tr&gt;
+     &lt;td&gt;&lt;strong&gt;Ask the Domain Questions&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;Before changing anything, evaluate if your code clearly reveals: How many variants exist? Which parts are most alike/different? What are the core rules and patterns?&lt;/td&gt;
+   &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td&gt;7&lt;/td&gt;
+     &lt;td&gt;&lt;strong&gt;Ask the Value/Cost Questions&lt;/strong&gt;&lt;/td&gt;
+     &lt;td&gt;For any solution, honestly assess: How difficult was it to write? How hard is it to understand? How expensive will it be to change?&lt;/td&gt;
+   &lt;/tr&gt;
+ &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h3 id=&quot;chapter-2&quot;&gt;Test Driving Shameless Green&lt;/h3&gt;
 
