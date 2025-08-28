@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-08-28T12:06:24-07:00</updated>
+  <updated>2025-08-28T14:00:01-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -742,9 +742,6 @@ published “Applying the ABC Metric to C, C++, and Java”. His ABC stands for 
    &lt;/tr&gt;
    &lt;tr&gt;
      &lt;td&gt;6&lt;/td&gt;
-   &lt;tr&gt;
-     &lt;td colspan=&quot;3&quot;&gt;&lt;strong&gt;The Golden Rule:&lt;/strong&gt; If your code doesn&apos;t clearly answer the domain questions or fails the value/cost test, step back toward simplicity. The right abstractions will emerge naturally when you understand the problem deeply enough.&lt;/td&gt;
-   &lt;/tr&gt;
      &lt;td&gt;&lt;strong&gt;Ask the Domain Questions&lt;/strong&gt;&lt;/td&gt;
      &lt;td&gt;Before changing anything, evaluate if your code clearly reveals: How many variants exist? Which parts are most alike/different? What are the core rules and patterns?&lt;/td&gt;
    &lt;/tr&gt;
@@ -753,12 +750,207 @@ published “Applying the ABC Metric to C, C++, and Java”. His ABC stands for 
      &lt;td&gt;&lt;strong&gt;Ask the Value/Cost Questions&lt;/strong&gt;&lt;/td&gt;
      &lt;td&gt;For any solution, honestly assess: How difficult was it to write? How hard is it to understand? How expensive will it be to change?&lt;/td&gt;
    &lt;/tr&gt;
+   &lt;tr&gt;
+     &lt;td colspan=&quot;3&quot;&gt;&lt;strong&gt;The Golden Rule:&lt;/strong&gt; If your code doesn&apos;t clearly answer the domain questions or fails the value/cost test, step back toward simplicity. The right abstractions will emerge naturally when you understand the problem deeply enough.&lt;/td&gt;
+   &lt;/tr&gt;
  &lt;/tbody&gt;
 &lt;/table&gt;
 
 &lt;h3 id=&quot;chapter-2&quot;&gt;Test Driving Shameless Green&lt;/h3&gt;
 
-&lt;p&gt;[Your notes for chapter 2]&lt;/p&gt;
+&lt;p&gt;The Shameless Green solution consists of intention-revealing, working software, and is the result of writing simple code to pass a series of presupplied tests.&lt;/p&gt;
+
+&lt;p&gt;The provenance of the code that was written in Chapter 1 is obvious, but the tests appeared without explanation. It is now time to take a step back, and investigate how to create tests that lead to Shameless Green.&lt;/p&gt;
+
+&lt;h3 id=&quot;21-understanding-testing&quot;&gt;2.1. Understanding Testing&lt;/h3&gt;
+
+&lt;p&gt;The practice of writing tests before writing code became known as test-driven development
+(TDD). In its simplest form, TDD works like this:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Write a test.
+Because the code does not yet exist, this test fails. Test runners usually display failing tests in red.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make it run.
+Write the code to make the test pass. Test runners commonly display passing tests in green.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Make it right.
+Each time you return to green, you can refactor any code into a better shape, confident that it remains correct if the tests continue to pass.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The ideas of testing, and of testing first, have won the hearts and minds of programmers. However, a commitment to writing tests doesn’t make this easy. TDD presents a never-ending challenge. You must repeatedly decide which test to write next, how to arrange code so that the test passes, and how much refactoring to do once it does. Each decision requires judgment and has consequences.&lt;/p&gt;
+
+&lt;p&gt;If your TDD judgment is not yet fully developed, it’s reasonable to temporarily adopt that of a master. Here’s an excellent guiding principle:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Quick green excuses all sins. — Kent Beck&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Green means safety. Green indicates that, at least as evidenced by the tests at hand, you understand the problem. Green is the wall at your back that lets you move forward with confidence. Getting to green quickly simplifies all that follows.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Because the initial goal is more about reaching green than writing perfect code, the refactoring step sometimes removes duplication and other times retains it.&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;The plan is to create tests that thoroughly describe the “99 Bottles” problem, and then to solve the problem with the implementation known as Shameless Green.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;The Shameless Green solution strives for maximum understandability but is generally unconcerned with changeability&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;This chapter concentrates on creating the tests and writing simple code to pass them. Future chapters refactor the resulting code to improve the design.&lt;/p&gt;
+
+&lt;h3 id=&quot;22-writing-the-first-test&quot;&gt;2.2. Writing the First Test&lt;/h3&gt;
+
+&lt;p&gt;The first test is often the most difficult to write. At this point, you know the least about whatever it is you intend to do. Your problem is a big, fuzzy, amorphous blob, and it’s challenging to reach in and carve off a single piece.&lt;/p&gt;
+
+&lt;p&gt;It feels important to choose well, because where you start informs how you’ll proceed, and ultimately determines where you’ll end.&lt;/p&gt;
+
+&lt;p&gt;In the beginning, you have ideas about the problem but actually know very little. Your ideas may turn out to be correct, but it’s just as possible that time will prove them wrong. You can’t figure out what’s right until you write some tests, at which time you may realize that the best course of action is to throw everything away and start over.&lt;/p&gt;
+
+&lt;p&gt;Therefore, the purpose of some of your tests might very well be to prove that they represent bad ideas. Learning which ideas won’t work is forward progress, however disappointing it may be in the moment.&lt;/p&gt;
+
+&lt;p&gt;So while it is important to consider the problem and to sketch out an overall plan before writing the first test, don’t overthink it.&lt;/p&gt;
+
+&lt;p&gt;If you were to sketch out a public Application Programming Interface (API) for “99 Bottles,” it might look like this:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verse(n)&lt;/code&gt; Return the lyrics for the verse number n&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verses(a, b)&lt;/code&gt; Return the lyrics for verses numbered a through b&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;song&lt;/code&gt; Return the lyrics for the entire song&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;This API allows others to request a single verse, a range of verses, or the entire song.&lt;/p&gt;
+
+&lt;p&gt;Now that you have a plan for the API, there are a number of possibilities for the first test. You could write a test for the entire song, for a series of contiguous verses, or for any single verse.&lt;/p&gt;
+
+&lt;p&gt;Let’s  begin by testing a single verse:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BottlesTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Minitest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Test&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;test_the_first_verse&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;99 bottles of beer on the wall, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;99 bottles of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;Take one down and pass it around, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+      &lt;span class=&quot;s2&quot;&gt;&quot;98 bottles of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;assert_equal&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;verse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The simple test above assumes a Bottles class with a verse(n) method that returns the 99th verse when called with 99.&lt;/p&gt;
+
+&lt;p&gt;This test, like all tests, contains three parts:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Setup Create the specific environment required for the test. (Arrange)&lt;/li&gt;
+  &lt;li&gt;Do Perform the action to be tested. (Act)&lt;/li&gt;
+  &lt;li&gt;Verify Confirm the result is as expected. (Assert)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Running that test produces this error:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;BottlesTest&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#test_the_first_verse:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;NameError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;uninitialized&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;constant&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;BottlesTest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Bottles&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottles_test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`test_the_first_verse&apos;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;TDD tells you to write the simplest code that will pass this test. The above error states that the Bottles class does not yet exist.&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottle&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Because you wrote the test, you can confidently predict that running it a second time will now produce the following error:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;BottlesTest&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#test_the_first_verse:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;NoMethodError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;undefined&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;method&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`verse&apos; for #&amp;lt;Bottles:0x007fde360741f0&amp;gt;
+  test/bottles_test.rb:16:in `&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test_the_first_verse&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&apos;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, add &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verse&lt;/code&gt; method:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottle&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verse&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run tests again:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;BottlesTest&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#test_the_first_verse:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;ArgumentError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wrong&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;number&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;of&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;arguments&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;sr&quot;&gt;/Users/s&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;km&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Projects&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;books&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;99&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bottles&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;rb&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`verse&apos;
+  test/bottles_test.rb:16:in `&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test_the_first_ver&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, add the argument that we missed:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottle&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Run tests again:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Failure&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;BottlesTest&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#test_the_first_verse [test/bottles_test.rb:16]:&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;---&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;+++&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;actual&lt;/span&gt;
+  &lt;span class=&quot;err&quot;&gt;@@&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;@@&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;99 bottles of beer on the wall, 99 bottles of beer.
+  -Take one down and pass it around, 98 bottles of beer on the wall.
+  -&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Minitest shows the difference between expected and actual output by prefixing the expected
+with ‘-‘ and the actual with ‘+’. Therefore, you can interpret:&lt;/p&gt;
+
+&lt;p&gt;Minitest expected…&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;“99 bottles of beer on the wall, 99 bottles of beer.” followed by a newline, followed by&lt;/li&gt;
+  &lt;li&gt;“Take one down and pass it around, 98 bottles of beer on the wall.” followed by another 
+newline”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;but instead got &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nil&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Copy the expected output into the verse method:&lt;/p&gt;
+
+&lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Bottle&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;verse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;99 bottles of beer on the wall, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;99 bottles of beer.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;Take one down and pass it around, &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    &lt;span class=&quot;s2&quot;&gt;&quot;98 bottles of beer on the wall.&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The API says that verse takes an argument, but you can make this first test pass without actually using it. Therefore, the argument continues to be named “_” in line 2 above.&lt;/p&gt;
+
+&lt;p&gt;Although this code passes the test, it clearly doesn’t solve the entire problem. As a matter of fact, writing a second test will break it.&lt;/p&gt;
+
+&lt;p&gt;You as the writer of tests know that the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;verse&lt;/code&gt; method must eventually take the value of its argument into account, but you as the writer of code must act in ignorance of this fact. When doing TDD, you toggle between wearing two hats.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;While in the “writing tests” hat, you keep your eye on the big picture and work your way forward with the overall plan in mind.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;When in the “writing code” hat, you pretend to know nothing other than the requirements specified by the tests at hand. Thus, although each individual test is correct, until all are written, the code is incomplete.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;23-removing-duplication&quot;&gt;2.3. Removing Duplication&lt;/h3&gt;
+
+&lt;p&gt;Now that the first test passes, you must decide what to test next.&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-3&quot;&gt;Unearthing Concepts&lt;/h3&gt;
 

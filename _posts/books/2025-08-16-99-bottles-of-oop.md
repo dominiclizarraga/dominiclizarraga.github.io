@@ -702,7 +702,189 @@ Summary
 
 ### Test Driving Shameless Green {#chapter-2}
 
-[Your notes for chapter 2]
+The Shameless Green solution consists of intention-revealing, working software, and is the result of writing simple code to pass a series of presupplied tests.
+
+The provenance of the code that was written in Chapter 1 is obvious, but the tests appeared without explanation. It is now time to take a step back, and investigate how to create tests that lead to Shameless Green.
+
+### 2.1. Understanding Testing
+
+The practice of writing tests before writing code became known as test-driven development
+(TDD). In its simplest form, TDD works like this:
+
+1. Write a test.
+Because the code does not yet exist, this test fails. Test runners usually display failing tests in red.
+
+2. Make it run.
+Write the code to make the test pass. Test runners commonly display passing tests in green.
+
+3. Make it right.
+Each time you return to green, you can refactor any code into a better shape, confident that it remains correct if the tests continue to pass.
+
+The ideas of testing, and of testing first, have won the hearts and minds of programmers. However, a commitment to writing tests doesn’t make this easy. TDD presents a never-ending challenge. You must repeatedly decide which test to write next, how to arrange code so that the test passes, and how much refactoring to do once it does. Each decision requires judgment and has consequences.
+
+If your TDD judgment is not yet fully developed, it’s reasonable to temporarily adopt that of a master. Here’s an excellent guiding principle:
+
+> Quick green excuses all sins. — Kent Beck
+
+Green means safety. Green indicates that, at least as evidenced by the tests at hand, you understand the problem. Green is the wall at your back that lets you move forward with confidence. Getting to green quickly simplifies all that follows.
+
+<b>Because the initial goal is more about reaching green than writing perfect code, the refactoring step sometimes removes duplication and other times retains it.</b>
+
+The plan is to create tests that thoroughly describe the "99 Bottles" problem, and then to solve the problem with the implementation known as Shameless Green. 
+
+<b>The Shameless Green solution strives for maximum understandability but is generally unconcerned with changeability</b>
+
+This chapter concentrates on creating the tests and writing simple code to pass them. Future chapters refactor the resulting code to improve the design.
+
+### 2.2. Writing the First Test
+
+The first test is often the most difficult to write. At this point, you know the least about whatever it is you intend to do. Your problem is a big, fuzzy, amorphous blob, and it’s challenging to reach in and carve off a single piece.
+
+It feels important to choose well, because where you start informs how you’ll proceed, and ultimately determines where you’ll end.
+
+In the beginning, you have ideas about the problem but actually know very little. Your ideas may turn out to be correct, but it’s just as possible that time will prove them wrong. You can’t figure out what’s right until you write some tests, at which time you may realize that the best course of action is to throw everything away and start over.
+
+Therefore, the purpose of some of your tests might very well be to prove that they represent bad ideas. Learning which ideas won’t work is forward progress, however disappointing it may be in the moment.
+
+So while it is important to consider the problem and to sketch out an overall plan before writing the first test, don’t overthink it.
+
+If you were to sketch out a public Application Programming Interface (API) for "99 Bottles," it might look like this:
+
+- `verse(n)` Return the lyrics for the verse number n
+- `verses(a, b)` Return the lyrics for verses numbered a through b
+- `song` Return the lyrics for the entire song
+
+This API allows others to request a single verse, a range of verses, or the entire song.
+
+Now that you have a plan for the API, there are a number of possibilities for the first test. You could write a test for the entire song, for a series of contiguous verses, or for any single verse.
+
+Let's  begin by testing a single verse:
+
+```ruby
+class BottlesTest < Minitest::Test
+  def test_the_first_verse
+    expected =
+      "99 bottles of beer on the wall, " +
+      "99 bottles of beer.\n" +
+      "Take one down and pass it around, " +
+      "98 bottles of beer on the wall.\n"
+    assert_equal expected, Bottles.new.verse(99)
+  end
+end
+```
+
+The simple test above assumes a Bottles class with a verse(n) method that returns the 99th verse when called with 99.
+
+This test, like all tests, contains three parts:
+
+- Setup Create the specific environment required for the test. (Arrange)
+- Do Perform the action to be tested. (Act)
+- Verify Confirm the result is as expected. (Assert)
+
+Running that test produces this error:
+
+```ruby
+1) Error:
+  BottlesTest#test_the_first_verse:
+  NameError: uninitialized constant BottlesTest::Bottles
+  test/bottles_test.rb:16:in `test_the_first_verse'
+```
+
+TDD tells you to write the simplest code that will pass this test. The above error states that the Bottles class does not yet exist.
+
+```ruby
+class Bottle
+end
+```
+
+Because you wrote the test, you can confidently predict that running it a second time will now produce the following error:
+
+```ruby
+1) Error:
+  BottlesTest#test_the_first_verse:
+  NoMethodError: undefined method `verse' for #<Bottles:0x007fde360741f0>
+  test/bottles_test.rb:16:in `test_the_first_verse'
+```
+
+Then, add `verse` method:
+
+```ruby
+class Bottle
+  def verse
+  end
+end
+```
+
+Run tests again:
+
+```ruby
+1) Error:
+  BottlesTest#test_the_first_verse:
+  ArgumentError: wrong number of arguments (1 for 0)
+  /Users/skm/Projects/books/99bottles/lib/bottles.rb:6:in `verse'
+  test/bottles_test.rb:16:in `test_the_first_ver
+```
+
+Then, add the argument that we missed:
+
+```ruby
+class Bottle
+  def verse(_)
+  end
+end
+```
+
+Run tests again:
+
+```ruby
+1) Failure:
+  BottlesTest#test_the_first_verse [test/bottles_test.rb:16]:
+  --- expected
+  +++ actual
+  @@ -1,3 +1 @@
+  -"99 bottles of beer on the wall, 99 bottles of beer.
+  -Take one down and pass it around, 98 bottles of beer on the wall.
+  -"
+  +nil
+```
+
+Minitest shows the difference between expected and actual output by prefixing the expected
+with '-' and the actual with '+'. Therefore, you can interpret:
+
+Minitest expected…
+
+- "99 bottles of beer on the wall, 99 bottles of beer." followed by a newline, followed by
+- "Take one down and pass it around, 98 bottles of beer on the wall." followed by another 
+  newline"
+
+but instead got `nil`.
+
+Copy the expected output into the verse method:
+
+```ruby
+class Bottle
+  def verse(_)
+    "99 bottles of beer on the wall, " +
+    "99 bottles of beer.\n" +
+    "Take one down and pass it around, " +
+    "98 bottles of beer on the wall.\n"
+  end
+end
+```
+
+The API says that verse takes an argument, but you can make this first test pass without actually using it. Therefore, the argument continues to be named "_" in line 2 above.
+
+Although this code passes the test, it clearly doesn’t solve the entire problem. As a matter of fact, writing a second test will break it. 
+
+You as the writer of tests know that the `verse` method must eventually take the value of its argument into account, but you as the writer of code must act in ignorance of this fact. When doing TDD, you toggle between wearing two hats. 
+
+- While in the "writing tests" hat, you keep your eye on the big picture and work your way forward with the overall plan in mind.
+
+- When in the "writing code" hat, you pretend to know nothing other than the requirements specified by the tests at hand. Thus, although each individual test is correct, until all are written, the code is incomplete.
+
+### 2.3. Removing Duplication
+
+Now that the first test passes, you must decide what to test next.
 
 ### Unearthing Concepts {#chapter-3}
 
