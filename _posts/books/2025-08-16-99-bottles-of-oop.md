@@ -886,6 +886,16 @@ You as the writer of tests know that the `verse` method must eventually take the
 
 Now that the first test passes, you must decide what to test next.
 
+
+
+
+
+
+
+
+
+
+
 ### Unearthing Concepts {#chapter-3}
 
 [Your notes for chapter 3]
