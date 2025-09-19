@@ -639,8 +639,7 @@ Assignments, Branches and Conditions (ABC) Metric
 
 The problem with cyclomatic complexity is that it doesn’t take everything into account. Code does more than just evaluate conditions; it also assigns values to variables and sends messages. These things add up, and as you do more and more of each, your code becomes increasingly difficult to understand.
 
-In 1997, twenty-one years after the unveiling of cyclomatic complexity, Jerry Fitzpatrick
-published "Applying the ABC Metric to C, C++, and Java". His ABC stands for assignments, branches and conditions, where:
+In 1997, twenty-one years after the unveiling of cyclomatic complexity, Jerry Fitzpatrick published "Applying the ABC Metric to C, C++, and Java". His ABC stands for assignments, branches and conditions, where:
 
 - Assignments is a count of variable assignments.
 - Branches counts not branches of an if statement (as one could forgivably infer) but branches of control, meaning function calls or message sends.

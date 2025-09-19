@@ -10,17 +10,20 @@ description: 'My journey through POOD course - sessions, lessons, and insights'
   <a href="https://courses.sandimetz.com/" target="_blank">Practical Object-Oriented Design course</a>.
 </strong>
 
-Good OO requires an understanding of three things:
+Here are the notes from the 12-week walkthrough of <a href="https://sandimetz.com/courses" target="_blank">Practical Object-Oriented Design Course</a> by Sandi Metz, along I'm reading the book <a href="https://sandimetz.com/99bottles" target="_blank">99 botles</a> (ehich I think is te same content but written.)
+
+
+Good Object-Oriented Programming requires an understanding of three things:
 
 <ul>
   <li>
     First, <b>testing</b>. You have to know how to write good tests.
   </li>
   <li>
-    Second, <b>refactoring</b>. You need the skills to rearrange the shape of existing code without breaking it
+    Second, <b>refactoring</b>. You need the skills to rearrange the internals of existing code without breaking/changing the output.
   </li>
   <li>
-    Finally, <b>OO</b>. You have to understand the concepts underlying object-oriented programming and design.
+    Finally, <b>OOP</b>. You have to understand the concepts underlying object-oriented programming and design.
   </li>
 </ul>
 
