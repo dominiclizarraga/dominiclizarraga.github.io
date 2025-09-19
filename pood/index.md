@@ -10,7 +10,7 @@ description: 'My journey through POOD course - sessions, lessons, and insights'
   <a href="https://courses.sandimetz.com/" target="_blank">Practical Object-Oriented Design course</a>.
 </strong>
 
-Here are the notes from the 12-week walkthrough of <a href="https://sandimetz.com/courses" target="_blank">Practical Object-Oriented Design Course</a> by Sandi Metz, along I'm reading the book <a href="https://sandimetz.com/99bottles" target="_blank">99 botles</a> (ehich I think is te same content but written.)
+Here are the notes from the 12-week walkthrough of <a href="https://sandimetz.com/courses" target="_blank">Practical Object-Oriented Design Course</a> by Sandi Metz. I'm also reading the book <a href="https://sandimetz.com/99bottles" target="_blank">99 Botles</a> (which I think is the same content, but written.)
 
 
 Good Object-Oriented Programming requires an understanding of three things:
