@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2025-10-16T19:16:30-06:00</updated>
+  <updated>2025-10-17T21:38:22-07:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -15,7 +15,7 @@
   <entry>
     <title>99 bottles of OOP by Sandi Metz, Katrina Owen &amp; TJ Stankus</title>
     <link href="http://localhost:4000/2025/08/16/99-bottles-of-oop.html"/>
-    <updated>2025-08-16T00:00:00-06:00</updated>
+    <updated>2025-08-16T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/08/16/99-bottles-of-oop</id>
     <content type="html">&lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Rediscovering Simplicity&lt;/a&gt;&lt;/li&gt;
@@ -989,7 +989,7 @@ T&lt;/p&gt;
   <entry>
     <title>Testing Rails - Thoughtbot by Josh Steiner and Joël Quenneville.</title>
     <link href="http://localhost:4000/2025/05/17/thoughtbot-ebook-testing.html"/>
-    <updated>2025-05-17T00:00:00-06:00</updated>
+    <updated>2025-05-17T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/05/17/thoughtbot-ebook-testing</id>
     <content type="html">&lt;p&gt;In my journey to improve my testing skills I found this &lt;a href=&quot;https://books.thoughtbot.com/assets/testing-rails.pdf&quot;&gt;Thoughtbot ebook&lt;/a&gt;&lt;/p&gt;
 
@@ -1017,7 +1017,7 @@ T&lt;/p&gt;
   <entry>
     <title>Effective testing with RSpec by Myron Marston and Ian Dees.</title>
     <link href="http://localhost:4000/2025/04/11/effective-testing-with-rspec.html"/>
-    <updated>2025-04-11T00:00:00-06:00</updated>
+    <updated>2025-04-11T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/04/11/effective-testing-with-rspec</id>
     <content type="html">&lt;p&gt;Recently, I participated in a very competitive interview. When I submitted the code challenge, I felt my weakest area was the testing suite. Even though feedback was not available, being honest with myself and seeing some posts from the reviewers, I decided to dive deeper into testing.&lt;/p&gt;
 
@@ -5837,7 +5837,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
   <entry>
     <title>Hands-on TDD: Using Ruby, Rails, and RSpec by Greg Donald.</title>
     <link href="http://localhost:4000/2025/03/16/hands-on-tdd-rails.html"/>
-    <updated>2025-03-16T00:00:00-06:00</updated>
+    <updated>2025-03-16T00:00:00-07:00</updated>
     <id>http://localhost:4000/2025/03/16/hands-on-tdd-rails</id>
     <content type="html">&lt;p&gt;The book has a very practical approach (living up to its title “hands-on”) where the author explains what you’re going to build, which tools and why those tools. It’s meant for beginner-intermediate developers.&lt;/p&gt;
 
@@ -5883,7 +5883,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
   <entry>
     <title>Professional Rails Testing by Jason Swett.</title>
     <link href="http://localhost:4000/2025/02/05/professional-rails-testing.html"/>
-    <updated>2025-02-05T00:00:00-06:00</updated>
+    <updated>2025-02-05T00:00:00-08:00</updated>
     <id>http://localhost:4000/2025/02/05/professional-rails-testing</id>
     <content type="html">&lt;p&gt;This book has two parts, the first one goes over principles of testing, the second is about the tools you can use to test your code base.&lt;/p&gt;
 
@@ -6716,7 +6716,7 @@ It has predetermined responses&lt;/p&gt;
   <entry>
     <title>Apprenticeship Patterns 🌌 by David H. Hoover &amp; Adewale Oshineye.</title>
     <link href="http://localhost:4000/2023/09/22/apprenticeship-patterns.html"/>
-    <updated>2023-09-22T00:00:00-06:00</updated>
+    <updated>2023-09-22T00:00:00-07:00</updated>
     <id>http://localhost:4000/2023/09/22/apprenticeship-patterns</id>
     <content type="html">
 </content>
@@ -6729,7 +6729,7 @@ It has predetermined responses&lt;/p&gt;
   <entry>
     <title>The Minitest Cookbook by Chris Kottom</title>
     <link href="http://localhost:4000/2022/01/05/minitest_cookbook.html"/>
-    <updated>2022-01-05T00:00:00-06:00</updated>
+    <updated>2022-01-05T00:00:00-08:00</updated>
     <id>http://localhost:4000/2022/01/05/minitest_cookbook</id>
     <content type="html">&lt;p&gt;Today though, the separation between development and testing has largely disappeared - at least in the universe that most Ruby and Rails programmers occupy.&lt;/p&gt;
 
@@ -7229,7 +7229,7 @@ them to:
   <entry>
     <title>Refactoring by Jay Fields, Shane Harvie, Martin Fowler &amp; Kent Beck.</title>
     <link href="http://localhost:4000/2021/09/25/refactoring.html"/>
-    <updated>2021-09-25T00:00:00-05:00</updated>
+    <updated>2021-09-25T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/09/25/refactoring</id>
     <content type="html">&lt;p&gt;This book will take you from beginner to advanced in terms of refactoring.&lt;/p&gt;
 
@@ -7479,7 +7479,7 @@ level as a series of comments.&lt;/p&gt;
   <entry>
     <title>The Well-Grounded Rubyist by David A. Black &amp; Joseph Leo III.</title>
     <link href="http://localhost:4000/2021/06/15/well_grounded_rubyist.html"/>
-    <updated>2021-06-15T00:00:00-05:00</updated>
+    <updated>2021-06-15T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/06/15/well_grounded_rubyist</id>
     <content type="html">&lt;p&gt;The book is on its 3rd edition and it’s comprised of 3 parts and 16 chapters:&lt;/p&gt;
 
@@ -7647,7 +7647,7 @@ Numerators are closely related to eaters, but they are not the same thing period
   <entry>
     <title>Practical Object-Oriented Design (POODR) by Sandi Metz</title>
     <link href="http://localhost:4000/2021/05/30/practical_oriented.html"/>
-    <updated>2021-05-30T00:00:00-05:00</updated>
+    <updated>2021-05-30T00:00:00-07:00</updated>
     <id>http://localhost:4000/2021/05/30/practical_oriented</id>
     <content type="html">&lt;p&gt;This book is the second edition that Sandi Metz publishes and it’s even considered as a must-read by the RoR community, give it a shot you won’t regret at all no matter what language you’re coming from.&lt;/p&gt;
 

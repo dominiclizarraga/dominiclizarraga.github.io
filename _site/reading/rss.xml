@@ -977,7 +977,7 @@ newline”&lt;/li&gt;
 &lt;p&gt;[Your notes for chapter 9]
 T&lt;/p&gt;
 </description>
-      <pubDate>Sat, 16 Aug 2025 00:00:00 -0600</pubDate>
+      <pubDate>Sat, 16 Aug 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/08/16/99-bottles-of-oop.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/08/16/99-bottles-of-oop.html</guid>
     </item>
@@ -1002,7 +1002,7 @@ T&lt;/p&gt;
 
 &lt;p&gt;https://thoughtbot.com/upcase/test-driven-rails&lt;/p&gt;
 </description>
-      <pubDate>Sat, 17 May 2025 00:00:00 -0600</pubDate>
+      <pubDate>Sat, 17 May 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/05/17/thoughtbot-ebook-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/05/17/thoughtbot-ebook-testing.html</guid>
     </item>
@@ -5819,7 +5819,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
 &lt;p&gt;Construction or test environment&lt;/p&gt;
 
 </description>
-      <pubDate>Fri, 11 Apr 2025 00:00:00 -0600</pubDate>
+      <pubDate>Fri, 11 Apr 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/04/11/effective-testing-with-rspec.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/04/11/effective-testing-with-rspec.html</guid>
     </item>
@@ -5862,7 +5862,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
 &lt;h3 id=&quot;chapter-3&quot;&gt;Getting started with Ruby.&lt;/h3&gt;
 
 </description>
-      <pubDate>Sun, 16 Mar 2025 00:00:00 -0600</pubDate>
+      <pubDate>Sun, 16 Mar 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/03/16/hands-on-tdd-rails.html</guid>
     </item>
@@ -6692,7 +6692,7 @@ It has predetermined responses&lt;/p&gt;
 &lt;h3 id=&quot;chapter-12&quot;&gt;Chapter 12. RSpec syntax.&lt;/h3&gt;
 &lt;h3 id=&quot;chapter-13&quot;&gt;Chapter 13. Capybara’s DSL.&lt;/h3&gt;
 </description>
-      <pubDate>Wed, 05 Feb 2025 00:00:00 -0600</pubDate>
+      <pubDate>Wed, 05 Feb 2025 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2025/02/05/professional-rails-testing.html</link>
       <guid isPermaLink="true">http://localhost:4000/2025/02/05/professional-rails-testing.html</guid>
     </item>
@@ -6702,7 +6702,7 @@ It has predetermined responses&lt;/p&gt;
       <dc:creator>dom lizarraga</dc:creator>
       <description>
 </description>
-      <pubDate>Fri, 22 Sep 2023 00:00:00 -0600</pubDate>
+      <pubDate>Fri, 22 Sep 2023 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2023/09/22/apprenticeship-patterns.html</link>
       <guid isPermaLink="true">http://localhost:4000/2023/09/22/apprenticeship-patterns.html</guid>
     </item>
@@ -7199,7 +7199,7 @@ them to:
 	◦ Rendered templates
 	◦ Instance variables passed to the view&lt;/p&gt;
 </description>
-      <pubDate>Wed, 05 Jan 2022 00:00:00 -0600</pubDate>
+      <pubDate>Wed, 05 Jan 2022 00:00:00 -0800</pubDate>
       <link>http://localhost:4000/2022/01/05/minitest_cookbook.html</link>
       <guid isPermaLink="true">http://localhost:4000/2022/01/05/minitest_cookbook.html</guid>
     </item>
@@ -7446,7 +7446,7 @@ level as a series of comments.&lt;/p&gt;
 
 &lt;p&gt;Book examples: https://github.com/DominicLizarraga/refactoring_ruby_edition&lt;/p&gt;
 </description>
-      <pubDate>Sat, 25 Sep 2021 00:00:00 -0500</pubDate>
+      <pubDate>Sat, 25 Sep 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/09/25/refactoring.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/09/25/refactoring.html</guid>
     </item>
@@ -7611,7 +7611,7 @@ Numerators are closely related to eaters, but they are not the same thing period
 &lt;p&gt;Here is the source code https://github.com/jleo3/twgr&lt;/p&gt;
 
 </description>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 -0500</pubDate>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/06/15/well_grounded_rubyist.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/06/15/well_grounded_rubyist.html</guid>
     </item>
@@ -7777,7 +7777,7 @@ A superclass can have many subclasses, but each subclass is permitted have one s
 
 &lt;p&gt;These are notes I took from the book, nothing is mine.&lt;/p&gt;
 </description>
-      <pubDate>Sun, 30 May 2021 00:00:00 -0500</pubDate>
+      <pubDate>Sun, 30 May 2021 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2021/05/30/practical_oriented.html</link>
       <guid isPermaLink="true">http://localhost:4000/2021/05/30/practical_oriented.html</guid>
     </item>
