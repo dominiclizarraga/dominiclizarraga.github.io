@@ -12,11 +12,11 @@
     <webfeeds:icon>http://localhost:4000/css/logo-simple.svg</webfeeds:icon>
     
     <item>
-      <title>Mental model for writing tests</title>
+      <title>Mental model for writing double tests</title>
       <dc:creator>dom lizarraga</dc:creator>
-      <description>&lt;p&gt;With my recent journey of gaining more testing experience with chatGPt help, and seeing some kind of pattern that after writing the exercises from the book &lt;a href=&quot;/2025/04/11/effective-testing-with-rspec.html&quot;&gt;Efective testing with RSpec by Myron Marston and Ian Dees&lt;/a&gt; I shared the idea with the LLM, and it helped me build the following.&lt;/p&gt;
+      <description>&lt;p&gt;With my recent journey of gaining more testing experience and with chatGPT on my side, I started looking at some sort of pattern when writing the double testing exercises from the book &lt;a href=&quot;/2025/04/11/effective-testing-with-rspec.html&quot;&gt;Efective testing with RSpec by Myron Marston and Ian Dees&lt;/a&gt; I shared the idea with the LLM, and it helped me build the following.&lt;/p&gt;
 
-&lt;p&gt;First thing that poped my my was the Arrange, Act, Assert so i did used that one to guide the LLM to what type of output I wanted.&lt;/p&gt;
+&lt;p&gt;First thing that poped my mind was the Arrange, Act, Assert so I did used that one to guide the LLM to what type of output I wanted.&lt;/p&gt;
 
 &lt;p&gt;LLM response:&lt;/p&gt;
 
@@ -123,15 +123,17 @@ Every time you write a controller- or API-level test, mentally repeat:&lt;/p&gt;
 
 &lt;p&gt;Let me know if you want to turn this into a printable or flashcard!&lt;/p&gt;
 
+&lt;hr /&gt;
+
 &lt;p&gt;Even though tools like LLM can help us write more code (and tests!) faster than ever, understanding the basics is still on us.&lt;/p&gt;
 
-&lt;p&gt;At the end of the day, we’re the ones responsible for making sure the code works and is maitainable. So the better we get at thinking through these steps, the more useful the LLM becomes.&lt;/p&gt;
+&lt;p&gt;At the end of the day, we’re the ones responsible for making sure the code works and be maintainable. So the better we get at thinking through these steps, the more useful the LLM becomes.&lt;/p&gt;
 
 &lt;p&gt;Don’t skip the thinking.&lt;/p&gt;
 </description>
       <pubDate>Mon, 04 Aug 2025 00:00:00 -0700</pubDate>
-      <link>http://localhost:4000/2025/08/04/testing-mental-model.html</link>
-      <guid isPermaLink="true">http://localhost:4000/2025/08/04/testing-mental-model.html</guid>
+      <link>http://localhost:4000/2025/08/04/double-testing-mental-model.html</link>
+      <guid isPermaLink="true">http://localhost:4000/2025/08/04/double-testing-mental-model.html</guid>
     </item>
     
     <item>
@@ -169,6 +171,8 @@ Equivalence partitioning
 Bounday value analysis
 Decision table
 State transition&lt;/p&gt;
+
+&lt;p&gt;workship recording https://goodenoughtesting.com/workshops/5&lt;/p&gt;
 </description>
       <pubDate>Sat, 28 Jun 2025 00:00:00 -0700</pubDate>
       <link>http://localhost:4000/2025/06/28/good-enough-testing.html</link>
