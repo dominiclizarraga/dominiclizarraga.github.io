@@ -1,12 +1,12 @@
 ---
-title: Mental model for writing tests
+title: Mental model for writing double tests
 categories: blog
 layout: post
 ---
 
-With my recent journey of gaining more testing experience with chatGPt help, and seeing some kind of pattern that after writing the exercises from the book [Efective testing with RSpec by Myron Marston and Ian Dees](/2025/04/11/effective-testing-with-rspec.html) I shared the idea with the LLM, and it helped me build the following.
+With my recent journey of gaining more testing experience and with chatGPT on my side, I started looking at some sort of pattern when writing the double testing exercises from the book [Efective testing with RSpec by Myron Marston and Ian Dees](/2025/04/11/effective-testing-with-rspec.html) I shared the idea with the LLM, and it helped me build the following.
 
-First thing that poped my my was the Arrange, Act, Assert so i did used that one to guide the LLM to what type of output I wanted.
+First thing that poped my mind was the Arrange, Act, Assert so I did used that one to guide the LLM to what type of output I wanted.
 
 LLM response: 
 
@@ -108,8 +108,10 @@ Write 3–5 of these for different routes, and it’ll stick — just like `git 
 
 Let me know if you want to turn this into a printable or flashcard!
 
+-----
+
 Even though tools like LLM can help us write more code (and tests!) faster than ever, understanding the basics is still on us. 
 
-At the end of the day, we’re the ones responsible for making sure the code works and is maitainable. So the better we get at thinking through these steps, the more useful the LLM becomes.
+At the end of the day, we’re the ones responsible for making sure the code works and be maintainable. So the better we get at thinking through these steps, the more useful the LLM becomes.
 
 Don’t skip the thinking.
