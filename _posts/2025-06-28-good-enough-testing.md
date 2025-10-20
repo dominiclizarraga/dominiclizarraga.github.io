@@ -31,3 +31,5 @@ Equivalence partitioning
 Bounday value analysis
 Decision table
 State transition
+
+workship recording https://goodenoughtesting.com/workshops/5
