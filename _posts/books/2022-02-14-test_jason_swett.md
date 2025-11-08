@@ -9,7 +9,45 @@ author: Jason Swett.
 rating: 5.0
 ---
 
-Here I wrote the parts I considered most important from this book, Jason goes from explaining different types of tests, which ones he uses, DSL, how to think on testing from a specification perspective
+Here I wrote the parts I considered most important from this book, Jason goes from explaining different types of tests, which ones he uses, DSL, how to think on testing from a specification perspective not validation, make testing a habit that compound down the road and increase productivity even though it feels in the begining that it deters you from coding faster.
+
+1. [Introduction](#chapter-1)
+2. [Intro to Testing Principles](#chapter-2)
+3. [Rails Testing Tools](#chapter-3)
+
+###  Chapter 1 Introduction {#chapter-1}
+
+Who this book is for, what’s in this book and how to use this book
+
+### Chapter 2 Fundamentals: Intro to Testing Principles {#chapter-2}
+
+First I capture what to do in the form of a test. Then I follow my own instructions by getting the test to pass. Then I repeat. This is a much lighter cognitive burden than if I were to juggle these different mental jobs and allows me to be productive for longer because I don’t run out of mental energy as early in the day.
+
+The first truth is that it’s impossible to write a piece of code cleanly on the first try. Some amount of refactoring, typically a lot of refactoring, is necessary in order to get the code into a reasonably good state.
+
+The second truth is that it’s impossible to do non-trivial refactorings without having automated tests. The feedback cycle is just too long when all the testing is done manually. Either that or the risk of refactoring without testing afterward is just too large to be justified.
+
+“What level of test coverage should I shoot for?” is one of the questions most commonly asked by beginners to Rails testing.
+
+My answer is that you shouldn’t shoot for a particular level of test coverage. I recommend that instead you make testing a habitual part of your development workflow. A healthy level of test coverage will flow from there.
+
+All software has bugs, but if you feel like the rate of new bugs appearing in production is unacceptably high, it may be a symptom of too little test coverage.
+
+The only alternative to using automated tests, aside from not testing at all, is to test manually.
+
+Infrequent deployments can arise as a symptom of too few tests for a couple different reasons. One possible reason is that the need for manual testing bottlenecks the deployment timing. If it takes two days for manual testers to do a full regression test on the application, you can of course only deploy a fully-tested version of your application once every two days at maximum.
+
+Inability to refactor or make big changes.
+
+Testing != TDD
+
+TDD is a specific kind of testing practice where you write the tests before you write the code that makes the test pass.
+
+### Chapter 3 Fundamentals: Rails Testing Tools {#chapter-3}
+
+
+
+
 
 The eight types of RSpec specs
 
