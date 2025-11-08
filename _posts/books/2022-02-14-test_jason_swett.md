@@ -1,8 +1,16 @@
 ---
-title: The Beginner’s Guide to Rails Testing Jason Swett
-categories: blog
-layout: post
+categories:
+  - book
+layout: book
+title: "The Beginner’s Guide to Rails Testing Jason Swett"
+publisher: 
+published: "2022"
+author: Jason Swett.
+rating: 5.0
 ---
+
+Here I wrote the parts I considered most important from this book, Jason goes from explaining different types of tests, which ones he uses, DSL, how to think on testing from a specification perspective
+
 The eight types of RSpec specs
 
 • Model specs
