@@ -147,14 +147,89 @@ If you’re already comfortable with testing
 
 ### Chapter 4 Fundamentals: Your First Practice Tests {#chapter-4}
 
+I’ll describe it in three parts:
 
+1. An application template that can add all the necessary gems and configuration
+2. My setup process (commands I run to create a new Rails app)
+3. A breakdown of the gems I use
 
-
-
-Start rails with template: https://guides.rubyonrails.org/rails_application_templates.html
-
+Template: 
+Application template I created that will do two things: 
+  1) install a handful of testing-related gems and 
+  2) add a config file that will tell RSpec not to generate certain types of files
 
 ```ruby
-rails new my_project -T -d postgresql \ -m https://raw.githubusercontent.com/jasonswett/testing_application_template/master/applicatiOnce
+gem_group :development, :test do
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
+  gem 'capybara'
+  gem 'webdrivers'
+  gem 'faker'
+end
+
+initializer 'generators.rb', <<-CODE
+  Rails.application.config.generators do |g|
+    g.test_framework :rspec,
+    fixtures: false,
+    view_specs: false,
+    helper_specs: false,
+    routing_specs: false,
+    request_specs: false,
+    controller_specs: false
+  end
+CODE
+
+after_bundle do
+  generate 'rspec:install'
+end
 ```
+
+Setup process: 
+
+When I run `rails new`, I always use the `-T` flag for “skip test files” because I always use `RSpec` instead of the `Minitest` that Rails comes with by default. Also, incidentally, I always use `PostgreSQL`. This choice of course has little to do with testing but I’m including it for completeness.
+
+ I’m also using the `-m` flag so I can pass in my application template.
+
+```ruby
+rails new my_project -T -d postgresql \ 
+  -m https://raw.githubusercontent.com/\
+  jasonswett/testing_application_template\
+  /master/application_template.rb
+```
+
+The Gems:
+
+- `rspec-rails`: The rspec-rails gem is the version of the RSpec gem that’s specifically fitted to Rails
+- `factory_bot_rails`: Factory Bot is a tool for generating test data.
+- `capybara`: Capybara is a tool for writing acceptance tests, i.e. tests that interact with the browser and simulate clicks and keystrokes.
+- `webdrivers`: In order for Selenium to work with a browser, Selenium needs drivers.
+- `faker`: By default, Factory Bot (the tool for generating test data) will give us factories that look something like this:
+
+```ruby
+FactoryBot.define do
+  factory :customer do
+    first_name { "MyString" }
+    last_name { "MyString" }
+    email { "MyString" }
+  end
+end
+```
+
+When collision on attribute `first_name` arise due to uniqueness:
+
+```ruby
+FactoryBot.define do
+  factory :customer do
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email { Faker::Internet.email }
+  end
+end
+```
+
+I also often end up adding the `VCR` and `WebMock` gems when I need to test functionality that makes external network requests.
+
+Next steps
+
+After I initialize my Rails app, I usually create a walking skeleton by deploying my application to a production and staging environment and adding one small feature, for example the ability to sign in. Building the sign-in feature will prompt me to write my first tests. By working in this way I front-load all the difficult and mysterious work of the project’s early life.
 
