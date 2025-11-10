@@ -20,6 +20,7 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 16. [Factory Bot: Build Strategies and Faker](#chapter-16)
 17. [Factory Bot: Advanced Usage](#chapter-17)
 18. [RSpec Syntax: Introduction](#chapter-18)
+31. [Model specs: Introduction](#chapter-31)
 
 ###  Chapter 1 Introduction {#chapter-1}
 
@@ -500,6 +501,8 @@ For creating objects using `Factory Bot`, there are two main methods offered: `c
 - If we were to run `FactoryBot.build(:user)`, it would return an unpersisted
 instance of a `User` model.
 
+<b>Whenever possible, we’re going to favor `.build` over `.create`, as persisting to the database is one of the slowest operations in our tests.</b>
+
 If we go to the terminal and instantiate the next model with different methods:
 
 ```ruby
@@ -788,4 +791,63 @@ create(:insurance_deposit, pdf_content: "my arbitrary PDF content")
 This is much tidier than the original. If we want to see how `pdf_content` works, we can open up the `insurance_deposit` factory and have a look.
 
 ### Chapter 18. RSpec Syntax: Introduction {#chapter-18}
+
+### Chapter 31. Model Specs: Introduction {#chapter-31}
+
+The purpose of model specs
+
+<b>Model specs are for testing the behavior of your application.</b> This may sound obvious, but many programmers seem to misunderstand the meaning of “behavior” and instead test the implementation of their application’s features, which unfortunately misses the point of testing altogether. Let’s talk about the difference between testing implementation and testing behavior.
+
+Implementation vs. behavior
+
+An example of an implementation test might be: “Does the Patient model have a `has_many :payment_entries` association?” If you look at `patient.rb` and it contains the line `has_many :payment_entries`, then the test passes.
+
+An example of a behavior test might be <b>“When I add a payment entry for $50 for a patient, does the patient’s balance decrease by $50?”</b> To perform this test you might check the patient’s balance, see that it’s $80, then enter a $50 payment into the system and finally navigate to the patient’s profile and verify that the patient’s balance is now $30 instead of $80.
+
+If you’ve verified that adding a $50 payment entry decreases a patient’s balance by $50, then you’ve also verified that a `has_many :payment_entries` association exists , since the feature can’t work without the `payment_entries` association. So having an additional test solely for the `payment_entries` association would be redundant and superfluous.
+
+Notice how the behavior test has nothing to do with how the feature is actually coded. We don’t care how it works, we only care that it works.
+
+Common errors of testing implementation instead of behavior
+
+• Verifying that validations exist
+• Verifying that associations exist
+• Verifying that a class responds to certain methods
+• Verifying that callbacks exist
+• Verifying that a database table has certain columns and indexes
+
+These are all examples of testing implementation rather than behavior. All such tests are quite frankly, pointless. Instead of testing these things directly, it’s more helpful to test the behaviors that these things enable.
+
+The value of loose coupling
+
+One benefit of testing behavior rather than implementation is loose coupling. Two things are loosely coupled to the degree that you can change one without having to change the other.
+
+If you write tests that test implementation, you’ve guaranteed tight coupling. Loose coupling is only possible with tests that test behavior.
+
+Testing that a model responds to certain methods
+
+```ruby
+it { expect(factory_instance).to respond_to(:public_method_name) }
+```
+
+There’s negligible value in simply testing that a model responds to a method. Better to test that that method does the right thing.
+
+Testing for the presence of callbacks
+
+```ruby
+it { expect(user).to callback(:calculate_some_metrics).after(:save) }
+it { expect(user).to callback(:track_new_user_signup).after(:create) }
+```
+
+Don’t verify that the callback got called. Verify that you got the result you expected the callback to produce.
+
+Tips for writing valuable RSpec tests
+
+<b>Here’s how I tend to write model specs: for every method I create on a model, I try to poke at that method from every possible angle and make sure it returns the desired result.</b>
+
+For example, I recently added a feature in an application that made it impossible to schedule an appointment for a patient who has been inactivated. So I wrote three test cases: 
+- one where the patient is active (expect success), 
+- one where the patient is inactive (expect an error to get added to the object), 
+- and one where the patient was missing altogether (expect a different error on the object).
+
 
