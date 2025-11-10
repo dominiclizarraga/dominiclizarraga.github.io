@@ -16,6 +16,8 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 3. [Rails Testing Tools](#chapter-3)
 4. [Your First Practice Tests](#chapter-4)
 14. [Factory Bot: Introduction](#chapter-14)
+15. [Factory Bot: Getting Started](#chapter-15)
+16. [Factory Bot: Build Strategies and Faker](#chapter-16)
 
 ###  Chapter 1 Introduction {#chapter-1}
 
@@ -403,7 +405,7 @@ order = orders(:payments_equal_line_item_total)
 
 Which is best?
 
-# Summary
+Summary
 
 Manual Data Generation
 - Quickly becomes tedious but useful for small, simple cases
@@ -427,3 +429,64 @@ Practical Recommendation
 - Both approaches could be combined in a project when appropriate
 
 The key takeaway: `factories` are preferred for their transparency and encouraging minimal, test-specific data generation, but the author remains pragmatic about using the right tool for the situation.
+
+### Chapter 15 Factory Bot: Getting started {#chapter-15}
+
+To install `Factory Bot`, add the factory_bot_rails gem to the `:development`, `:test` group of your `Gemfile`.
+
+```ruby
+group :development, :test do
+  gem 'factory_bot_rails'
+end
+```
+
+Factory definitions:
+
+```ruby
+user = FactoryBot.create(:user)
+```
+Notice how we don’t have to specify anything at all about the record’s attributes. We only had to pass in :user as an argument. Factory Bot will automatically take care of the details for the user record based on the instructions we specify in the user factory.
+
+```ruby
+FactoryBot.define do
+  factory :user do
+    first_name { 'John' }
+    last_name { 'Smith' }
+    email { 'john.smith@example.com' }
+  end
+end
+```
+
+As you may have guessed, `:user` maps to our `User` model (assuming we have one) and `first_name`, `last_name` and `email` all map to attributes in the `User` model.
+
+Below is a more detailed explanation of what each part of the factory definition does.
+
+```ruby
+# FactoryBot is the name of a class.
+# "define" is a class method on the FactoryBot class.
+FactoryBot.define do
+  # "factory" is a method. It takes, as an argument, the name of the factory
+  # we're defining. By convention, the argument we pass gets matched up with
+  # an ActiveRecord class, e.g. :user gets matched up with User.
+  factory :user do
+    # Each attribute in our ActiveRecord model can have a corresponding line
+    # in our factory definition. In this case, first_name, last_name and
+    # email are all dynamically-defined methods. Each of these methods
+    # takes a block which supplies the value of the attribute.
+    first_name { 'John' }
+    last_name { 'Smith' }
+    email { 'john.smith@example.com' }
+  end
+end
+```
+
+Where to put factory definitions
+
+I put all my `factory definitions` in `spec/factories` and I generally use a convention of putting just one `factory` in each file. For example, if I were to have a `factory` for a `Product` model, I would put it in `spec/factories/products.rb`.
+
+There’s unfortunately a problem with our configuration: if we do `FactoryBot.create(:user)` again, we’ll just get an exact duplicate with all the same attribute values, which is of course often not desirable.
+
+We’ll address this issue later on though.
+
+### Chapter 16. Factory Bot: Build Strategies and Faker
+
