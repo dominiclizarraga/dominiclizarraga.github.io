@@ -19,6 +19,7 @@ The outcome will be getting a better grasp of the benefits of applying Test-Driv
 2. [What is TDD?.](#chapter-2)
 3. [Getting started with Ruby.](#chapter-3)
 4. [Getting started with Ruby on Rails.](#chapter-4)
+5. [Setting up RSpec and FactoryBot.](#chapter-5)
 
 
 ### Introduction. {#chapter-1}
@@ -49,7 +50,7 @@ Pending.
 
 ### Getting started with Ruby on Rails. {#chapter-4}
 
+Pending.
 
-
-
+### Setting up RSpec and FactoryBot. {#chapter-5}
 

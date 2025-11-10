@@ -313,3 +313,117 @@ text "Hello, world!" in "Jello, world!".
 
 ### Chapter 14 Factory Bot: Introduction {#chapter-14}
 
+What Factory Bot is
+
+One of the biggest challenges to a new tester is the question of how to generate test data. Most features in a web application will require you to have some certain database records in place first, but it’s not always clear the best way to bring those records into existence. There are multiple ways to accomplish this.
+
+<b>For users of RSpec, the de facto standard way to create test data is to use a tool called Factory Bot. Factory Bot is a Ruby library that allows for convenient generation of database data for tests.</b>
+
+There are three ways to generate test data in Rails:
+
+- Manually
+- Factories
+- Fixtures
+
+Let’s first explore manual creation.
+
+Manual data creation can be convenient enough if you only have a few attributes on a model and no dependencies.
+
+```ruby
+valid_payment_type = PaymentType.new(name: 'Visa')
+invalid_payment_type = PaymentType.new(name: '')
+```
+
+But now let’s say we have the idea of an `Order` which is made up of multiple `LineItems` and `Payments`, each of which has a `PaymentType`.
+
+```ruby
+order = Order.create!(
+  line_items: [
+    LineItem.create!(name: 'Electric dog polisher', price_cents: 40000)
+  ],
+  payments: [
+    Payment.create!(
+      amount_cents: 40000,
+      payment_method: PaymentMethod.create!(name: 'Visa')
+    )
+  ]
+)
+```
+
+That’s annoying. This is where factories come in handy.
+
+Factories
+
+<b>The idea with a factory is basically that you have a method/function that generates
+new class instances for you.</b>
+
+Here’s an example of how the setup for an `Order` instance might look if we used a factory, specifically `Factory Bot`.
+
+```ruby
+order = FactoryBot.create(
+  :order, # 👈 model Order
+  line_items: [FactoryBot.create(:line_item, price_cents: 40000)], # 👈 associations with LineItems
+  payments: [FactoryBot.create(:payment, amount_cents: 40000)]# 👈 associations with Payments
+)
+```
+
+In this case we’re specifying only the details that are relevant to the test. We don’t care about the line item name or the payment method. As long as we have a payment total that matches the line item total, that’s all where care about.
+
+Fixtures
+
+Typically fixtures are expressed in terms of YAML files.
+
+```yml
+# orders.yml
+payments_equal_line_item_total:
+  # no attributes needed
+
+# line_items.yml
+electric_dog_polisher:
+  order: payments_equal_line_item_total
+  name: 'Electric dog polisher'
+  price_cents: 40000
+
+# payment_methods.yml
+visa:
+  name: 'Visa'
+
+# payments.yml
+first:
+  order: payments_equal_line_item_total
+  payment_method: visa
+  amount_cents: 40000
+```
+
+Once the fixture data is established, instantiating an object that uses the data is as simple as referring to the key for that piece of data:
+
+```ruby
+order = orders(:payments_equal_line_item_total)
+```
+
+Which is best?
+
+# Summary
+
+Manual Data Generation
+- Quickly becomes tedious but useful for small, simple cases
+- Benefits: clarity and low overhead
+
+Factories vs Fixtures
+The author prefers `factories` for several reasons:
+- Test data specification and usage are close together in the code
+- With fixtures, the setup is hidden in YAML files, making it tedious to verify what data is being generated
+- Fixtures often lead teams to create a large, complicated "world of data" reused across all tests
+
+Testing Philosophy
+- Prefers starting each test with a clean slate
+- Generates only the bare minimum data needed per test
+- Makes tests easier to understand
+
+Practical Recommendation
+- `Factories are the go-to method` and general recommendation
+- Acknowledges the fixture issues are usage problems, not inherent flaws
+- Open to using fixtures for specific use cases (e.g., fixed baseline data like payment types)
+- Both approaches could be combined in a project when appropriate
+
+The key takeaway: `factories` are preferred for their transparency and encouraging minimal, test-specific data generation, but the author remains pragmatic about using the right tool for the situation.
