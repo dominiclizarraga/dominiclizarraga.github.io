@@ -15,6 +15,7 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 2. [Intro to Testing Principles](#chapter-2)
 3. [Rails Testing Tools](#chapter-3)
 4. [Your First Practice Tests](#chapter-4)
+14. [Factory Bot: Introduction](#chapter-14)
 
 ###  Chapter 1 Introduction {#chapter-1}
 
@@ -147,7 +148,7 @@ If you’re already comfortable with testing
 
 ### Chapter 4 Fundamentals: Your First Practice Tests {#chapter-4}
 
-I’ll describe it in three parts:
+I’ll describe how to set up a new Rails application for testing in three parts:
 
 1. An application template that can add all the necessary gems and configuration
 2. My setup process (commands I run to create a new Rails app)
@@ -215,7 +216,7 @@ FactoryBot.define do
 end
 ```
 
-When collision on attribute `first_name` arise due to uniqueness:
+When collision on attribute `first_name` arise due to uniqueness, we use `Faker`:
 
 ```ruby
 FactoryBot.define do
@@ -231,5 +232,81 @@ I also often end up adding the `VCR` and `WebMock` gems when I need to test func
 
 Next steps
 
-After I initialize my Rails app, I usually create a walking skeleton by deploying my application to a production and staging environment and adding one small feature, for example the ability to sign in. Building the sign-in feature will prompt me to write my first tests. By working in this way I front-load all the difficult and mysterious work of the project’s early life.
+After I initialize my Rails app, <b>I usually create a walking skeleton by deploying my application to a production and staging environment and adding one small feature, for example the ability to sign in.</b>
 
+Building the sign-in feature will prompt me to write my first tests. By working in this way I front-load all the difficult and mysterious work of the project’s early life.
+
+A Rails testing “hello world” using RSpec and Capybara
+
+Jason encourages the reader to start a rails app and add a controller and a test to have a quick win.
+
+```ruby
+# step 1:
+rails new my_project -T -d postgresql -m https://raw.githubusercontent.com/jasonswett/testing_application_template/master/application_template.rb
+
+# step 2:
+$ rails g controller hello_world index
+
+# step 3: within the view app/views/hello_world/index.html.erb add the following:
+Hello, world!
+
+# step 4: boot up rails server and go to the url ` open http://localhost:3000/hello_world/index`
+$ rails server
+
+# step 5: create the next file spec/hello_world_spec.rb
+require 'rails_helper'
+
+RSpec.describe 'Hello world', type: :system do
+    describe 'index page' do
+      it 'shows the right content' do
+      visit hello_world_index_path
+      expect(page).to have_content('Hello, world!')
+    end
+  end
+end
+
+# step 6: run the test !
+rspec spec/hello_world_spec.rb
+```
+
+Here is a Jason explanation on what we just wrote as a test:
+
+```ruby
+# This pulls in the config from spec/rails_helper.rb
+# that's needed in order for the test to run.
+require 'rails_helper'
+# RSpec.describe, or just describe, is how all RSpec tests start.
+# The 'Hello world' part is an arbitrary string and could have been anything.
+# In this case we have something extra in our describe block, type: :system.
+# The type: :system setting does have a functional purpose. It's what
+# triggers RSpec to bring Capybara into the picture when we run the test.
+RSpec.describe 'Hello world', type: :system do
+  describe 'index page' do
+  it 'shows the right content' do
+    # This is where Capybara starts to come into the picture. "visit" is a
+    # Capybara method. hello_world_index_path is just a Rails routing
+    # helper method and has nothing to do with RSpec or Capybara.
+    visit hello_world_index_path
+    # The following is a mix of RSpec syntax and Capybara syntax. "expect"
+    # and "to" are RSpec, "page" and "have_content" are Capybara. Newcomers
+    # to RSpec and Capybara's English-sentence-like constructions often
+    # have difficulty remembering when two words are separated by a dot or
+    # an underscore or parenthesis, myself included. Don't worry, you'll
+    # get familiar over time.
+    expect(page).to have_content('Hello, world!')
+    end
+  end
+end
+```
+
+<b>Before trusting a passing test, you must first see it fail to confirm it’s actually testing what you think it is. A test that passes even when the code is broken is a false positive. By intentionally breaking the feature and ensuring the test fails, you verify that the test correctly distinguishes between working and broken behavior.</b>
+
+```ruby
+# change the text in the view  app/views/hello_world/index.html.erb
+Jello, world!
+```
+
+When we run our test now it should see it fail with an error message like expected to find
+text "Hello, world!" in "Jello, world!".
+
+### Chapter 14 Factory Bot: Introduction {#chapter-14}
