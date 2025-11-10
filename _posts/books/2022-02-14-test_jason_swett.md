@@ -185,6 +185,8 @@ after_bundle do
 end
 ```
 
+You can see the code that will be run within your app if you go to the next link <a href="https://raw.githubusercontent.com/jasonswett/testing_application_template/master/application_template.rb" target="_blank">https://raw.githubusercontent.com/jasonswett/testing_application_template/master/application_template.rb</a>
+
 Setup process: 
 
 When I run `rails new`, I always use the `-T` flag for “skip test files” because I always use `RSpec` instead of the `Minitest` that Rails comes with by default. Also, incidentally, I always use `PostgreSQL`. This choice of course has little to do with testing but I’m including it for completeness.
