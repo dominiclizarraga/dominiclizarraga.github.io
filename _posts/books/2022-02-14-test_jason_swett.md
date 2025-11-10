@@ -18,6 +18,7 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 14. [Factory Bot: Introduction](#chapter-14)
 15. [Factory Bot: Getting Started](#chapter-15)
 16. [Factory Bot: Build Strategies and Faker](#chapter-16)
+17. [Factory Bot: Advanced Usage](#chapter-17)
 
 ###  Chapter 1 Introduction {#chapter-1}
 
@@ -488,5 +489,59 @@ There’s unfortunately a problem with our configuration: if we do `FactoryBot.c
 
 We’ll address this issue later on though.
 
-### Chapter 16. Factory Bot: Build Strategies and Faker
+### Chapter 16. Factory Bot: Build Strategies and Faker {#chapter-16}
+
+For creating objects using `Factory Bot`, there are two main methods offered: `create` and `build`. Let’s take a look at each, continuing to use our `User` factory as an example.
+
+- If we were to run `FactoryBot.create(:user)`, it would return a persisted instance of a
+`User` model. 
+
+- If we were to run `FactoryBot.build(:user)`, it would return an unpersisted
+instance of a `User` model.
+
+If we go to the terminal and instantiate the next model with different methods:
+
+```ruby
+# we try out `.create`
+=> user = FactoryBot.create(:user)
+=> user.persisted? # true
+=> user.id # an ID value 45700
+
+# then we try out `.build`
+> user = FactoryBot.build(:user)
+> user.persisted? # false
+> user.id # nil
+```
+
+Using Factory Bot with Faker
+
+There’s a problem with using hard-coded values in `factory definitions`. What if our `users` table had a unique constraint on the `email` column? In that case, the first usage of `FactoryBot.create(:user)` would work fine, but the second time we did it, the database wouldn’t allow the duplicate record to be created, and we’d have a problem.
+
+Here’s an example of how that would go using `Faker`:
+
+```ruby
+FactoryBot.define do
+  factory :user do
+    first_name { 'John' }
+    last_name { 'Smith' }
+    email { Faker::Internet.email }
+  end
+end
+```
+
+`Faker::Internet.email` will return values like `kris@hoeger.io` or `marionstroman@hamill.io`. I find these sorts of values nicer to work with than a hard-coded value with a number or hash slapped on the end of it.
+
+Entire `Factory` for `User` model using `Faker`.
+
+```ruby
+FactoryBot.define do
+  factory :user do
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    email { Faker::Internet.email }
+  end
+end
+```
+
+### Chapter 17 Factory Bot: Advanced Usage {#chapter-17}
 
