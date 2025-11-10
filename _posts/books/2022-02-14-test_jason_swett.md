@@ -21,6 +21,8 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 17. [Factory Bot: Advanced Usage](#chapter-17)
 18. [RSpec Syntax: Introduction](#chapter-18)
 31. [Model specs: Introduction](#chapter-31)
+32. [Model specs: Tutorial, Part One](#chapter-32)
+33. [Model Specs: Tutorial, Part Two](#chapter-33)
 
 ###  Chapter 1 Introduction {#chapter-1}
 
@@ -850,4 +852,89 @@ For example, I recently added a feature in an application that made it impossibl
 - one where the patient is inactive (expect an error to get added to the object), 
 - and one where the patient was missing altogether (expect a different error on the object).
 
+### Chapter 32. Model Specs: Tutorial, Part One {#chapter-32}
+
+It may seem obvious what a Rails model is. To many Rails developers, the model is the MVC layer that talks to the database.
+But in my experience, there are actually a lot of different conceptions as to what Rails models are, and not all of them agree with each other. I think it’s important for us to firmly establish what a Rails model is before we start talking about how to test Rails models.
+
+<b>To me, a model is an abstraction that represents a small corner of reality in a simplified way.</b> Models exist to make it easier for a programmer to think about and work with the concepts in a program. Models are not a Rails idea or even an OOP idea. A model could be represented in any programming language and in any programming paradigm.
+
+Why model specs are different from other types of specs
+
+Because models aren’t a Rails idea but rather a programming idea, testing models in Rails isn’t that conceptually different from testing models in any other language or framework. In a way this is a great benefit to a learner because it means that if you know how to test models in one language, your testing skills will easily translate to any other language.
+
+System specs are relatively easy to get started with because you can more or less follow a certain step-by-step formula for writing system specs for CRUD features and be well on your way. There’s not as much of a step-by-step formula for writing model tests
+
+The tutorial
+
+Here are the things you can expect to have a better understanding of after completing this tutorial.
+
+1. How to come up with test cases for a model based on the model’s desired behavior.
+2. How to translate those test cases into actual working test code, in a methodical and repeatable manner.
+3. How to use a test-first approach to make it easier both to write the tests and to write the application code.
+
+The scenario
+
+We want our phone number model to be able to take phone numbers in any of the following formats:
+
+555-856-8075
+(555) 856-8075
++1 555 856 8075
+
+And strip them down to look like this:
+
+5558568075
+
+Our `PhoneNumber` class won’t know anything about databases, it will just be responsible for converting a “messy” phone number to a normalized one.
+
+Our first test
+
+A big part of the art of model testing is coming up with various scenarios and deciding how our code should behave under those scenarios.
+
+The first scenario we’ll test here is: “When we have a phone number where the digits are separated by dashes, the dashes should all get stripped out.”
+
+```ruby
+require_relative './phone_number.rb'
+
+RSpec.describe PhoneNumber do
+  # test for scenario 1
+  context "phone number contains dashes" do
+    it "strips out the dashes" do
+    phone_number = PhoneNumber.new("555-856-8075")
+
+
+    expect(phone_number.value).to eq("5558568075")
+    end
+  end
+
+  # test for scenario 2
+  context "phone number contains parentheses" do
+    it "strips out the non-numeric characters" do
+      phone_number = PhoneNumber.new("(555) 856-8075")
+
+      expect(phone_number.value).to eq("5558568075")
+    end
+  end
+
+  # test for scenario 3
+  context "phone number contains country code " do
+    it "strips out the country code" do
+    phone_number = PhoneNumber.new("+1 555 856 8075")
+
+    expect(phone_number.value).to eq("5558568075")
+    end
+  end
+end
+
+class PhoneNumber
+  attr_reader :value
+
+  EXPECTED_NUMBER_OF_DIGITS = 10
+  def initialize(value)
+    @value = value.gsub(/\D/, "").split("").last(EXPECTED_NUMBER_OF_DIGITS).join
+  end
+end
+```
+
+### Chapter 33. Model Specs: Tutorial, Part Two {#chapter-33}
 
