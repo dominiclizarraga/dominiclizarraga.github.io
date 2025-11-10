@@ -930,6 +930,7 @@ class PhoneNumber
   attr_reader :value
 
   EXPECTED_NUMBER_OF_DIGITS = 10
+
   def initialize(value)
     @value = value.gsub(/\D/, "").split("").last(EXPECTED_NUMBER_OF_DIGITS).join
   end
@@ -938,3 +939,101 @@ end
 
 ### Chapter 33. Model Specs: Tutorial, Part Two {#chapter-33}
 
+Learning objectives
+
+1. How to come up with test cases for a model based on the model’s desired behavior.
+2. How to translate those test cases into actual working test code, in a methodical and repeatable manner.
+3. How to use a test-first approach to make it easier both to write the tests and to write the application code.
+
+The scenario
+
+We’ll be working on the exact same scenario as Part One: normalizing messy phone numbers. We’ll even be using all the exact same test cases. The reason we’re keeping those things the same is to show the Rails-models-versus-POROs differences in sharp relief.
+
+The `PhoneNumber` model
+
+```ruby
+$ rails g model phone_number value:string
+$ rails db:migrate
+
+# spec/models/phone_number_spec.rb
+require "rails_helper"
+RSpec.describe PhoneNumber, type: :model do
+  # Our first test case
+  context "phone number contains dashes" :model do
+    it "strips out the dashes" do
+    phone_number = FactoryBot.create(:phone_number, value: "555-856-8075")
+
+    expect(phone_number.value).to eq("5558568075")
+    end
+  end
+
+  # Our second test case
+  context "phone number contains parentheses" do
+    it "strips out non-numeric characters" do
+    phone_number = FactoryBot.create(:phone_number, value: "(555) 856-8075")
+    
+    expect(phone_number.value).to eq("5558568075")
+    end
+  end
+
+  # Our third test case
+  context "phone number contains country code" do
+    it "strips out country code" do
+    phone_number = FactoryBot.create(:phone_number, value: "+1 555 856 8075")
+    
+    expect(phone_number.value).to eq("5558568075")
+    end
+  end
+end
+
+# app/models/phone_number.rb
+class PhoneNumber < ApplicationRecord
+  before_validation :strip_non_numeric_from_value
+
+  EXPECTED_NUMBER_OF_DIGITS = 10
+  
+  def :strip_non_numeric_from_value
+    self.value = self.value.gsub(/\D/, "").split("").last(EXPECTED_NUMBER_OF_DIGITS).join
+  end
+end
+```
+Refactoring
+
+Rather than repeatedly creating a new `phone_number` variable using `FactoryBot.create`, we can DRY up our code a little by putting the `FactoryBot.create` in a `let!` block at the beginning and then updating the phone number value for each test.
+
+```ruby
+require "rails_helper"
+RSpec.describe PhoneNumber, type: :model do
+  let!(:phone_number) do
+    FactoryBot.create(:phone_number)
+  end
+
+context "phone number contains dashes" do
+  before { phone_number.update!(value: "555-856-8075") }
+    it "strips out the dashes" do
+    expect(phone_number.value).to eq("5558568075")
+  end
+end
+
+context "phone number contains parentheses" do
+  before { phone_number.update!(value: "(555) 856-8075") }
+    it "strips out the non-numeric characters" do
+    expect(phone_number.value).to eq("5558568075")
+  end
+end
+
+context "phone number contains country code" do
+  before { phone_number.update!(value: "+1 555 856 8075") }
+    it "strips out the country code" do
+    expect(phone_number.value).to eq("5558568075")
+    end
+  end
+end
+```
+
+Takeaways
+Rails model tests can be written by coming up with a list of desired behaviors and translating that list into test code. 
+
+When learning how to write Rails model tests, it can be helpful to first do some tests with plain old Ruby objects (`POROs`) for practice.
+
+Writing tests before we write the application code can make the process of writing the application code easier.
