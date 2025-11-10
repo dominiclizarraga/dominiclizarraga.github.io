@@ -19,6 +19,7 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 15. [Factory Bot: Getting Started](#chapter-15)
 16. [Factory Bot: Build Strategies and Faker](#chapter-16)
 17. [Factory Bot: Advanced Usage](#chapter-17)
+18. [RSpec Syntax: Introduction](#chapter-18)
 
 ###  Chapter 1 Introduction {#chapter-1}
 
@@ -544,4 +545,247 @@ end
 ```
 
 ### Chapter 17 Factory Bot: Advanced Usage {#chapter-17}
+
+Nested factories
+
+Sometimes you want to be able to create records that are 95% the same as the “default” but
+have one or two small differences.
+
+- Physician user example
+
+The Problem:
+- 30 tests need regular users
+- 6 tests need physician users (users with `role` set to `'physician'`)
+- How do you handle this variation without problems?
+
+Three Options Evaluated
+
+1. Set role individually in each test ❌
+   - Bad: Code duplication
+   - If physician user requirements change, you'd need to update all 6 places
+   - Maintenance nightmare
+
+2. Make all users physician users by default ❌
+   - Bad: Misleading and violates best practices
+   - Creates unnecessary setup data for 30 tests that don't need it
+   - Test maintainers can't tell which setup data is actually necessary
+   - Principle: Create the minimum amount of setup data and no more
+
+3. Create a nested factory that inherits from the base user factory ✅
+   - This is the right answer
+   - No duplication
+   - Doesn't modify the default factory
+   - Clear and maintainable
+   - In Factory Bot, this is called "nested factories"
+
+Key Testing Principle
+Tests should only include the minimum necessary setup data. Extraneous data misleads future maintainers who can't distinguish between essential and superfluous setup.
+
+```ruby
+# Normal Factory for User model
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+  end
+end
+
+# Nested factory
+
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+
+    factory :physician_user do
+      role { 'physician' }
+    end
+  end
+end
+
+# Usage of that nested Factory
+FactoryBot.create(:physician_user)
+```
+
+Traits
+
+<b>Traits solve a similar problem to the one nested factories solve, but in a different way. With nested factories, you’re defining a child factory inside an existing factory, with the child factory inheriting from the parent factory.
+
+With traits, you’re defining additional qualities that can optionally be added to an existing
+object.</b>
+
+
+```ruby
+# Normal Factory for User model
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+  end
+end
+
+# Traits
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+
+    trait :with_name do
+      first_name { "John" }
+      last_name { "Smith" }
+    end
+
+    trait :with_phone_number do
+      phone_number { "(555) 555-5555" }
+    end
+  end
+end
+
+# Usage of that Traits
+FactoryBot.create(:user, traits: [:with_name, :with_phone_number]).
+```
+
+When to use `traits` versus nested `factories`
+
+My method is pretty simple: If the `factory` I’m considering has something, I use a `trait`. If the `factory` is something, I use a `nested` factory. Let’s look at a concrete example.
+
+“Has” example (trait)
+
+```ruby
+# The user is still conceptually a regular old `user`. The only difference is that this user happens to have a value for its `phone_number` attribute.
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+
+    trait :with_phone_number do
+      phone_number { "(555) 555-5555" }
+    end
+  end
+end
+
+# Usage of that Traits
+FactoryBot.create(:user, :with_phone_number)
+```
+
+“Is” example (nested factory)
+
+```ruby
+# A `physician` user has different capabilities from a regular `user` and is used in different ways from a regular `user`.
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+
+    factory :physician_user do
+      role { 'physician' }
+    end
+  end
+end
+
+# Usage of that nested Factory
+FactoryBot.create(:physician_user)
+```
+
+Callbacks
+
+Imagine you need to create a `User` record that has a `Message` associated with it. This is an option:
+
+```ruby
+user = FactoryBot.create(:user)
+create(:message, user: user)
+```
+
+But if you need to create such `users` over and over, your code could get repetitive. You can create a more convenient way to meet your needs by using <b>callbacks</b>.
+
+Below is a concrete example. We have a `:user` factory and then, inside that, a nested
+factory called `:user_with_message`.
+
+```ruby
+FactoryBot.define do
+  factory :user do
+    username { Faker::Internet.username }
+    password { Faker::Internet.password }
+
+    factory :user_with_message do
+      after(:create) do |user|
+        create(:message, user: user)
+      end
+    end
+  end
+end
+```
+
+When `FactoryBot.create(:user_with_message)` is run, everything happens that would happen when `FactoryBot.create(:user)` is run, plus the stuff in the `after(:create)` callback is executed.
+
+The various callback types:
+
+• `after(:create)` - called after a factory is saved (via FactoryBot.create)
+• `after(:build)` - called after a factory is built (via FactoryBot.build or FactoryBot.create)
+• `before(:create)` - called before a factory is saved (via FactoryBot.create)
+• `after(:create)` - called after a factory is saved (via FactoryBot.create)
+• `after(:stub)` - called after a factory is stubbed (via FactoryBot.build_stubbed)
+
+Transient attributes
+
+Transient attributes are values that are passed into the `factory` but not directly set on the object’s attributes.
+
+PDF file attachment example
+
+Let’s say we have an `InsuranceDeposit` class that has PDF file attachments.
+
+```ruby
+class InsuranceDeposit
+  has_many_attached :pdf_files
+end
+```
+
+An example without using `transient` attributes
+
+```ruby
+insurance_deposit = create(:insurance_deposit)
+# This setup is noisy and hard to understand
+file = Tempfile.new
+pdf = Prawn::Document.new
+pdf.text "my arbitrary PDF content"
+pdf.render_file file.path
+
+insurance_deposit.pdf_files.attach(
+  io: File.open(file.path),
+  filename: "file.pdf"
+)
+```
+
+This way is non-ideal because a) the code is hard to understand and b) if we use these steps end more than one place, we’ll have duplication
+
+An example with transient attributes
+
+```ruby
+FactoryBot.define do
+  factory :insurance_deposit do
+    transient do
+      pdf_content { "" }
+    end
+
+    after(:create) do |insurance_deposit, evaluator|
+      file = Tempfile.new
+      pdf = Prawn::Document.new
+      pdf.text evaluator.pdf_content
+      pdf.render_file file.path
+
+      insurance_deposit.pdf_files.attach(
+        io: File.open(file.path),
+        filename: "file.pdf"
+        )
+    end
+  end
+end
+
+# usage of transient
+create(:insurance_deposit, pdf_content: "my arbitrary PDF content")
+```
+
+This is much tidier than the original. If we want to see how `pdf_content` works, we can open up the `insurance_deposit` factory and have a look.
+
+### Chapter 18. RSpec Syntax: Introduction {#chapter-18}
 
