@@ -20,6 +20,9 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 16. [Factory Bot: Build Strategies and Faker](#chapter-16)
 17. [Factory Bot: Advanced Usage](#chapter-17)
 18. [RSpec Syntax: Introduction](#chapter-18)
+19. [RSpec Syntax: The Structure of a Test](#chapter-19)
+20. [RSpec Syntax: Let, Let! and Instance Variables](#chapter-20)
+21. [RSpec Syntax: The Parts of an RSpec Test](#chapter-21)
 31. [Model specs: Introduction](#chapter-31)
 32. [Model specs: Tutorial, Part One](#chapter-32)
 33. [Model Specs: Tutorial, Part Two](#chapter-33)
@@ -793,6 +796,276 @@ create(:insurance_deposit, pdf_content: "my arbitrary PDF content")
 This is much tidier than the original. If we want to see how `pdf_content` works, we can open up the `insurance_deposit` factory and have a look.
 
 ### Chapter 18. RSpec Syntax: Introduction {#chapter-18}
+
+RSpec Syntax: Introduction
+
+In this section we’ll address both the RSpec DSL and the underlying Ruby concepts that are helpful to understand in order to understand RSpec’s DSL.
+
+Here’s what we’re going to cover in this section:
+
+1. The Structure of a Test
+2. Understanding Blocks
+3. Let, Let! and Instance Variables
+4. The Parts of an RSpec Test
+5. Build Your Own RSpec, Part 1
+6. Build Your Own RSpec, Part 2
+7. Describe and Context
+
+### Chapter 19. RSpec Syntax: The Structure of a Test {#chapter-19}
+
+No matter what test framework is being used, a test tends to contain four basic parts, or phases:
+
+1. Setup
+2. Exercise
+3. Assertion
+4. Teardown
+
+We can illustrate these four phases using an example. Let’s say we have an application that has a list of users that can receive messages. Only active users are allowed to receive messages. So, we need to assert that when a user is inactive, that user can’t receive messages.
+
+Here’s how this test might go:
+
+1. Create a `User` record (setup)
+2. Set the user’s “active” status to `false` (exercise)
+3. Assert that the user is not “`messageable`” (assertion)
+4. Delete the `User` record we created in step 1 (teardown)
+
+The purpose of each test phase
+
+- Setup
+
+The setup phase typically creates all the data that’s needed in order for the test to operate. (There are other things that could conceivably happen during a setup phase but for our current purposes we can think of the setup phase’s role as being to put data in place).
+
+In our case, the creation of the `User` record is all that’s involved in the setup step, although more complicated tests could of course create any number of database records and potentially establish relationships among them.
+
+- Exercise
+
+The exercise phase walks through the motions of the feature we want to test. With our messaging example, the exercise phase is when the user gets put in an inactive state.
+
+Side note: the distinction between setup and exercise may seem blurry, and indeed it sometimes is, especially in low-level tests like our current example. If someone were to argue that setting the user to inactive should actually be part of the setup, I’m not sure how I’d refute them.
+
+- Assertion
+
+The assertion phase is basically what all the other phases exist in support of. <b>The assertion is the actual test part of the test, the thing that determines whether the test passes or fails.</b>
+
+- Teardown
+
+Each test needs to clean up after itself. If it didn’t, then each test would potentially pollute the world in which the test is running and affect the outcome of later tests, making the tests non-deterministic. We don’t want this. We want deterministic tests, i.e. tests that behave the same exact way every single time no matter what. The only thing that should make a test go from passing to failing or vice-versa is if the behavior that the test tests changes.
+
+In reality, Rails tests tend not to have an explicit teardown step. The main pollutant we have to worry about with our tests is database data that gets left behind. <b>RSpec is capable of taking care of this problem for us by running each test in a database transaction. The transaction starts before each test is run and aborts after the test finishes. So really, the data never gets permanently persisted in the first place.</b>
+
+A concrete example
+
+```ruby
+RSpec.describe User do
+  let!(:user) { User.create!(email: 'test@example.com') } # setup
+
+    describe '#messageable?' do
+      context 'is inactive' do
+        it 'is false' do
+          user.update!(active: false)           # exercise
+          expect(user.messageable?).to be false # assertion
+          user.destroy!                         # teardown
+      end
+    end
+  end
+end
+```
+
+
+
+### Chapter 20. RSpec Syntax: Let, Let! and Instance Variables {chapter-20}
+
+The purpose of `let` and the differences between `let` and `instance variables`
+
+RSpec’s `let` helper method is a way of defining values that are used in tests. Below is a typical example.
+
+```ruby
+require 'rspec'
+  RSpec.describe User do
+    let(:user) { User.new }
+
+    it 'does not have an id when first instantiated' do
+      expect(user.id).to be nil
+  end
+end
+
+# here we use a before hook https://rspec.info/features/3-12/rspec-core/hooks/before-and-after-hooks/
+
+require 'rspec'
+RSpec.describe User do
+  before { @user = User.new }
+
+  it 'does not have an id when first instantiated' do
+    expect(@user.id).to be nil
+  end
+end
+```
+
+Differences between let and instance variables
+
+# Summary
+
+Stylistic Differences
+- Syntax varies: instance variables use `@` prefix
+- Author personally finds `let` syntax slightly tidier
+
+Mechanical Differences
+
+1. Error Detection
+   - Instance variables: Ruby doesn't complain if you use an undefined one—it just returns `nil`
+     - Danger: You might accidentally pass `nil` to a method and test the wrong behavior
+     - Risk is relatively low
+   - `let` helper: Defines a memoized method, not an instance variable
+     - If you typo the method name, Ruby will raise an error (good!)
+
+2. Lazy Evaluation
+   - `let` can create values that are evaluated lazily
+   - Author considers this dangerous and a bad idea (more explanation promised later)
+
+Most Important Difference: Test Isolation
+
+- Instance variables in `before` blocks can leak between test files
+  - Example: `@customer` set in "File A" can be referenced in "File B"
+  - This is bad: Tests should be completely deterministic and independent
+  
+- Implication: `let` is safer for maintaining test isolation
+
+Bottom Line: `let` provides better error detection and test isolation compared to instance variables.
+
+How `let` works
+
+`let` is NOT a variable, it's a method that returns a memoized method (a method that only runs once).
+
+```ruby
+def my_name
+  puts 'thinking about what my name is...'
+  'Jason Swett'
+end
+
+puts my_name
+
+
+# output:
+thinking about what my name is...
+Jason Swett
+```
+
+Same thing using `let`
+
+```ruby
+require 'rspec'
+
+describe 'my_name' do
+  let(:my_name) do
+    puts 'thinking about what my name is...'
+    'Jason Swett'
+  end
+
+  it 'returns my name' do
+    puts my_name
+  end
+end
+
+
+# output:
+thinking about what my name is...
+Jason Swett
+```
+
+Memoization in action
+
+The method body only executes once, but returns the value twice.
+
+```ruby
+require 'rspec'
+
+describe 'my_name' do
+  let(:my_name) do
+    puts 'thinking about what my name is...'
+    'Jason Swett'
+  end
+
+  it 'returns my name' do
+    puts my_name
+    puts my_name  # Called twice
+  end
+end
+
+# output:
+thinking about what my name is...  # Only prints once!
+Jason Swett
+Jason Swett
+```
+
+Lazy Evaluation `let`
+
+```ruby
+require 'rspec'
+
+describe 'let' do
+  let(:message) do
+    puts 'let block is running'
+    'VALUE'
+  end
+
+  it 'does stuff' do
+    puts 'start of example'
+    puts message
+    puts 'end of example'
+  end
+end
+
+
+# output:
+start of example
+let block is running  # Runs only when message is called
+VALUE
+end of example
+```
+
+Immediate Evaluation `let!`
+
+```ruby
+require 'rspec'
+
+describe 'let!' do
+  let!(:message) do
+    puts 'let block is running'
+    'VALUE'
+  end
+
+  it 'does stuff' do
+    puts 'start of example'
+    puts message
+    puts 'end of example'
+  end
+end
+
+# output:
+let block is running  # Runs BEFORE test starts
+start of example
+VALUE
+end of example
+```
+
+Author's Recommendation
+Always use `let!` instead of `let`
+Why? 
+- Lazy evaluation (`let`) can be subtly confusing
+  - Example: A database record might be saved at an unclear point in execution
+- No real-world benefit to lazy evaluation
+- Performance gains are negligible
+- Confusion is more expensive than slowness
+
+Practical takeaways:
+
+• The biggest advantage to using `let` over `instance variables` is that `instance variables` can leak from test to test, which isn’t true of `let`.
+• The difference between `let` and `let!` is that the former is lazily evaluated while the latter is immediately evaluated.
+• I always use the `let!` version because I find the execution path to be more easily understandable.
+
+### Chapter 21. RSpec Syntax: The Parts of an RSpec Test {#chapter-21}
+
+
 
 ### Chapter 31. Model Specs: Introduction {#chapter-31}
 
