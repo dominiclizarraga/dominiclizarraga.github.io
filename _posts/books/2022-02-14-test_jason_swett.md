@@ -23,6 +23,9 @@ Here I wrote the parts I considered most important from this book, Jason goes fr
 19. [RSpec Syntax: The Structure of a Test](#chapter-19)
 20. [RSpec Syntax: Let, Let! and Instance Variables](#chapter-20)
 21. [RSpec Syntax: The Parts of an RSpec Test](#chapter-21)
+22. [RSpec Syntax: Build Your Own RSpec, Part 1](#chapter-22)
+23. [RSpec Syntax: Build Your Own RSpec, Part 2](#chapter-23)
+24. [RSpec Syntax: Describe and Contex](#chapter-24)
 31. [Model specs: Introduction](#chapter-31)
 32. [Model specs: Tutorial, Part One](#chapter-32)
 33. [Model Specs: Tutorial, Part Two](#chapter-33)
@@ -903,7 +906,7 @@ end
 
 Differences between let and instance variables
 
-# Summary
+Summary
 
 Stylistic Differences
 - Syntax varies: instance variables use `@` prefix
@@ -1065,7 +1068,470 @@ Practical takeaways:
 
 ### Chapter 21. RSpec Syntax: The Parts of an RSpec Test {#chapter-21}
 
+In this chapter we’re going to write a small test and thoroughly examine it. We’ll look at the parts of the test bit-by-bit so we can understand each piece as well as the whole. By the end of this chapter, the syntax of an `RSpec` file will look much less mysterious.
 
+We’re going to write a small, trivial method and then write an `RSpec` test for the method. Our method, called `emphasize`, will convert a string to uppercase and add an exclamation point at the end. For example, the `emphasize` method would convert awesome to `AWESOME!`.
+
+```ruby
+def emphasize(text)
+  "#{text.upcase}!"
+end
+```
+
+Here is the test for that method:
+
+```ruby
+RSpec.describe 'emphasizing text' do
+  it 'makes the text uppercase and adds an exclamation point' do
+    expect(emphasize('hello')).to eq('HELLO!')
+  end
+end
+```
+
+We’re going to examine each part of this test, but first let’s talk about some terminology.
+
+Specs, examples, “example groups” and “it blocks”
+
+Tests vs. specs
+
+In `RSpec`, the contents of an `RSpec` file are referred to as a `spec`, short for specification. `Spec` files in `RSpec` are suffixed with `_spec`. These files must be suffixed so in order for the `RSpec` runner to recognize them as spec files. An example spec filename would be `patient_spec.rb`. Each spec usually contains a number of example groups.
+
+Example groups are a way of putting related tests into groups. The example group is the outermost block which starts with `RSpec.describe`.
+
+```ruby
+RSpec.describe 'emphasizing text' do # ⬅ this is the example group 
+  it 'makes the text uppercase and adds an exclamation point' do
+    expect(emphasize('hello')).to eq('HELLO!')
+  end
+end
+
+# they can be nested too
+RSpec.describe 'emphasizing text' do # ⬅ this is the example group for valid input
+  describe "valid input" do
+    it 'makes the text uppercase and adds an exclamation point' do
+      expect(emphasize('hello')).to eq('HELLO!')
+    end
+  end
+
+  describe "invalid input" do # ⬅ this is the example group for invalid input
+    it 'returns nil when input is not String' do
+      expect(emphasize(7)).to eq(nil)
+    end
+  end
+end
+```
+
+Examples and “it blocks”
+
+Each individual test in `RSpec` is known as an example. A single `spec` (which, remember, means a single `RSpec` file) may contain any number of examples:
+
+Why `it` blocks? My interpretation is that the `it` blocks help make each example read like an English sentence. In the example above the English sentence would of course be “it makes the text uppercase and adds an exclamation point”
+
+```ruby
+RSpec.describe 'emphasizing text' do
+  it 'makes the text uppercase and adds an exclamation point' do # ⬅ this is the it block or example or test case
+    expect(emphasize('hello')).to eq('HELLO!')
+  end
+end
+```
+
+The `expect` keyword
+
+The `expect` is the part of the test (or, more precisely, the part of the `example`) where the test itself actually happens. In the snippet below we’re expecting that the return value of `emphasize('hello')` is equal to `'HELLO!'`. If this expectation is met when we run the spec, then this example will pass. Otherwise the `example` will fail and the `RSpec` test runner will let us know exactly how the example failed.
+
+```ruby
+RSpec.describe 'emphasizing text' do
+  it 'makes the text uppercase and adds an exclamation point' do 
+    expect(emphasize('hello')).to eq('HELLO!') # ⬅ this is the expect keyword for this test case
+  end
+end
+```
+
+The `eq` matcher
+
+The syntax of `.to eq()` often looks strange and arbitrary to `RSpec` beginners. Much of the `RSpec` syntax (which we’ll see a lot more of soon) can look like a soup of dots, spaces and underscores, with no apparent rhyme or reason as to what’s what. Luckily, I assure you that this confusion goes away as you get more familiar with what the `RSpec DSL` is made of and as you get practice writing `RSpec tests`.
+
+For the `.to` part of `expect(emphasize('hello')).to eq('HELLO!')`, it helps to recognize that to is just a method. In fact, we can add the missing optional parentheses on the to method to make it clearer that to is just a method.
+
+```ruby
+expect(emphasize('hello')).to(eq('HELLO!'))
+```
+
+`eq` is also a method. The argument that we pass to the to method is `eq('HELLO!')`, so in
+other words, whatever the return value of `eq('HELLO')` is is what gets passed to `to`. What’s
+the return value of `eq('HELLO')`?
+
+### Chapter 22. RSpec Syntax: Build Your Own RSpec, Part 1 {#chapter-22}
+
+What we’re going to do:
+
+In this chapter we’re going to build our own` RSpec-like` test framework called `MySpec`. By the end of this chapter you’ll be able to run the following test file
+
+```ruby
+# Our desired test file
+require_relative './my_spec'
+
+def emphasize(text)
+  "#{text.upcase}!"
+end
+
+# Above this line is the "application code"
+# and below this line is the test code
+# -----------------------------------------
+
+MySpec.describe 'emphasizing text' do
+  it 'makes the text uppercase and adds an exclamation point' do
+    expect(emphasize('hello')).to eq('HELLO!')
+  end
+end
+```
+
+Step 1: `expect`
+
+For convenience, we’ll include the “`application code`” (i.e. the `emphasize` method) right in the same file as the test code.
+
+```ruby
+# emphasize_spec.rb
+def emphasize(text)
+  "#{text.upcase}!"
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+Throughout this process, we’re going to use the method of “error-driven development” (not a real thing, just something I made up). We’ll write some code, run the code, see what errors we get, fix the errors, and repeat.
+
+if we run the file `$ ruby emphasize_spec.rb` we get the next error:
+
+```ruby
+emphasize_spec.rb:5:in `<main>': undefined method `expect' for main:Object (NoMethodError)
+```
+
+The error is telling us expect is an `undefined method`, which is true. We haven’t defined a method called `expect` yet. Let’s define it.
+
+```ruby
+def emphasize(text)
+  "#{text.upcase}!"
+end
+
+def expect(things) # we added the method expect with an argument
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+Now, if we run the file we get a different error:
+
+```ruby
+emphasize_spec.rb:8:in `<main>': undefined method `eq' for main:Object (NoMethodError)`
+```
+
+It's time to add `eq` to the file:
+
+```ruby
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+def expect(things)
+end
+
+def eq(thing)# we added the method eq with an argument
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+Now that we have defined both `expect` and `eq` we get another error:
+
+```ruby
+emphasize_spec.rb:11:in `<main>': undefined method `to' for nil:NilClass (NoMethodError)
+```
+
+This one is perhaps less straightforward, so I’ll explain what’s happening. This error means that the object we’re calling `to` on is `nil`.
+
+We’re calling to on `expect(emphasize('hello'))`, so it must be that the return value of `expect(emphasize('hello'))` is `nil`.
+
+This is indeed the case. When we defined `expect`, we didn’t put a body in the method definition, so the return value of expect is `nil`.
+
+To fix this error, we need to change `expect` from returning `nil` to returning an `object` that will respond to a method called `to`. The only mystery is exactly what we should return.
+
+
+```ruby
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+def expect(things)
+  ExpectationTarget.new # we added this new class so that we don't call .to on nil object
+end
+
+def eq(thing)
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+Now, the error is:
+
+```ruby
+emphasize_spec.rb:15:in `<main>': undefined method `to'
+for #<ExpectationTarget:0x00007fe3020271b8> (NoMethodError)
+```
+
+And that's because we have not even defined the `ExpectationTarget` class
+
+```ruby
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+class ExpectationTarget
+  def initialize(output)
+    @output = output
+  end
+
+  def to(expected_output)
+    if @output == expected_output
+      puts '.'
+    else
+      raise "Expected #{@output} to equal #{expected_output}"
+    end
+  end
+end
+
+def expect(output)
+  ExpectationTarget.new(output)
+end
+
+def eq(expected_output)
+  expected_output
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+If we run the file now we see an output of just a dot (.). This is because our expected output, `HELLO!`, does indeed match the actual output.
+
+We can organize our code better in different files, for example the `MySpec` framework in `my_spec.rb` and the `emphasize` method in `emphasize_spec.rb`.
+
+In the next chapter we’re going to make our syntax more closely match the real RSpec syntax. In addition to our `expect`, we’re going to have surrounding `it` and `describe` blocks.
+
+### Chapter 23. RSpec Syntax: Build Your Own RSpec, Part 2 {#chapter-23}
+
+In the last chapter we got as far as re-implementing RSpec’s expect, `to` and `eq`.
+
+Now let’s make our test look even more like a real RSpec test by implementing `describe` and `it`.
+
+Within the file `emphasize_spec.rb`
+
+```ruby
+require_relative './my_spec'
+
+def emphasize(text)
+"#{text.upcase}!"
+end
+  
+MySpec.describe 'emphasizing text' do
+  it 'makes the text uppercase and adds an exclamation point' do
+    expect(emphasize('hello')).to eq('HELLO!')
+  end
+end
+```
+
+We’ll start with just the inner part, the `it` block.
+
+Now, if we run `emphasize_spec.rb`, we get the following `error`. The `it` method we referred to is of course undefined.
+
+```ruby
+emphasize_spec.rb:27:in `<main>': undefined method `it' for main:Object (NoMethodError)
+```
+
+Let's add the `it` method with a `yield` keyword since `it` block doesn’t actually need to do anything, it’s just a wrapper for the benefit of the human reader.
+
+```ruby
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+class ExpectationTarget
+  def initialize(output)
+    @output = output
+  end
+
+  def to(expected_output)
+    if @output == expected_output
+      puts '.'
+    else
+      raise "Expected #{@output} to equal #{expected_output}"
+    end
+  end
+end
+
+def expect(output)
+  ExpectationTarget.new(output)
+end
+
+def eq(expected_output)
+  expected_output
+end
+
+def it(description)
+  yield
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+Adding the outer block `MySpec.describe`
+
+Within `emphasize_spec.rb` we add the outer block and run the file.
+
+```ruby
+require_relative './my_spec'
+
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+MySpec.describe 'emphasizing text' do
+  it 'makes the text uppercase and adds an exclamation point' do
+    expect(emphasize('hello')).to(eq('HELLO!'))
+  end
+end
+```
+
+the error is our friend and we have seen it many times before: `emphasize_spec.rb:31:in '<main>': uninitialized constant MySpec (NameError)`
+
+Let's add that `MySpec` class.
+
+```ruby
+class MySpec
+end
+
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+class ExpectationTarget
+  def initialize(output)
+    @output = output
+  end
+
+  def to(expected_output)
+    if @output == expected_output
+      puts '.'
+    else
+      raise "Expected #{@output} to equal #{expected_output}"
+    end
+  end
+end
+
+def expect(output)
+  ExpectationTarget.new(output)
+end
+
+def eq(expected_output)
+  expected_output
+end
+
+def it(description)
+  yield
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+
+```
+
+If we run the file, we get the next error `emphasize_spec.rb:34:in '<main>': undefined method 'describe' for MySpec:Class (NoMethodError)`
+
+```ruby
+class MySpec
+  def self.describe(description)
+    yield
+  end
+end
+
+def emphasize(text)
+"#{text.upcase}!"
+end
+
+class ExpectationTarget
+  def initialize(output)
+    @output = output
+  end
+
+  def to(expected_output)
+    if @output == expected_output
+      puts '.'
+    else
+      raise "Expected #{@output} to equal #{expected_output}"
+    end
+  end
+end
+
+def expect(output)
+  ExpectationTarget.new(output)
+end
+
+def eq(expected_output)
+  expected_output
+end
+
+def it(description)
+  yield
+end
+
+expect(emphasize('hello')).to eq('HELLO!')
+```
+
+Now everything works, and we now have a complete test that very much resembles an `RSpec` test!
+
+### Chapter 24. RSpec Syntax: Describe and Context {#chapter-24}
+
+The `describe` and `context` keywords are just aliases for one another. Mechanically, they’re 100% equivalent. The only reason the two keywords exist is for the benefit of the human reader.
+
+When I use `describe`
+
+I tend to use `describe` when I’m describing a `method` or a `feature`. If I were to write a test for a method called `first_name`, I might write it something like this:
+
+```ruby
+RSpec.describe User do
+  describe '#first_name' do # ⬅ here is the method first_name declared
+    it 'returns the first name' do
+      # test code goes here
+    end
+  end
+end
+
+# Sometimes I want to test a feature that doesn’t have a neat one-to-one relationship with a method.
+
+RSpec.describe User do
+  describe 'phone format' do # ⬅ here is the feature we test
+    it 'strips the non-numeric characters' do
+      # test code goes here
+    end
+  end
+end
+```
+
+When I use `context`
+
+I tend to use `context` when I want to test various permutations of a behavior.
+
+```ruby
+RSpec.describe User do # ⬅ group example for User class
+  describe 'phone format' do # ⬅ describre block to group two nested blocks
+    context 'phone number is not the right length' do # ⬅ here a context block to describe a behavior
+      # test code goes here
+    end
+
+    context 'containers non-numeric characters' do # ⬅ here a context block to describe a behavior
+      # test code goes here
+    end
+  end
+end
+```
 
 ### Chapter 31. Model Specs: Introduction {#chapter-31}
 
