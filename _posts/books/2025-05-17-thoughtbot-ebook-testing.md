@@ -9,15 +9,26 @@ author: Josh Steiner and Joël Quenneville.
 rating: 5.0
 ---
 
-In my journey to improve my testing skills I found this [Thoughtbot ebook](https://books.thoughtbot.com/assets/testing-rails.pdf) 
+In my journey to improve my testing skills I found this <a href="https://books.thoughtbot.com/assets/testing-rails.pdf" target="_blank">Thoughtbot ebook</a>.
 
-1. [Pending.](#chapter-1)
-2. [Pending.](#chapter-2)
+1. [Introduction.](#chapter-1)
+2. [Types of tests.](#chapter-2)
+3. [Intermediate testing.](#chapter-3)
+4. [Antipatterns.](#chapter-4)
+5. [Conclusion.](#chapter-5)
 
 
-### Pending. {#chapter-1}
+### Introduction. {#chapter-1}
 
-### Pending. {#chapter-2}
+
+
+### Types of tests. {#chapter-2}
+
+### Intermediate testing. {#chapter-3}
+### Antipatterns. {#chapter-4}
+### Conclusion. {#chapter-5}
+
+
 
 https://thoughtbot.com/upcase/rails-testing-exercises
 
