@@ -12,6 +12,8 @@ rating: 5.0
 0. [Preface](#preface)
 1. [Refactoring Example](#chapter-1)
 2. [The Refactoring Cycle](#chapter-2)
+4. [The Refactoring Practice](#chapter-4)
+
 
 ### Preface. {#preface}
 
@@ -36,4 +38,40 @@ PART I The Art of Refactoring
 
 ### Refactoring Example. {#chapter-1}
 
+### Refactoring Practice.{#chapter-4}
 
+Consider acquiring the Refactoring, Ruby edition since the exercises in this book touch on perhaps half of the refactorings cataloged in the Fields book.
+
+Practice Refactoring:
+
+- Build refactoring into your routine.
+- Build testing into your routine. Refactoring has two mechanisms: refactorings that are systematic and safe, and a supply of tests to verify that the transformations have been done correctly.
+- Take small steps. Often, noticing a smell is relatively easy, compared with working out how to get “there” from “here.” Practice breaking up the larger refactorings (such as Tease Apart Inheritance) into small, safe steps.
+- Get help from others.
+- Add to the refactoring catalog.
+
+Exercises to try:
+
+- Scavenger Hunt/Smell of the Week.
+- Re-Refactor: Pick a good-sized piece of code (either your own, or one of the larger examples in the back of this book would work). Each day, start from the initial version, and refactor as far as you can in ten minutes.
+- Just Refactor: Pick or develop a project.
+- Inhale/Exhale: Find code demonstrating some smell. Apply a refactoring that addresses it.
+- Defactoring/Malfactoring: “Defactoring” and “malfactoring” are names we use for malicious refactoring: worsening the design of existing code.
+- Follow Your Nose: Pick a code smell in a good-sized project.
+- Harmonizing: Many of the code smells described in this book are fundamentally about some kind of duplication: identical code, similar code, code with similar structure, code with similar effects. Duplication isn’t always obvious, and sometimes the code needs to be changed to reveal it.
+- Refactoring Kata: A kata is a martial arts exercise that you repeat every day, for practice and to help get into the rhythm of the art.
+
+For this chapter the closing questions are the following:
+
+A. For the Extract Method, list each smell it can help to fix. (Hint: Use the What to Do sections for each
+smell catalogued in Part II,“Code Smells,” later in this book.)
+
+B. Which refactorings fix the most smells?
+
+C. Which refactorings aren’t mentioned by any of the smells? Why not?
+
+D. Does this list suggest any other smells we haven’t covered?
+
+That concludes our brief overview of the art of refactoring. It’s now time to address the specifics.
+
+As we mentioned in Chapter 2, “The Refactoring Cycle,” <b>perhaps the most difficult part of the refactoring cycle is in recognizing code that needs to be refactored.</b> Part II, “Code Smells,” looks in detail at all of the common and some of the not so common code smells; by doing the exercises you’ll learn how to recognize and eliminate them.
