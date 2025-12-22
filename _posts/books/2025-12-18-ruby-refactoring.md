@@ -13,6 +13,8 @@ rating: 5.0
 1. [Refactoring Example](#chapter-1)
 2. [The Refactoring Cycle](#chapter-2)
 4. [The Refactoring Practice](#chapter-4)
+5. [Measurable Smells](#chapter-5)
+
 
 
 ### Preface. {#preface}
@@ -75,3 +77,51 @@ D. Does this list suggest any other smells we haven’t covered?
 That concludes our brief overview of the art of refactoring. It’s now time to address the specifics.
 
 As we mentioned in Chapter 2, “The Refactoring Cycle,” <b>perhaps the most difficult part of the refactoring cycle is in recognizing code that needs to be refactored.</b> Part II, “Code Smells,” looks in detail at all of the common and some of the not so common code smells; by doing the exercises you’ll learn how to recognize and eliminate them.
+
+PART II Code Smells
+
+### Measurable Smells. {#chapter-5}
+
+Most metrics seem to correlate with length, so we tend to worry about size first (usually noticeable as a Large Module or Long Method).
+
+Metrics are indicators, not absolutes. It’s very easy to get into the trap of making numbers without addressing the total complexity. So don’t refactor just for a better number; make sure it really improves your code.
+
+The smells in this chapter are the easiest to identify. They’re not necessarily the easiest to fix.
+
+Pay attention when things feel like they’re getting too big. In this chapter we’ll cover the following smells:
+
+- Comments, in which the code includes text to explain what’s happening
+- Long Method, in which a method is too long to be manageable
+- Large Module, in which a class or module is too large to represent a meaningful abstraction
+- Long Parameter List, in which a method needs too much information in order to get its job done
+
+### Comments
+
+What to Look For
+- The code contains a comment. (Some IDEs make these more obvious by colorcoding comments.)
+
+Why This Is a Problem
+- Flexibility: Any comment that explains the code must be kept in step if the code is changed.
+- Duplication: Most comments can be reflected just as well in the code itself. For example, the goal of a method can often be communicated as well through its name as it can through a comment.
+- Communication: Comments that say something slightly different than the code create cognitive drag or even mistrust and slow the reader down.
+
+When to Leave It
+Don’t delete comments that are pulling their own weight such as rdoc API documentation. Some comments can be particularly helpful—those that tell why something is done a particular way (or why it wasn’t), or those that cite algorithms that are not obvious (where a simpler algorithm won’t do).
+
+How It Got This Way
+Comments may be present for the best of reasons: The author realizes that something isn’t as clear as it could be and adds a comment.
+
+What to Do
+- When a comment explains a code fragment, you can often use `Extract Method` to pull the fragment out into a separate method. The comment will often suggest a name for the new method.
+
+- When a comment explains what a method does (better than the method’s name!), use `Rename Method` using the comment as the basis of the new name.
+
+- When a comment explains preconditions, consider using `Introduce Assertion` to replace the comment with code.
+
+What to Look for Next
+
+- Duplication: Often the code fragments broken out of along method will do similar things in similar ways; it may be possible to identify some duplication among them.
+
+- Abstraction: Creating names for code blocks helps to relate the design to the application’s domain. Review the names in the area you changed for consistency
+
+### Long Method
