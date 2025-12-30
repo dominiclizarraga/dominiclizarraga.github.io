@@ -127,30 +127,40 @@ What to Look for Next
 ### Long Method
 
 What to Look For
-• A method has a large number of lines. (We’re immediately suspicious of any method
-with more than fi ve lines.)
+
+- A method has a large number of lines. (We’re immediately suspicious of any method with more than five lines.)
+
 Why This Is a Problem
- Flexibility: A Long Method is guaranteed to be a Greedy Method—at least two
-responsibilities are coupled together in one place, which in turn leads to
-Divergent Change.
- Testability: It can be difficult to isolate individual behaviors of a Long Method for
-testing; and if a method does too much it may also be difficult to create fixtures
-that contain enough context for the method to work properly.
+
+- Flexibility: A `Long Method` is guaranteed to be a `Greedy Method` at least two
+responsibilities are coupled together in one place, which in turn leads to `Divergent Change`.
+
+- Testability: It can be difficult to isolate individual behaviors of a Long Method for testing; and if a method does too much it may also be difficult to create fixtures that contain enough context for the method to work properly.
+
 When to Leave It
-It may be that a somewhat longer method is just the best way to express something.
-(Like almost all smells, the length is a warning sign, not a guarantee of a problem.)
+
+It may be that a somewhat longer method is just the best way to express something. (Like almost all smells, the length is a warning sign, not a guarantee of a problem.)
+
 How It Got This Way
-You can think of it as the Columbo syndrome. Columbo was the TV detective who
-always had “just one more thing.” A method starts down a path and, rather than break
-the flow or identify the helper classes, the author adds one more thing. Code is often easier to write than it is to read, so there’s a temptation to write fragments that are too big.
+
+You can think of it as the Columbo syndrome. Columbo was the TV detective who always had “just one more thing.” A method starts down a path and, rather than break the flow or identify the helper classes, the author adds one more thing. Code is often easier to write than it is to read, so there’s a temptation to write fragments that are too big.
+
 What to Do
-Use • Extract Method to break up the method into smaller pieces. Look for comments
-or white space delineating interesting fragments. You want to extract methods that
-are semantically meaningful, not just introduce a function call every seven lines.
-• You may find other refactorings (those that clean up straight-line code, conditionals,
-and variable usage) helpful before you even begin splitting up the method.
-• If the method doesn’t separate easily into pieces, consider Replace Method with
-Method Object to turn the method into a separate object.
-It’s natural to worry about the performance hit from increasing the number of
-method calls, but most of the time this is a non-issue. By getting the code as clean
-as possible before worrying about performance, you have the opportunity to gain 
+
+- Use • `Extract Method` to break up the method into smaller pieces. Look for comments or white space delineating interesting fragments. You want to extract methods that are semantically meaningful, not just introduce a function call every seven lines.
+
+- You may find other refactorings (those that clean up straight-line code, conditionals, and variable usage) helpful before you even begin splitting up the method.
+
+- If the method doesn’t separate easily into pieces, consider Replace Method with `Method Object` to turn the method into a separate object.
+
+It’s natural to worry about the performance hit from increasing the number of method calls, but most of the time this is a non-issue. By getting the code as clean as possible before worrying about performance, you have the opportunity to gain big insights that can  estructure systems and algorithms in a way that dramatically increases performance.
+
+What to Look for Next
+
+- Duplication: Often the code fragments broken out of a Long Method do similar things in similar ways; it may be possible to identify some duplication among them.
+
+- Communication: Creating names for code fragments helps to relate the design to the application’s domain. Review the names in the area you changed for consistency.
+
+- Abstraction: The signatures of the new methods may suggest a missing class, or new structure may be revealed in the original method.
+
+- Flexibility: Review the new methods for Feature Envy; with more small pieces you now have the opportunity to move code to more “natural” homes.
