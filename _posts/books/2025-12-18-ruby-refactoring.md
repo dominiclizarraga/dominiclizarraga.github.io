@@ -12,6 +12,7 @@ rating: 5.0
 0. [Preface](#preface)
 1. [Refactoring Example](#chapter-1)
 2. [The Refactoring Cycle](#chapter-2)
+3. [Refactoring Step by Step](#chapter-3)
 4. [The Refactoring Practice](#chapter-4)
 5. [Measurable Smells](#chapter-5)
 
@@ -23,9 +24,9 @@ What Is This Book About?
 
 Refactoring is the art of improving the design of existing code and was introduced to the world by Martin Fowler in Refactoring. Fowler’s book provides dozens of detailed mechanical recipes, each of which describes the steps needed to change one (usually small) aspect of a program’s design without breaking anything or changing any behavior.
 
-But to be skilled in refactoring is to be skilled not only in safely and gradually changing code’s design, but also in fi rst recognizing where code needs improvement. The agile community has adopted the term code smell to describe the anti-patterns in software design, the places where refactoring is needed.
+But to be skilled in refactoring is to be skilled not only in safely and gradually <b>changing</b> code’s design, but also in first <b>recognizing</b> where code needs improvement. The agile community has adopted the term code smell to describe the anti-patterns in software design, the places where refactoring is needed.
 
-The aim of this book, then, is to help you practice recognizing the smells in existing Ruby code and apply the most important refactoring techniques to eliminate those smells.
+The aim of this book, then, is to help you <b>practice recognizing</b> the smells in existing Ruby code and apply the most important refactoring techniques to eliminate those smells.
 
 For each smell we describe
 • What to Look For: cues that help you spot it
@@ -39,6 +40,100 @@ smell
 PART I The Art of Refactoring
 
 ### Refactoring Example. {#chapter-1}
+
+We’ll begin with a quick example of refactoring to show how you can identify problems in code and systematically clean them up. In later chapters, we’ll touch on theory, provide deeper dives into problems and how you fi x them.
+
+Sparkline Script
+
+The script generates a sparkline (a small graph used to display trends, without detail) and does it by generating an SVG document to describe the graphic.
+
+The original script was written quickly to display a single sparkline to demonstrate the trends that occur when tossing a coin.
+
+[GitHub repo](https://github.com/kevinrutherford/rrwb-code/blob/master/svg-before/sparky.rb)
+
+```ruby
+NUMBER_OF_TOSSES = 1000
+BORDER_WIDTH = 50
+
+def toss
+  2 * (rand(2)*2 - 1)
+end
+
+def values(n)
+  a = [0]
+  n.times { a << (toss + a[-1]) }
+  a
+end
+
+def spark(centre_x, centre_y, value)
+  "<rect x=\"#{centre_x-2}\" y=\"#{centre_y-2}\"
+    width=\"4\" height=\"4\"
+    fill=\"red\" stroke=\"none\" stroke-width=\"0\" />
+  <text x=\"#{centre_x+6}\" y=\"#{centre_y+4}\"
+    font-family=\"Verdana\" font-size=\"9\"
+    fill=\"red\" >#{value}</text>"
+end
+
+$tosses = values(NUMBER_OF_TOSSES)
+points = []
+$tosses.each_index { |i| points << "#{i},#{200-$tosses[i]}" }
+
+data = "<svg xmlns=\"http://www.w3.org/2000/svg\"
+     xmlns:xlink=\"http://www.w3.org/1999/xlink\" >
+  <!-- x-axis -->
+  <line x1=\"0\" y1=\"200\" x2=\"#{NUMBER_OF_TOSSES}\" y2=\"200\"
+            stroke=\"#999\" stroke-width=\"1\" />
+  <polyline fill=\"none\" stroke=\"#333\" stroke-width=\"1\"
+    points = \"#{points.join(' ')}\" />
+  #{spark(NUMBER_OF_TOSSES-1, 200-$tosses[-1], $tosses[-1])}
+</svg>"
+
+puts "Content-Type: image/svg+xml
+Content-Length: #{data.length}
+
+#{data}"
+```
+
+Before we dive in and change things, take a moment to review the script. Which aspects of it strike you as convoluted, or unreadable, or even unmaintainable? (Part II, “Code Smells,” of this book lists over forty common code problems)
+
+Here are the more obvious problems we noticed in the code:
+
+•  Comments: the SVG output that’s not a bad thing, because the SVG is quite opaque. But it also serves to comment the Ruby script, which suggests that the string is too complex.
+
+• Part of the SVG document is broken out into a separate method Inconsistent Style: (line 34), whereas most is built inline in the data string.
+
+• Strictly speaking, the list of properties of the XML elements Long Parameter List: aren’t Ruby parameters. But they are long lists, and we feel sure they will cause problems later.
+
+• The code uses Uncommunicative Name: data as the name of the SVG document, i as an iterator index (line 25), a as the name of an array (line 9), and n as the number of array elements (line 8).
+
+• Dead Code: The constant BORDER_WIDTH (line 2) is unused.
+
+• Greedy Method: toss tosses a coin and also scales it to be –2 or +2.
+
+• Most of the numbers representing SVG coordinates and shape sizes Derived Value: could probably be derived from the number of tosses and the sparkline’s max and min values.
+
+• The text markers for the start and end tags of XML elements Duplicated Code: are repeated throughout the code; the calculation 200-tosses[x] is repeated (lines 25, 34).
+
+• Data Clump: The SVG components’ parameters include several x-y pairs that represent points on the display canvas (lines 15, 18, 30). Some have further parameters that go to make up a rectangle (lines 16, 30). Strictly, these are parameters to SVG elements, and this is therefore a problem in the defi nition of SVG.
+
+• Global Variable: Why is tosses a global variable at all?
+
+• One might argue that all of the methods here (lines 4, 8, 14) are Utility Function: Utility Functions.
+
+• Greedy Module: The script isn’t a class, as such, but it does have multiple responsibilities: Some of the script deals with tossing coins, some deals with drawing pictures, and some wraps the SVG document in an HTTP message.
+
+• Divergent Change: The data string (lines 27–35) is probably going to need to be
+different for almost every imaginable variation on this script.
+
+• There are already Ruby libraries for manipulating XML ele- Reinvented Wheel: ments, and even for creating SVG documents.
+
+Which should we address first? When faced with a long to-do list of code smells it’s easy to feel a little intimidated. It’s important to remember at this stage that we can’t fix everything in one sitting; we’ll have to proceed in small, safe steps.
+
+It is entirely likely that you would address the smells in a different order, and that’s just fine.
+
+Consistency
+
+We can easily remove the Dead Code and change the Global Variable;
 
 ### Refactoring Practice.{#chapter-4}
 
