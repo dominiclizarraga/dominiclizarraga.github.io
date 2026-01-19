@@ -3,7 +3,7 @@
   <title>dom lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2026-01-19T11:02:41-06:00</updated>
+  <updated>2026-01-19T12:01:28-06:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
@@ -18,7 +18,6 @@
     <updated>2025-12-18T00:00:00-06:00</updated>
     <id>http://localhost:4000/2025/12/18/ruby-refactoring</id>
     <content type="html">&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;#preface&quot;&gt;Preface&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Refactoring Example&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;The Refactoring Cycle&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-3&quot;&gt;Refactoring Step by Step&lt;/a&gt;&lt;/li&gt;
@@ -188,9 +187,9 @@ smell catalogued in Part II,“Code Smells,” later in this book.)&lt;/p&gt;
 
 &lt;h3 id=&quot;chapter-5&quot;&gt;Measurable Smells.&lt;/h3&gt;
 
-&lt;p&gt;Most metrics seem to correlate with length, so we tend to worry about size first (usually noticeable as a Large Module or Long Method).&lt;/p&gt;
+&lt;p&gt;Most metrics seem to correlate with length, so we tend to worry about size first (usually noticeable as a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Large Module&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Long Method&lt;/code&gt;).&lt;/p&gt;
 
-&lt;p&gt;Metrics are indicators, not absolutes. It’s very easy to get into the trap of making numbers without addressing the total complexity. So don’t refactor just for a better number; make sure it really improves your code.&lt;/p&gt;
+&lt;p&gt;Metrics are indicators, not absolutes. It’s very easy to get into the trap of making numbers without addressing the total complexity. So don’t refactor just for a better number; &lt;b&gt;make sure it really improves your code.&lt;/b&gt;&lt;/p&gt;
 
 &lt;p&gt;The smells in this chapter are the easiest to identify. They’re not necessarily the easiest to fix.&lt;/p&gt;
 
@@ -218,7 +217,7 @@ smell catalogued in Part II,“Code Smells,” later in this book.)&lt;/p&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;When to Leave It
-Don’t delete comments that are pulling their own weight such as rdoc API documentation. Some comments can be particularly helpful—those that tell why something is done a particular way (or why it wasn’t), or those that cite algorithms that are not obvious (where a simpler algorithm won’t do).&lt;/p&gt;
+Don’t delete comments that are pulling their own weight such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;rdoc&lt;/code&gt;API documentation. Some comments can be particularly helpful, those that tell why something is done a particular way (or why it wasn’t), or those that cite algorithms that are not obvious (where a simpler algorithm won’t do).&lt;/p&gt;
 
 &lt;p&gt;How It Got This Way
 Comments may be present for the best of reasons: The author realizes that something isn’t as clear as it could be and adds a comment.&lt;/p&gt;
@@ -279,7 +278,7 @@ responsibilities are coupled together in one place, which in turn leads to &lt;c
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Use • &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Extract Method&lt;/code&gt; to break up the method into smaller pieces. Look for comments or white space delineating interesting fragments. You want to extract methods that are semantically meaningful, not just introduce a function call every seven lines.&lt;/p&gt;
+    &lt;p&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Extract Method&lt;/code&gt; to break up the method into smaller pieces. Look for comments or white space delineating interesting fragments. You want to extract methods that are semantically meaningful, not just introduce a function call every seven lines.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;You may find other refactorings (those that clean up straight-line code, conditionals, and variable usage) helpful before you even begin splitting up the method.&lt;/p&gt;
@@ -295,7 +294,7 @@ responsibilities are coupled together in one place, which in turn leads to &lt;c
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;Duplication: Often the code fragments broken out of a Long Method do similar things in similar ways; it may be possible to identify some duplication among them.&lt;/p&gt;
+    &lt;p&gt;Duplication: Often the code fragments broken out of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Long Method&lt;/code&gt; do similar things in similar ways; it may be possible to identify some duplication among them.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;Communication: Creating names for code fragments helps to relate the design to the application’s domain. Review the names in the area you changed for consistency.&lt;/p&gt;
@@ -304,9 +303,111 @@ responsibilities are coupled together in one place, which in turn leads to &lt;c
     &lt;p&gt;Abstraction: The signatures of the new methods may suggest a missing class, or new structure may be revealed in the original method.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Flexibility: Review the new methods for Feature Envy; with more small pieces you now have the opportunity to move code to more “natural” homes.&lt;/p&gt;
+    &lt;p&gt;Flexibility: Review the new methods for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature Envy&lt;/code&gt;; with more small pieces you now have the opportunity to move code to more “natural” homes.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;large-module&quot;&gt;Large Module&lt;/h3&gt;
+
+&lt;p&gt;What to Look For&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;A class or module has a large number of instance variables, methods, or just lines of code.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Why This Is a Problem&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Testability: A Large Module is usually difficult to test, either because it depends on many other modules or because it is difficult or time-consuming to create instances in isolation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flexibility: The module represents too many responsibilities folded together that is, every &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Large Module&lt;/code&gt; is also a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Greedy Module&lt;/code&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;How It Got This Way
+Large modules get big a little bit at a time. The developer keeps adding just one more capability to a module until eventually it grows too big. Sometimes the problem is a lack of insight into the parts that make up the whole module.&lt;/p&gt;
+
+&lt;p&gt;What to Do
+In general, you’re trying to break up the module. This usually proceeds piecemeal:&lt;/p&gt;
+
+&lt;p&gt;• Very often a review of the module reveals a composite of other smells, such as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Long Methods&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Data Clumps&lt;/code&gt;, and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Temporary Fields&lt;/code&gt;; fix these smells first.&lt;/p&gt;
+
+&lt;p&gt;• To break up the module further, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Extract Class&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Extract Module&lt;/code&gt; if you can identify a new piece that has part of this module’s responsibilities.&lt;/p&gt;
+
+&lt;p&gt;• If you have a large class, you might try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Extract Subclass&lt;/code&gt; if you can divide responsibilities between the class and a new subclass.&lt;/p&gt;
+
+&lt;p&gt;• Sometimes a class is big because it’s a GUI class, and it represents both a display component and a model. In this case, you can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Duplicate Observed Data&lt;/code&gt; to help extract a domain class.&lt;/p&gt;
+
+&lt;p&gt;What to Look for Next&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Duplication: As you peel off each piece of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Large Module&lt;/code&gt; you may discover it has similar responsibilities or interface to an existing module.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Communication: Dividing up confused responsibilities, and giving names to them, helps the reader relate the code to the real domain. Review the names (see Chapter 6) used in the slimmer module and everything you extracted.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;long-parameter-list&quot;&gt;Long Parameter List&lt;/h3&gt;
+
+&lt;p&gt;What to Look For
+• A method has more than one or two parameters.
+• A method yields more than one or two objects to an associated block.&lt;/p&gt;
+
+&lt;p&gt;Why This Is a Problem&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Simplicity: A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Long Parameter List&lt;/code&gt; often indicates that a method has more than one responsibility. Sometimes the parameters have no meaningful grouping they don’t go together. In such cases it may be that the method, or the objects it uses, doesn’t represent a meaningful and cohesive abstraction in the problem domain.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Flexibility: A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Long Parameter List&lt;/code&gt; represents a large number of pieces of shared information between the caller and called code. If either changes, the parameter list is likely to need changing too.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Communication: A lot of parameters represent a lot to remember the programmer has to remember not only what objects to pass, but in which order. More succinct APIs are easier and quicker to use.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;When to Leave It
+This is one of those places where a smell doesn’t always equate to a problem. You might smell a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Long Parameter List&lt;/code&gt; but decide it’s right for the situation at hand for example, to avoid the called method picking up a dependency that you don’t want it to have. Ensure that your changes don’t upset this balance.&lt;/p&gt;
+
+&lt;p&gt;How It Got This Way
+You might be trying to minimize coupling between objects. Instead of the called object being aware of relationships between classes, you let the caller locate everything; then the method concentrates on what it is being asked to do with the pieces.&lt;/p&gt;
+
+&lt;p&gt;The method may have acquired many parameters because the programmer generalized it to deal with multiple variations by creating a general algorithm with a lot of control parameters.&lt;/p&gt;
+
+&lt;p&gt;What to Do
+• If a parameter’s value can be obtained from another object this one already knows, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Replace Parameter with Method&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;• If the parameters come from a single object, try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Preserve Whole Object&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;• If the data is not from one logical object, you still might group them via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Introduce Parameter Object&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;What to Look for Next&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Duplication: Sometimes a method’s clients all have to jump through the same hoops in order to call it. Check for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Duplicated Code&lt;/code&gt; among the callers.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Communication: Parameters add to the cognitive load required to understand a class’s interface; all of the above refactorings help to hide detail. Review all of this class’s method signatures looking for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Data Clumps&lt;/code&gt; and naming patterns.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Size: The amount of code required to call a method can be large when the method requires a lot of unrelated parameters. Look for signs of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Feature Envy&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Open Secret&lt;/code&gt; around the objects you are now passing as parameters to the method.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;exercises&quot;&gt;Exercises:&lt;/h3&gt;
+
+&lt;p&gt;Exercises 5.1: Comments&lt;/p&gt;
+
+&lt;p&gt;Exercises 5.2: Long Method&lt;/p&gt;
+
+&lt;p&gt;Exercises 5.3: Large Class&lt;/p&gt;
+
+&lt;p&gt;Exercises 5.4: Smells and Refactorings&lt;/p&gt;
+
+&lt;p&gt;Exercises 5.5: Triggers&lt;/p&gt;
+
 </content>
     <author>
       <name>dom lizarraga</name>

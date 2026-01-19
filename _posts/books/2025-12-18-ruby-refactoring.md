@@ -9,7 +9,6 @@ author: William C. Wake, Kevin Rutherford
 rating: 5.0
 ---
 
-0. [Preface](#preface)
 1. [Refactoring Example](#chapter-1)
 2. [The Refactoring Cycle](#chapter-2)
 3. [Refactoring Step by Step](#chapter-3)
@@ -18,7 +17,7 @@ rating: 5.0
 
 
 
-### Preface. {#preface}
+### Preface.
 
 What Is This Book About?
 
