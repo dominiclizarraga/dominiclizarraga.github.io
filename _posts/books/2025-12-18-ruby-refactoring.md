@@ -177,9 +177,9 @@ PART II Code Smells
 
 ### Measurable Smells. {#chapter-5}
 
-Most metrics seem to correlate with length, so we tend to worry about size first (usually noticeable as a Large Module or Long Method).
+Most metrics seem to correlate with length, so we tend to worry about size first (usually noticeable as a `Large Module` or `Long Method`).
 
-Metrics are indicators, not absolutes. It’s very easy to get into the trap of making numbers without addressing the total complexity. So don’t refactor just for a better number; make sure it really improves your code.
+Metrics are indicators, not absolutes. It’s very easy to get into the trap of making numbers without addressing the total complexity. So don’t refactor just for a better number; <b>make sure it really improves your code.</b>
 
 The smells in this chapter are the easiest to identify. They’re not necessarily the easiest to fix.
 
@@ -201,7 +201,7 @@ Why This Is a Problem
 - Communication: Comments that say something slightly different than the code create cognitive drag or even mistrust and slow the reader down.
 
 When to Leave It
-Don’t delete comments that are pulling their own weight such as rdoc API documentation. Some comments can be particularly helpful—those that tell why something is done a particular way (or why it wasn’t), or those that cite algorithms that are not obvious (where a simpler algorithm won’t do).
+Don’t delete comments that are pulling their own weight such as `rdoc`API documentation. Some comments can be particularly helpful, those that tell why something is done a particular way (or why it wasn’t), or those that cite algorithms that are not obvious (where a simpler algorithm won’t do).
 
 How It Got This Way
 Comments may be present for the best of reasons: The author realizes that something isn’t as clear as it could be and adds a comment.
@@ -242,7 +242,7 @@ You can think of it as the Columbo syndrome. Columbo was the TV detective who al
 
 What to Do
 
-- Use • `Extract Method` to break up the method into smaller pieces. Look for comments or white space delineating interesting fragments. You want to extract methods that are semantically meaningful, not just introduce a function call every seven lines.
+- Use `Extract Method` to break up the method into smaller pieces. Look for comments or white space delineating interesting fragments. You want to extract methods that are semantically meaningful, not just introduce a function call every seven lines.
 
 - You may find other refactorings (those that clean up straight-line code, conditionals, and variable usage) helpful before you even begin splitting up the method.
 
@@ -252,10 +252,89 @@ It’s natural to worry about the performance hit from increasing the number of 
 
 What to Look for Next
 
-- Duplication: Often the code fragments broken out of a Long Method do similar things in similar ways; it may be possible to identify some duplication among them.
+- Duplication: Often the code fragments broken out of a `Long Method` do similar things in similar ways; it may be possible to identify some duplication among them.
 
 - Communication: Creating names for code fragments helps to relate the design to the application’s domain. Review the names in the area you changed for consistency.
 
 - Abstraction: The signatures of the new methods may suggest a missing class, or new structure may be revealed in the original method.
 
-- Flexibility: Review the new methods for Feature Envy; with more small pieces you now have the opportunity to move code to more “natural” homes.
+- Flexibility: Review the new methods for `Feature Envy`; with more small pieces you now have the opportunity to move code to more “natural” homes.
+
+### Large Module
+
+What to Look For
+- A class or module has a large number of instance variables, methods, or just lines of code.
+
+Why This Is a Problem
+- Testability: A Large Module is usually difficult to test, either because it depends on many other modules or because it is difficult or time-consuming to create instances in isolation.
+
+- Flexibility: The module represents too many responsibilities folded together that is, every `Large Module` is also a `Greedy Module`.
+
+How It Got This Way
+Large modules get big a little bit at a time. The developer keeps adding just one more capability to a module until eventually it grows too big. Sometimes the problem is a lack of insight into the parts that make up the whole module.
+
+What to Do
+In general, you’re trying to break up the module. This usually proceeds piecemeal:
+
+• Very often a review of the module reveals a composite of other smells, such as `Long Methods`, `Data Clumps`, and `Temporary Fields`; fix these smells first.
+
+• To break up the module further, use `Extract Class` or `Extract Module` if you can identify a new piece that has part of this module’s responsibilities.
+
+• If you have a large class, you might try `Extract Subclass` if you can divide responsibilities between the class and a new subclass.
+
+• Sometimes a class is big because it’s a GUI class, and it represents both a display component and a model. In this case, you can use `Duplicate Observed Data` to help extract a domain class.
+
+What to Look for Next
+- Duplication: As you peel off each piece of the `Large Module` you may discover it has similar responsibilities or interface to an existing module.
+
+- Communication: Dividing up confused responsibilities, and giving names to them, helps the reader relate the code to the real domain. Review the names (see Chapter 6) used in the slimmer module and everything you extracted.
+
+### Long Parameter List
+
+What to Look For
+• A method has more than one or two parameters.
+• A method yields more than one or two objects to an associated block.
+
+Why This Is a Problem
+
+- Simplicity: A `Long Parameter List` often indicates that a method has more than one responsibility. Sometimes the parameters have no meaningful grouping they don’t go together. In such cases it may be that the method, or the objects it uses, doesn’t represent a meaningful and cohesive abstraction in the problem domain.
+
+- Flexibility: A `Long Parameter List` represents a large number of pieces of shared information between the caller and called code. If either changes, the parameter list is likely to need changing too.
+
+- Communication: A lot of parameters represent a lot to remember the programmer has to remember not only what objects to pass, but in which order. More succinct APIs are easier and quicker to use.
+
+When to Leave It
+This is one of those places where a smell doesn’t always equate to a problem. You might smell a `Long Parameter List` but decide it’s right for the situation at hand for example, to avoid the called method picking up a dependency that you don’t want it to have. Ensure that your changes don’t upset this balance.
+
+How It Got This Way
+You might be trying to minimize coupling between objects. Instead of the called object being aware of relationships between classes, you let the caller locate everything; then the method concentrates on what it is being asked to do with the pieces.
+
+The method may have acquired many parameters because the programmer generalized it to deal with multiple variations by creating a general algorithm with a lot of control parameters.
+
+What to Do
+• If a parameter’s value can be obtained from another object this one already knows, use `Replace Parameter with Method`
+
+• If the parameters come from a single object, try `Preserve Whole Object`.
+
+• If the data is not from one logical object, you still might group them via `Introduce Parameter Object`.
+
+What to Look for Next
+- Duplication: Sometimes a method’s clients all have to jump through the same hoops in order to call it. Check for `Duplicated Code` among the callers.
+
+- Communication: Parameters add to the cognitive load required to understand a class’s interface; all of the above refactorings help to hide detail. Review all of this class’s method signatures looking for `Data Clumps` and naming patterns.
+
+- Size: The amount of code required to call a method can be large when the method requires a lot of unrelated parameters. Look for signs of `Feature Envy` and `Open Secret` around the objects you are now passing as parameters to the method.
+
+### Exercises:
+
+Exercises 5.1: Comments
+
+Exercises 5.2: Long Method
+
+Exercises 5.3: Large Class
+
+Exercises 5.4: Smells and Refactorings
+
+Exercises 5.5: Triggers
+
+
