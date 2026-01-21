@@ -6,7 +6,10 @@ categories:
 - pages
 ---
 
-<div><img src='/images/appalachians_2024.jpeg' alt='Appalachians Sep 2024' class="about-image" style="border-radius:0.375rem;"/></div>
+<div style="margin-top: 8px;">
+  <img src="/images/appalachians_2024.jpeg" alt="Appalachians Sep 2024"
+       class="about-image" style="border-radius: 0.375rem;" />
+</div>
 
 <!-- above is a tiny little tweak! p tags have a little of top space.
 if you want your image on the about page to be flush with the name

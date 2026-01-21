@@ -1,14 +1,5 @@
-<style>
-  .lunrsearchresult .title {color: #0f4fd9;}
-  .lunrsearchresult .url {color: rgb(149, 165, 169);}
-  .lunrsearchresult a {display: block; color: #4f4d4d; text-decoration: none;}
-  .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
-  .lunrsearchresult a:hover .title {text-decoration: underline dotted;}
-  .search-loading {color: #666; font-style: italic;}
-</style>
-
-<form onSubmit="return initSearchAndQuery(document.getElementById('lunrsearch').value);">
-  <div class="search-input-container">
+<div class="search-wrapper">
+  <form class="search-form" onSubmit="return initSearchAndQuery(document.getElementById('lunrsearch').value);">
     <input
       type="text"
       class="search-input"
@@ -17,14 +8,10 @@
       maxlength="120"
       placeholder="Search"
     />
-  </div>
-</form>
-
-<div class="limiter">
-  <div id="lunrsearchresults">
-    <ul></ul>
-  </div>
+  </form>
 </div>
+
+<div id="lunrsearchresults" class="search-results"></div>
 
 <script>
 var searchIndex = null;
@@ -58,7 +45,7 @@ function loadSearchIndex(callback) {
     })
     .catch(function(err) {
       console.error('Failed to load search index:', err);
-      document.getElementById('lunrsearchresults').innerHTML = '<p>Search unavailable</p>';
+      document.getElementById('lunrsearchresults').innerHTML = '<p class="search-error">Search unavailable</p>';
     });
 }
 
@@ -77,32 +64,53 @@ function buildIndex() {
 
 function performSearch(term) {
   var resultsEl = document.getElementById('lunrsearchresults');
-  resultsEl.innerHTML = '<ul></ul>';
 
-  if (!term) return false;
+  if (!term) {
+    resultsEl.innerHTML = '';
+    resultsEl.classList.remove('has-results');
+    return false;
+  }
 
-  resultsEl.innerHTML = "<p>Search results for '" + term + "'</p><ul></ul>";
   var results = searchIndex.search(term);
 
+  var html = '<div class="search-results-header">Results for "' + term + '"';
+  html += '<button class="search-close" onclick="closeSearch()">&times;</button></div>';
+  html += '<ul class="search-results-list">';
+
   if (results.length > 0) {
-    var ul = resultsEl.querySelector('ul');
     for (var i = 0; i < results.length; i++) {
       var ref = results[i]['ref'];
       var doc = searchDocuments.find(function(d) { return d.id == ref; });
       if (doc) {
         var body = doc.body.substring(0, 120) + '...';
-        ul.innerHTML += "<li class='lunrsearchresult'><a href='" + doc.url + "'><span class='title'>" + doc.title + "</span><br /><span class='body'>" + body + "</span><br /><span class='url'>" + doc.url + "</span></a></li>";
+        html += '<li class="search-result-item">';
+        html += '<a href="' + doc.url + '">';
+        html += '<span class="search-result-title">' + doc.title + '</span>';
+        html += '<span class="search-result-body">' + body + '</span>';
+        html += '</a></li>';
       }
     }
   } else {
-    resultsEl.querySelector('ul').innerHTML = "<li class='lunrsearchresult'>No results found...</li>";
+    html += '<li class="search-result-item no-results">No results found</li>';
   }
+
+  html += '</ul>';
+  resultsEl.innerHTML = html;
+  resultsEl.classList.add('has-results');
   return false;
+}
+
+function closeSearch() {
+  var resultsEl = document.getElementById('lunrsearchresults');
+  resultsEl.innerHTML = '';
+  resultsEl.classList.remove('has-results');
+  document.getElementById('lunrsearch').value = '';
 }
 
 function initSearchAndQuery(term) {
   var resultsEl = document.getElementById('lunrsearchresults');
-  resultsEl.innerHTML = '<p class="search-loading">Loading search...</p>';
+  resultsEl.innerHTML = '<p class="search-loading">Searching...</p>';
+  resultsEl.classList.add('has-results');
 
   loadLunr(function() {
     loadSearchIndex(function() {
