@@ -48,7 +48,7 @@
     {% include search-lunr.html %}
   </div>
   <div class='' style='position:relative'>
-    {% if page.topimage %}<img style='width:100%;' src='{{page.topimage}}' />{% endif %}
+    {% if page.topimage %}<img style='width:100%;' src='{{page.topimage}}' loading='lazy' />{% endif %}
     <div class='only-print'>
       <h2>{{ site.me.name }}</h2>
       <div style='margin-top:0;'>{{ site.me.email }}</div>

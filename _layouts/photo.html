@@ -20,7 +20,8 @@ class: page
       srcset='{{site.photo_prefix}}{{page.photo}}_1280.jpg 1280w, {{site.photo_prefix}}{{page.photo}}_2880.jpg 2880w' />
     <img
       alt='{{photo.title}}'
-      src='{{site.photo_prefix}}{{page.photo}}_1280.jpg' />
+      src='{{site.photo_prefix}}{{page.photo}}_1280.jpg'
+      loading='lazy' />
   </picture>
   {% endif %}
 </section>
