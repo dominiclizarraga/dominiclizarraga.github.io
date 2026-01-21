@@ -1,6 +1,17 @@
 <!doctype html>
 <html lang=en>
 <head>
+  <script>
+    // Set theme immediately to prevent flash
+    (function() {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        document.documentElement.setAttribute('data-theme', saved);
+      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
   <meta charset=utf-8>
   <meta name=author content='{{ site.me.name }}' />
   <meta name='theme-color' content='#fff' />
@@ -46,6 +57,9 @@
 <body{% if page.class %} class='{{page.class}}'{% endif %}>
   <div class="limiter search-bar-desktop">
     {% include search-lunr.html %}
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <span class="theme-icon">dark</span>
+    </button>
   </div>
   <div class='' style='position:relative'>
     {% if page.topimage %}<img style='width:100%;' src='{{page.topimage}}' loading='lazy' />{% endif %}
@@ -70,5 +84,51 @@
       {{ content }}
     </div>
   </div>
+  <script>
+    // 80s light switch click sound using Web Audio API
+    function playClickSound() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+
+        oscillator.frequency.setValueAtTime(1800, ctx.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, ctx.currentTime + 0.03);
+
+        gain.gain.setValueAtTime(0.3, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.05);
+
+        oscillator.start(ctx.currentTime);
+        oscillator.stop(ctx.currentTime + 0.05);
+      } catch (e) {}
+    }
+
+    function toggleTheme() {
+      playClickSound();
+      const html = document.documentElement;
+      const current = html.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateLabel(next);
+    }
+
+    function updateLabel(theme) {
+      const label = document.querySelector('.theme-icon');
+      if (label) {
+        label.textContent = theme === 'dark' ? 'light' : 'dark';
+      }
+    }
+
+    // Set correct label on load
+    document.addEventListener('DOMContentLoaded', function() {
+      const theme = document.documentElement.getAttribute('data-theme') ||
+        (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      updateLabel(theme);
+    });
+  </script>
 </body>
 </html>

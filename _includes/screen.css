@@ -4,6 +4,64 @@
   --sans-font: -apple-system, BlinkMacSystemFont, "avenir next", avenir,
     helvetica, "helvetica neue", ubuntu, roboto, noto, "segoe ui", arial,
     sans-serif;
+
+  /* Light mode colors */
+  --bg-color: #f8f5d5;
+  --text-color: #111;
+  --text-muted: #333;
+  --text-subtle: #475569;
+  --link-color: #000;
+  --link-visited: #333;
+  --code-bg: #fff;
+  --border-color: #cfcfcf;
+  --hr-color: #000;
+  --input-bg: #fff;
+  --input-border: rgb(133, 134, 133);
+  --quote-bg: #f9f9f9;
+  --header-border: #000;
+  --project-link: #666;
+  --project-link-hover: #000;
+}
+
+[data-theme="dark"] {
+  --bg-color: #232529;
+  --text-color: #d6d6d6;
+  --text-muted: #b0b0b0;
+  --text-subtle: #9ca3af;
+  --link-color: #b68b82;
+  --link-visited: #9a756d;
+  --code-bg: #2d2d2d;
+  --border-color: #404040;
+  --hr-color: #505050;
+  --input-bg: #2d2d2d;
+  --input-border: #505050;
+  --quote-bg: #2a2a2e;
+  --header-border: #404040;
+  --project-link: #9ca3af;
+  --project-link-hover: #b68b82;
+  --accent-color: #b68b82;
+}
+
+/* Respect system preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg-color: #232529;
+    --text-color: #d6d6d6;
+    --text-muted: #b0b0b0;
+    --text-subtle: #9ca3af;
+    --link-color: #b68b82;
+    --link-visited: #9a756d;
+    --code-bg: #2d2d2d;
+    --border-color: #404040;
+    --hr-color: #505050;
+    --input-bg: #2d2d2d;
+    --input-border: #505050;
+    --quote-bg: #2a2a2e;
+    --header-border: #404040;
+    --project-link: #9ca3af;
+    --project-link-hover: #b68b82;
+    --accent-color: #b68b82;
+  }
 }
 
 .star {
@@ -14,14 +72,15 @@
 }
 
 body {
-  color: #111;
+  color: var(--text-color);
   margin: 0px auto;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   line-height: 1.6;
   font-size: 1rem;
   font-family: var(--sans-font);
-  background-color: #f8f5d5;
+  background-color: var(--bg-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Print tweaks ------------------------------------------------------------- */
@@ -51,13 +110,13 @@ sub {
 }
 
 a {
-  color: #000;
+  color: var(--link-color);
   text-decoration-skip-ink: auto;
   text-decoration: underline;
 }
 
 a:visited {
-  color: #333;
+  color: var(--link-visited);
 }
 
 ol,
@@ -87,7 +146,7 @@ br {
 }
 
 h1 a {
-  color: #111;
+  color: var(--text-color);
 }
 
 em {
@@ -146,7 +205,7 @@ td {
 }
 
 hr {
-  background: #000;
+  background: var(--hr-color);
   height: 1px;
   border: 0;
 }
@@ -171,7 +230,7 @@ summary {
 }
 
 .body td {
-  border: 1px solid #cfcfcf;
+  border: 1px solid var(--border-color);
 }
 
 .limiter {
@@ -242,7 +301,7 @@ div.post blockquote p {
 .writing time,
 .books time {
   padding-right: 0.25em;
-  color: #333;
+  color: var(--text-muted);
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.012em;
   white-space: pre;
@@ -256,10 +315,10 @@ div.post blockquote p {
 
 .project-box a.project {
   text-decoration: none;
-  color: #666;
+  color: var(--project-link);
 }
 .project-box a.project:hover {
-  color: #000;
+  color: var(--project-link-hover);
 }
 .project-box a.project img {
   display: block;
@@ -319,7 +378,7 @@ div.post blockquote p {
 
 @media screen and (max-width: 1024px) {
   .header-wrap {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--header-border);
     padding-bottom: 10px;
   }
 
@@ -395,7 +454,7 @@ blockquote {
   overflow-x: auto;
   padding: 10px 20px;
   margin: 0;
-  background: #fff;
+  background: var(--code-bg);
   border-radius: 10px;
 }
 
@@ -526,7 +585,7 @@ blockquote p:last-child {
 /** Code for styling reading time ------------------------------------------------------- */
 
 .reading-time {
-  color: #475569;
+  color: var(--text-subtle);
   text-align: right;
   font-style: italic;
 }
@@ -534,7 +593,7 @@ blockquote p:last-child {
 /** Code for footer + RSS svg ------------------------------------------------------- */
 
 .personal-elements-container, a[rel="nofollow"], .rss-text {
-  color:rgb(71, 95, 105);
+  color: var(--text-subtle);
   font-style: italic;
   display: flex;
   /* align-items: center; */
@@ -551,8 +610,10 @@ blockquote p:last-child {
 
 .search-bar-desktop {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0;
 }
 
 .search-input-container {
@@ -562,13 +623,14 @@ blockquote p:last-child {
 }
 
 .search-input {
-  border: 1px solid rgb(133, 134, 133);
+  border: 1px solid var(--input-border);
   padding: 0.75rem;
-  background-color: #ffffff;
+  background-color: var(--input-bg);
+  color: var(--text-color);
   width: 100%;
   border-radius: 0.375rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s;
   height: 10px;
   margin-left: 10px;
   font-size: 0.875rem;
@@ -619,7 +681,33 @@ strong {
   max-width: 600px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  background-color: #f9f9f9;
+  background-color: var(--quote-bg);
   text-align: center;
   font-size: 14px;
+}
+
+/* Theme toggle button */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 6px 10px;
+  font-size: 0.7rem;
+  font-family: var(--mono-font);
+  color: var(--text-muted);
+  transition: all 0.2s;
+  text-transform: lowercase;
+  letter-spacing: 0.02em;
+  margin-top: 10px;
+  margin-right: 40px;
+}
+
+.theme-toggle:hover {
+  border-color: var(--text-color);
+  color: var(--text-color);
+}
+
+.theme-toggle:active {
+  transform: scale(0.95);
 }
