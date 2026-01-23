@@ -13,7 +13,14 @@ class: post
 
 <div class='body'>{{ content }}</div>
 
+<div id="post-end-marker"></div>
 <div class='breaker'></div>
+
+<button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Back to top">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
 
 
 <div class="personal-elements-container">
@@ -60,4 +67,54 @@ class: post
         data-loading="lazy"
         crossorigin="anonymous"
         async>
+</script>
+
+<script>
+// Back to top button visibility
+(function() {
+  var btn = document.querySelector('.back-to-top');
+  if (btn) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        btn.classList.add('visible');
+      } else {
+        btn.classList.remove('visible');
+      }
+    });
+  }
+})();
+
+// Confetti celebration
+(function() {
+  var confettiFired = false;
+
+  var observer = new IntersectionObserver(function(entries) {
+    if (entries[0].isIntersecting && !confettiFired) {
+      confettiFired = true;
+      observer.disconnect();
+
+      var script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js';
+      script.onload = function() {
+        // Fire confetti from both sides
+        confetti({
+          particleCount: 80,
+          spread: 60,
+          origin: { x: 0.1, y: 0.6 }
+        });
+        confetti({
+          particleCount: 80,
+          spread: 60,
+          origin: { x: 0.9, y: 0.6 }
+        });
+      };
+      document.head.appendChild(script);
+    }
+  }, { threshold: 1.0 });
+
+  var marker = document.getElementById('post-end-marker');
+  if (marker) {
+    observer.observe(marker);
+  }
+})();
 </script>
