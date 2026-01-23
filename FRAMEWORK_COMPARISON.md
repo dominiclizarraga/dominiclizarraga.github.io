@@ -252,6 +252,7 @@ Based on curiouslychase.com/posts:
 | Content type | CS deep dives, code-heavy |
 | Desired features | Good reading UX, maybe interactive demos |
 | Risk tolerance | Want stability, not constant framework churn |
+| Life tracking | GitHub-style contribution graphs for: workouts, reading, sunlight exposure, avoiding expensive clothing purchases, course completions |
 
 ### The Honest Truth
 
