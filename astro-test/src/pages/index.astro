@@ -1,0 +1,216 @@
+---
+import ByteVisualizer from '../components/ByteVisualizer';
+import RubyPlayground from '../components/RubyPlayground';
+
+const rubyExample = `# Understanding bytes in Ruby
+byte = 0b01000001  # Binary literal for 65
+
+puts "Binary: #{byte.to_s(2).rjust(8, '0')}"
+puts "Decimal: #{byte}"
+puts "Hex: 0x#{byte.to_s(16).upcase}"
+puts "Character: #{byte.chr}"
+
+# Try changing the binary value!
+# 0b01000010 = 66 = 'B'
+# 0b01001000 = 72 = 'H'`;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Understanding Bytes | Astro Test</title>
+    <style>
+      :root {
+        --bg: #0f0f1a;
+        --text: #e2e8f0;
+        --text-muted: #a0aec0;
+        --accent: #667eea;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      body {
+        min-height: 100vh;
+        padding: 2rem 1rem;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        background: linear-gradient(135deg, var(--accent) 0%, #a855f7 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .subtitle {
+        color: var(--text-muted);
+        font-size: 1.1rem;
+      }
+
+      .badge {
+        display: inline-block;
+        background: rgba(102, 126, 234, 0.2);
+        color: var(--accent);
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.8rem;
+        margin-top: 1rem;
+      }
+
+      section {
+        margin-bottom: 4rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--text);
+      }
+
+      p {
+        color: var(--text-muted);
+        margin-bottom: 1rem;
+        max-width: 65ch;
+      }
+
+      .highlight {
+        color: var(--accent);
+        font-weight: 500;
+      }
+
+      code {
+        font-family: 'SF Mono', Monaco, 'Inconsolata', monospace;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.125rem 0.375rem;
+        border-radius: 4px;
+        font-size: 0.9em;
+      }
+
+      .component-wrapper {
+        margin: 2rem 0;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 4rem;
+      }
+
+      footer a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Understanding Bytes</h1>
+        <p class="subtitle">An interactive exploration of binary, decimal, and ASCII</p>
+        <span class="badge">Astro + React Demo</span>
+      </header>
+
+      <section>
+        <h2>What is a Byte?</h2>
+        <p>
+          A <span class="highlight">byte</span> is a unit of digital information consisting of
+          <span class="highlight">8 bits</span>. Each bit can be either 0 or 1. Together,
+          these 8 bits can represent values from 0 to 255 (2<sup>8</sup> - 1 = 255).
+        </p>
+        <p>
+          Click on the bits below to toggle them between 0 and 1, and watch how the
+          decimal value and ASCII character change in real-time.
+        </p>
+      </section>
+
+      <section>
+        <h2>Interactive Byte Visualizer</h2>
+        <p>
+          The number above each bit shows its <span class="highlight">positional value</span>
+          (128, 64, 32, 16, 8, 4, 2, 1). To calculate the decimal value, add up the positional
+          values of all the "on" bits.
+        </p>
+        <div class="component-wrapper">
+          <ByteVisualizer client:load initialByte={65} />
+        </div>
+        <p>
+          Try setting the bits to <code>01000001</code> (65) for 'A', or
+          <code>01001000</code> (72) for 'H'.
+        </p>
+      </section>
+
+      <section>
+        <h2>Ruby Playground</h2>
+        <p>
+          Ruby makes it easy to work with binary numbers. You can write binary literals
+          using the <code>0b</code> prefix. Edit and run the code below to experiment!
+        </p>
+        <div class="component-wrapper">
+          <RubyPlayground client:load initialCode={rubyExample} title="Byte Operations in Ruby" />
+        </div>
+        <p>
+          Note: The Ruby playground uses <span class="highlight">ruby.wasm</span> to run
+          Ruby 3.2 directly in your browser. The first run may take a few seconds to
+          initialize.
+        </p>
+      </section>
+
+      <section>
+        <h2>ASCII Table Reference</h2>
+        <p>
+          ASCII (American Standard Code for Information Interchange) maps numbers 0-127
+          to characters. Here are some useful ranges:
+        </p>
+        <ul style="color: var(--text-muted); margin-left: 1.5rem;">
+          <li><code>65-90</code> → Uppercase letters (A-Z)</li>
+          <li><code>97-122</code> → Lowercase letters (a-z)</li>
+          <li><code>48-57</code> → Digits (0-9)</li>
+          <li><code>32</code> → Space</li>
+        </ul>
+      </section>
+
+      <footer>
+        <p>
+          Built with <a href="https://astro.build" target="_blank">Astro</a> +
+          <a href="https://react.dev" target="_blank">React</a> +
+          <a href="https://github.com/ruby/ruby.wasm" target="_blank">ruby.wasm</a>
+        </p>
+        <p style="margin-top: 0.5rem;">
+          Inspired by <a href="https://planetscale.com/blog" target="_blank">PlanetScale Blog</a>
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
