@@ -1,18 +1,42 @@
 ---
 import ByteVisualizer from '../components/ByteVisualizer';
 import RubyPlayground from '../components/RubyPlayground';
+import AsciiTable from '../components/AsciiTable';
+import BitwiseOperations from '../components/BitwiseOperations';
+import Utf8Visualizer from '../components/Utf8Visualizer';
 
-const rubyExample = `# Understanding bytes in Ruby
+const rubyByteBasics = `# Understanding bytes in Ruby
 byte = 0b01000001  # Binary literal for 65
 
-puts "Binary: #{byte.to_s(2).rjust(8, '0')}"
-puts "Decimal: #{byte}"
-puts "Hex: 0x#{byte.to_s(16).upcase}"
-puts "Character: #{byte.chr}"
+puts "Binary:    #{byte.to_s(2).rjust(8, '0')}"
+puts "Decimal:   #{byte}"
+puts "Hex:       0x#{byte.to_s(16).upcase}"
+puts "Character: #{byte.chr}"`;
 
-# Try changing the binary value!
-# 0b01000010 = 66 = 'B'
-# 0b01001000 = 72 = 'H'`;
+const rubyBitOperations = `# Bitwise operations in Ruby
+a = 0b11001010  # 202
+b = 0b10110101  # 181
+
+puts "a AND b = #{(a & b).to_s(2).rjust(8, '0')} (#{a & b})"
+puts "a OR b  = #{(a | b).to_s(2).rjust(8, '0')} (#{a | b})"
+puts "a XOR b = #{(a ^ b).to_s(2).rjust(8, '0')} (#{a ^ b})"
+puts "NOT a   = #{(~a & 0xFF).to_s(2).rjust(8, '0')} (#{~a & 0xFF})"
+puts "a << 2  = #{(a << 2 & 0xFF).to_s(2).rjust(8, '0')} (#{(a << 2) & 0xFF})"`;
+
+const rubyUtf8 = `# UTF-8 encoding in Ruby
+chars = ['A', 'é', '中', '🎉']
+
+chars.each do |char|
+  bytes = char.bytes
+  hex = bytes.map { |b| format('%02X', b) }.join(' ')
+  puts "#{char} => #{bytes.length} byte(s): #{hex}"
+end
+
+# String encoding
+str = "Hello, 世界! 🌍"
+puts "\\nString: #{str}"
+puts "Bytes: #{str.bytesize}"
+puts "Chars: #{str.length}"`;
 ---
 
 <html lang="en">
@@ -21,13 +45,18 @@ puts "Character: #{byte.chr}"
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Understanding Bytes | Astro Test</title>
-    <style>
+    <meta name="description" content="A deep dive into bytes, binary, ASCII, bitwise operations, and UTF-8 encoding with interactive visualizations." />
+    <title>The Complete Guide to Bytes | Understanding Binary at the Bit Level</title>
+    <style is:global>
       :root {
         --bg: #0f0f1a;
+        --bg-card: #1a1a2e;
         --text: #e2e8f0;
         --text-muted: #a0aec0;
         --accent: #667eea;
+        --accent-secondary: #a855f7;
+        --success: #48bb78;
+        --warning: #f59e0b;
       }
 
       * {
@@ -40,62 +69,149 @@ puts "Character: #{byte.chr}"
         font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: var(--bg);
         color: var(--text);
-        line-height: 1.6;
+        line-height: 1.7;
+        scroll-behavior: smooth;
       }
 
       body {
         min-height: 100vh;
-        padding: 2rem 1rem;
       }
 
       .container {
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
+        padding: 2rem 1.5rem;
       }
 
-      header {
+      /* Hero Section */
+      .hero {
         text-align: center;
+        padding: 4rem 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+        border-radius: 16px;
         margin-bottom: 3rem;
       }
 
-      h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
-        background: linear-gradient(135deg, var(--accent) 0%, #a855f7 100%);
+      .hero h1 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
       }
 
-      .subtitle {
+      .hero .subtitle {
+        font-size: 1.25rem;
         color: var(--text-muted);
-        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto 1.5rem;
+      }
+
+      .badge-row {
+        display: flex;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
       }
 
       .badge {
         display: inline-block;
-        background: rgba(102, 126, 234, 0.2);
-        color: var(--accent);
-        padding: 0.25rem 0.75rem;
+        padding: 0.35rem 0.85rem;
         border-radius: 9999px;
         font-size: 0.8rem;
-        margin-top: 1rem;
+        font-weight: 500;
       }
 
-      section {
-        margin-bottom: 4rem;
+      .badge.interactive {
+        background: rgba(72, 187, 120, 0.2);
+        color: var(--success);
       }
 
-      h2 {
-        font-size: 1.5rem;
+      .badge.ruby {
+        background: rgba(204, 52, 45, 0.2);
+        color: #fc8181;
+      }
+
+      .badge.deep-dive {
+        background: rgba(102, 126, 234, 0.2);
+        color: var(--accent);
+      }
+
+      /* Table of Contents */
+      .toc {
+        background: var(--bg-card);
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .toc h2 {
+        font-size: 1rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         margin-bottom: 1rem;
+      }
+
+      .toc-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 0.5rem;
+        list-style: none;
+      }
+
+      .toc-list a {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        color: var(--text);
+        text-decoration: none;
+        border-radius: 6px;
+        transition: all 0.15s ease;
+        font-size: 0.95rem;
+      }
+
+      .toc-list a:hover {
+        background: rgba(102, 126, 234, 0.1);
+        color: var(--accent);
+      }
+
+      /* Sections */
+      section {
+        margin-bottom: 5rem;
+      }
+
+      section h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      section h2 .number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-secondary) 100%);
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      section h3 {
+        font-size: 1.25rem;
+        margin: 2rem 0 1rem;
         color: var(--text);
       }
 
       p {
         color: var(--text-muted);
-        margin-bottom: 1rem;
-        max-width: 65ch;
+        margin-bottom: 1.25rem;
+        max-width: 75ch;
       }
 
       .highlight {
@@ -103,21 +219,55 @@ puts "Character: #{byte.chr}"
         font-weight: 500;
       }
 
+      .highlight-success {
+        color: var(--success);
+        font-weight: 500;
+      }
+
+      .highlight-warning {
+        color: var(--warning);
+        font-weight: 500;
+      }
+
       code {
         font-family: 'SF Mono', Monaco, 'Inconsolata', monospace;
         background: rgba(255, 255, 255, 0.1);
-        padding: 0.125rem 0.375rem;
+        padding: 0.15rem 0.4rem;
         border-radius: 4px;
         font-size: 0.9em;
+      }
+
+      .info-box {
+        background: rgba(102, 126, 234, 0.1);
+        border-left: 4px solid var(--accent);
+        padding: 1rem 1.25rem;
+        border-radius: 0 8px 8px 0;
+        margin: 1.5rem 0;
+      }
+
+      .info-box.success {
+        background: rgba(72, 187, 120, 0.1);
+        border-color: var(--success);
+      }
+
+      .info-box.warning {
+        background: rgba(245, 158, 11, 0.1);
+        border-color: var(--warning);
+      }
+
+      .info-box p {
+        margin: 0;
+        color: var(--text);
       }
 
       .component-wrapper {
         margin: 2rem 0;
       }
 
+      /* Footer */
       footer {
         text-align: center;
-        padding: 2rem;
+        padding: 3rem 2rem;
         color: var(--text-muted);
         font-size: 0.9rem;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -132,73 +282,477 @@ puts "Character: #{byte.chr}"
       footer a:hover {
         text-decoration: underline;
       }
+
+      /* Key concepts grid */
+      .concepts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      .concept-card {
+        background: var(--bg-card);
+        padding: 1.25rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .concept-card h4 {
+        color: var(--accent);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .concept-card p {
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      /* Comparison table */
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.5rem 0;
+        font-size: 0.9rem;
+      }
+
+      .comparison-table th,
+      .comparison-table td {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .comparison-table th {
+        color: var(--accent);
+        font-weight: 600;
+        background: rgba(102, 126, 234, 0.1);
+      }
+
+      .comparison-table td {
+        color: var(--text-muted);
+      }
+
+      .comparison-table code {
+        color: var(--success);
+      }
     </style>
   </head>
   <body>
     <div class="container">
-      <header>
-        <h1>Understanding Bytes</h1>
-        <p class="subtitle">An interactive exploration of binary, decimal, and ASCII</p>
-        <span class="badge">Astro + React Demo</span>
+      <header class="hero">
+        <h1>The Complete Guide to Bytes</h1>
+        <p class="subtitle">
+          Understanding binary, ASCII, bitwise operations, and UTF-8 encoding
+          from the ground up with interactive visualizations
+        </p>
+        <div class="badge-row">
+          <span class="badge interactive">Interactive</span>
+          <span class="badge ruby">Ruby Examples</span>
+          <span class="badge deep-dive">Deep Dive</span>
+        </div>
       </header>
 
-      <section>
-        <h2>What is a Byte?</h2>
-        <p>
-          A <span class="highlight">byte</span> is a unit of digital information consisting of
-          <span class="highlight">8 bits</span>. Each bit can be either 0 or 1. Together,
-          these 8 bits can represent values from 0 to 255 (2<sup>8</sup> - 1 = 255).
-        </p>
-        <p>
-          Click on the bits below to toggle them between 0 and 1, and watch how the
-          decimal value and ASCII character change in real-time.
-        </p>
-      </section>
+      <nav class="toc">
+        <h2>Table of Contents</h2>
+        <ul class="toc-list">
+          <li><a href="#what-is-byte">1. What is a Byte?</a></li>
+          <li><a href="#binary-numbers">2. Binary Number System</a></li>
+          <li><a href="#ascii">3. ASCII Encoding</a></li>
+          <li><a href="#bitwise">4. Bitwise Operations</a></li>
+          <li><a href="#utf8">5. UTF-8 Encoding</a></li>
+          <li><a href="#ruby-playground">6. Ruby Playground</a></li>
+        </ul>
+      </nav>
 
-      <section>
-        <h2>Interactive Byte Visualizer</h2>
+      <section id="what-is-byte">
+        <h2><span class="number">1</span> What is a Byte?</h2>
+
         <p>
-          The number above each bit shows its <span class="highlight">positional value</span>
-          (128, 64, 32, 16, 8, 4, 2, 1). To calculate the decimal value, add up the positional
-          values of all the "on" bits.
+          A <span class="highlight">byte</span> is the fundamental unit of digital storage.
+          It consists of exactly <span class="highlight">8 bits</span>, where each bit can be
+          either 0 or 1. This gives us 2<sup>8</sup> = <span class="highlight-success">256
+          possible values</span> (0 to 255).
         </p>
+
+        <div class="concepts-grid">
+          <div class="concept-card">
+            <h4>Bit</h4>
+            <p>The smallest unit of data. Can only be 0 or 1 (binary digit).</p>
+          </div>
+          <div class="concept-card">
+            <h4>Byte</h4>
+            <p>8 bits grouped together. Range: 0-255 decimal.</p>
+          </div>
+          <div class="concept-card">
+            <h4>Nibble</h4>
+            <p>4 bits (half a byte). Represents one hex digit (0-F).</p>
+          </div>
+          <div class="concept-card">
+            <h4>Word</h4>
+            <p>Varies by architecture. Usually 32 or 64 bits today.</p>
+          </div>
+        </div>
+
+        <p>
+          Click on the bits below to toggle them and see how the decimal value,
+          hexadecimal, and ASCII character change in real-time.
+        </p>
+
         <div class="component-wrapper">
           <ByteVisualizer client:load initialByte={65} />
         </div>
-        <p>
-          Try setting the bits to <code>01000001</code> (65) for 'A', or
-          <code>01001000</code> (72) for 'H'.
-        </p>
-      </section>
 
-      <section>
-        <h2>Ruby Playground</h2>
-        <p>
-          Ruby makes it easy to work with binary numbers. You can write binary literals
-          using the <code>0b</code> prefix. Edit and run the code below to experiment!
-        </p>
-        <div class="component-wrapper">
-          <RubyPlayground client:load initialCode={rubyExample} title="Byte Operations in Ruby" />
+        <div class="info-box">
+          <p>
+            <strong>Why 8 bits?</strong> The byte size was standardized at 8 bits because
+            it's the smallest power of 2 that can represent the English alphabet (26 letters
+            × 2 cases = 52), digits (10), punctuation, and control characters.
+          </p>
         </div>
-        <p>
-          Note: The Ruby playground uses <span class="highlight">ruby.wasm</span> to run
-          Ruby 3.2 directly in your browser. The first run may take a few seconds to
-          initialize.
-        </p>
       </section>
 
-      <section>
-        <h2>ASCII Table Reference</h2>
+      <section id="binary-numbers">
+        <h2><span class="number">2</span> Binary Number System</h2>
+
         <p>
-          ASCII (American Standard Code for Information Interchange) maps numbers 0-127
-          to characters. Here are some useful ranges:
+          Binary is a base-2 number system, meaning each digit position can only hold
+          two values: 0 or 1. In contrast, decimal (base-10) uses digits 0-9.
+          Each position in a binary number represents a power of 2.
         </p>
-        <ul style="color: var(--text-muted); margin-left: 1.5rem;">
-          <li><code>65-90</code> → Uppercase letters (A-Z)</li>
-          <li><code>97-122</code> → Lowercase letters (a-z)</li>
-          <li><code>48-57</code> → Digits (0-9)</li>
-          <li><code>32</code> → Space</li>
-        </ul>
+
+        <table class="comparison-table">
+          <tr>
+            <th>Position (right to left)</th>
+            <th>7</th>
+            <th>6</th>
+            <th>5</th>
+            <th>4</th>
+            <th>3</th>
+            <th>2</th>
+            <th>1</th>
+            <th>0</th>
+          </tr>
+          <tr>
+            <td>Power of 2</td>
+            <td>2<sup>7</sup></td>
+            <td>2<sup>6</sup></td>
+            <td>2<sup>5</sup></td>
+            <td>2<sup>4</sup></td>
+            <td>2<sup>3</sup></td>
+            <td>2<sup>2</sup></td>
+            <td>2<sup>1</sup></td>
+            <td>2<sup>0</sup></td>
+          </tr>
+          <tr>
+            <td>Decimal Value</td>
+            <td><code>128</code></td>
+            <td><code>64</code></td>
+            <td><code>32</code></td>
+            <td><code>16</code></td>
+            <td><code>8</code></td>
+            <td><code>4</code></td>
+            <td><code>2</code></td>
+            <td><code>1</code></td>
+          </tr>
+        </table>
+
+        <h3>Number Representations</h3>
+        <p>
+          The same number can be written in different bases. Ruby makes this easy
+          with literal prefixes:
+        </p>
+
+        <table class="comparison-table">
+          <tr>
+            <th>Base</th>
+            <th>Prefix</th>
+            <th>Example (65)</th>
+            <th>Digits Used</th>
+          </tr>
+          <tr>
+            <td>Binary (2)</td>
+            <td><code>0b</code></td>
+            <td><code>0b01000001</code></td>
+            <td>0, 1</td>
+          </tr>
+          <tr>
+            <td>Octal (8)</td>
+            <td><code>0o</code></td>
+            <td><code>0o101</code></td>
+            <td>0-7</td>
+          </tr>
+          <tr>
+            <td>Decimal (10)</td>
+            <td>(none)</td>
+            <td><code>65</code></td>
+            <td>0-9</td>
+          </tr>
+          <tr>
+            <td>Hexadecimal (16)</td>
+            <td><code>0x</code></td>
+            <td><code>0x41</code></td>
+            <td>0-9, A-F</td>
+          </tr>
+        </table>
+
+        <div class="component-wrapper">
+          <RubyPlayground client:load initialCode={rubyByteBasics} title="Number Representations" />
+        </div>
+      </section>
+
+      <section id="ascii">
+        <h2><span class="number">3</span> ASCII Encoding</h2>
+
+        <p>
+          <span class="highlight">ASCII</span> (American Standard Code for Information
+          Interchange) is a character encoding standard that maps numbers 0-127 to
+          characters. It was developed in the 1960s and remains the foundation of
+          modern text encoding.
+        </p>
+
+        <div class="info-box success">
+          <p>
+            <strong>ASCII uses only 7 bits</strong> (values 0-127), leaving the 8th bit
+            available for error checking (parity) or extended character sets.
+          </p>
+        </div>
+
+        <h3>ASCII Structure</h3>
+        <div class="concepts-grid">
+          <div class="concept-card">
+            <h4>Control (0-31)</h4>
+            <p>Non-printable: null, tab, newline, escape, etc.</p>
+          </div>
+          <div class="concept-card">
+            <h4>Punctuation (32-47)</h4>
+            <p>Space, !, ", #, $, etc.</p>
+          </div>
+          <div class="concept-card">
+            <h4>Digits (48-57)</h4>
+            <p>0-9 (note: char '0' = 48, not 0!)</p>
+          </div>
+          <div class="concept-card">
+            <h4>Uppercase (65-90)</h4>
+            <p>A-Z (A=65, B=66, ...)</p>
+          </div>
+          <div class="concept-card">
+            <h4>Lowercase (97-122)</h4>
+            <p>a-z (difference from uppercase: +32)</p>
+          </div>
+          <div class="concept-card">
+            <h4>DEL (127)</h4>
+            <p>Delete character (historical artifact)</p>
+          </div>
+        </div>
+
+        <p>
+          Click on any character in the table below to see its binary, decimal,
+          and hexadecimal representations.
+        </p>
+
+        <div class="component-wrapper">
+          <AsciiTable client:load />
+        </div>
+
+        <div class="info-box warning">
+          <p>
+            <strong>Case conversion trick:</strong> To convert uppercase to lowercase
+            (or vice versa), just flip bit 5. <code>'A' XOR 32 = 'a'</code> because
+            65 XOR 32 = 97.
+          </p>
+        </div>
+      </section>
+
+      <section id="bitwise">
+        <h2><span class="number">4</span> Bitwise Operations</h2>
+
+        <p>
+          Bitwise operations work on individual bits within bytes. They're fundamental
+          to low-level programming, encryption, compression, graphics, and performance
+          optimization.
+        </p>
+
+        <h3>The Six Core Operations</h3>
+
+        <table class="comparison-table">
+          <tr>
+            <th>Operation</th>
+            <th>Symbol</th>
+            <th>Description</th>
+            <th>Use Case</th>
+          </tr>
+          <tr>
+            <td>AND</td>
+            <td><code>&</code></td>
+            <td>1 if both bits are 1</td>
+            <td>Masking, clearing bits</td>
+          </tr>
+          <tr>
+            <td>OR</td>
+            <td><code>|</code></td>
+            <td>1 if either bit is 1</td>
+            <td>Setting bits, combining flags</td>
+          </tr>
+          <tr>
+            <td>XOR</td>
+            <td><code>^</code></td>
+            <td>1 if bits are different</td>
+            <td>Toggling, encryption, swap</td>
+          </tr>
+          <tr>
+            <td>NOT</td>
+            <td><code>~</code></td>
+            <td>Flips all bits</td>
+            <td>Inversion, one's complement</td>
+          </tr>
+          <tr>
+            <td>Left Shift</td>
+            <td><code>&lt;&lt;</code></td>
+            <td>Shifts bits left</td>
+            <td>Multiply by 2ⁿ</td>
+          </tr>
+          <tr>
+            <td>Right Shift</td>
+            <td><code>&gt;&gt;</code></td>
+            <td>Shifts bits right</td>
+            <td>Divide by 2ⁿ</td>
+          </tr>
+        </table>
+
+        <p>
+          Experiment with the interactive bitwise calculator below. Click on bits
+          to toggle them and select different operations to see the results.
+        </p>
+
+        <div class="component-wrapper">
+          <BitwiseOperations client:load />
+        </div>
+
+        <div class="component-wrapper">
+          <RubyPlayground client:load initialCode={rubyBitOperations} title="Bitwise Operations in Ruby" />
+        </div>
+      </section>
+
+      <section id="utf8">
+        <h2><span class="number">5</span> UTF-8 Encoding</h2>
+
+        <p>
+          ASCII's 128 characters aren't enough for the world's languages.
+          <span class="highlight">UTF-8</span> (Unicode Transformation Format - 8 bit)
+          is a variable-width encoding that can represent over 1.1 million characters
+          while remaining backwards-compatible with ASCII.
+        </p>
+
+        <h3>How UTF-8 Works</h3>
+        <p>
+          UTF-8 uses 1 to 4 bytes per character. The first byte's leading bits indicate
+          how many bytes follow:
+        </p>
+
+        <table class="comparison-table">
+          <tr>
+            <th>Bytes</th>
+            <th>First Byte Pattern</th>
+            <th>Code Point Range</th>
+            <th>Example</th>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td><code>0xxxxxxx</code></td>
+            <td>U+0000 - U+007F</td>
+            <td>A, 5, @</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td><code>110xxxxx 10xxxxxx</code></td>
+            <td>U+0080 - U+07FF</td>
+            <td>é, ñ, ü</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td><code>1110xxxx 10xxxxxx 10xxxxxx</code></td>
+            <td>U+0800 - U+FFFF</td>
+            <td>中, 日, €</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td><code>11110xxx 10xxxxxx 10xxxxxx 10xxxxxx</code></td>
+            <td>U+10000 - U+10FFFF</td>
+            <td>🎉, 🌍, 💻</td>
+          </tr>
+        </table>
+
+        <div class="info-box">
+          <p>
+            <strong>Continuation bytes</strong> always start with <code>10</code>.
+            This makes UTF-8 self-synchronizing: you can jump to any byte and
+            find the start of a character by scanning for a non-continuation byte.
+          </p>
+        </div>
+
+        <p>
+          Enter any character below to see how it's encoded in UTF-8. Try ASCII
+          letters, accented characters, Chinese characters, and emojis!
+        </p>
+
+        <div class="component-wrapper">
+          <Utf8Visualizer client:load />
+        </div>
+
+        <div class="component-wrapper">
+          <RubyPlayground client:load initialCode={rubyUtf8} title="UTF-8 in Ruby" />
+        </div>
+      </section>
+
+      <section id="ruby-playground">
+        <h2><span class="number">6</span> Ruby Playground</h2>
+
+        <p>
+          Ruby provides excellent tools for working with bytes and encodings.
+          Use the playground below to experiment with your own code.
+        </p>
+
+        <div class="concepts-grid">
+          <div class="concept-card">
+            <h4>.bytes</h4>
+            <p>Returns an array of byte values for a string</p>
+          </div>
+          <div class="concept-card">
+            <h4>.ord</h4>
+            <p>Returns the code point of the first character</p>
+          </div>
+          <div class="concept-card">
+            <h4>.chr</h4>
+            <p>Converts an integer to its character</p>
+          </div>
+          <div class="concept-card">
+            <h4>.pack/.unpack</h4>
+            <p>Binary data packing and unpacking</p>
+          </div>
+        </div>
+
+        <div class="component-wrapper">
+          <RubyPlayground
+            client:load
+            initialCode={`# Try your own Ruby code!
+# The Ruby VM runs directly in your browser
+
+# Some ideas to try:
+# - Convert between bases
+# - Pack/unpack binary data
+# - Explore string encodings
+
+"Hello".bytes.each_with_index do |byte, i|
+  char = byte.chr
+  bin = byte.to_s(2).rjust(8, '0')
+  hex = byte.to_s(16).upcase.rjust(2, '0')
+  puts "\#{i}: '\#{char}' = \#{byte} = 0b\#{bin} = 0x\#{hex}"
+end`}
+            title="Your Ruby Sandbox"
+          />
+        </div>
       </section>
 
       <footer>
@@ -209,6 +763,9 @@ puts "Character: #{byte.chr}"
         </p>
         <p style="margin-top: 0.5rem;">
           Inspired by <a href="https://planetscale.com/blog" target="_blank">PlanetScale Blog</a>
+        </p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; color: #4a5568;">
+          © 2026 · Interactive visualizations for understanding bytes
         </p>
       </footer>
     </div>
