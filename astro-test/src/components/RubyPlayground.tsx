@@ -30,15 +30,16 @@ export default function RubyPlayground({
 
     const initRuby = async () => {
       try {
-        setOutput('Loading Ruby VM...');
+        setOutput('Loading Ruby VM (~3MB)...');
 
-        // Dynamic import of ruby.wasm
-        const { DefaultRubyVM } = await import('@ruby/wasm-wasi/dist/browser');
+        // Import the ruby-head-wasm-wasi package
+        const { DefaultRubyVM } = await import('ruby-head-wasm-wasi/dist/browser');
 
-        // Fetch the Ruby WASM binary
+        // Fetch the Ruby WASM binary (bundled with package)
         const response = await fetch(
-          'https://cdn.jsdelivr.net/npm/@ruby/3.2-wasm-wasi@2.5.1/dist/ruby+stdlib.wasm'
+          'https://cdn.jsdelivr.net/npm/ruby-head-wasm-wasi@2.3.0/dist/ruby+stdlib.wasm'
         );
+
         const module = await WebAssembly.compileStreaming(response);
         const { vm } = await DefaultRubyVM(module);
 
@@ -46,6 +47,7 @@ export default function RubyPlayground({
         setLoading(false);
         setOutput('Ruby VM ready! Click "Run" to execute code.');
       } catch (err) {
+        console.error('Ruby init error:', err);
         setError(`Failed to load Ruby: ${err instanceof Error ? err.message : 'Unknown error'}`);
         setLoading(false);
       }
@@ -62,24 +64,30 @@ export default function RubyPlayground({
     setError(null);
 
     try {
-      // Capture stdout by wrapping the code
+      // Capture stdout using StringIO
       const wrappedCode = `
-        $stdout_capture = StringIO.new
-        $old_stdout = $stdout
-        $stdout = $stdout_capture
-        begin
-          ${code}
-        ensure
-          $stdout = $old_stdout
-        end
-        $stdout_capture.string
-      `;
+require 'stringio'
+$captured_output = StringIO.new
+$original_stdout = $stdout
+$stdout = $captured_output
+
+begin
+${code}
+rescue => e
+  puts "Error: #{e.class}: #{e.message}"
+end
+
+$stdout = $original_stdout
+$captured_output.string
+`;
 
       const result = rubyVMRef.current.eval(wrappedCode);
-      const outputStr = result.toString();
-      setOutput(outputStr || '(no output)');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error');
+      const outputStr = result?.toString() || '(no output)';
+      setOutput(outputStr);
+    } catch (err: any) {
+      console.error('Ruby eval error:', err);
+      const errorMessage = err?.message || err?.toString() || 'Unknown error';
+      setError(errorMessage);
       setOutput('');
     } finally {
       setRunning(false);
@@ -120,7 +128,7 @@ export default function RubyPlayground({
     <div className="ruby-playground">
       <div className="playground-header">
         <span className="title">{title}</span>
-        <span className="ruby-badge">Ruby 3.2</span>
+        <span className="ruby-badge">Ruby 3.3</span>
       </div>
 
       <div className="editor-container">
