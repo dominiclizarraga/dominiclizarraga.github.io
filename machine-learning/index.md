@@ -2,11 +2,11 @@
 layout: default
 title: Machine Learning Learning Log
 permalink: /machine-learning/
-description: 'My notes from the Le Wagon Data Science & AI bootcamp'
+description: 'My notes from the Le Wagon Machine Learning & AI bootcamp'
 ---
 
 <strong style="margin-top:-1rem;">
-  Notes, exercises, and projects from my Data Science &amp; AI bootcamp journey.
+  Notes, exercises, and projects from my Machine Learning &amp; AI bootcamp journey.
 </strong>
 
 ### Topics
