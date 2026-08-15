@@ -1,123 +1,316 @@
-<div class="search-wrapper">
-  <form class="search-form" onSubmit="return initSearchAndQuery(document.getElementById('lunrsearch').value);">
+<div class="search-wrapper" id="search-wrapper">
+  <button
+    class="search-toggle"
+    type="button"
+    aria-label="Open search"
+    aria-controls="lunrsearch"
+    aria-expanded="false"
+    onclick="toggleSearch()"
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" width="20" height="20">
+      <circle cx="11" cy="11" r="6.5"></circle>
+      <path d="m16 16 4 4"></path>
+    </svg>
+  </button>
+  <form class="search-form" role="search" onSubmit="return initSearchAndQuery(document.getElementById('lunrsearch').value);">
+    <label class="visually-hidden" for="lunrsearch">Search notes</label>
     <input
-      type="text"
+      type="search"
       class="search-input"
       id="lunrsearch"
       name="q"
       maxlength="120"
-      placeholder="Search"
+      placeholder="Search notes"
+      autocomplete="off"
+      spellcheck="false"
+      aria-autocomplete="list"
+      aria-controls="lunrsearchresults"
+      aria-expanded="false"
     />
   </form>
 </div>
 
-<div id="lunrsearchresults" class="search-results"></div>
+<div id="lunrsearchresults" class="search-results" aria-live="polite"></div>
 
 <script>
 var searchIndex = null;
 var searchDocuments = null;
-var lunrLoaded = false;
+var searchDocumentMap = null;
+var lunrPromise = null;
+var searchDocumentsPromise = null;
+var searchReadyPromise = null;
+var searchTimer = null;
+var searchResultLimit = 8;
 
-function loadLunr(callback) {
-  if (lunrLoaded) {
-    callback();
-    return;
-  }
-  var script = document.createElement('script');
-  script.src = '/js/lunr.js';
-  script.onload = function() {
-    lunrLoaded = true;
-    callback();
-  };
-  document.head.appendChild(script);
+function loadLunr() {
+  if (window.lunr) return Promise.resolve();
+  if (lunrPromise) return lunrPromise;
+
+  lunrPromise = new Promise(function(resolve, reject) {
+    var script = document.createElement('script');
+    script.src = '/js/lunr.js';
+    script.onload = resolve;
+    script.onerror = reject;
+    document.head.appendChild(script);
+  });
+  return lunrPromise;
 }
 
-function loadSearchIndex(callback) {
-  if (searchDocuments) {
-    callback();
-    return;
-  }
-  fetch('/search-index.json')
-    .then(function(response) { return response.json(); })
+function loadSearchDocuments() {
+  if (searchDocuments) return Promise.resolve(searchDocuments);
+  if (searchDocumentsPromise) return searchDocumentsPromise;
+
+  searchDocumentsPromise = fetch('/search-index.json')
+    .then(function(response) {
+      if (!response.ok) throw new Error('Search index unavailable');
+      return response.json();
+    })
     .then(function(data) {
       searchDocuments = data;
-      callback();
-    })
-    .catch(function(err) {
-      console.error('Failed to load search index:', err);
-      document.getElementById('lunrsearchresults').innerHTML = '<p class="search-error">Search unavailable</p>';
+      return data;
     });
+  return searchDocumentsPromise;
 }
 
 function buildIndex() {
   if (searchIndex) return;
+  searchDocumentMap = {};
   searchIndex = lunr(function () {
     this.ref('id');
     this.field('title', { boost: 10 });
     this.field('body');
     var self = this;
     searchDocuments.forEach(function (doc) {
+      searchDocumentMap[doc.id] = doc;
       self.add(doc);
     });
   });
 }
 
-function performSearch(term) {
-  var resultsEl = document.getElementById('lunrsearchresults');
-
-  if (!term) {
-    resultsEl.innerHTML = '';
-    resultsEl.classList.remove('has-results');
-    return false;
-  }
-
-  var results = searchIndex.search(term);
-
-  var html = '<div class="search-results-header">Results for "' + term + '"';
-  html += '<button class="search-close" onclick="closeSearch()">&times;</button></div>';
-  html += '<ul class="search-results-list">';
-
-  if (results.length > 0) {
-    for (var i = 0; i < results.length; i++) {
-      var ref = results[i]['ref'];
-      var doc = searchDocuments.find(function(d) { return d.id == ref; });
-      if (doc) {
-        var body = doc.body.substring(0, 120) + '...';
-        html += '<li class="search-result-item">';
-        html += '<a href="' + doc.url + '">';
-        html += '<span class="search-result-title">' + doc.title + '</span>';
-        html += '<span class="search-result-body">' + body + '</span>';
-        html += '</a></li>';
-      }
-    }
-  } else {
-    html += '<li class="search-result-item no-results">No results found</li>';
-  }
-
-  html += '</ul>';
-  resultsEl.innerHTML = html;
-  resultsEl.classList.add('has-results');
-  return false;
+function prepareSearch() {
+  if (searchReadyPromise) return searchReadyPromise;
+  searchReadyPromise = Promise.all([loadLunr(), loadSearchDocuments()]).then(function() {
+    buildIndex();
+  });
+  return searchReadyPromise;
 }
 
-function closeSearch() {
+function getSearchResults(term) {
+  var tokens = lunr.tokenizer(term).map(function(token) { return token.toString(); });
+  if (!tokens.length) return [];
+
+  function containsEveryToken(result) {
+    var doc = searchDocumentMap[result.ref];
+    var searchableText = ((doc && doc.title) || '') + ' ' + ((doc && doc.body) || '');
+    searchableText = searchableText.toLowerCase();
+    return tokens.every(function(token) { return searchableText.indexOf(token) !== -1; });
+  }
+
+  var exactResults = [];
+  try {
+    exactResults = searchIndex.search(term).filter(containsEveryToken);
+  } catch (error) {
+    exactResults = [];
+  }
+
+  if (exactResults.length >= searchResultLimit) return exactResults;
+
+  var seen = {};
+  exactResults.forEach(function(result) { seen[result.ref] = true; });
+  var suggestions = searchIndex.query(function(query) {
+    tokens.forEach(function(token) {
+      query.term(token.toString(), {
+        wildcard: lunr.Query.wildcard.TRAILING
+      });
+    });
+  }).filter(containsEveryToken);
+
+  suggestions.forEach(function(result) {
+    if (!seen[result.ref]) exactResults.push(result);
+  });
+  return exactResults;
+}
+
+function hideSearchResults() {
   var resultsEl = document.getElementById('lunrsearchresults');
-  resultsEl.innerHTML = '';
+  var input = document.getElementById('lunrsearch');
+  resultsEl.replaceChildren();
   resultsEl.classList.remove('has-results');
-  document.getElementById('lunrsearch').value = '';
+  input.setAttribute('aria-expanded', 'false');
+}
+
+function showSearchMessage(message, className) {
+  var resultsEl = document.getElementById('lunrsearchresults');
+  var input = document.getElementById('lunrsearch');
+  var messageEl = document.createElement('p');
+  messageEl.className = className;
+  messageEl.textContent = message;
+  resultsEl.replaceChildren(messageEl);
+  resultsEl.classList.add('has-results');
+  input.setAttribute('aria-expanded', 'true');
+}
+
+function performSearch(term) {
+  var resultsEl = document.getElementById('lunrsearchresults');
+  var input = document.getElementById('lunrsearch');
+  var normalizedTerm = term.trim();
+
+  if (!normalizedTerm) {
+    hideSearchResults();
+    return;
+  }
+
+  var results = getSearchResults(normalizedTerm).slice(0, searchResultLimit);
+  var header = document.createElement('div');
+  var heading = document.createElement('span');
+  var closeButton = document.createElement('button');
+  var list = document.createElement('ul');
+
+  header.className = 'search-results-header';
+  heading.textContent = results.length + (results.length === 1 ? ' suggestion' : ' suggestions');
+  closeButton.className = 'search-close';
+  closeButton.type = 'button';
+  closeButton.setAttribute('aria-label', 'Close search');
+  closeButton.textContent = '\u00d7';
+  closeButton.addEventListener('click', function() { closeSearch(true, true); });
+  header.appendChild(heading);
+  header.appendChild(closeButton);
+  list.className = 'search-results-list';
+
+  if (results.length > 0) {
+    results.forEach(function(result) {
+      var doc = searchDocumentMap[result.ref];
+      if (doc) {
+        var item = document.createElement('li');
+        var link = document.createElement('a');
+        var title = document.createElement('span');
+        var body = document.createElement('span');
+        var summary = (doc.body || '').replace(/\s+/g, ' ').trim();
+
+        item.className = 'search-result-item';
+        link.href = doc.url;
+        title.className = 'search-result-title';
+        title.textContent = doc.title || 'Untitled';
+        body.className = 'search-result-body';
+        body.textContent = summary.substring(0, 120) + (summary.length > 120 ? '\u2026' : '');
+        link.appendChild(title);
+        link.appendChild(body);
+        item.appendChild(link);
+        list.appendChild(item);
+      }
+    });
+  } else {
+    var emptyItem = document.createElement('li');
+    emptyItem.className = 'search-result-item no-results';
+    emptyItem.textContent = 'No suggestions found';
+    list.appendChild(emptyItem);
+  }
+
+  resultsEl.replaceChildren(header, list);
+  resultsEl.classList.add('has-results');
+  input.setAttribute('aria-expanded', 'true');
+}
+
+function queueSearchSuggestions(term) {
+  clearTimeout(searchTimer);
+  if (term.trim().length < 2) {
+    hideSearchResults();
+    return;
+  }
+
+  searchTimer = setTimeout(function() {
+    var requestedTerm = term.trim();
+    showSearchMessage('Searching\u2026', 'search-loading');
+    prepareSearch()
+      .then(function() {
+        if (document.getElementById('lunrsearch').value.trim() === requestedTerm) {
+          performSearch(requestedTerm);
+        }
+      })
+      .catch(showSearchError);
+  }, 140);
 }
 
 function initSearchAndQuery(term) {
-  var resultsEl = document.getElementById('lunrsearchresults');
-  resultsEl.innerHTML = '<p class="search-loading">Searching...</p>';
-  resultsEl.classList.add('has-results');
-
-  loadLunr(function() {
-    loadSearchIndex(function() {
-      buildIndex();
-      performSearch(term);
-    });
-  });
+  if (!term.trim()) return false;
+  clearTimeout(searchTimer);
+  showSearchMessage('Searching\u2026', 'search-loading');
+  prepareSearch().then(function() {
+    performSearch(term);
+  }).catch(showSearchError);
   return false;
 }
+
+function showSearchError(error) {
+  console.error('Failed to load search:', error);
+  showSearchMessage('Search unavailable', 'search-error');
+}
+
+function closeSearch(clearInput, collapseInput) {
+  var wrapper = document.getElementById('search-wrapper');
+  var toggle = document.querySelector('.search-toggle');
+  hideSearchResults();
+  clearTimeout(searchTimer);
+  if (clearInput) document.getElementById('lunrsearch').value = '';
+  if (collapseInput) {
+    wrapper.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-label', 'Open search');
+  }
+}
+
+function toggleSearch() {
+  var wrapper = document.getElementById('search-wrapper');
+  var toggle = document.querySelector('.search-toggle');
+  var willOpen = !wrapper.classList.contains('is-open');
+  closeSearch(false, true);
+  if (typeof closeNavigation === 'function') closeNavigation();
+
+  if (willOpen) {
+    wrapper.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    toggle.setAttribute('aria-label', 'Close search');
+    prepareSearch().catch(showSearchError);
+    window.setTimeout(function() { document.getElementById('lunrsearch').focus(); }, 0);
+  }
+}
+
+var searchInput = document.getElementById('lunrsearch');
+searchInput.addEventListener('focus', function() { prepareSearch().catch(showSearchError); });
+searchInput.addEventListener('input', function(event) { queueSearchSuggestions(event.target.value); });
+searchInput.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') closeSearch(true, true);
+  if (event.key === 'ArrowDown') {
+    var firstResult = document.querySelector('.search-result-item a');
+    if (firstResult) {
+      event.preventDefault();
+      firstResult.focus();
+    }
+  }
+});
+
+document.getElementById('lunrsearchresults').addEventListener('keydown', function(event) {
+  if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp' && event.key !== 'Escape') return;
+  if (event.key === 'Escape') {
+    closeSearch(true, true);
+    return;
+  }
+
+  var links = Array.prototype.slice.call(document.querySelectorAll('.search-result-item a'));
+  var currentIndex = links.indexOf(document.activeElement);
+  var nextIndex = event.key === 'ArrowDown' ? currentIndex + 1 : currentIndex - 1;
+  if (nextIndex >= 0 && nextIndex < links.length) {
+    event.preventDefault();
+    links[nextIndex].focus();
+  } else if (event.key === 'ArrowUp' && currentIndex === 0) {
+    event.preventDefault();
+    searchInput.focus();
+  }
+});
+
+document.addEventListener('click', function(event) {
+  var wrapper = document.getElementById('search-wrapper');
+  var results = document.getElementById('lunrsearchresults');
+  if (!wrapper.contains(event.target) && !results.contains(event.target)) closeSearch(false, true);
+});
 </script>

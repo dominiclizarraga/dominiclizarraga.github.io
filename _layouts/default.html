@@ -55,7 +55,18 @@
   <!-- <script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="domlizarrraga" data-description="Support me on Buy me a coffee!" data-message="" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script> -->
 </head>
 <body{% if page.class %} class='{{page.class}}'{% endif %}>
-  <div class="limiter search-bar-desktop">
+  <div class="limiter search-bar-desktop no-print">
+    <button
+      class="mobile-menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-controls="site-navigation"
+      aria-expanded="false"
+      onclick="toggleNavigation()"
+    >
+      <span></span><span></span><span></span>
+    </button>
+    <a class="mobile-site-name" href="/">{{site.me.name}}</a>
     {% include search-lunr.html %}
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">
       <span class="theme-icon">dark</span>
@@ -67,10 +78,10 @@
       <h2>{{ site.me.name }}</h2>
       <div style='margin-top:0;'>{{ site.me.email }}</div>
     </div>
-    <nav class='header-wrap'>
+    <nav class='header-wrap' id='site-navigation'>
       <div class='header nu limiter no-print'>
         <h1 style='line-height:1.6;font-size:1rem;margin:0 0 0.25em 0;'>{{site.me.name}}</h1>
-        <ul style='list-style:none;padding:0;margin:0;'>
+        <ul class='site-navigation' style='list-style:none;padding:0;margin:0;'>
           <li style='margin:0.5rem 0;'><a href='/'>Notes</a>{% if page.path == 'index.html' or page.categories contains "blog" %}⇠{% endif %}</li>
           <li style='margin:0.5rem 0;'><a href='/reading/'>Reading</a>{% if page.path == 'reading.html' or page.categories contains "book" %}⇠{% endif %}</li>
           <li style='margin:0.5rem 0;'><a href='/projects/'>Projects</a>{% if page.path == 'projects.html' %}⇠{% endif %}</li>
@@ -125,11 +136,54 @@
       }
     }
 
+    function closeNavigation() {
+      const navigation = document.getElementById('site-navigation');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (!navigation || !toggle) return;
+
+      navigation.classList.remove('is-open');
+      toggle.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', 'Open navigation');
+    }
+
+    function toggleNavigation() {
+      const navigation = document.getElementById('site-navigation');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (!navigation || !toggle) return;
+
+      const willOpen = !navigation.classList.contains('is-open');
+      closeNavigation();
+      if (typeof closeSearch === 'function') closeSearch(false, true);
+
+      if (willOpen) {
+        navigation.classList.add('is-open');
+        toggle.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        toggle.setAttribute('aria-label', 'Close navigation');
+      }
+    }
+
     // Set correct label on load
     document.addEventListener('DOMContentLoaded', function() {
       const theme = document.documentElement.getAttribute('data-theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       updateLabel(theme);
+
+      document.getElementById('site-navigation').addEventListener('click', function(event) {
+        if (event.target.closest('a')) closeNavigation();
+      });
+    });
+
+    document.addEventListener('click', function(event) {
+      const navigation = document.getElementById('site-navigation');
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      if (!navigation || !toggle || !navigation.classList.contains('is-open')) return;
+      if (!navigation.contains(event.target) && !toggle.contains(event.target)) closeNavigation();
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape') closeNavigation();
     });
   </script>
 </body>
