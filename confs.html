@@ -1,59 +1,147 @@
 ---
-layout: projects
+layout: default
 title: Conferences
-notitle: true
 permalink: confs/index.html
 confs:
+  - name: San Francisco Ruby Conference 2026
+    date: November 10–12, 2026
+    date_iso: 2026-11-10
+    location: San Francisco, CA, United States
+    status: upcoming
+    link: https://sfruby.com/conference-2026/
+    link_label: Event website
+    external: true
 
-  - name:  Rails Saas | Oct 2022.
-    description: Description pending.
-    link: /2022/10/04/conf-1.html
+  - name: San Francisco Ruby Conference 2025
+    date: November 19–20, 2025
+    date_iso: 2025-11-19
+    location: San Francisco, CA, United States
+    status: attended
+    link: https://sfruby.com/schedule/
+    link_label: Event website
+    external: true
 
-  - name: Rails Conf | Apr 2023.
-    description: Description pending.
-    link: /2023/04/24/conf-2.html
+  - name: XO Ruby San Diego 2025
+    date: October 18, 2025
+    date_iso: 2025-10-18
+    location: San Diego, CA, United States
+    status: attended
+    link: https://www.xoruby.com/event/san-diego/
+    link_label: Event website
+    external: true
 
-  - name: Blue Ridge Ruby | Jun 2023.
-    description: Description pending.
-    link: /2023/06/05/conf-3.html
-
-  - name: Ruby For Good | Jul 2023.
-    description: Description pending.
-    link: /2023/07/27/conf-4.html
-
-  - name: Rails Camp | Sep 2023.
-    description: Description pending.
-    link: /2023/09/15/conf-5.html
-
-  - name: Rails world | Oct 2023.
-    description: Description pending.
-    link: /2023/10/05/conf-6.html
-
-  - name: Ruby Conf | Nov 2023.
-    description: Description pending.
-    link: /2023/11/13/conf-7.html
-
-  - name: Sin City Ruby | Mar 2024.
-    description: Coming soon 🤗
-    link: https://www.sincityruby.com/
-
-  - name: Rails conf | May 2024.
-    description: Coming soon 🤗
-    link: https://railsconf.org/
-
-  - name: Blue Ridge Ruby | May 2024.
-    description: Coming soon 🤗
+  - name: Blue Ridge Ruby
+    date: May 2024
+    date_iso: 2024-05-01
+    location: Asheville, NC, United States
+    status: attended
     link: https://blueridgeruby.com/
+    link_label: Event website
+    external: true
+
+  - name: RailsConf
+    date: May 2024
+    date_iso: 2024-05-01
+    status: attended
+    link: https://railsconf.org/
+    link_label: Event website
+    external: true
+
+  - name: Sin City Ruby
+    date: March 2024
+    date_iso: 2024-03-01
+    status: attended
+    link: https://www.sincityruby.com/
+    link_label: Event website
+    external: true
+
+  - name: RubyConf
+    date: November 2023
+    date_iso: 2023-11-13
+    location: San Diego, CA, United States
+    status: attended
+    link: /2023/11/13/conf-7.html
+    link_label: Read notes
+
+  - name: Rails World
+    date: October 2023
+    date_iso: 2023-10-05
+    location: Amsterdam, Netherlands
+    status: attended
+    link: /2023/10/05/conf-6.html
+    link_label: Read notes
+
+  - name: Rails Camp
+    date: September 2023
+    date_iso: 2023-09-15
+    location: Honolulu, HI, United States
+    status: attended
+    link: /2023/09/15/conf-5.html
+    link_label: Read notes
+
+  - name: Ruby for Good
+    date: July 2023
+    date_iso: 2023-07-27
+    location: Washington, DC, United States
+    status: attended
+    link: /2023/07/27/conf-4.html
+    link_label: Read notes
+
+  - name: Blue Ridge Ruby
+    date: June 2023
+    date_iso: 2023-06-05
+    location: Asheville, NC, United States
+    status: attended
+    link: /2023/06/05/conf-3.html
+    link_label: Read notes
+
+  - name: RailsConf
+    date: April 2023
+    date_iso: 2023-04-24
+    location: Atlanta, GA, United States
+    status: attended
+    link: /2023/04/24/conf-2.html
+    link_label: Read notes
+
+  - name: Rails SaaS
+    date: October 2022
+    date_iso: 2022-10-04
+    location: Los Angeles, CA, United States
+    status: attended
+    link: /2022/10/04/conf-1.html
+    link_label: Read notes
 ---
 
-<strong>
-  Here you'll find the confs that I have attended or will be attending in the future.
+<strong class="conference-intro">
+  Conferences and community events I have attended, along with those I plan to attend.
 </strong>
 
-<div class='project-box'>
-{% for conf in page.confs %}
-<a href='{{conf.link}}' class='project'>
-  <strong>{{conf.name}}</strong> <span>{{conf.description}}</span>
-</a>
-{% endfor %}
+{% assign upcoming_confs = page.confs | where: "status", "upcoming" %}
+{% if upcoming_confs.size > 0 %}
+<h3 id="upcoming-conferences">Upcoming</h3>
+
+<div class="writing nu conference-list">
+  {% for conf in upcoming_confs %}
+    <div class="conference-name">
+      <a href="{{ conf.link }}"{% if conf.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ conf.name }}</a>
+      {% if conf.location %}<span>{{ conf.location }}</span>{% endif %}
+    </div>
+    <time datetime="{{ conf.date_iso }}">{{ conf.date }}</time>
+  {% endfor %}
+</div>
+{% endif %}
+
+<hr>
+
+{% assign attended_confs = page.confs | where: "status", "attended" %}
+<h3 id="attended-conferences">Attended</h3>
+
+<div class="writing nu conference-list">
+  {% for conf in attended_confs %}
+    <div class="conference-name">
+      <a href="{{ conf.link }}"{% if conf.external %} target="_blank" rel="noopener noreferrer"{% endif %}>{{ conf.name }}</a>
+      {% if conf.location %}<span>{{ conf.location }}</span>{% endif %}
+    </div>
+    <time datetime="{{ conf.date_iso }}">{{ conf.date }}</time>
+  {% endfor %}
 </div>
