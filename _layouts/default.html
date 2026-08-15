@@ -186,5 +186,12 @@
       if (event.key === 'Escape') closeNavigation();
     });
   </script>
+  {% if jekyll.environment == "production" %}
+    <script
+      data-goatcounter="https://dominiclizarraga.goatcounter.com/count"
+      async
+      src="https://gc.zgo.at/count.js"
+    ></script>
+  {% endif %}
 </body>
 </html>

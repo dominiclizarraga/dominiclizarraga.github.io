@@ -7,54 +7,106 @@ image: /graphics/projects/preview.jpg
 projects:
   - name:  PLT4M | Physical education classes.
     description: Hotwire, tailwindcss, postgresql.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Hotwire, Tailwind CSS, PostgreSQL
     image: /graphics/projects/plt4m.webp
     width: 432
     height: 440
     link: https://plt4m.com/
+    link_label: Visit live site
   - name: Haymakers for Hope.
     description: Headless CMS (API).
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Headless CMS, API integration
     image: /graphics/projects/h4h.webp
     width: 800
     height: 800
     link: https://haymakersforhope.org/
+    link_label: Visit live site
   - name: Ruby for good | CASA.
     description: OS project for volunteer management.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Ruby on Rails, PostgreSQL, open source
     image: /graphics/projects/r4g.webp
     width: 386
     height: 380
     link: https://github.com/rubyforgood/casa
+    link_label: View source code
   - name: Outsource contracting management | Web app.
     description: Hotwire, tailwindcss, postgresql.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Hotwire, Tailwind CSS, PostgreSQL
     image: /graphics/projects/mexico_banner.webp
     width: 1280
     height: 640
     link: https://github.com/dominiclizarraga/
+    link_label: View related source code
   - name: Inkwire | Learning management system.
     description: Hotwire (native), tailwindcss, postgresql.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Hotwire Native, Tailwind CSS, PostgreSQL
     image: /graphics/projects/inkwireco_logo.webp
     width: 200
     height: 200
     link: https://inkwire.co/
+    link_label: Visit live site
   - name: Collide | Community app for energy sector.
     description: Hotwire (native), tailwindcss, postgresql.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Hotwire Native, Tailwind CSS, PostgreSQL
     image: /graphics/projects/collide.webp
     width: 200
     height: 200
     link: https://www.collide.io/
+    link_label: Visit live site
   - name: Tabbi | Rails api backend.
     description: Rails +7, postgresql.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Rails 7, PostgreSQL, API development
     image: /graphics/projects/tabbi_logo.webp
     width: 249
     height: 288
     link: https://www.tabbi.app/
+    link_label: Visit live site
 ---
 
 <div class='project-box'>
   {% for project in page.projects %}
-    <a href='{{ project.link }}'
-       class='project'
-       target="_blank"
-       rel="noopener">
+    <button
+      type='button'
+      class='project'
+      aria-haspopup='dialog'
+      aria-controls='project-modal'
+      data-project-name='{{ project.name | escape }}'
+      data-project-role='{{ project.role | escape }}'
+      data-project-problem='{{ project.problem | escape }}'
+      data-project-contribution='{{ project.contribution | escape }}'
+      data-project-outcome='{{ project.outcome | escape }}'
+      data-project-technology='{{ project.technology | escape }}'
+      data-project-link='{{ project.link | escape }}'
+      data-project-link-label='{{ project.link_label | escape }}'
+      onclick='openProjectModal(this)'>
       <img src='{{ project.image }}'
            width='{{ project.width }}'
            height='{{ project.height }}'
@@ -64,6 +116,76 @@ projects:
            {% if forloop.first %}fetchpriority='high'{% endif %}>
       <strong>{{ project.name }}</strong>
       <span>{{ project.description }}</span>
-    </a>
+      <span class='project-cta'>View details <span aria-hidden='true'>→</span></span>
+    </button>
   {% endfor %}
+</div>
+
+<dialog class='project-modal' id='project-modal' aria-labelledby='project-modal-title'>
+  <div class='project-modal-sheet'>
+    <div class='project-modal-handle' aria-hidden='true'></div>
+    <button class='project-modal-close' type='button' aria-label='Close project details' onclick='closeProjectModal()'>×</button>
+    <p class='project-modal-eyebrow'>Project details</p>
+    <h2 id='project-modal-title'></h2>
+
+    <dl class='project-details'>
+      <div>
+        <dt>Your role</dt>
+        <dd id='project-modal-role'></dd>
+      </div>
+      <div>
+        <dt>Problem solved</dt>
+        <dd id='project-modal-problem'></dd>
+      </div>
+      <div>
+        <dt>Specific contribution</dt>
+        <dd id='project-modal-contribution'></dd>
+      </div>
+      <div>
+        <dt>Outcome or measurable impact</dt>
+        <dd id='project-modal-outcome'></dd>
+      </div>
+      <div>
+        <dt>Technology</dt>
+        <dd id='project-modal-technology'></dd>
+      </div>
+    </dl>
+
+    <a class='project-modal-link' id='project-modal-link' href='#' target='_blank' rel='noopener'></a>
   </div>
+</dialog>
+
+<script>
+  var projectModalTrigger = null;
+  var projectModal = document.getElementById('project-modal');
+
+  function openProjectModal(trigger) {
+    projectModalTrigger = trigger;
+    document.getElementById('project-modal-title').textContent = trigger.dataset.projectName;
+    document.getElementById('project-modal-role').textContent = trigger.dataset.projectRole;
+    document.getElementById('project-modal-problem').textContent = trigger.dataset.projectProblem;
+    document.getElementById('project-modal-contribution').textContent = trigger.dataset.projectContribution;
+    document.getElementById('project-modal-outcome').textContent = trigger.dataset.projectOutcome;
+    document.getElementById('project-modal-technology').textContent = trigger.dataset.projectTechnology;
+
+    var projectLink = document.getElementById('project-modal-link');
+    projectLink.href = trigger.dataset.projectLink;
+    projectLink.textContent = trigger.dataset.projectLinkLabel + ' ↗';
+
+    document.body.classList.add('modal-open');
+    projectModal.showModal();
+  }
+
+  function closeProjectModal() {
+    if (projectModal.open) projectModal.close();
+  }
+
+  projectModal.addEventListener('click', function(event) {
+    if (event.target === projectModal) closeProjectModal();
+  });
+
+  projectModal.addEventListener('close', function() {
+    document.body.classList.remove('modal-open');
+    if (projectModalTrigger) projectModalTrigger.focus();
+  });
+</script>
