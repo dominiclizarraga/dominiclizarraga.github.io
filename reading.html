@@ -12,8 +12,8 @@ description: 'Your collection of book reviews'
   </div>
   <div>{{ book.author }}</div>
   <time>{{ book.date | date: "%Y-%m-%d" }}</time>
-  <div>
+  <div>{% if book.rating %}
     <div class='star' style='width:{{book.rating | times: 13}}px'></div>
-  </div>
+  {% endif %}</div>
 {% endfor %}
 </div>
