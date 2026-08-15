@@ -7,8 +7,17 @@ categories:
 ---
 
 <div style="margin-top: 8px;">
-  <img src="/images/appalachians_2024.jpeg" alt="Appalachians Sep 2024"
-       class="about-image" style="border-radius: 0.375rem;" />
+  <picture>
+    <source srcset="/images/appalachians_2024.webp" type="image/webp">
+    <img src="/images/appalachians_2024.jpeg"
+         width="1280"
+         height="960"
+         alt="Appalachians Sep 2024"
+         class="about-image"
+         style="border-radius: 0.375rem;"
+         decoding="async"
+         fetchpriority="high" />
+  </picture>
 </div>
 
 <!-- above is a tiny little tweak! p tags have a little of top space.

@@ -11,7 +11,7 @@ class: post
   {% include reading-time.html %}
 </div>
 
-<div class='body'>{{ content }}</div>
+<div class='body'>{{ content | replace: '<img ', '<img loading="lazy" decoding="async" ' | replace: '<iframe ', '<iframe loading="lazy" ' }}</div>
 
 <div id="post-end-marker"></div>
 <div class='breaker'></div>

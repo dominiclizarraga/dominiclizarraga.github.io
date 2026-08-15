@@ -7,31 +7,45 @@ image: /graphics/projects/preview.jpg
 projects:
   - name:  PLT4M | Physical education classes.
     description: Hotwire, tailwindcss, postgresql.
-    image: /graphics/projects/plt4m.png
+    image: /graphics/projects/plt4m.webp
+    width: 432
+    height: 440
     link: https://plt4m.com/
   - name: Haymakers for Hope.
     description: Headless CMS (API).
-    image: /graphics/projects/h4h.jpeg
+    image: /graphics/projects/h4h.webp
+    width: 800
+    height: 800
     link: https://haymakersforhope.org/
   - name: Ruby for good | CASA.
     description: OS project for volunteer management.
-    image: /graphics/projects/r4g.png
+    image: /graphics/projects/r4g.webp
+    width: 386
+    height: 380
     link: https://github.com/rubyforgood/casa
   - name: Outsource contracting management | Web app.
     description: Hotwire, tailwindcss, postgresql.
-    image: /graphics/projects/mexico_banner.jpeg
+    image: /graphics/projects/mexico_banner.webp
+    width: 1280
+    height: 640
     link: https://github.com/dominiclizarraga/
   - name: Inkwire | Learning management system.
     description: Hotwire (native), tailwindcss, postgresql.
-    image: /graphics/projects/inkwireco_logo.jpeg
+    image: /graphics/projects/inkwireco_logo.webp
+    width: 200
+    height: 200
     link: https://inkwire.co/
   - name: Collide | Community app for energy sector.
     description: Hotwire (native), tailwindcss, postgresql.
-    image: /graphics/projects/collide.jpeg
+    image: /graphics/projects/collide.webp
+    width: 200
+    height: 200
     link: https://www.collide.io/
   - name: Tabbi | Rails api backend.
     description: Rails +7, postgresql.
-    image: /graphics/projects/tabbi_logo.jpeg
+    image: /graphics/projects/tabbi_logo.webp
+    width: 249
+    height: 288
     link: https://www.tabbi.app/
 ---
 
@@ -41,7 +55,13 @@ projects:
        class='project'
        target="_blank"
        rel="noopener">
-      <img src='{{ project.image }}' alt="">
+      <img src='{{ project.image }}'
+           width='{{ project.width }}'
+           height='{{ project.height }}'
+           alt='{{ project.name }}'
+           decoding='async'
+           loading='{% if forloop.first %}eager{% else %}lazy{% endif %}'
+           {% if forloop.first %}fetchpriority='high'{% endif %}>
       <strong>{{ project.name }}</strong>
       <span>{{ project.description }}</span>
     </a>

@@ -25,7 +25,7 @@ on <span itemprop="datePublished" datetime="{{ page.date | date: "%Y-%m-%d" }}">
     style='margin-left:10px;display:inline-block;background-size:15px 14px;height:14px;width: {{page.rating | times: 15}}px'></div>
 </h3>
 
-<div itemprop="description" class='body'>{{ content }}</div>
+<div itemprop="description" class='body'>{{ content | replace: '<img ', '<img loading="lazy" decoding="async" ' | replace: '<iframe ', '<iframe loading="lazy" ' }}</div>
 {% endif %}
 
 <div class='breaker'></div>
