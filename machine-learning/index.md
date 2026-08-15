@@ -11,17 +11,22 @@ description: 'My notes from the Le Wagon Machine Learning & AI bootcamp'
 
 ### Topics
 
-- [Data Science Foundations](/machine-learning/week-01/)
-- [Data Analysis I — collecting and preparing data](/machine-learning/week-02/)
-- [Data Analysis II — querying and visualising data](/machine-learning/week-03/)
-- [Decision Science](/machine-learning/week-04/)
-- [Machine Learning Foundations](/machine-learning/week-05/)
-- [Applied Machine Learning](/machine-learning/week-06/)
-- [Deep Learning](/machine-learning/week-07/)
-- [Generative AI and Transformers](/machine-learning/week-08/)
-- [Machine Learning Engineering (MLOps)](/machine-learning/week-09/)
-- [Final Project](/machine-learning/week-10/)
+- [Data Science Foundations](/machine-learning/data-science-foundations/)
+- [Data Analysis I — collecting and preparing data](/machine-learning/data-analysis-i/)
+- [Data Analysis II — querying and visualising data](/machine-learning/data-analysis-ii/)
+- [Decision Science](/machine-learning/decision-science/)
+- [Machine Learning Foundations](/machine-learning/machine-learning-foundations/)
+- [Applied Machine Learning](/machine-learning/applied-machine-learning/)
+- [Deep Learning](/machine-learning/deep-learning/)
+- [Generative AI and Transformers](/machine-learning/generative-ai-and-transformers/)
+- [Machine Learning Engineering (MLOps)](/machine-learning/mlops/)
+- [Final Project](/machine-learning/final-project/)
 
 --------------
 
-The programme includes Python, SQL, Pandas, NumPy, scikit-learn, TensorFlow, Keras, Hugging Face, Docker, FastAPI, and MLflow. The newer AI-forward curriculum also expands on LLMs, RAG, agents, reinforcement learning, evaluation, and GANs.
+<div class='writing nu'>
+  {% for post in site.categories.machine-learning %}
+    <div><a title='#{{ forloop.rindex }}' href='{{ post.url }}'>{{ post.title }}</a></div>
+    <time>{{ post.date | date: "%Y-%m-%d" }}</time>
+  {% endfor %}
+</div>
