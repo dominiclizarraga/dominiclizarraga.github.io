@@ -439,6 +439,7 @@ body.modal-open {
 
 .project-modal::backdrop {
   background: rgba(10, 12, 16, 0.68);
+  animation: project-modal-backdrop-enter 0.35s ease-out;
 }
 
 .project-modal-sheet {
@@ -453,7 +454,7 @@ body.modal-open {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.32);
-  animation: project-modal-enter 0.22s ease-out;
+  animation: project-modal-enter 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .project-modal-handle {
@@ -544,6 +545,15 @@ body.modal-open {
   }
 }
 
+@keyframes project-modal-backdrop-enter {
+  from {
+    background: rgba(10, 12, 16, 0);
+  }
+  to {
+    background: rgba(10, 12, 16, 0.68);
+  }
+}
+
 /** Responsive -------------------------------------------------------------- */
 
 /* Screen width:  0px -------- 480px -------- 640px -------- 1024px -------- ∞ */
@@ -622,7 +632,8 @@ body.modal-open {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .project-modal-sheet {
+  .project-modal-sheet,
+  .project-modal::backdrop {
     animation: none;
   }
 }
