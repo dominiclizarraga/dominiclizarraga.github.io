@@ -404,6 +404,16 @@ div.post blockquote p {
   text-underline-offset: 0.15em;
 }
 
+.personal-projects {
+  margin-top: clamp(3rem, 8vw, 5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.personal-projects h2 {
+  margin: 0 0 1.2rem;
+}
+
 body.modal-open {
   overflow: hidden;
 }
@@ -517,6 +527,10 @@ body.modal-open {
   border: 1px solid var(--border-color);
   border-radius: 6px;
   color: var(--link-color);
+}
+
+.project-modal-link[hidden] {
+  display: none;
 }
 
 @keyframes project-modal-enter {

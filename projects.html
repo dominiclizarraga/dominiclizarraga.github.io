@@ -5,6 +5,18 @@ notitle: true
 permalink: projects/index.html
 image: /graphics/projects/preview.jpg
 projects:
+  - name: Recommendation Engine for Trade & Customs Client.
+    description: Freelance recommendation-engine project.
+    role: Freelance developer.
+    problem: Help a trade and customs client turn its data into useful, relevant recommendations.
+    contribution: Design and build the recommendation engine.
+    outcome: A working recommendation workflow for the client.
+    technology: In discovery.
+    image: /graphics/projects/trade-customs-recommendation.svg
+    width: 800
+    height: 600
+    link: ''
+    link_label: ''
   - name:  PLT4M | Physical education classes.
     description: Hotwire, tailwindcss, postgresql.
     role: Details coming soon.
@@ -89,6 +101,27 @@ projects:
     height: 288
     link: https://www.tabbi.app/
     link_label: Visit live site
+personal_projects:
+  - name: BookPath.
+    description: Le Wagon Data Science bootcamp project, starting August 24, 2026.
+    role: Data science bootcamp team member.
+    problem: To be defined with the team when the project starts on August 24, 2026.
+    contribution: Collaborate on the data work, modeling, and product build; exact ownership to be decided.
+    outcome: A working data science project to present at the end of the bootcamp.
+    technology: To be decided with the team.
+    image: /graphics/projects/bookpath.svg
+    width: 800
+    height: 600
+  - name: ML Flashcards & Quiz.
+    description: Flashcards and quizzes for the ML concepts I'm learning.
+    role: Creator.
+    problem: I want to turn the ML concepts I'm learning into knowledge I can recall, not just recognize while rereading notes.
+    contribution: Design and build the flashcard and quiz experience from the ground up.
+    outcome: A published, live study app that grows alongside my machine-learning notes.
+    technology: To be decided as I build it.
+    image: /graphics/projects/ml-flashcards.svg
+    width: 800
+    height: 600
 ---
 
 <div class='project-box'>
@@ -121,6 +154,38 @@ projects:
   {% endfor %}
 </div>
 
+<section class='personal-projects' aria-labelledby='personal-projects-title'>
+  <h2 id='personal-projects-title'>Personal</h2>
+  <div class='project-box'>
+    {% for project in page.personal_projects %}
+      <button
+        type='button'
+        class='project'
+        aria-haspopup='dialog'
+        aria-controls='project-modal'
+        data-project-name='{{ project.name | escape }}'
+        data-project-role='{{ project.role | escape }}'
+        data-project-problem='{{ project.problem | escape }}'
+        data-project-contribution='{{ project.contribution | escape }}'
+        data-project-outcome='{{ project.outcome | escape }}'
+        data-project-technology='{{ project.technology | escape }}'
+        data-project-link=''
+        data-project-link-label=''
+        onclick='openProjectModal(this)'>
+        <img src='{{ project.image }}'
+             width='{{ project.width }}'
+             height='{{ project.height }}'
+             alt='{{ project.name }}'
+             decoding='async'
+             loading='lazy'>
+        <strong>{{ project.name }}</strong>
+        <span>{{ project.description }}</span>
+        <span class='project-cta'>View details <span aria-hidden='true'>→</span></span>
+      </button>
+    {% endfor %}
+  </div>
+</section>
+
 <dialog class='project-modal' id='project-modal' aria-labelledby='project-modal-title'>
   <div class='project-modal-sheet'>
     <div class='project-modal-handle' aria-hidden='true'></div>
@@ -151,7 +216,7 @@ projects:
       </div>
     </dl>
 
-    <a class='project-modal-link' id='project-modal-link' href='#' target='_blank' rel='noopener'></a>
+    <a class='project-modal-link' id='project-modal-link' href='#' target='_blank' rel='noopener' hidden></a>
   </div>
 </dialog>
 
@@ -169,8 +234,15 @@ projects:
     document.getElementById('project-modal-technology').textContent = trigger.dataset.projectTechnology;
 
     var projectLink = document.getElementById('project-modal-link');
-    projectLink.href = trigger.dataset.projectLink;
-    projectLink.textContent = trigger.dataset.projectLinkLabel + ' ↗';
+    if (trigger.dataset.projectLink) {
+      projectLink.href = trigger.dataset.projectLink;
+      projectLink.textContent = trigger.dataset.projectLinkLabel + ' ↗';
+      projectLink.hidden = false;
+    } else {
+      projectLink.removeAttribute('href');
+      projectLink.textContent = '';
+      projectLink.hidden = true;
+    }
 
     document.body.classList.add('modal-open');
     projectModal.showModal();

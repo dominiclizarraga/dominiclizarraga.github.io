@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#eee8dc"/>
+  <g fill="none" stroke="#171717" stroke-width="12" stroke-linejoin="round">
+    <rect x="178" y="116" width="328" height="368" rx="18" transform="rotate(-7 342 300)" fill="#faf8f2"/>
+    <rect x="294" y="116" width="328" height="368" rx="18" transform="rotate(7 458 300)" fill="#fffdf8"/>
+    <path d="M319 224h278"/>
+  </g>
+  <text x="458" y="204" fill="#171717" font-family="system-ui, sans-serif" font-size="44" font-weight="700" text-anchor="middle">ML</text>
+  <text x="458" y="350" fill="#171717" font-family="system-ui, sans-serif" font-size="92" font-weight="700" text-anchor="middle">Q → A</text>
+</svg>

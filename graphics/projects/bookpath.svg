@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#eee8dc"/>
+  <g fill="#fffdf8" stroke="#171717" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M124 152c106-30 198-7 276 52v278c-78-59-170-82-276-52z"/>
+    <path d="M676 152c-106-30-198-7-276 52v278c78-59 170-82 276-52z"/>
+  </g>
+  <g fill="none" stroke="#171717" stroke-width="10" stroke-linecap="round">
+    <path d="M218 310c55-38 109-33 163 12M419 322c54-45 108-48 163-10"/>
+  </g>
+  <g fill="#171717">
+    <circle cx="218" cy="310" r="14"/>
+    <circle cx="381" cy="322" r="14"/>
+    <circle cx="419" cy="322" r="14"/>
+    <circle cx="582" cy="312" r="14"/>
+  </g>
+  <text x="400" y="106" fill="#171717" font-family="system-ui, sans-serif" font-size="48" font-weight="700" text-anchor="middle">BOOKPATH</text>
+</svg>

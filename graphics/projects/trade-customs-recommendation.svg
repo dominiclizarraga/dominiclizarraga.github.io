@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#e6ece9"/>
+  <g fill="none" stroke="#17211d" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M126 176h548v300H126z" fill="#f8faf8"/>
+    <path d="M126 250h548M304 176v300"/>
+    <path d="m384 360 62 62 138-158"/>
+  </g>
+  <text x="215" y="229" fill="#17211d" font-family="system-ui, sans-serif" font-size="38" font-weight="700" text-anchor="middle">TRADE</text>
+  <g fill="#17211d">
+    <circle cx="206" cy="314" r="13"/>
+    <circle cx="206" cy="368" r="13"/>
+    <circle cx="206" cy="422" r="13"/>
+  </g>
+</svg>
