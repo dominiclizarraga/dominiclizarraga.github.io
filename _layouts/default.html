@@ -1,20 +1,26 @@
 <!doctype html>
 <html lang=en>
 <head>
+  <meta charset=utf-8>
+  <meta name='theme-color' content='#f8f5d5' />
   <script>
     // Set theme immediately to prevent flash
     (function() {
       const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
       if (saved) {
         document.documentElement.setAttribute('data-theme', saved);
-      } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      } else if (prefersDark) {
         document.documentElement.setAttribute('data-theme', 'dark');
       }
+      const initialTheme = saved || (prefersDark ? 'dark' : 'light');
+      document.querySelector('meta[name="theme-color"]').setAttribute(
+        'content',
+        initialTheme === 'dark' ? '#232529' : '#f8f5d5'
+      );
     })();
   </script>
-  <meta charset=utf-8>
   <meta name=author content='{{ site.me.name }}' />
-  <meta name='theme-color' content='#fff' />
   <meta name='twitter:title' content="{{ page.title | xml_escape}}" />
   {% if page.description %}<meta name=description content="{{ page.description | xml_escape}}" />
   <meta name='twitter:description' content="{{ page.description | xml_escape}}" />
@@ -126,7 +132,13 @@
       const next = current === 'dark' ? 'light' : 'dark';
       html.setAttribute('data-theme', next);
       localStorage.setItem('theme', next);
+      updateThemeColor(next);
       updateLabel(next);
+    }
+
+    function updateThemeColor(theme) {
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      if (themeColor) themeColor.setAttribute('content', theme === 'dark' ? '#232529' : '#f8f5d5');
     }
 
     function updateLabel(theme) {
@@ -168,6 +180,7 @@
     document.addEventListener('DOMContentLoaded', function() {
       const theme = document.documentElement.getAttribute('data-theme') ||
         (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      updateThemeColor(theme);
       updateLabel(theme);
 
       document.getElementById('site-navigation').addEventListener('click', function(event) {

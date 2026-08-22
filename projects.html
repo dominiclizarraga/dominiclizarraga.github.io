@@ -223,6 +223,7 @@ personal_projects:
 <script>
   var projectModalTrigger = null;
   var projectModal = document.getElementById('project-modal');
+  var projectModalCloseTimer = null;
 
   function openProjectModal(trigger) {
     projectModalTrigger = trigger;
@@ -249,14 +250,31 @@ personal_projects:
   }
 
   function closeProjectModal() {
-    if (projectModal.open) projectModal.close();
+    if (!projectModal.open || projectModal.classList.contains('is-closing')) return;
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      projectModal.close();
+      return;
+    }
+
+    projectModal.classList.add('is-closing');
+    projectModalCloseTimer = window.setTimeout(function() {
+      if (projectModal.open) projectModal.close();
+    }, 160);
   }
 
   projectModal.addEventListener('click', function(event) {
     if (event.target === projectModal) closeProjectModal();
   });
 
+  projectModal.addEventListener('cancel', function(event) {
+    event.preventDefault();
+    closeProjectModal();
+  });
+
   projectModal.addEventListener('close', function() {
+    window.clearTimeout(projectModalCloseTimer);
+    projectModal.classList.remove('is-closing');
     document.body.classList.remove('modal-open');
     if (projectModalTrigger) projectModalTrigger.focus();
   });

@@ -134,7 +134,6 @@ function getSearchResults(term) {
 function hideSearchResults() {
   var resultsEl = document.getElementById('lunrsearchresults');
   var input = document.getElementById('lunrsearch');
-  resultsEl.replaceChildren();
   resultsEl.classList.remove('has-results');
   input.setAttribute('aria-expanded', 'false');
 }
