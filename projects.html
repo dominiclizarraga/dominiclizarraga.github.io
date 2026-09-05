@@ -6,6 +6,7 @@ permalink: projects/index.html
 image: /graphics/projects/preview.jpg
 projects:
   - name: Recommendation Engine for Trade & Customs Client.
+    type: AI
     description: Freelance recommendation-engine project.
     role: Freelance developer.
     problem: Help a trade and customs client turn its data into useful, relevant recommendations.
@@ -18,6 +19,7 @@ projects:
     link: ''
     link_label: ''
   - name:  PLT4M | Physical education classes.
+    type: software
     description: Hotwire, tailwindcss, postgresql.
     role: Details coming soon.
     problem: Details coming soon.
@@ -30,6 +32,7 @@ projects:
     link: https://plt4m.com/
     link_label: Visit live site
   - name: Haymakers for Hope.
+    type: software
     description: Headless CMS (API).
     role: Details coming soon.
     problem: Details coming soon.
@@ -42,6 +45,7 @@ projects:
     link: https://haymakersforhope.org/
     link_label: Visit live site
   - name: Ruby for good | CASA.
+    type: software
     description: OS project for volunteer management.
     role: Details coming soon.
     problem: Details coming soon.
@@ -54,6 +58,7 @@ projects:
     link: https://github.com/rubyforgood/casa
     link_label: View source code
   - name: Outsource contracting management | Web app.
+    type: software
     description: Hotwire, tailwindcss, postgresql.
     role: Details coming soon.
     problem: Details coming soon.
@@ -66,6 +71,7 @@ projects:
     link: https://github.com/dominiclizarraga/
     link_label: View related source code
   - name: Inkwire | Learning management system.
+    type: software
     description: Hotwire (native), tailwindcss, postgresql.
     role: Details coming soon.
     problem: Details coming soon.
@@ -78,6 +84,7 @@ projects:
     link: https://inkwire.co/
     link_label: Visit live site
   - name: Collide | Community app for energy sector.
+    type: software
     description: Hotwire (native), tailwindcss, postgresql.
     role: Details coming soon.
     problem: Details coming soon.
@@ -90,6 +97,7 @@ projects:
     link: https://www.collide.io/
     link_label: Visit live site
   - name: Tabbi | Rails api backend.
+    type: software
     description: Rails +7, postgresql.
     role: Details coming soon.
     problem: Details coming soon.
@@ -103,6 +111,7 @@ projects:
     link_label: Visit live site
 personal_projects:
   - name: BookPath.
+    type: AI
     description: Le Wagon Data Science bootcamp project, starting August 24, 2026.
     role: Data science bootcamp team member.
     problem: To be defined with the team when the project starts on August 24, 2026.
@@ -113,6 +122,7 @@ personal_projects:
     width: 800
     height: 600
   - name: ML Flashcards & Quiz.
+    type: software
     description: Flashcards and quizzes for the ML concepts I'm learning.
     role: Creator.
     problem: I want to turn the ML concepts I'm learning into knowledge I can recall, not just recognize while rereading notes.
@@ -123,6 +133,7 @@ personal_projects:
     width: 800
     height: 600
   - name: OOP & Refactoring Flashcards.
+    type: software
     description: A post-bootcamp project for practicing OOP principles, code smells, and the refactoring guidelines in Martin Fowler's book.
     role: Creator (after finishing bootcamp).
     problem: Reading about object-oriented design and refactoring is not enough practice for quickly recognizing problems in real code.
@@ -133,6 +144,7 @@ personal_projects:
     width: 1200
     height: 1600
   - name: GitHub Role Matcher.
+    type: AI
     description: Match a developer's public GitHub repositories to open roles.
     role: Creator.
     problem: A GitHub profile shows what someone has built, but it does not clearly reveal which open roles best match that experience.
@@ -167,8 +179,11 @@ personal_projects:
            decoding='async'
            loading='{% if forloop.first %}eager{% else %}lazy{% endif %}'
            {% if forloop.first %}fetchpriority='high'{% endif %}>
+      <span class='project-tag project-tag-{{ project.type | downcase }}'>
+        {{ project.type }}
+      </span>
       <strong>{{ project.name }}</strong>
-      <span>{{ project.description }}</span>
+      <span class='project-description'>{{ project.description }}</span>
       <span class='project-cta'>View details <span aria-hidden='true'>→</span></span>
     </button>
   {% endfor %}
@@ -198,8 +213,11 @@ personal_projects:
              alt='{{ project.name }}'
              decoding='async'
              loading='lazy'>
+        <span class='project-tag project-tag-{{ project.type | downcase }}'>
+          {{ project.type }}
+        </span>
         <strong>{{ project.name }}</strong>
-        <span>{{ project.description }}</span>
+        <span class='project-description'>{{ project.description }}</span>
         <span class='project-cta'>View details <span aria-hidden='true'>→</span></span>
       </button>
     {% endfor %}

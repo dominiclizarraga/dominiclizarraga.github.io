@@ -59,6 +59,8 @@
   --header-border: #000;
   --project-link: #666;
   --project-link-hover: #000;
+  --project-tag-ai: #873e32;
+  --project-tag-software: #315f69;
 }
 
 [data-theme="dark"] {
@@ -77,6 +79,8 @@
   --header-border: #404040;
   --project-link: #9ca3af;
   --project-link-hover: #b68b82;
+  --project-tag-ai: #e0a095;
+  --project-tag-software: #89c6d2;
   --accent-color: #b68b82;
 }
 
@@ -98,6 +102,8 @@
     --header-border: #404040;
     --project-link: #9ca3af;
     --project-link-hover: #b68b82;
+    --project-tag-ai: #e0a095;
+    --project-tag-software: #89c6d2;
     --accent-color: #b68b82;
   }
 }
@@ -406,6 +412,29 @@ div.post blockquote p {
   border-radius: 0.375rem;
   height: 160px;
   object-fit: cover;
+}
+
+.project-tag {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  margin: 0 0 0.5rem;
+  padding: 0.12rem 0.42rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-family: var(--mono-font);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+}
+
+.project-tag-ai {
+  color: var(--project-tag-ai);
+}
+
+.project-tag-software {
+  color: var(--project-tag-software);
 }
 
 .conference-intro {
@@ -759,7 +788,7 @@ body.modal-open {
 
 @media screen and (min-width: 640px) {
   .project-box .project strong,
-  .project-box .project > span:not(.project-cta) {
+  .project-box .project > .project-description {
     min-height: 3.2em;
   }
 
