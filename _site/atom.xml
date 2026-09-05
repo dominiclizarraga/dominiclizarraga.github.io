@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>dom lizarraga</title>
+  <title>domi lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2026-08-15T15:52:53+09:00</updated>
+  <updated>2026-09-05T14:44:58+09:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
   <author>
-    <name>dom lizarraga</name>
+    <name>domi lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
   
@@ -135,7 +135,7 @@ Every time you write a controller- or API-level test, mentally repeat:&lt;/p&gt;
 &lt;p&gt;Don’t skip the thinking.&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -181,7 +181,7 @@ State transition&lt;/p&gt;
 &lt;p&gt;workship recording https://goodenoughtesting.com/workshops/5&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -476,7 +476,7 @@ This method handles inserting/updating the record.&lt;/p&gt;
 
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -579,7 +579,7 @@ The perfect storm for AI was having Andrew NG discovering that the matrix multip
 &lt;p&gt;&lt;a href=&quot;https://www.amazon.com/Software-Architecture-Perspectives-Emerging-Discipline/dp/0131829572&quot;&gt;Books recommendations&lt;/a&gt;&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -672,7 +672,7 @@ So in order to increase the quality of your customer service at the internet sca
 
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -685,7 +685,7 @@ So in order to increase the quality of your customer service at the internet sca
     <content type="html">
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -747,7 +747,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;/ul&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -762,7 +762,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;remote: true&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -871,7 +871,7 @@ So in order to increase the quality of your customer service at the internet sca
 &lt;p&gt;We’ve explored creating a follower system in Rails, showcasing the flexibility of polymorphic associations and the importance of validations. This guide provides a solid foundation for adding social functionalities to your Rails applications, ensuring a robust and scalable feature set.&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -884,7 +884,7 @@ So in order to increase the quality of your customer service at the internet sca
     <content type="html">&lt;p&gt;This is a guide to explore what is Docker and also when it’s useful.&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>

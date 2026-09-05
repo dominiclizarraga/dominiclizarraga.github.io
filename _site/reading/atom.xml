@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>dom lizarraga</title>
+  <title>domi lizarraga</title>
   <link href="http://localhost:4000/atom.xml" rel="self"/>
   <link href="http://localhost:4000/"/>
-  <updated>2026-08-15T15:52:53+09:00</updated>
+  <updated>2026-09-05T14:44:58+09:00</updated>
   <subtitle>Rails, Ruby, Hotwire, webapps</subtitle>
   <icon>http://localhost:4000/css/favicon.png</icon>
   <id>http://localhost:4000/</id>
   <author>
-    <name>dom lizarraga</name>
+    <name>domi lizarraga</name>
     <email>dominiclizarraga@hotmail.com</email>
   </author>
   
@@ -20,7 +20,7 @@
     <content type="html">
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -33,7 +33,7 @@
     <content type="html">
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -46,7 +46,7 @@
     <content type="html">
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -59,7 +59,7 @@
     <content type="html">
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -72,7 +72,7 @@
     <content type="html">
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -91,7 +91,7 @@
 &lt;p&gt;[Add your notes here]&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -494,7 +494,7 @@ You might be trying to minimize coupling between objects. Instead of the called 
 
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1468,7 +1468,7 @@ newline”&lt;/li&gt;
 T&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -1503,7 +1503,7 @@ T&lt;/p&gt;
 &lt;p&gt;https://thoughtbot.com/upcase/test-driven-rails&lt;/p&gt;
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>
@@ -6323,7 +6323,7 @@ Constrains the double’s interface using the methods of some_object, rather tha
 
 </content>
     <author>
-      <name>dom lizarraga</name>
+      <name>domi lizarraga</name>
       <uri>http://localhost:4000/about/</uri>
     </author>
   </entry>

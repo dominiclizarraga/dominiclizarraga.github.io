@@ -13,7 +13,7 @@
     
     <item>
       <title>How AI Works: From Sorcery to Science by Ronald T. Kneusel ()</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>
 </description>
       <pubDate>Fri, 04 Sep 2026 00:00:00 +0900</pubDate>
@@ -23,7 +23,7 @@
     
     <item>
       <title>Deep Learning: A Visual Approach by Andrew Glassner ()</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>
 </description>
       <pubDate>Sat, 29 Aug 2026 00:00:00 +0900</pubDate>
@@ -33,7 +33,7 @@
     
     <item>
       <title>Designing Machine Learning Systems: An Iterative Process for Production-Ready Applications by Chip Huyen ()</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>
 </description>
       <pubDate>Wed, 12 Aug 2026 00:00:00 +0900</pubDate>
@@ -43,7 +43,7 @@
     
     <item>
       <title>Math for Deep Learning: What You Need to Know to Understand Neural Networks by Ronald T. Kneusel ()</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>
 </description>
       <pubDate>Sun, 26 Jul 2026 00:00:00 +0900</pubDate>
@@ -53,7 +53,7 @@
     
     <item>
       <title>Feature Engineering for Machine Learning: Principles and Techniques for Data Scientists by Alice Zheng &amp; Amanda Casari ()</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>
 </description>
       <pubDate>Wed, 08 Jul 2026 00:00:00 +0900</pubDate>
@@ -63,7 +63,7 @@
     
     <item>
       <title>Lo que nunca cambia: 23 lecciones atemporales para nuestra vida personal y financiera by Morgan Housel (5.0)</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>&lt;h2 id=&quot;tbd---placeholder-title-1&quot;&gt;[TBD - Placeholder Title 1]&lt;/h2&gt;
 
 &lt;p&gt;[Add your notes here]&lt;/p&gt;
@@ -79,7 +79,7 @@
     
     <item>
       <title>Refactoring Ruby by William C. Wake, Kevin Rutherford (5.0)</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>&lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Refactoring Example&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;The Refactoring Cycle&lt;/a&gt;&lt;/li&gt;
@@ -479,7 +479,7 @@ You might be trying to minimize coupling between objects. Instead of the called 
     
     <item>
       <title>99 bottles of OOP by Sandi Metz, Katrina Owen &amp; TJ Stankus (5.0)</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>&lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-1&quot;&gt;Rediscovering Simplicity&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#chapter-2&quot;&gt;Test Driving Shameless Green&lt;/a&gt;&lt;/li&gt;
@@ -1450,7 +1450,7 @@ T&lt;/p&gt;
     
     <item>
       <title>Testing Rails - Thoughtbot by Josh Steiner and Joël Quenneville. (5.0)</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>&lt;p&gt;In my journey to improve my testing skills I found this &lt;a href=&quot;https://books.thoughtbot.com/assets/testing-rails.pdf&quot; target=&quot;_blank&quot;&gt;Thoughtbot ebook&lt;/a&gt;.&lt;/p&gt;
 
 &lt;ol&gt;
@@ -1482,7 +1482,7 @@ T&lt;/p&gt;
     
     <item>
       <title>Effective testing with RSpec by Myron Marston and Ian Dees. (5.0)</title>
-      <dc:creator>dom lizarraga</dc:creator>
+      <dc:creator>domi lizarraga</dc:creator>
       <description>&lt;p&gt;Recently, I participated in a very competitive interview. When I submitted the code challenge, I felt my weakest area was the testing suite. Even though feedback was not available, being honest with myself and seeing some posts from the reviewers, I decided to dive deeper into testing.&lt;/p&gt;
 
 &lt;p&gt;I picked up books like &lt;a href=&quot;/2025/02/05/professional-rails-testing.html&quot;&gt;Professional Rails Testing by Jason Swett&lt;/a&gt;, &lt;a href=&quot;/2025/03/16-hands-on-tdd-rails.html&quot;&gt;Hands-On Test Driven Development by Greg Donald&lt;/a&gt;, Effective Testing with RSpec by Myron Marston and Ian Dees and even attended a &lt;a href=&quot;https://goodenoughtesting.com/&quot;&gt;testing workshop by Lucian Ghinda&lt;/a&gt;.&lt;/p&gt;
