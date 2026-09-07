@@ -109,7 +109,20 @@ projects:
     height: 288
     link: https://www.tabbi.app/
     link_label: Visit live site
-personal_projects:
+  - name: Moneypool.
+    type: [software, AI]
+    description: My most recent work on software and AI projects.
+    role: Details coming soon.
+    problem: Details coming soon.
+    contribution: Details coming soon.
+    outcome: Details coming soon.
+    technology: Details coming soon.
+    image: /graphics/projects/moneypool.jpeg
+    width: 300
+    height: 300
+    link: ''
+    link_label: ''
+pending_projects:
   - name: BookPath.
     type: AI
     description: Le Wagon Data Science bootcamp project, starting August 24, 2026.
@@ -156,11 +169,19 @@ personal_projects:
     height: 600
 ---
 
+<div class='project-filters' id='project-filters' role='group' aria-label='Filter projects by type' hidden>
+  <button type='button' data-filter='all' aria-pressed='true'>all</button>
+  <button type='button' data-filter='ai' aria-pressed='false'>AI</button>
+  <button type='button' data-filter='software' aria-pressed='false'>software</button>
+</div>
+<p class='visually-hidden' id='project-filter-status' role='status'></p>
+
 <div class='project-box'>
-  {% for project in page.projects %}
+  {% for project in page.projects reversed %}
     <button
       type='button'
       class='project'
+      data-project-type='{{ project.type | join: " " | downcase | escape }}'
       aria-haspopup='dialog'
       aria-controls='project-modal'
       data-project-name='{{ project.name | escape }}'
@@ -179,8 +200,11 @@ personal_projects:
            decoding='async'
            loading='{% if forloop.first %}eager{% else %}lazy{% endif %}'
            {% if forloop.first %}fetchpriority='high'{% endif %}>
-      <span class='project-tag project-tag-{{ project.type | downcase }}'>
-        {{ project.type }}
+      <span class='project-tags'>
+        {% assign project_types = project.type | join: " " | split: " " %}
+        {% for type in project_types %}
+          <span class='project-tag project-tag-{{ type | downcase }}'>{{ type }}</span>
+        {% endfor %}
       </span>
       <strong>{{ project.name }}</strong>
       <span class='project-description'>{{ project.description }}</span>
@@ -189,13 +213,15 @@ personal_projects:
   {% endfor %}
 </div>
 
-<section class='personal-projects' aria-labelledby='personal-projects-title'>
-  <h2 id='personal-projects-title'>Personal</h2>
+<section class='pending-projects' aria-labelledby='pending-projects-title'>
+  <h2 id='pending-projects-title'>Pending</h2>
+  <p class='pending-projects-intro'>Planned projects, not started yet.</p>
   <div class='project-box'>
-    {% for project in page.personal_projects %}
+    {% for project in page.pending_projects %}
       <button
         type='button'
         class='project'
+        data-project-type='{{ project.type | join: " " | downcase | escape }}'
         aria-haspopup='dialog'
         aria-controls='project-modal'
         data-project-name='{{ project.name | escape }}'
@@ -213,8 +239,11 @@ personal_projects:
              alt='{{ project.name }}'
              decoding='async'
              loading='lazy'>
-        <span class='project-tag project-tag-{{ project.type | downcase }}'>
-          {{ project.type }}
+        <span class='project-tags'>
+          {% assign project_types = project.type | join: " " | split: " " %}
+          {% for type in project_types %}
+            <span class='project-tag project-tag-{{ type | downcase }}'>{{ type }}</span>
+          {% endfor %}
         </span>
         <strong>{{ project.name }}</strong>
         <span class='project-description'>{{ project.description }}</span>
@@ -259,6 +288,33 @@ personal_projects:
 </dialog>
 
 <script>
+  (function() {
+    var filters = document.getElementById('project-filters');
+    var buttons = filters.querySelectorAll('button');
+    var projects = document.querySelectorAll('.project[data-project-type]');
+    var pending = document.querySelector('.pending-projects');
+    var status = document.getElementById('project-filter-status');
+
+    filters.addEventListener('click', function(event) {
+      var button = event.target.closest('button[data-filter]');
+      if (!button) return;
+
+      var type = button.dataset.filter;
+      var count = 0;
+      projects.forEach(function(project) {
+        project.hidden = type !== 'all' && !project.dataset.projectType.split(' ').includes(type);
+        if (!project.hidden) count++;
+      });
+      buttons.forEach(function(item) {
+        item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+      });
+      pending.hidden = !pending.querySelector('.project:not([hidden])');
+      status.textContent = count + (count === 1 ? ' project shown.' : ' projects shown.');
+    });
+
+    filters.hidden = false;
+  })();
+
   var projectModalTrigger = null;
   var projectModal = document.getElementById('project-modal');
   var projectModalCloseTimer = null;
