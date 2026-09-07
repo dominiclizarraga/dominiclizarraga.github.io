@@ -2,6 +2,7 @@
 layout: page
 title: About
 permalink: about/index.html
+description: 'AI engineer and software developer building applications powered by machine learning.'
 categories:
 - pages
 ---
@@ -20,44 +21,33 @@ categories:
   </picture>
 </div>
 
-<!-- above is a tiny little tweak! p tags have a little of top space.
-if you want your image on the about page to be flush with the name
-bit of the website, wrap the img in a div! -->
+👋 Hey, I'm Dominic, an AI engineer and software developer. I build applications powered by machine learning, combining models and data with the engineering needed to make them useful and reliable.
 
+I have 5+ years of experience building reliable, high-performance web and mobile applications with Ruby on Rails, Hotwire, PostgreSQL, and automated testing.
 
-👋 Hey there! I'm Dominic a software developer proficient in Ruby on Rails, Hotwire (including Turbo + Stimulus), JS, APIs, Minitest, Capybara, Postgres, HTML, CSS(bootstrap) & Tailwind. 🚀
+I've recently joined the data science team at my current job, expanding into AI and consulting on projects that connect data, models, and production software. I use AI agents throughout my development workflow and bring the same [object-oriented design](/pood/), [test-driven development](/test-driven-development/), and maintainability principles that have shaped my software-engineering career.
 
+I recently completed Le Wagon's Data Science & AI bootcamp in Tokyo, where I worked through the machine learning lifecycle. My team and I built an app that personalizes book lists using semantic search and reading difficulty levels. I'm continuing to improve that product while working on a freelance project involving AI agents, retrieval-augmented generation (RAG), and evals.
 
-I'm currently looking for my next adventure, my last job was with [Oblsk](https://oblsk.com) where we worked on some amazing projects like [PLT4M](plt4m.com) where I solved user stories from developing new features, creating models, involving ORM queries Sequel, testing with Mini & Capy & CSS responsiveness. 🏃
+This site is my working notebook: [projects in edtech and fintech](/projects/), [book notes](/reading/), and lessons from my [2026 machine learning bootcamp](/machine-learning/), [software design workshop](/pood/), and [test-driven design workshop](/test-driven-development/). Writing helps me understand what I'm learning—and gives me something to return to when I forget.
 
-Then we moved to work on [H4H](haymakersforhope.org) a non-profit org that needed a solution for its marketing team so they can create content easily, here  we implemented [Strapi](https://strapi.io/) API as a headless CMS and Tailwind design (fully-responsive). 🥊
+You can find me on [LinkedIn](https://www.linkedin.com/in/dominiclizarraga/){:target="_blank" rel="noopener noreferrer"} and [GitHub](https://github.com/dominiclizarraga){:target="_blank" rel="noopener noreferrer"}, read my [resume](https://standardresume.co/r/dominic-lizarraga){:target="_blank" rel="noopener noreferrer"}, or [drop me a line](mailto:domi@hey.com).
 
-I'm currently working on a [Ruby for good](https://rubyforgood.org/) project called CASA where I help them to solve stakeholders tickets, I've been doing this as a way of giving back to the community and keep learning since this project uses Rspec, bootstrap, JavaScript and bits of jQuery ✨.
-        
-I consider myself as very resilient and resourceful also I have learnt how to manage my emotional state and communicate efficiently and on time. 🔑
+### Tech stack
 
-Here you may find my [resume](https://standardresume.co/r/dominic-lizarraga){:target="_blank"}, [LinkedIn](https://www.linkedin.com/in/dominiclizarraga/){:target="_blank"}, [GitHub](https://github.com/dominiclizarraga){:target="_blank"} or if you want to [drop me a line](mailto:domi@hey.com) :) 
+- Python
+- pandas / NumPy
+- scikit-learn
+- Feature engineering
+- Model evals
+- TensorFlow / Keras
+- FastAPI / Docker
+- Rails / Hotwire
+- PostgreSQL
+- RSpec / TDD
 
-**Tech stack**
+### Languages
 
-- Ruby on Rails - Hotwire (Turbo & Stimulus)
-- Tailwind / Bootstrap
-- Minitest & Rspec - Capybara
-- API's - Agile methodologies
-- SQL & PostgreSQL
-- AWS S3 - JavaScript
-- HTML, CSS - GitHub - Heroku
-
-
-**Languages**
-
-
-🇺🇸 English - Professional
-
-        
-🇲🇽 Spanish - Native
-
-        
-🇩🇪 German - Basic
-
-        
+- 🇺🇸 English — Professional
+- 🇲🇽 Spanish — Native
+- 🇩🇪 German — Basic
