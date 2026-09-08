@@ -5,19 +5,6 @@ notitle: true
 permalink: projects/index.html
 image: /graphics/projects/preview.jpg
 projects:
-  - name: Recommendation Engine for Trade & Customs Client.
-    type: AI
-    description: Freelance recommendation-engine project.
-    role: Freelance developer.
-    problem: Help a trade and customs client turn its data into useful, relevant recommendations.
-    contribution: Design and build the recommendation engine.
-    outcome: A working recommendation workflow for the client.
-    technology: In discovery.
-    image: /graphics/projects/trade-customs-recommendation.svg
-    width: 800
-    height: 600
-    link: ''
-    link_label: ''
   - name:  PLT4M | Physical education classes.
     type: software
     description: Hotwire, tailwindcss, postgresql.
@@ -109,6 +96,32 @@ projects:
     height: 288
     link: https://www.tabbi.app/
     link_label: Visit live site
+  - name: BookPath.
+    type: AI
+    description: Personalized book lists using semantic search and reading difficulty levels. Provisional demo available.
+    role: Le Wagon Data Science & AI bootcamp team member.
+    problem: Help readers find books that match their interests and reading difficulty preferences.
+    contribution: Collaborated with my capstone team to build and launch the application; continuing to improve it after the bootcamp.
+    outcome: A live provisional demo that personalizes book lists, with further improvements in progress.
+    technology: Semantic search and reading difficulty filtering.
+    image: /graphics/projects/bookpath.svg
+    width: 800
+    height: 600
+    link: https://api-kanon11.vercel.app/
+    link_label: Try provisional demo
+  - name: Recommendation Engine for Trade & Customs Client.
+    type: AI
+    description: Freelance recommendation-engine project.
+    role: Freelance developer.
+    problem: Help a trade and customs client turn its data into useful, relevant recommendations.
+    contribution: Design and build the recommendation engine.
+    outcome: A working recommendation workflow for the client.
+    technology: In discovery.
+    image: /graphics/projects/trade-customs-recommendation.svg
+    width: 800
+    height: 600
+    link: ''
+    link_label: ''
   - name: Moneypool.
     type: [software, AI]
     description: My most recent work on software and AI projects.
@@ -123,17 +136,6 @@ projects:
     link: ''
     link_label: ''
 pending_projects:
-  - name: BookPath.
-    type: AI
-    description: Le Wagon Data Science bootcamp project, starting August 24, 2026.
-    role: Data science bootcamp team member.
-    problem: To be defined with the team when the project starts on August 24, 2026.
-    contribution: Collaborate on the data work, modeling, and product build; exact ownership to be decided.
-    outcome: A working data science project to present at the end of the bootcamp.
-    technology: To be decided with the team.
-    image: /graphics/projects/bookpath.svg
-    width: 800
-    height: 600
   - name: ML Flashcards & Quiz.
     type: software
     description: Flashcards and quizzes for the ML concepts I'm learning.
@@ -146,13 +148,22 @@ pending_projects:
     width: 800
     height: 600
   - name: OOP & Refactoring Flashcards.
-    type: software
-    description: A post-bootcamp project for practicing OOP principles, code smells, and the refactoring guidelines in Martin Fowler's book.
-    role: Creator (after finishing bootcamp).
-    problem: Reading about object-oriented design and refactoring is not enough practice for quickly recognizing problems in real code.
-    contribution: Build an interactive flashcard website that presents code samples and asks learners to identify the problem, its symptoms, or the appropriate remedy.
-    outcome: A study tool for developing the habit of recognizing code smells and choosing suitable refactorings while keeping behavior unchanged.
-    technology: To be decided after bootcamp.
+    type: [software, AI]
+    description: Planned AI-assisted practice with code smells and three refactoring choices, starting with Ruby and Python and later adding JavaScript.
+    role: Creator (planned project).
+    problem: Developers need practice recognizing code smells and choosing behavior-preserving refactorings under explicit design constraints.
+    contribution: Plan to build reviewed exercises with three candidate refactorings and explanations, using a self-hosted small code language model to draft variations. Validate examples with syntax checks, behavior tests, and human review before publication; compare model and prompt versions with held-out evals.
+    outcome: Target a deployed study app that demonstrates model serving, reproducible deployment, and measured content quality, latency, and cost. Implementation has not started.
+    technology: Proposed stack includes Rails/Hotwire, PostgreSQL, Python, FastAPI, Docker, an Ollama model service, and MLflow for eval tracking. Select the model and hosting hardware after benchmarking.
+    delivery_plan:
+      - 'Product requirements: start with Ruby and Python, then JavaScript. Each reviewed exercise includes a code smell, explicit design constraints, three choices, and explanations. Define content-quality and service-level targets before launch.'
+      - 'Model serving: host a small code language model behind FastAPI, with Docker deployments, pinned model and prompt versions, health checks, and a documented model update or fine-tuning path.'
+      - 'Reliable inference: generate drafts in background jobs; enforce request timeouts, bounded retries with backoff for transient failures, and concurrency limits. Serve approved cards when inference times out, fails, or returns invalid content.'
+      - 'Content validation: enforce a structured response schema and exactly three choices. Check syntax and behavior preservation in an isolated runner with resource limits and no network access; require human review before publishing cards.'
+      - 'Evals and delivery: maintain a held-out benchmark by language and code smell. Track correctness, ambiguity, and explanation quality in MLflow; block merges on defined quality regressions. Calibrate any LLM judge against human review instead of using it as the sole correctness check.'
+      - 'Monitoring and cost: log request IDs and model versions; measure p50/p95 card-serving and generation latency separately, timeout and error rates, fallback frequency, queue depth, and cost per approved card. Add alerts, rate limits, and token and spending budgets.'
+      - 'Deployment evidence: automate builds and checks in CI/CD, load-test against documented service-level targets, and demonstrate rollback to a known model and prompt version. Keep a runbook for inference outages and failed deployments.'
+      - 'Later experiments: compare RAG over my own design notes with a prompt-only baseline; measure retrieval relevance and grounded explanations. Add bounded tool use only where useful, with allowlisted tools and prompt-injection tests. Consider fine-tuning after measuring baseline failures; use learner feedback to track quality changes and run A/B tests once traffic supports meaningful results.'
     image: /graphics/projects/object_oriented_design.jpeg
     width: 1200
     height: 1600
@@ -190,6 +201,7 @@ pending_projects:
       data-project-contribution='{{ project.contribution | escape }}'
       data-project-outcome='{{ project.outcome | escape }}'
       data-project-technology='{{ project.technology | escape }}'
+      data-project-delivery-plan='{{ project.delivery_plan | jsonify | escape }}'
       data-project-link='{{ project.link | escape }}'
       data-project-link-label='{{ project.link_label | escape }}'
       onclick='openProjectModal(this)'>
@@ -230,6 +242,7 @@ pending_projects:
         data-project-contribution='{{ project.contribution | escape }}'
         data-project-outcome='{{ project.outcome | escape }}'
         data-project-technology='{{ project.technology | escape }}'
+        data-project-delivery-plan='{{ project.delivery_plan | jsonify | escape }}'
         data-project-link=''
         data-project-link-label=''
         onclick='openProjectModal(this)'>
@@ -281,6 +294,10 @@ pending_projects:
         <dt>Technology</dt>
         <dd id='project-modal-technology'></dd>
       </div>
+      <div id='project-modal-delivery' hidden>
+        <dt>Planned production-readiness milestones</dt>
+        <dd><ul id='project-modal-delivery-plan'></ul></dd>
+      </div>
     </dl>
 
     <a class='project-modal-link' id='project-modal-link' href='#' target='_blank' rel='noopener' hidden></a>
@@ -327,6 +344,16 @@ pending_projects:
     document.getElementById('project-modal-contribution').textContent = trigger.dataset.projectContribution;
     document.getElementById('project-modal-outcome').textContent = trigger.dataset.projectOutcome;
     document.getElementById('project-modal-technology').textContent = trigger.dataset.projectTechnology;
+
+    var deliveryPlan = JSON.parse(trigger.dataset.projectDeliveryPlan || 'null') || [];
+    var deliveryList = document.getElementById('project-modal-delivery-plan');
+    deliveryList.replaceChildren();
+    deliveryPlan.forEach(function(milestone) {
+      var item = document.createElement('li');
+      item.textContent = milestone;
+      deliveryList.appendChild(item);
+    });
+    document.getElementById('project-modal-delivery').hidden = deliveryPlan.length === 0;
 
     var projectLink = document.getElementById('project-modal-link');
     if (trigger.dataset.projectLink) {
