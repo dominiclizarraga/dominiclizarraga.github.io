@@ -84,7 +84,7 @@ re.match(r, "hey, what's up", flags=re.IGNORECASE)
 A version with a more flexible greeting:
 
 ```python
-r = r"[^a-z]*([y]o|[h']?ello|ok|hey|(good[ ])?(morn[gin']{0,3}|"\
+r = r"[^a-z]*([y]o|[h']?ello|ok|hey|(good[ ])?(morn[gin']{0,3}|"\"
 re_greeting = re.compile(r, flags=re.IGNORECASE)
 re_greeting.match("Hello Rosa")
 re_greeting.match("Good morning Rosa")
@@ -105,7 +105,7 @@ Another way.
 
 Using statistics, machine learning and more data. We nned to use vector for storing the words based on frequency and meaning, see how the "bag of words" can be represented by removing stop-words, rare-words:
 
-![Alt text](/../graphics/nlp-in-action/bag_of_words.png)
+![ bag-of-words vector machine](/../graphics/nlp-in-action/bag_of_words.png)
 
 > Those bins and the numbers they contain for each word are represented as long vectors containing a lot of zeros and a few ones or twos scattered around wherever the word for that bin occurred.
 
@@ -122,3 +122,54 @@ Word frequencies:
   "rat": 1
 }
 ```
+
+> (many bins, one for each possible word) aren’t very useful for language processing. But they are good enough for some industry-changing tools like spam filters
+
+> One statistical question that is asked of bag-of-words vector sequences is “What is the combination of words most likely to follow a particular bag of words?” Or, even better, if a user enters a sequence of words, “What is the closest bag of words in our database to a bag-of-words vector provided by the user?” This is a search query. 
+
+> Theinput words are the words you might type into a search box, and the closest bag-of-words vector corresponds to the document or web page you were looking for.
+
+A brief overflight of hyperspace.
+
+> When we project these vectors onto each other to determine the distance
+between pairs of vectors, this will be a reasonable estimate of the similarity in their meaning rather than merely their statistical word usage
+
+> This vector distance metric is called cosine distance metric.
+
+> We can even project (“embed” is the more precise term) these vectors in a 2D plane to have a “look” at them in plots and diagrams to see if our human brains can find patterns. 
+
+> We can then teach a computer to recognize and act on these patterns in ways that reflect the underlying meaning of the words that produced those vectors.
+
+Here is another aproach to represent high dimension vectors called a bit vector language model, or the sum of “one-hot encoded” vectors.
+
+```text
+Sentence: "A bat and a rat" (lowercased before counting)
+Our vocabulary also includes "dog", which is absent here.
+
+Vocabulary:       a   bat  and  rat  dog
+                  ↓    ↓    ↓    ↓    ↓
+One-hot vector for each word occurrence:
+  "a"           [ 1,   0,   0,   0,   0 ]
+  "bat"         [ 0,   1,   0,   0,   0 ]
+  "and"         [ 0,   0,   1,   0,   0 ]
+  "a"           [ 1,   0,   0,   0,   0 ]
+  "rat"         [ 0,   0,   0,   1,   0 ]
+                ─────────────────────────
+Sum (counts):   [ 2,   1,   1,   1,   0 ]  → 5 dimensions
+                  │
+                  │ Change every positive count to 1
+                  ↓
+Bit vector:     [ 1,   1,   1,   1,   0 ]  → 5 dimensions
+                  ↑                   ↑
+               present              absent
+
+Each bit answers: "Does this word appear in the sentence?"
+Summing one-hot vectors for DISTINCT words also gives this bit vector.
+We lose repetition counts, not dimensions: still one position per word
+in the vocabulary.
+```
+
+- Count vectors measure occurrences. 
+- Binary vectors record presence. 
+- Rating vectors describe chosen properties.
+- Learned embeddings encode patterns learned from data.
