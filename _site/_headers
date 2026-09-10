@@ -1,4 +1,0 @@
-/css/favicon.png
-  Cache-Control: public, max-age=3456000
-/images/*
-  Cache-Control: public, max-age=3456000
