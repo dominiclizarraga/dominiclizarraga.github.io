@@ -50,3 +50,10 @@ The math.
 Here is another challenge for computer to understand Natural language and it's "decoding" which is having the current context when a phrase is said. Like when someone says: "Good morning." What makes a morining good? What about noons and afternoons?
 
 > This degree of compression is still out of reach for machines.
+
+Language through a computer’s “eyes”
+
+> When you type “Good Morn’n Rosa,” a computer sees only “01000111 01101111
+01101111 …”. How can you program a chatbot to respond to this binary stream
+intelligently?
+
