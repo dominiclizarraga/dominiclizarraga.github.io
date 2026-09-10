@@ -57,3 +57,43 @@ Language through a computer’s “eyes”
 01101111 …”. How can you program a chatbot to respond to this binary stream
 intelligently?
 
+For some mechanical pattern matching we can use either lock language statements,
+such as “01-02-03" or Regular expressions. Amazon Echo, Google Home, and similarly complex and useful assistants use this kind of language to encode the logic for most of their user interaction.
+
+Regular expressions are indeed used mostly for search, for sequence matching. Example: `grep`
+
+This pattern matching chatbot is an example of a tightly controlled chatbot.
+
+The first regex recognizes simple greetings such as `hi`, `hello`, and `hey`, optionally followed by a name.
+
+```python
+import re
+r = "(hi|hello|hey)[ ]*([a-z]*)"
+
+# IGNORECASE igonores uppercase/lowercase differences
+re.match(r, "Hello Rosa", flags=re.IGNORECASE)
+# match='Hello Rosa'
+
+re.match(r, "hi ho, hi ho, it's off to work ...", flags=re.IGNORECASE)
+# match='hi ho'
+
+re.match(r, "hey, what's up", flags=re.IGNORECASE)
+# match='hey'
+```
+
+A version with a more flexible greeting:
+
+```python
+r = r"[^a-z]*([y]o|[h']?ello|ok|hey|(good[ ])?(morn[gin']{0,3}|"\
+re_greeting = re.compile(r, flags=re.IGNORECASE)
+re_greeting.match("Hello Rosa")
+re_greeting.match("Good morning Rosa")
+re_greeting.match("Good Morn'n Rosa")
+re_greeting.match("yo Rosa")
+re_greeting.match("Good evening Rosa Parks").groups()
+
+# ('Good evening', 'Good ', 'evening', 'Rosa')
+```
+
+A modern chatbot can learn from reading (processing) a bunch of English text. Also these two versiones don't allow typos or last name from the user since we are only pattern matching first name characters.
+
