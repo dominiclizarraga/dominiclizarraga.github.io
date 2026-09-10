@@ -97,3 +97,28 @@ re_greeting.match("Good evening Rosa Parks").groups()
 
 A modern chatbot can learn from reading (processing) a bunch of English text. Also these two versiones don't allow typos or last name from the user since we are only pattern matching first name characters.
 
+> Because of the limitations of computational resources, early NLP researchers had to use their human brains’ computational power to design and hand-tune complex logical rules to extract information from a natural language string. This is called a pattern based approach to NLP.
+
+> The core NLP building blocks like stemmers and tokenizers as well as sophisticated end-to-end NLP dialog engines (chatbots) like ELIZA were built this way, from regular expressions and pattern matching
+
+Another way.
+
+Using statistics, machine learning and more data. We nned to use vector for storing the words based on frequency and meaning, see how the "bag of words" can be represented by removing stop-words, rare-words:
+
+![Alt text](/../graphics/nlp-in-action/bag_of_words.png)
+
+> Those bins and the numbers they contain for each word are represented as long vectors containing a lot of zeros and a few ones or twos scattered around wherever the word for that bin occurred.
+
+```python
+Sentence: "A bat and a rat"
+
+Embedding (illustrative): [0.2323, -0.4210, 0.8732]
+
+Word frequencies:
+{
+  "a": 2,
+  "bat": 1,
+  "and": 1,
+  "rat": 1
+}
+```
