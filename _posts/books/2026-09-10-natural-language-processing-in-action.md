@@ -25,7 +25,7 @@ Part II starts using some Neural Networks and more modern algorithm like backpro
 
 Part III is meant for building a real project using most modern NLP.
 
-Chapter 1.
+## Chapter 1. Packets of thought (NLP overview)
 
 In this chapter the book goes over what really is NLP, difference of "natural language" vs "programming language" and incrementally we add more tools to build our chatbot.
 
@@ -173,3 +173,36 @@ in the vocabulary.
 - Binary vectors record presence. 
 - Rating vectors describe chosen properties.
 - Learned embeddings encode patterns learned from data.
+
+Word order and grammar.
+
+When we have short sentences like "Good morning Rosa" order doesn't matter, but when dealing with longer strings, the order is key.
+
+A chatbot natural language pipeline.
+
+Most chatbots contain elements of these stages:
+
+> 1 Parse—Extract features, structured numerical data, from natural language text.
+
+> 2 Analyze—Generate and combine features by scoring text for sentiment, grammaticality, and semantics.
+
+> 3 Generate—Compose possible responses using templates, search, or language models.
+
+> 4 Execute—Plan statements based on conversation history and objectives, and select the next response.
+
+![chatbot stages](/../graphics/nlp-in-action/chatbot_stages.png)
+
+One processing element in figure 1.3 that isn’t typically employed in search, forecasting, or question answering systems is natural language generation.
+
+Processing in depth.
+
+## Chapter 2. Build your vocabulary (word tokenization)
+
+> This chapter will help you split a document, any string, into discrete tokens of meaning.
+
+> Retrieving tokens from a document will require some string manipulation beyond just the `str.split()`
+
+> Once you’ve identified the tokens in a document that you’d like to include in your vocabulary, you’ll return to the regular expression toolbox to try to combine words with similar meaning in a process called stemming.
+
+> Then you’ll assemble a vector representation of your documents called a bag of words then try to use this vector to see if it can help you improve upon the greeting recognizer
+
