@@ -206,3 +206,11 @@ Processing in depth.
 
 > Then you’ll assemble a vector representation of your documents called a bag of words then try to use this vector to see if it can help you improve upon the greeting recognizer
 
+> In this chapter, we show you straightforward algorithms for separating a string into words. You’ll also extract pairs, triplets, quadruplets, and even quintuplets of tokens. These are called `n-grams`
+
+> Using n-grams enables your machine to know about “ice cream” as well as the “ice” and “cream” that comprise it.
+
+> In natural language processing, composing a numerical vector from text is a particularly “lossy” feature extraction process. Nonetheless the bag-of-words (BOW) vectors retain enough of the information content of the text to produce useful and interesting machine learning models.
+
+Challenges (a preview of stemming).
+
