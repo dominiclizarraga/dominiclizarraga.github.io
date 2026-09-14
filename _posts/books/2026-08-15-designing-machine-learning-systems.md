@@ -111,4 +111,57 @@ Example: the email spam from a Nigerian Prince is well known, and if we have har
 
 Machine Learning Use Cases
 
+Starting in 2010 there has been a boom of new ML cases on both, enterprise and consumer applications. They share some conditions and also differ on requirements like latency, optimization, investment and the usage can go widely from cost reduction, generating customer insights, improving customer experience, price optimization to internal automation.
+
+> Fraud detection  is among the oldest applications of ML in the enterprise world. By leveraging ML solutions for anomaly detection, you can have systems that learn from historical fraud transactions and predict whether a future transaction is fraudulent.
+
+Example: Acquiring a new user is expensive. Reducing customer acquisition costs by a small amount can result in a large increase in profit. This can be done through better identifying potential customers, showing better-targeted ads, giving discounts at the right time, etc. All of which are suitable tasks for ML.
+
+After you’ve spent so much money acquiring a customer, it’d be a shame if they leave. To prevent customers from leaving, it’s important to keep them happy by addressing their concerns as soon as they arise. Automated support ticket classification can help with that.
+
+An ML system can analyze the ticket content and predict where it should go, which can shorten the response time and improve customer satisfaction.
+
+A set of ML use cases that has generated much excitement recently is in health care. There are ML systems that can detect skin cancer and diagnose diabetes. 
+
+Understanding Machine Learning Systems.
+
+Machine Learning in Research Versus in Production.
+
+The practice that is gain in research is very different that the one you gain in tech companies.
+
+In research you seek state-of-the-art model performance, fast training, data is static and on the other hand with companies we have different stakeholders, different targets, user needs low latency, fast inference.
+
+Example of a restaurant recommendation system:
+
+```python
+                        RESTAURANT
+                     RECOMMENDATION
+                         SYSTEM
+                            |
+        ┌───────────┬───────┼──────────┬─────────────┐
+        ↓           ↓       ↓          ↓             ↓
+   ML Engineers   Sales   Product   ML Platform    Manager
+        |           |       |          |             |
+        ↓           ↓       ↓          ↓             ↓
+ Maximize model   Higher   <100 ms   Reliability   Maximize
+   accuracy /     priced   latency     + scale      margin
+ relevance        places
+
+ML Engineers → more data + complexity
+Sales        → more service-fee revenue
+Product      → low latency → more completed orders
+ML Platform  → fewer updates → system stability
+Manager      → lower costs / higher profit
+```
+
+> “Recommending the restaurants that users are most likely to click on” and “recommending the restaurants that will bring in the most money for the app” are two different objectives
+
+Computational priorities.
+
+> During the model development process, you might train many different models, and each model does multiple passes over the training data. Each trained model then generates predictions on the validation data once to report the scores. The validation data is usually much smaller than the training data. 
+
+> During model development, training is the bottleneck. Once the model has been deployed, however, its job is to generate predictions, so inference is the bottleneck.
+
+
+
 
