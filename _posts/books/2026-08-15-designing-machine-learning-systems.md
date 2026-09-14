@@ -162,6 +162,38 @@ Computational priorities.
 
 > During model development, training is the bottleneck. Once the model has been deployed, however, its job is to generate predictions, so inference is the bottleneck.
 
+> To reduce latency in production, you might have to reduce the number of queries you can process on the same hardware at a time. If your hardware is capable of processing many more queries at a time, using it to process fewer queries means underutilizing your hardware, increasing the cost of processing each query
 
+When thinking about latency, it’s important to keep in mind that latency is not an individual number but a distribution.
 
+Data
 
+> During the research phase, the datasets you work with are often clean and well-formatted, freeing you to focus on developing models. They are static by nature so that the community can use them to benchmark new architectures and techniques.
+
+> In production, data, if available, is a lot more messy. It’s noisy, possibly unstructured, constantly shifting.
+
+Fairness
+
+> During the research phase, a model is not yet used on people, so it’s easy for researchers to put off fairness as an afterthought: “Let’s try to get state of the art first and worry about fairness when we get to production.” When it gets to production, it’s too late.
+
+> There’s no equivalent state of the art for fairness metrics. You or someone in your life might already be a victim of biased mathematical algorithms without knowing it.
+
+Interpretability
+
+> First, interpretability is important for users, both business leaders and end users, to understand why a decision is made so that they can trust a model and detect potential biases mentioned previously. Second, it’s important for developers to be able to debug and improve a model.
+
+> As of 2019, only 19% of large companies are working to improve the explainability of their algorithms.
+
+> As ML research and off-the-shelf models become more accessible, more people and organizations would want to find applications for them, which increases the demand for ML in production.
+
+Machine Learning Systems Versus Traditional Software
+
+> Since ML is part of software engineering (SWE), and software has been successfully used in production for more than half a century, some might wonder why we don’t just take tried-and-true best practices in software engineering and apply them to ML. That’s an excellent idea. In fact, ML production would be a much better place if ML experts were better software engineers.
+
+> In fact, in SWE, we want to keep things as modular and separate as possible [(see the Wikipedia page on separation of concerns)](https://en.wikipedia.org/wiki/Separation_of_concerns).
+
+> On the contrary, ML systems are part code, part data, and part artifacts created from the two. The trend in the last decade shows that applications developed with the most/best data win. Instead of focusing on improving ML algorithms, most companies will focus on improving their data. Because data can change quickly, ML applications need to be adaptive to the changing environment
+
+> In traditional SWE, you only need to focus on testing and versioning your code. With ML, we have to test and version our data too, and that’s the hard part. How to version large datasets? How to know if a data sample is good or bad for your system?
+
+Chapter 2. Introduction to Machine Learning Systems Design
