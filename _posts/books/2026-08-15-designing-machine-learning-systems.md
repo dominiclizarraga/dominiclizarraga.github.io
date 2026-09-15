@@ -11,17 +11,19 @@ isbn13: "9781098107956"
 isbn: "9781098107956"
 ---
 
-overview of machine learning systems
-introduction of machine learning systems
-data engineering fundamentals
-training data
-feature engineering
-model development and offline evaluation
-model deployment and prediction service
-data distribution shifts and monitoring
-continual learning and test in production
-infraestructure and tooling for MLOPS
-the human side of machine learning
+## Contents
+
+1. [Chapter 1. Overview of Machine Learning Systems](#chapter-1)
+2. [Chapter 2. Introduction to Machine Learning Systems Design](#chapter-2)
+3. [Chapter 3. Data Engineering Fundamentals](#chapter-3)
+4. [Chapter 4. Training Data](#chapter-4)
+5. Chapter 5. Feature Engineering
+6. Chapter 6. Model Development and Offline Evaluation
+7. Chapter 7. Model Deployment and Prediction Service
+8. Chapter 8. Data Distribution Shifts and Monitoring
+9. Chapter 9. Continual Learning and Test in Production
+10. Chapter 10. Infrastructure and Tooling for MLOps
+11. Chapter 11. The Human Side of Machine Learning
 
 The preface goes over how Chip started this book which was from writing down and preparing classes for her Machine Learning students back in 2017 and how similar where the questions shed had like: 
 
@@ -31,7 +33,7 @@ The preface goes over how Chip started this book which was from writing down and
 
 > For example, two companies might be in the same domain (ecommerce) and have the same problem that they want ML to solve (recommender system), but their resulting ML systems can have different model architecture, use different sets of features, be evaluated on different metrics, and bring different returns on investment.
 
-Chapter 1. Overview of Machine Learning Systems
+## Chapter 1. Overview of Machine Learning Systems {#chapter-1}
 
 > In November 2016, Google announced that it had incorporated its multilingual neural machine translation system into Google Translate, marking one of the first success stories of deep artificial neural networks in production at scale. According to Google, with this update, the quality of translation improved more in a single leap than they had seen in the previous 10 years combined.
 
@@ -196,7 +198,7 @@ Machine Learning Systems Versus Traditional Software
 
 > In traditional SWE, you only need to focus on testing and versioning your code. With ML, we have to test and version our data too, and that’s the hard part. How to version large datasets? How to know if a data sample is good or bad for your system?
 
-Chapter 2. Introduction to Machine Learning Systems Design
+## Chapter 2. Introduction to Machine Learning Systems Design {#chapter-2}
 
 > Before we develop an ML system, we must understand why this system is needed. If this system is built for a business, it must be driven by business objectives, which will need to be translated into ML objectives to guide the development of ML models.
 
@@ -397,7 +399,7 @@ Mind Versus Data
 
 > Mind might be disguised as inductive biases or intelligent architectural designs. Data might be grouped together with computation since more data tends to require more computation.
 
-Chapter 3. Data Engineering Fundamentals
+## Chapter 3. Data Engineering Fundamentals {#chapter-3}
 
 > The rise of ML in recent years is tightly coupled with the rise of big data. Large data systems, even without ML, are complex.
 
@@ -539,3 +541,5 @@ Batch Processing Versus Stream Processing
 > For ML systems that leverage streaming features, the streaming computation is rarely simple. The number of stream features used in an application such as fraud detection and credit scoring can be in the hundreds, if not thousands. The stream feature extraction logic can require complex queries with join and aggregation along different dimensions.
 
 > Stream processing is more difficult because the data amount is unbounded and the data comes in at variable rates and speeds. It’s easier to make a stream processor do batch processing than to make a batch processor do stream processing.
+
+## Chapter 4. Training Data {#chapter-4}
