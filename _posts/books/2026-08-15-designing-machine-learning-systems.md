@@ -197,3 +197,263 @@ Machine Learning Systems Versus Traditional Software
 > In traditional SWE, you only need to focus on testing and versioning your code. With ML, we have to test and version our data too, and that’s the hard part. How to version large datasets? How to know if a data sample is good or bad for your system?
 
 Chapter 2. Introduction to Machine Learning Systems Design
+
+> Before we develop an ML system, we must understand why this system is needed. If this system is built for a business, it must be driven by business objectives, which will need to be translated into ML objectives to guide the development of ML models.
+
+Four requirements: reliability, scalability, maintainability, and adaptability.
+
+First need to frame your problem into a task that ML can solve. The difficulty of your job can change significantly depending on how you frame your problem.
+
+Business and ML Objectives
+
+> Data scientists tend to care about the ML objectives: the metrics they can measure about the performance of their ML models such as accuracy, F1 score, inference latency, etc. They get excited about improving their model’s accuracy from 94% to 94.2% and might spend a ton of resources—data, compute, and engineering time—to achieve that.
+
+> But the truth is: most companies don’t care about the fancy ML metrics.
+They don’t care about increasing a model’s accuracy from 94% to 94.2% unless it moves some business metrics.
+
+> So what metrics do companies care about? According to the Nobel-winning economist Milton Friedman, is to maximize profits for shareholders.
+
+> The ultimate goal of any project within a business is, therefore, to increase profits, either directly or indirectly: directly such as increasing sales (conversion rates) and cutting costs; indirectly such as higher customer satisfaction and increasing time spent on a website.
+
+> For an ML project to succeed within a business organization, it’s crucial to tie the performance of an ML system to the overall business performance.
+
+> What business performance metrics is the new ML system supposed to influence, e.g., the amount of ads revenue, the number of monthly active users?
+
+Example: ad click-through rates and fraud detection are among the most popular use cases for ML today is that it’s easy to map ML models’ performance to business metrics: every increase in click-through rate results in actual ad revenue, and every fraudulent transaction stopped results in actual money saved.
+
+> Netflix measures the performance of their recommender system using take-rate: the number of quality plays divided by the number of recommendations a user sees. Other business metrics like total streaming hours and subscription cancellation rate
+
+> To gain a definite answer on the question of how ML metrics influence business metrics, experiments are often needed. Many companies do that with experiments like A/B testing and choose the model that leads to better business metrics, regardless of whether this model has better ML metrics.
+
+Example: A cybersecurity company uses an ML model to detect unusual network traffic. Those anomalies are then filtered by rules and reviewed by security experts before action is taken. If a real threat is not stopped, it may be difficult to know whether the ML model failed or whether the problem happened later in the process.
+
+> Returns on investment in ML depend a lot on the maturity stage of adoption. The longer you’ve adopted ML, the more efficient your pipeline will run, the faster your development cycle will be, the less engineering time you’ll need, and the lower your cloud bills will be, which all lead to higher returns.
+
+Requirements for ML Systems.
+
+ML system vary from use case to use case but most systems should have these four characteristics: reliability, scalability, maintainability, and adaptability.
+
+Reliability
+
+> The system should continue to perform the correct function at the desired level of performance even in the face of adversity (hardware or software faults, and even human error).
+
+Example: For example, if you use Google Translate to translate a sentence into a language you don’t know, it might be very hard for you to tell even if the translation is wrong.
+
+Scalability
+
+There are multiple ways an ML system can grow. It can grow in complexity. Your ML system can grow in traffic volume. An ML system might grow in ML model count.
+
+Examples:
+- When you started deploying an ML system, you only served 10,000 prediction requests daily, now ML system serves daily fluctuates between 1 million and 10 million.
+- Initially, you might have only one model for one use case, such as detecting the trending hashtags over time, so you’ll add one more to filter out NSFW, bots and you end up with one model per filtering.
+
+Maintainability
+
+> It’s important to structure your workloads and set up your infrastructure in such a way that different contributors can work using tools that they are comfortable with, instead of one group of contributors forcing their tools onto other groups. Code should be documented. Code, data, and artifacts should be versioned.
+
+Adaptability
+
+> To adapt to shifting data distributions and business requirements, the system should have some capacity for both discovering aspects for performance improvement and allowing updates without service interruption.
+
+Iterative Process
+
+Developing a ML system is an iterative process and, in most cases a never-ending process.
+
+Here is one workflow that you might encounter when building an ML model to predict whether an ad should be shown when users enter a search query:
+
+![ Developing a machine learning system can be iterative process. This image is AI generated ](/../graphics/designing-ml-systems/chat_gpt_ml_system_is_iterative_process.png)
+
+Here is a high level approach of the steps:
+
+- Step 1. Project scoping
+
+A project starts with scoping the project, laying out goals, objectives, and constraints. Stakeholders should be identified and involved. Resources should be estimated and allocated. Important: Here the ML project has to be scoped in the context of a business. Like Netflix recommendation systems impacts directly on streaming hours, and churn rate.
+
+- Step 2. Data engineering
+
+A vast majority of ML models today learn from data, so developing ML
+models starts with engineering data.
+
+- Step 3. ML model development
+
+With the initial set of training data, we’ll need to extract features and develop initial models leveraging these features. This is the stage that requires the most ML knowledge and is most often covered in ML courses.
+
+- Step 4. Deployment
+
+After a model is developed, it needs to be made accessible to users.
+
+- Step 5. Monitoring and continual learning
+
+Once in production, models need to be monitored for performance decay and maintained to be adaptive to changing environments and changing requirements
+
+- Step 6. Business analysis
+
+Model performance needs to be evaluated against business goals and analyzed to generate business insights.
+
+Framing ML Problems
+
+Let's say imagine that you work for a bank that aims millenial customers and your boss heard that the next block bank is using Machine Learning for speeding up the customer requests of the users, and he tasks you to fix this. 
+
+We need to be clever and identify that customer service is a problem, not a Machine Learning problem. Since a Machine Learning problem, is defined by inputs, outputs, and an objective function that guides a learning process. 
+
+So our task is to figure out where is the bottleneck, and then let's say that you found that every time a customer request comes, it takes time because it is transferred from human resources to inventory to customer service, then it goes to security. 
+
+So now this has become a classification problem that you can solve.The input is the customer request. The output is the department the request should go to. The objective function is to minimize the difference between the predicted department and the actual department.
+
+Types of ML Tasks
+
+The most general types of ML tasks are classification and regression.
+
+Classification versus regression
+
+> Classification models classify inputs into different categories. For example, you want to classify each email to be either spam or not spam. Regression models output a continuous value. An example is a house prediction model that outputs the price of a given house.
+
+Binary versus multiclass classification
+
+Within classification problems, the fewer classes there are to classify, the simpler the problem is.
+
+Examples of binary classification include classifying whether a comment is toxic, whether a lung scan shows signs of cancer, whether a transaction is fraudulent.
+
+When there are more than two classes, the problem becomes multiclass classification.
+
+When the number of classes is high, such as disease diagnosis where the number of diseases can go up to thousands or product classifications where the number of products can go up to tens of thousands, we say the classification task has high cardinality.
+
+> The first challenge is in data collection. In my experience, ML models typically need at least 100 examples for each class to learn to classify that class. So if you have 1,000 classes, you already need at least 100,000 examples.
+
+Multiclass versus multilabel classification
+
+In both binary and multiclass classification, each example belongs to exactly one class. When an example can belong to multiple classes, we have a multilabel classification problem. For example, when building a model to classify articles into four topics: tech, entertainment, finance, and politics, an article can be in both tech and finance.
+
+Out of all task types, multilabel classification is usually the one that I’ve seen companies having the most problems with. Multilabel means that the number of classes an example can have varies from example to example.
+
+Multiple ways to frame a problem
+
+Changing the way you frame your problem might make your problem significantly harder or easier.
+
+Example:
+
+Let's say that our task is to predict which application the user is going to open next on his phone, and we initially approach this as a classification problem. We start gathering the user's demographic information, environment, time, location, and previous apps used. Let's say that N is the number of apps that we want to recommend.
+
+```python
+Classification
+
+User + context
+      ↓
+    Model
+      ↓
+[App 0: .20, App 1: .02, App 2: .04, ...]
+          one N-dimensional output
+```
+
+Initially, this seems like the correct approach. However, since we are considering the output to be a probability distribution over N applications, every time we want to consider a new application, we might need to retrain our model because the number of possible outputs changes.
+
+On the other hand, if we approach this with a regression model, our features are the user's environment, time, location, and also the app's features. Our output in this case is going to be a value between zero and one representing how likely the user is to open that app.
+
+```python
+Regression
+
+User + context + App 0 features → Model → 0.03
+User + context + App 1 features → Model → 0.06
+User + context + App 2 features → Model → 0.25
+```
+
+In this framing, we are not going to need to retrain the model when we want to consider a new application. We simply need to use the new application's features as a new input.
+
+Objective Functions
+
+> To learn, an ML model needs an objective function to guide the learning process. An objective function is also called a loss function, because the objective of the learning process is usually to minimize (or optimize) the loss caused by wrong predictions. For supervised ML RMSE or cross entropy.
+
+Decoupling objectives
+
+Framing ML problems can be tricky when you want to minimize multiple objective functions. Imagine you’re building a system to rank items on users’ newsfeeds.
+
+We start with three objectives:
+
+- Filter out spam
+- Filter out NSFW content
+- Rank posts by engagement: how likely users will click on it
+
+However you realize that engaging posts can lead to questionable ethical concerns, so you add a layer to protect:
+
+- Filter out spam
+- Filter out NSFW content
+- Filter out misinformation
+- Rank posts by quality
+- Rank posts by engagement: how likely users will click on it
+
+If a post is engaging but it’s of questionable quality, should that post rank high or low?
+
+Essentially, you want to minimize quality_loss: the difference between each post’s predicted quality and its true quality. Similarly, to rank posts by engagement, you first need to predict the number of clicks each post will get. 
+
+One approach is to combine these two losses into one loss and train one model to minimize that loss:
+
+```python
+loss = ɑ quality_loss + β engagement_loss
+```
+
+Mind Versus Data
+
+> Progress in the last decade shows that the success of an ML system depends largely on the data it was trained on. Instead of focusing on improving ML algorithms, most companies focus on managing and improving their data.
+
+> Mind might be disguised as inductive biases or intelligent architectural designs. Data might be grouped together with computation since more data tends to require more computation.
+
+Chapter 3. Data Engineering Fundamentals
+
+> The rise of ML in recent years is tightly coupled with the rise of big data. Large data systems, even without ML, are complex.
+
+> If you look into the data stack for different tech companies, it might seem like each is doing its own thing.
+
+> Storing data is only interesting if you intend on retrieving that data later. To retrieve stored data, it’s important to know not only how it’s formatted but also how it’s structured.
+
+> Knowing how to collect, process, store, retrieve, and process an increasingly growing amount of data is essential to people who want to build ML systems in production.
+
+Data Sources.
+
+> One source is user input data, data explicitly input by users. Another source is system-generated data. This one includes various types of logs and system outputs such as model predictions. They can record the results of different jobs, including large batch jobs for data processing and model training. 
+
+A problem with ML system logs is: it can be hard to know where to look because signals are lost in the noise, and also is how to store a rapidly growing number of logs
+
+> There are also internal databases, generated by various services and enterprise applications in a company (inventory, customer relationship, users)
+
+Example: When user enters a search query in Amazon "frozen" before hitting the database a couple of ML models have to analyze the query and determine what is the customer refering to, either "frozen food" or "Disney cartoon" then lookup inventory database.
+
+Finally another data source is third-party data.
+
+- First-party data is the data that your company already collects about your users or customers.
+
+- Second-party data is the data collected by another company on their own customers that they make available to you, though you’ll probably have to pay for it. 
+
+- Third-party data companies collect data on the public who aren’t their direct customers.
+
+Data Formats
+
+Since data is commonly collected from different sources we need to persist it and it’s important to think about how the data will be used in the future so that the format you use will make sense. Some questions like these may be helpful:
+
+- How should we store multimodal data like image, text?
+
+- Where should we store it so it's cheaper and fast to retrieve?
+
+- How to store complex models so that we can run them in different hardwares?
+
+> The process of converting a data structure or object state into a format that can be stored or transmitted and reconstructed later is data serialization
+
+Row-Major Versus Column-Major Format
+
+> Overall, row-major formats are better when you have to do a lot of writes, whereas columnmajor ones are better when you have to do a lot of column-based reads.
+
+Text Versus Binary Format
+
+Binary files are more compact. Here’s a simple example to show how binary files can save space compared to text files. Consider that you want to store the number 1000000. If you store it in a text file, it’ll require 7 characters, and if each character is 1 byte, it’ll require 7 bytes. If you store it in a binary file as int32, it’ll take only 32 bits or 4 bytes.
+ 
+> AWS recommends using the Parquet format because “the Parquet format is up to 2x faster to unload and consumes up to 6x less storage in Amazon S3, compared to text formats.
+
+Data Models
+
+Data models describe how data is represented. Let's think of cars and the attributes we may persist like make, model, color and price. And we could also represent a car by its owner license plate and history of registered address.
+
+First one may be useful for people into buying a car whereas the second model is useful for police when they need to track down a vehicle.
+
+Declarative ML
+
+> With models being increasingly commoditized, model development is often the easier part. The hard part lies in feature engineering, data processing, model evaluation, data shift detection, continual learning, and so on.
+
