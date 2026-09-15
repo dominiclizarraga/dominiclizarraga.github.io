@@ -524,5 +524,18 @@ Batch Processing Versus Stream Processing
 
 > Once your data arrives in data storage engines like databases, data lakes, or data warehouses, it becomes historical data. This is opposed to streaming data (data that is still streaming in). Historical data is often processed in batch jobs—jobs that are kicked off periodically. For example, once a day. (batch processing)
 
-> When you have data in real-time transports like Apache Kafka and Amazon Kinesis, we say that you have streaming data
+> When you have data in real-time transports like Apache Kafka and Amazon Kinesis, we say that you have streaming data. Stream processing refers to doing computation on streaming data. Computation on streaming data can also be kicked off periodically, but the periods are usually much shorter than the periods for batch jobs.
 
+> Because batch processing happens much less frequently than stream processing, in ML, batch processing is usually used to compute features that change less often, such as drivers’ ratings (if a driver has had hundreds of rides, their rating is less likely to change significantly).
+
+> Batch features—features extracted through batch processing—are also known as static features.
+
+> Stream processing is used to compute features that change quickly, such as how many drivers are available right now, how many rides have been requested in the last minute, how many rides will be finished in the next two minutes, the median price of the last 10 rides in this area.
+
+> Streaming features—features extracted through stream processing are also known as dynamic features.
+
+> For many problems, you need not only batch features or streaming features, but both. You need infrastructure that allows you to process streaming data as well as batch data and join them together to feed into your ML models.
+
+> For ML systems that leverage streaming features, the streaming computation is rarely simple. The number of stream features used in an application such as fraud detection and credit scoring can be in the hundreds, if not thousands. The stream feature extraction logic can require complex queries with join and aggregation along different dimensions.
+
+> Stream processing is more difficult because the data amount is unbounded and the data comes in at variable rates and speeds. It’s easier to make a stream processor do batch processing than to make a batch processor do stream processing.
