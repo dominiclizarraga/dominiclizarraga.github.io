@@ -542,7 +542,7 @@ Batch Processing Versus Stream Processing
 
 > Stream processing is more difficult because the data amount is unbounded and the data comes in at variable rates and speeds. It’s easier to make a stream processor do batch processing than to make a batch processor do stream processing.
 
-## Chapter 4. Training Data {#chapter-4}
+## Chapter 4. Training Data (Sampling, labeling, class imbalance, data augmentation) {#chapter-4}
 
 Many ML practitioners and courses lean more towards the "fun" part of modeling the data, when the real work happens before that phase, in the preprocessing, cleasing of the data. This chapter goes over how to prepare those datasets correctly so we can start the "modeling" phase properly and avoid asking ourselves "what are we feeding our model with?"
 
@@ -634,3 +634,96 @@ def reservoir_sampling(stream, k):
 
 Importance Sampling
 
+Example with LLM help:
+
+```python
+Suppose you care about distribution P, but can only sample from Q:
+
+| x | P(x) target | Q(x) sampled | Weight P/Q |
+| - | ----------: | -----------: | ---------: |
+| 1 |        0.10 |         0.50 |   0.2× |
+| 2 |        0.30 |         0.30 |     1× |
+| 3 |        0.60 |         0.20 |     3× |
+
+`Q` gives us too many 1s, so each `1` counts less (`0.2×`). It gives us the right amount of `2s`, so they count normally (`1×`). It gives us too few 3s, so each `3` counts more (`3×`).
+
+Sample from what you can access (`Q`), then reweight it to represent what you actually care about (`P`).
+```
+
+Labeling
+
+> Despite the promise of unsupervised ML, most ML models in production today are supervised, which means that they need labeled data to learn from. The performance of an ML model still depends heavily on the quality and quantity of the labeled data it’s trained on.
+
+> In a talk to my students, Andrej Karpathy, director of AI at Tesla, shared an anecdote about how when he decided to have an in-house labeling team, his recruiter asked how long he’d need this team for. He responded: “How long do we need an engineering team for?”
+
+Hand Labels
+
+> Anyone who has ever had to work with data in production has probably felt this at a visceral level: acquiring hand labels for your data is difficult for many, many reasons. First, hand-labeling data can be expensive, especially if subject matter expertise is required. To classify whether a comment is spam, you might be able to find 20 annotators on a crowdsourcing platform and train them in 15 minutes to label your data. However, if you want to label chest X-rays, you’d need to find board-certified radiologists, whose time is limited and expensive.
+
+> Second, hand labeling poses a threat to data privacy. Third, hand labeling is slow. For example, accurate transcription of speech utterance at the phonetic level can take 400 times longer than the utterance duration.
+
+> Slow labeling leads to slow iteration speed and makes your model less adaptive to changing environments and requirements. If the task changes or data changes, you’ll have to wait for your data to be relabeled before updating your model.
+
+Label multiplicity
+
+> Often, to obtain enough labeled data, companies have to use data from multiple sources and rely on multiple annotators who have different levels of expertise. These different data sources and annotators also have different levels of accuracy.
+
+> What to do when there are multiple conflicting labels for a data instance. Consider this simple task of entity recognition. You give three annotators the following sample and ask them to annotate all entities they can find:
+
+> Darth Sidious, known simply as the Emperor, was a Dark Lord of the Sith who reigned over the galaxy as Galactic Emperor of the First Galactic Empire.
+
+>Perhaps 3, 4, 6? To minimize the disagreement among annotators, it’s important to first have a clear problem definition. For example, in the preceding entity recognition task, some disagreements could have been eliminated if we clarify
+that in case of multiple possible entities, pick the entity that comprises the longest substring. This means "Galactic Emperor of the First Galactic Empire" instead of "Galactic Emperor" and "First Galactic Empire". 
+
+Data lineage
+
+> Indiscriminately using data from multiple sources, generated with different annotators, without examining their quality can cause your model to fail mysteriously. Your ML engineers are confident that more data will improve the model performance, so you spend a lot of money to hire annotators to label another million data samples.
+
+> However, the model performance actually decreases after being trained on the new data. The reason is that the new million samples were crowdsourced to annotators who labeled data with much less accuracy than the original data. 
+
+> It’s good practice to keep track of the origin of each of your data samples as well as its labels, a technique known as data lineage. Data lineage helps you both flag potential biases in your data and debug your models. For example, if your model fails mostly on the recently acquired data samples, you might want to look into how the new data was acquired. 
+
+> On more than one occasion, we’ve discovered that the problem wasn’t with our model, but because of the unusually high number of wrong labels in the data that we’d acquired recently.
+
+Natural Labels
+
+> Hand-labeling isn’t the only source for labels. You might be lucky enough to work on tasks with natural ground truth labels. Tasks with natural labels are tasks where the model’s predictions can be automatically evaluated or partially evaluated by the system.
+
+Example: Google Maps knows how long the trip actually took, and thus can evaluate the accuracy of the predicted time of arrival.
+
+> The canonical example of tasks with natural labels is recommender systems. The goal of a recommender system is to recommend to users items relevant to them. Whether a user clicks on the recommended item or not can be seen as the feedback for that recommendation. A recommendation that gets clicked on can be presumed to be good (i.e., the label is POSITIVE) and a recommendation that doesn’t get clicked on after a period of time, say 10 minutes, can be presumed to be bad (i.e., the label is NEGATIVE).
+
+> Natural labels that are inferred from user behaviors like clicks and ratings are also known as behavioral labels.
+
+> Another example, if you’re building a machine translation system like Google Translate, you can have the option for the community to submit alternative translations for bad translations these alternative translations can be used to train the next iteration of your models (though you might want to review these suggested translations first)
+
+> Like button and other reactions to each newsfeed item, Facebook is able to collect
+feedback on their ranking algorithm.
+
+> Tasks with natural labels are fairly common in the industry. In a survey of 86 companies in my network, I found that 63% of them work with tasks with natural labels, this means that companies find it easier and cheaper to first start on tasks that have natural labels.
+
+> In the previous example, a recommendation that doesn’t get clicked on after a period of time can be presumed to be bad. This is called an implicit label, as this negative label is presumed from the lack of a positive label. It’s different from explicit labels where users explicitly demonstrate their feedback on a recommendation by giving it a low rating or downvoting it.
+
+Feedback loop length
+
+> For tasks with natural ground truth labels, the time it takes from when a prediction is served until when the feedback on it is provided is the feedback loop length. Tasks with short feedback loops are tasks where labels are generally available within minutes.
+
+> If you work with longer content types like blog posts or articles or YouTube videos, the feedback loop can be hours.
+
+DIFFERENT TYPES OF USER FEEDBACK
+
+> For example, consider an ecommerce application similar to what Amazon has. Types of feedback a user on this application can provide might include clicking on a product recommendation, adding a product to cart, buying a product, rating, leaving a review, and returning a previously bought product.
+
+> Clicking on a product happens much faster and more frequently (and therefore incurs a higher volume) than purchasing a product. However, buying a product is a much stronger signal on whether a user likes that product compared to just clicking on it.
+
+> Labels with long feedback loops are helpful for reporting a model’s performance on quarterly or yearly business reports. However, they are not very helpful if you want to detect issues with your models as soon as possible.
+
+Feedback Loop Time Window
+
+> Choosing the right window length requires thorough consideration, as it involves the speed and accuracy tradeoff. A short window length means that you can capture labels faster, which allows you to use these labels to detect issues with your model and address those issues as soon as possible. However, a short window length also means that you might prematurely label a recommendation as bad before it’s clicked on.
+
+Handling the Lack of Labels
+
+> Because of the challenges in acquiring sufficient high-quality labels, many techniques have been developed to address the problems that result. In this section, we will cover four of them: weak supervision, semisupervision, transfer learning, and active learning.
+
+![ Techniques for handling examples when labels are not available ](/../graphics/designing-ml-systems/handling_no_labels_techniques.png)
