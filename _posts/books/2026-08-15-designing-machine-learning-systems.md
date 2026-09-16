@@ -727,3 +727,49 @@ Handling the Lack of Labels
 > Because of the challenges in acquiring sufficient high-quality labels, many techniques have been developed to address the problems that result. In this section, we will cover four of them: weak supervision, semisupervision, transfer learning, and active learning.
 
 ![ Techniques for handling examples when labels are not available ](/../graphics/designing-ml-systems/handling_no_labels_techniques.png)
+
+1. Weak supervision
+
+This technique relies on heuristics, which can be developed with subject matter expertise, to label data. For example, a doctor might use the following heuristics to decide whether a patient’s case should be prioritized as emergent:
+
+"If the nurse’s note mentions a serious condition like pneumonia, the patient’s case should be given priority consideration."
+
+```python
+def labeling_function(note):
+  if "pneumonia" in note:
+    return "EMERGENT"
+```
+
+LFs can encode many different types of heuristics. Here are some of them:
+
+- Keyword heuristic
+- Regular expressions
+- Database lookup
+- The outputs of other models
+
+> Because LFs encode heuristics, and heuristics are noisy, labels produced by LFs are noisy. Multiple LFs might apply to the same data examples, and they might give conflicting labels. One function might think a nurse’s note is EMERGENT but another function might think it’s not.
+
+With LFs, subject matter expertise can be versioned, reused, and shared. Expertise owned by one team can be encoded and used by another team. If your data changes or your requirements change, you can just reapply LFs to your data samples. The approach of using LFs to generate labels for your data is also known as programmatic labeling.
+
+![ Hand labeling VS Programmatic labeling ](/../graphics/designing-ml-systems/hand_labeling_vs_programmatic_labeling.png)
+
+> Weak supervision is a simple but powerful paradigm. However, it’s not perfect. In some cases, the labels obtained by weak supervision might be too noisy to be useful. But even in these cases, weak supervision can be a good way to get you started when you want to explore the effectiveness of ML without wanting to invest too much in hand labeling up front.
+
+2. Semi-supervision
+
+> If weak supervision leverages heuristics to obtain noisy labels, semi-supervision leverages structural assumptions to generate new labels based on a small set of initial labels. Unlike weak supervision, semisupervision requires an initial set of labels.
+
+> A classic semi-supervision method is self-training. You start by training a model on your existing set of labeled
+data and use this model to make predictions for unlabeled samples. Assuming that predictions with high raw probability scores are correct, you add the labels predicted with high probability to your training set and train a new model on this expanded training set.
+
+> Another semi-supervision method assumes that data samples that share similar characteristics share the same labels.
+
+> Semi-supervision is the most useful when the number of training labels is limited. One thing to consider when doing semi-supervision with limited data is how much of this limited data should be used to evaluate multiple candidate models and select the best one. If you use a small amount, the best performing model on this small evaluation set might be the one that overfits the most to this set.
+
+>  On the other hand, if you use a large amount of
+data for evaluation, the performance boost gained by selecting the best model based on this evaluation set might be less than the boost gained by adding the evaluation set to the limited training set. Many companies overcome this trade-off by using a reasonably large evaluation set to select the best model, then continuing training the champion model on the evaluation set.
+
+So the practical idea is: Use enough labeled data to reliably choose the model, then once you've chosen the champion, let that model learn from those labeled examples too.
+
+3. Transfer learning
+
