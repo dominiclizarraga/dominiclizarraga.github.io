@@ -543,3 +543,94 @@ Batch Processing Versus Stream Processing
 > Stream processing is more difficult because the data amount is unbounded and the data comes in at variable rates and speeds. It’s easier to make a stream processor do batch processing than to make a batch processor do stream processing.
 
 ## Chapter 4. Training Data {#chapter-4}
+
+Many ML practitioners and courses lean more towards the "fun" part of modeling the data, when the real work happens before that phase, in the preprocessing, cleasing of the data. This chapter goes over how to prepare those datasets correctly so we can start the "modeling" phase properly and avoid asking ourselves "what are we feeding our model with?"
+
+> This chapter starts with different sampling techniques to select data for training. We’ll then address common challenges in creating training data, including the label multiplicity problem, the lack of labels problem, the class imbalance problem, and techniques in data augmentation to address the lack of data problem.
+
+> We use the term “training data” instead of “training dataset” because “dataset” denotes a set that is finite and stationary. Data in production is neither finite nor stationary. Like other steps in building ML systems, creating training data is an iterative process. 
+
+Sampling
+
+> In this section, we’ll focus on sampling methods for creating training data, but these sampling methods can also be used for other steps in an ML project lifecycle.
+
+> In many cases, sampling is necessary. One case is when you don’t have access to all possible data in the real world, the data that you use to train your model is a subset of real-world data. Another case is when it’s infeasible to process all the data that you have access to.
+
+> Sampling is helpful as it allows you to accomplish a task faster and cheaper
+
+> For example, when considering a new model, you might want to do a quick experiment with a small subset of your data to see if the new model is promising first before training this new model on all your data
+
+> Understanding different sampling methods and how they are being used in our workflow can, first, help us avoid potential sampling biases, and second, help us choose the methods that improve the efficiency of the data we sample.
+
+> There are two families of sampling: nonprobability sampling and random sampling.
+
+Nonprobability Sampling
+
+> Nonprobability sampling is when the selection of data isn’t based on any probability criteria. Here are some of the criteria for nonprobability sampling:
+
+- Convenience sampling
+- Snowball sampling
+- Judgement sampling
+- Quota sampling
+
+> The samples selected by nonprobability criteria are not representative of the real-world data and therefore are riddled with selection biases.
+
+> One example of these cases is language modeling. Language models are often trained not with data that is representative of all possible texts but with data that can be easily collected—Wikipedia, Common Crawl, Reddit.
+
+Another example: IMDB reviews and Amazon reviews are biased toward users who are willing to leave reviews online, and not necessarily representative of people who don’t have access to the internet or people who aren’t willing to put reviews online.
+
+> Nonprobability sampling can be a quick and easy way to gather your initial data to get your project off the ground. However, for reliable models, you might want to use probability-based sampling, which we will cover next.
+
+Simple Random Sampling
+
+> In the simplest form of random sampling, you give all samples in the population equal probabilities of being selected. For example, you randomly select 10% of the population, giving all members of this population an equal 10% chance of being selected. The drawback is that rare categories of data might not appear in your selection.
+
+Stratified Sampling
+
+> To avoid the drawback of simple random sampling, you can first divide your population into the groups that you care about and sample from each group separately. For example, to sample 1% of data that has two classes, A and B, you can sample 1% of class A and 1% of class B. This way, no matter how rare class A or B is, you’ll ensure that samples from it will be included in the selection.
+
+> One drawback of this sampling method is that it isn’t always possible, such as when it’s impossible to divide all samples into groups. This is especially challenging when one sample might belong to multiple groups, as in the case of multilabel tasks. For instance, a sample can be both class A and class B.
+
+Weighted Sampling
+
+> In weighted sampling, each sample is given a weight, which determines the probability of it being selected. For example, if you have three samples, A, B, and C, and want them to be selected with the probabilities of 50%, 30%, and 20% respectively, you can give them the weights 0.5, 0.3, and 0.2.
+
+> This method allows you to leverage domain expertise. For example, if you know that a certain subpopulation of data, such as more recent data, is more valuable to your model and want it to have a higher chance of being selected, you can give it a higher weight.
+
+Reservoir Sampling
+
+> Reservoir sampling is a fascinating algorithm that is especially useful when you have to deal with streaming data, which is usually what you have in production.
+
+> Imagine you have an incoming stream of tweets and you want to sample a certain number. You want to ensure that:
+
+- Every tweet has an equal probability of being selected.
+
+- You can stop the algorithm at any time and the tweets are sampled with the correct probability.
+
+Main idea: Keep exactly k items in memory from a stream of unknown size, while making sure every item seen so far has the same probability of being in the sample.
+
+```python
+import random
+
+def reservoir_sampling(stream, k):
+  reservoir = []
+
+  for n, item in enumerate(stream, start=1):
+
+      # First k items: just store them
+      if n <= k:
+          reservoir.append(item)
+
+      else:
+          # Generate random integer from 1 to n
+          i = random.randint(1, n)
+
+          # If i falls inside the reservoir positions
+          if i <= k:
+              reservoir[i - 1] = item
+
+  return reservoir
+```
+
+Importance Sampling
+
