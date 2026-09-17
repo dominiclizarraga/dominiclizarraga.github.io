@@ -759,17 +759,36 @@ With LFs, subject matter expertise can be versioned, reused, and shared. Experti
 
 > If weak supervision leverages heuristics to obtain noisy labels, semi-supervision leverages structural assumptions to generate new labels based on a small set of initial labels. Unlike weak supervision, semisupervision requires an initial set of labels.
 
-> A classic semi-supervision method is self-training. You start by training a model on your existing set of labeled
-data and use this model to make predictions for unlabeled samples. Assuming that predictions with high raw probability scores are correct, you add the labels predicted with high probability to your training set and train a new model on this expanded training set.
+> A classic semi-supervision method is self-training. You start by training a model on your existing set of labeled data and use this model to make predictions for unlabeled samples. Assuming that predictions with high raw probability scores are correct, you add the labels predicted with high probability to your training set and train a new model on this expanded training set.
 
 > Another semi-supervision method assumes that data samples that share similar characteristics share the same labels.
 
 > Semi-supervision is the most useful when the number of training labels is limited. One thing to consider when doing semi-supervision with limited data is how much of this limited data should be used to evaluate multiple candidate models and select the best one. If you use a small amount, the best performing model on this small evaluation set might be the one that overfits the most to this set.
 
->  On the other hand, if you use a large amount of
-data for evaluation, the performance boost gained by selecting the best model based on this evaluation set might be less than the boost gained by adding the evaluation set to the limited training set. Many companies overcome this trade-off by using a reasonably large evaluation set to select the best model, then continuing training the champion model on the evaluation set.
+>  On the other hand, if you use a large amount of data for evaluation, the performance boost gained by selecting the best model based on this evaluation set might be less than the boost gained by adding the evaluation set to the limited training set. Many companies overcome this trade-off by using a reasonably large evaluation set to select the best model, then continuing training the champion model on the evaluation set.
 
 So the practical idea is: Use enough labeled data to reliably choose the model, then once you've chosen the champion, let that model learn from those labeled examples too.
 
 3. Transfer learning
+
+> Transfer learning refers to the family of methods where a model developed for a task is reused as the starting point for a model on a second task. 
+
+> First, the base model is trained for a base task. The base task is usually a task that has cheap and abundant training data. 
+
+> Language modeling is a great candidate because it doesn’t require labeled data. Language models can be trained on any body of text—books, Wikipedia articles, chat histories—and the task is: given a sequence of tokens, predict the next token. When given the sequence “I bought NVIDIA shares because I believe in the importance of,” a language model might output “hardware” or “GPU” as the next token.
+
+> Transfer learning is especially appealing for tasks that don’t have a lot of labeled data. Even for tasks that have a lot of labeled data, using a pretrained model as the starting point can often boost the performance significantly compared to training from scratch.
+
+> Transfer learning has gained a lot of interest in recent years for the right reasons. It has enabled many applications that were previously impossible due to the lack of training samples. A nontrivial portion of ML models in production today are the results of transfer learning, including object detection models that leverage models pretrained on ImageNet and text classification models that leverage pretrained language models such as BERT or GPT-3.
+
+Active learning
+
+> Active learning is a method for improving the efficiency of data labels. The hope here is that ML models can achieve greater accuracy with fewer training labels if they can choose which data samples to learn from. Active learning is sometimes called query learning.
+
+> Instead of randomly labeling data samples, you label the samples that are most helpful to your models according to some metrics or heuristics. You label the
+examples that your model is the least certain about, hoping that they will help your model learn the decision boundary better.
+
+> Another common heuristic is based on disagreement among multiple candidate models. This method is called query-by-committee, an example of an ensemble method. Each model can make one vote for which samples to label next, and it might vote based on how uncertain it is about the prediction. You then label the samples that the committee disagrees on the most.
+
+Class Imbalance
 
