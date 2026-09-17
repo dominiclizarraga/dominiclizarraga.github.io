@@ -792,3 +792,71 @@ examples that your model is the least certain about, hoping that they will help 
 
 Class Imbalance
 
+> Class imbalance typically refers to a problem in classification tasks where there is a substantial difference in the number of samples in each class of the training data. For example, in a training dataset for the task of detecting lung cancer from X-ray images, 99.99% of the X-rays might be of normal lungs, and only 0.01% might contain cancerous cells.
+
+> Class imbalance can also happen with regression tasks where the labels are continuous. Consider the task of estimating health-care bills. When predicting hospital bills, it might be more important to predict accurately the bills at the 95th percentile than the median bills. A 100% difference in a $250 bill is acceptable (actual $500, predicted $250), but a 100% difference on a $10k bill is not (actual $20k, predicted $10k). Therefore, we might have to train the model to be better at predicting 95th percentile bills, even if it reduces the overall metrics.
+
+Challenges of Class Imbalance
+
+> ML, especially deep learning, works well in situations when the data distribution is more balanced, and usually not so well when the classes are heavily imbalanced.
+
+![ ML works better with balanced data rather imbalanced ](/../graphics/designing-ml-systems/balance_vs_imbalance_data.png)
+
+> The first reason is that class imbalance often means there’s insufficient signal for your model to learn to detect the minority classes. In the case where there is a small number of instances in the minority class, the problem becomes a few-shot learning problem where your model only gets to see the minority class a few times before having to make a decision on it. In the case where there is no instance of the rare classes in your training set, your model might assume these rare classes don’t exist.
+
+> The second reason is that class imbalance makes it easier for your model to get stuck in a nonoptimal solution by exploiting a simple heuristic instead of learning anything useful about the underlying pattern of the data. Consider the preceding lung cancer detection example. If your model learns to always output the majority class, its accuracy is already 99.99%. This heuristic can be very hard for gradient descent algorithms to beat because a small amount of randomness added to this heuristic might lead to worse accuracy.
+
+> The third reason is that class imbalance leads to asymmetric costs of error—the cost of a wrong prediction on a sample of the rare class might be much higher than a wrong prediction on a sample of the majority class. For example, misclassification on an X-ray with cancerous cells is much more dangerous than misclassification on an X-ray of a normal lung.
+
+> If your loss function isn’t configured to address this asymmetry, your model will
+treat all samples the same way. As a result, you might obtain a model that performs equally well on both majority and minority classes, while you much prefer a model that performs less well on the majority class but much better on the minority one.
+
+> The classical example of tasks with class imbalance is fraud detection. Most credit card transactions are not fraudulent. As of 2018, 6.8¢ for every $100 in cardholder spending is fraudulent.
+
+> Another cause for class imbalance, though less common, is due to labeling errors. Annotators might have read the instructions wrong or followed the wrong instructions (thinking there are only two classes, POSITIVE and NEGATIVE, while there are actually three), or simply made errors.
+
+Handling Class Imbalance
+
+> There have been many techniques suggested to mitigate the effect of class imbalance. However, as neural networks have grown to be much larger and much deeper, with more learning capacity, some might argue that you shouldn’t try to “fix” class imbalance if that’s how the data looks in the real world. A good model should learn to model that imbalance. However, developing a model good enough for that can be challenging, so we still have to rely on special training techniques.
+
+> In this section, we will cover three approaches to handling class imbalance:
+
+- choosing the right metrics for your problem;
+
+- data-level methods, which means changing the data distribution to make it less imbalanced; and
+
+- algorithm-level methods, which means changing your learning method to make it more robust to class imbalance.
+
+Using the right evaluation metrics
+
+> The most important thing to do when facing a task with class imbalance is to choose the appropriate evaluation metrics. Wrong metrics will give you the wrong ideas of how your models are doing and, subsequently, won’t be able to help you develop or choose models good enough for your task.
+
+- Confusion matrix, F1, recall, MSE, RMSE, MAE, R2.
+
+Data-level methods: Resampling
+
+> Data-level methods modify the distribution of the training data to reduce the level of imbalance to make it easier for the model to learn. A common family of techniques is resampling. Resampling includes oversampling, adding more instances from the minority classes, and undersampling, removing instances of the majority classes.
+
+> When you resample your training data, never evaluate your model on resampled data, since it will cause your model to overfit to that resampled distribution.
+
+> Undersampling runs the risk of losing important data from removing data. Oversampling runs the risk of overfitting on training data, especially if the added copies of the minority class are replicas of existing data. Many sophisticated sampling techniques have been developed to mitigate these risks.
+
+> One such technique is two-phase learning. You first train your model on the resampled data. This resampled data can be achieved by randomly undersampling large classes until each class has only N instances. You then fine-tune your model on the original data.
+
+> Another technique is dynamic sampling: oversample the low-performing classes and undersample the highperforming classes during the training process.
+
+Algorithm-level methods
+
+> If data-level methods mitigate the challenge of class imbalance by altering the distribution of your training data, algorithm-level methods keep the training data distribution intact but alter the algorithm to make it more robust to class imbalance.
+
+> Because the loss function (or the cost function) guides the learning process, many algorithm-level methods involve adjustment to the loss function. The key idea is that if there are two instances, x and x , and the loss resulting from making the wrong prediction on x is higher than x , the model will prioritize making the correct prediction on x over making the correct prediction on x . By giving the training instances we care about higher weight, we can make the model focus more on learning these instances.
+
+There are many ways to modify this cost function.
+
+- Cost-sensitive learning
+
+- Class-balanced loss
+
+- Focal loss
+
+Data Augmentation
