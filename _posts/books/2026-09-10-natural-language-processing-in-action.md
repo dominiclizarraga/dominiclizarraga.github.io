@@ -103,6 +103,16 @@ A modern chatbot can learn from reading (processing) a bunch of English text. Al
 
 Another way.
 
+> Is there a statistical or machine learning approach that might work in place of the pattern-based approach?
+
+> When we use character sequence matches to measure distance between natural language phrases, we’ll often get it wrong. Phrases with similar meaning, like “good” and “okay,” can often have different character sequences and large distances when we count up character-by-character.
+
+> And sequences with completely different meanings, like “bad” and “bar,” might be too close to one other when we use metrics designed to measure distances between numerical sequences. Metrics like Jaccard, Levenshtein, and Euclidean vector distance can sometimes add enough “fuzziness” to prevent a chatbot from stumbling over minor spelling errors or typos. But these metrics fail to capture the essence of the relationship between two strings of characters when they are dissimilar.
+
+> Distance metrics designed for numerical sequences and vectors are useful for a few NLP applications, like spelling correctors and recognizing proper nouns. So we use these distance metrics when they make sense.
+
+> But for NLP applications where we are more interested in the meaning of the natural language than its spelling, there are better approaches. We use vector representations of natural language words and text and some distance metrics for those vectors for these NLP applications. 
+
 Using statistics, machine learning and more data. We nned to use vector for storing the words based on frequency and meaning, see how the "bag of words" can be represented by removing stop-words, rare-words:
 
 ![ bag-of-words vector machine](/../graphics/nlp-in-action/bag_of_words.png)
