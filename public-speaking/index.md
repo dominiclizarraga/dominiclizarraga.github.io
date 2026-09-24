@@ -12,12 +12,19 @@ description: 'Public speaking engagements, from conference talks to product demo
 --------------
 
 <div class="speaking-cards">
-  <article class="speaking-card speaking-card-pending">
+  <a
+    class="speaking-card"
+    href="https://youtu.be/2b9wNvwSXMI?si=E7GwXXmMs-1_-ghs&t=616"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Le Wagon Demo day Machine Learning bootcamp 2026"
+  >
     <span class="speaking-card-type">Product demo</span>
     <h2>Le Wagon Tokyo 2026</h2>
     <p>Machine Learning Bootcamp</p>
-    <span class="speaking-card-action">Video link pending</span>
-  </article>
+    <span class="speaking-card-action">Watch on YouTube <span aria-hidden="true">↗</span></span>
+
+
 
   <a
     class="speaking-card"
