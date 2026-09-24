@@ -22,7 +22,8 @@ description: 'Public speaking engagements, from conference talks to product demo
     <span class="speaking-card-type">Product demo</span>
     <h2>Le Wagon Tokyo 2026</h2>
     <p>Machine Learning Bootcamp</p>
-    <span class="speaking-card-action">Watch on YouTube <span aria-hidden="true">↗</span></span>
+    <span class="speaking-card-action">Watch on YouTubde <span aria-hidden="true">↗</span></span>
+  </a>
 
 
 
