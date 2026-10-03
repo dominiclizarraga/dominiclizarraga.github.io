@@ -208,9 +208,9 @@ Processing in depth.
 
 ## Chapter 2. Build your vocabulary (word tokenization)
 
-> This chapter will help you split a document, any string, into discrete tokens of meaning.
+> This chapter will help you split a document, any string, into discrete tokens of meaning. Dealing with nonstandard punctuation. Compressing your token vocabulary with stemming and lemmatization. Building a vector representation.
 
-> Retrieving tokens from a document will require some string manipulation beyond just the `str.split()`
+> Retrieving tokens from a document will require some string manipulation beyond just the `str.split()`.
 
 > Once you’ve identified the tokens in a document that you’d like to include in your vocabulary, you’ll return to the regular expression toolbox to try to combine words with similar meaning in a process called stemming.
 
@@ -222,5 +222,45 @@ Processing in depth.
 
 > In natural language processing, composing a numerical vector from text is a particularly “lossy” feature extraction process. Nonetheless the bag-of-words (BOW) vectors retain enough of the information content of the text to produce useful and interesting machine learning models.
 
-Challenges (a preview of stemming).
+> Feature extraction can rarely retain all the information content of the input data in any machine learning pipeline. That’s part of the art of NLP, learning when your tokenizer needs to be adjusted to extract more or different information from your text for your particular application.
+
+> In NLP, composing a numerical vector from text is a particularly “lossy” feature extraction process. Nonetheless the bag-of-words (BOW) vectors retain enough of the information content of the text to produce useful and interesting machine learning models.
+
+ Building your vocabulary with a tokenizer
+
+> In NLP, tokenization is a particular kind of document segmentation. Segmentation breaks up text into smaller chunks or segments, with more focused information content. Segmentation can include breaking a document into paragraphs, paragraphs into sentences, sentences into phrases, or phrases into tokens (usually words) and punctuation
+
+> Tokenization is the first step in an NLP pipeline, so it can have a big impact on the rest of your pipeline. A tokenizer breaks unstructured data, natural language text, into chunks of information that can be counted as discrete elements.
+
+> `.split()` this built-in Python method already does a decent job tokenizing a simple sentence. Its only “mistake” was on the last word, where it included the sentence-ending punctuation with the token “26.”
+
+> One hot vectors are nice representation of words and tabular representation of documents is that no information is lost. As long as you keep track of which words are indicated by which column, you can reconstruct the original document from this table of one-hot vectors.
+
+```python
+import pandas as pd
+
+pd.DataFrame(onehot_vectors, columns=vocab)
+```
+
+```text
+   26.  Jefferson  Monticello  Thomas  age  at  began  building  of  the
+0    0          0           0       1    0   0      0         0   0    0
+1    0          1           0       0    0   0      0         0   0    0
+2    0          0           0       0    0   0      1         0   0    0
+3    0          0           0       0    0   0      0         1   0    0
+4    0          0           1       0    0   0      0         0   0    0
+5    0          0           0       0    0   1      0         0   0    0
+6    0          0           0       0    0   0      0         0   0    1
+7    0          0           0       0    1   0      0         0   0    0
+8    0          0           0       0    0   0      0         0   1    0
+9    1          0           0       0    0   0      0         0   0    0
+```
+
+> However, mathematically is not practical. It grows pretty quickly. And what you really want to do is compress the meaning of a document down to its essence. You’d like to compress your document down to a single vector rather than a big table.
+
+> What if you split your documents into much shorter chunks of meaning, say sentences. And what if you assumed that most of the meaning of a sentence can be gleaned from just the words themselves. Let’s assume you can ignore the order and grammar of the words, and jumble them all up together into a “bag,” one bag for each sentence or short document. That turns out to be a reasonable assumption. Even for documents several pages long, a bag-of-words vector is still useful for summarizing the essence of a document.
+
+>  You can use this new bag-of-words vector approach to compress the information content for each document into a data structure that’s easier to work with.
+
+> This is also called a word frequency vector, because it only counts the frequency of words, not their order.
 
