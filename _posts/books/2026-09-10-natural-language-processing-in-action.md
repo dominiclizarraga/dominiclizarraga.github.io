@@ -362,4 +362,71 @@ Extending your vocabulary with n-grams
 ('age', 'of', '26')]
 ```
 
-> If tokens or n-grams are extremely rare, they don’t carry any correlation with other words that you can use to help identify topics or themes that connect documents or classes of documents. So rare n-grams won’t be helpful for classification problems. 
+> If tokens or n-grams are extremely rare, they don’t carry any correlation with other words that you can use to help identify topics or themes that connect documents or classes of documents. So rare n-grams won’t be helpful for classification problems.
+
+> If your feature vector dimensionality exceeds the length of all your documents, your feature extraction step is counterproductive. It’ll be virtually impossible to avoid overfitting a machine learning model to your vectors; your vectors have more dimensions than there are documents in your corpus.
+
+> Now consider the opposite problem. Consider the 2-gram “at the” in the previous phrase. That’s probably not a rare combination of words. In fact it might be so common, spread among most of your documents, that it loses its utility for discriminating between the meanings of your documents.
+
+> For example, if a token or n-gram occurs in more than 25% of all the documents in your corpus, you usually ignore it.
+
+> These filters are as useful for n-grams as they are for individual tokens. In fact, they’re even more useful.
+
+Stop words.
+
+Stop words include: a, an, the, this, and, or, of, on.
+
+> Historically, stop words have been excluded from NLP pipelines in order to reduce the computational effort to extract information from a text. Even though the words themselves carry little information, the stop words can provide important relational information as part of an n-gram.
+
+> Consider these two examples: Mark reported to the CEO. Suzanne reported as the CEO to the board.
+
+> If you remove the stop words from the 4-grams, both examples would be reduced to "reported CEO", and you would lack the information about the professional hierarchy.
+
+> Unfortunately, retaining the stop words within your pipeline creates another problem: it increases the length of the n-grams required to make use of these connections formed by the otherwise meaningless stop words. This issue forces us to retain at least 4-grams if you want to avoid the ambiguity of the human resources example.
+
+> A typical stop word list has only 100 or so frequent and unimportant words listed in it.
+
+> For 100,000-D bag-ofwords vectors, you usually must have 100,000 labeled examples, and sometimes even more than that, to train a supervised machine learning pipeline without overfitting. In some situations, cutting your vocabulary size by half can be worth the loss of information content.
+
+> IMPORTANT! The best way to find out what works is to try several different approaches, and see which approach gives you the best performance for the objectives of your NLP project.
+
+> By generalizing your model to work with text that has odd capitalization, case normalization can reduce overfitting for your machine learning pipeline.
+
+Stemming
+
+> For example, the words housing and houses share the same stem, house. Stemming removes suffixes from words in an attempt to combine words with similar meanings together under their common stem. 
+
+> In machine learning this is referred to as dimension reduction.
+
+> So, as long as your application doesn’t require your machine to distinguish between “house” and “houses,” this stem will reduce your programming or dataset size by half or even more.
+
+> Stemming is important for keyword search or information retrieval. It allows you to search for “developing houses in Portland” and get web pages or documents that use both the word “house” and “houses” and even the word “housing,” because these words are all stemmed to the “hous” token.
+
+> This broadening of your search results would be a big improvement in the “recall” score for how well your search engine is doing its job at returning all the relevant documents.
+
+> But stemming could greatly reduce the “precision” score for your search engine, because it might return many more irrelevant documents along with the relevant ones. In some applications this “false-positive rate”
+
+Lemmatization
+
+> It reduces the number of words you have to respond to, the dimensionality of your language model. Using it can make your model more general, but it can also make your model less precise, because it will treat all spelling variations of a given root word the same. For example “chat,” “chatter,” “chatty,” “chatting,” and perhaps even “chatbot” would all be treated the same in an NLP pipeline.
+
+> Lemmatization is a potentially more accurate way to normalize a word than stemming or case normalization because it takes into account a word’s meaning. A lemmatizer uses a knowledge base of word synonyms and word endings to ensure that only words that mean similar things are consolidated into a single token.
+
+> Consider the word better. Stemmers would strip the “er” ending from “better” and return the stem “bett” or “bet.” However, this would lump the word “better” with words like “betting,” “bets,” and “Bet’s,” rather than more similar words like “betterment,” “best,” or even “good” and “goods.”
+
+> So lemmatizers are better than stemmers for most applications. Stemmers are only really used in large-scale information retrieval applications (keyword search). And if you really want the dimension reduction and recall improvement of a stemmer in your information retrieval pipeline, you should probably also use a lemmatizer right before the stemmer. Because the lemma of a word is a valid English word, stemmers work well on the output of a lemmatizer.
+
+Use cases
+
+> When should you use a lemmatizer or a stemmer? Stemmers are generally faster to compute and require less-complex code and datasets. But stemmers will make more errors and stem a far greater number of words, reducing the information content or meaning of your text much more than a lemmatizer would.
+
+> Both stemmers and lemmatizers will reduce your vocabulary size and increase the ambiguity of the text. But lemmatizers do a better job retaining as much of the information content as possible based on how the word was used within the text and its intended meaning.
+
+> If your application involves search, stemming and lemmatization will improve the recall of your searches by associating more documents with the same query words. However, stemming, lemmatization, and even case folding will significantly reduce the precision and accuracy of your search results.
+
+> If your application involves search, stemming and lemmatization will improve the recall of your searches by associating more documents with the same query words. However, stemming, lemmatization, and even case folding will significantly reduce the precision and accuracy of your search results. These vocabulary compression approaches will cause an information retrieval system (search engine) to return many documents not relevant to the words’ original meanings.
+
+> IMPORTANT Bottom line, try to avoid stemming and lemmatization unless you have a limited amount of text that contains usages and capitalizations of the words you are interested in. And with the explosion of NLP datasets, this is rarely the case for English documents, unless your documents use a lot of jargon or are from a very small subfield of science, technology, or literature.
+
+Sentiment
+
