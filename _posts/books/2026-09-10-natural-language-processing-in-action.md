@@ -264,3 +264,98 @@ pd.DataFrame(onehot_vectors, columns=vocab)
 
 > This is also called a word frequency vector, because it only counts the frequency of words, not their order.
 
+Dot product
+
+> The dot product is also called the inner product because the “inner” dimension of the two vectors (the number of elements in each vector) or matrices (the rows of the first matrix and the columns of the second matrix) must be the same.
+
+> The dot product is also called the scalar product because it produces a single scalar value as its output. This helps distinguish it from the cross product, which produces a vector as its output.
+
+```python
+python = np.array([0.9, 0.1])
+javascript = np.array([0.8, 0.1])
+pizza = np.array([0.1, 0.9])
+
+print(python @ javascript) # 0.73
+print(python @ pizza) # 0.18
+
+Python · JavaScript = 0.73
+Python · pizza      = 0.18
+
+# This tells us that Pythin and JS vectors are more aligned than Python and pizza.
+```
+
+Constraint: For a dot product, the inner dimensions must match. For two vectors, this simply means they must have the same length.
+
+Measuring bag-of-words overlap
+
+> If we can measure the bag of words overlap for two vectors, we can get a good estimate of how similar they are in the words they use. And this is a good estimate of how similar they are in meaning.
+
+```python
+a = "I like machine learning"
+b = "I like deep learning"
+
+unique_words = ["I", "like", "machine", "deep", "learning"]
+
+A = [1, 1, 1, 0, 1]
+B = [1, 1, 0, 1, 1]
+
+A · B = 3
+
+# because the sentences share three words: I, like, and learning.
+```
+
+> As you can imagine, tokenizers can easily become complex. In one case, you might want to split based on periods, but only if the period isn’t followed by a number, in order to avoid splitting decimals. In another case, you might not want to split after a period that is part of “smiley” emoticon symbol, such as in a Twitter message
+
+Python NLP libraries:
+
+- spaCy—Accurate , flexible, fast, Python
+- Stanford CoreNLP—More accurate, less flexible, fast, depends on Java 8
+- NLTK—Standard used by many NLP contests and comparisons, popular, Python
+
+> An even better tokenizer is the Treebank Word Tokenizer from the NLTK package. It incorporates a variety of common rules for English word tokenization. ` TreebankWordTokenizer()`
+
+Extending your vocabulary with n-grams
+
+> For example, the meaning-inverting word “not” will remain attached to its neighboring words, where it belongs. Without n-gram tokenization, it would be free floating. Its meaning would be associated with the entire sentence or document rather than its neighboring words. The 2-gram “was not” retains much more of the meaning of the individual words “not” and “was” than those 1-grams alone in a bag-of-words vector.
+
+> In the next chapter, we show you how to recognize which of these n-grams contain the most information relative to the others, which you can use to reduce the number of tokens (n-grams) your NLP pipeline has to keep track of. Otherwise it would have to store and maintain a list of every single word sequence it came across. This prioritization of n-grams will help it recognize “Thomas Jefferson” and “ice cream,” without paying particular attention to “Thomas Smith” or “ice shattered.”
+
+> The later stages of your NLP pipeline will only have access to whatever tokens your tokenizer generates. So you need to let those later stages know that “Thomas” wasn’t about “Isaiah Thomas” or the “Thomas & Friends” cartoon. n-grams are one of the ways to maintain context information as data passes through your pipeline.
+
+```python
+# 1-gram VS 2-gram VS 3-gram
+
+"""Thomas Jefferson began building Monticello at the age of 26."""
+
+['Thomas',
+'Jefferson',
+'began',
+'building',
+'Monticello',
+'at',
+'the',
+'age',
+'of',
+'26']
+
+[('Thomas', 'Jefferson'),
+('Jefferson', 'began'),
+('began', 'building'),
+('building', 'Monticello'),
+('Monticello', 'at'),
+('at', 'the'),
+('the', 'age'),
+('age', 'of'),
+('of', '26')]
+
+[('Thomas', 'Jefferson', 'began'),
+('Jefferson', 'began', 'building'),
+('began', 'building', 'Monticello'),
+('building', 'Monticello', 'at'),
+('Monticello', 'at', 'the'),
+('at', 'the', 'age'),
+('the', 'age', 'of'),
+('age', 'of', '26')]
+
+
+```
