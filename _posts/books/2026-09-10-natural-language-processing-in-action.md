@@ -630,3 +630,36 @@ Document 3 →   0    2     0     0    0     1      1    ...
 ```
 
 Vector spaces
+
+> A vector space is the set of all possible vectors with the same number of dimensions. A vector with 2 values lives in 2D, 3 values in 3D, and an NLP document with thousands of features can live in a space with thousands of dimensions.
+
+```python
+2D vector space
+
+y
+↑
+|        • (3,2)
+|       /
+|      /
+|     /
+|____/____________→ x
+(0,0)
+
+vector = [3, 2]
+```
+
+> In NLP, each dimension can represent a feature or vocabulary term, and each document becomes a point/vector in that shared space.
+
+> For a natural language document vector space, the dimensionality of your vector space is the count of the number of distinct words that appear in the entire corpus. For TF (and TF-IDF to come), sometimes we call this dimensionality capital letter “K.” This number of distinct words is also the vocabulary size of your corpus, so in an academic paper it’ll usually be called “|V|.” You can then describe each document within this K-dimensional vector space by a K-dimensional vector. K = 18 in your threedocument corpus about Harry and Jill.
+
+> Euclidean distance cares about both direction and magnitude, while cosine similarity mainly cares about direction. In NLP, direction is often more useful because documents of different lengths can still use words in very similar proportions.
+
+![ cosine similarity for vector words ](/../graphics/nlp-in-action/cosine_sim_vector.png)
+
+> For NLP document vectors that have a cosine similarity close to 1, you know that the documents are using similar words in similar proportion. A cosine similarity of 0 represents two vectors that share no components. They are orthogonal, perpendicular in all dimensions.
+
+Zipf’s Law (predicting word occurrence)
+
+> Specifically, inverse proportionality refers to a situation where an item in a ranked list will appear with a frequency tied explicitly to its rank in the list. The first item in the ranked list will appear twice as often as the second, and three times as often as the third, for example.
+
+Topic modeling
