@@ -663,3 +663,285 @@ Zipf’s Law (predicting word occurrence)
 > Specifically, inverse proportionality refers to a situation where an item in a ranked list will appear with a frequency tied explicitly to its rank in the list. The first item in the ranked list will appear twice as often as the second, and three times as often as the third, for example.
 
 Topic modeling
+
+> Inverse document frequency, or IDF, is your window through Zipf in topic analysis. Let’s take your term frequency counter from earlier and expand on it. You can count tokens and bin them up two ways: per document and across the entire corpus. You’re going to be counting just by document.
+
+> A good way to think of a term’s inverse document frequency is this: How strange is it that this token is in this document? If a term appears in one document a lot of times, but occurs rarely in the rest of the corpus, one could assume it’s important to that document specifically. Your first step toward topic analysis!
+
+```python
+from collections import Counter
+import math
+
+# Suppose we have two documents:
+
+docs = {
+    "intro": """
+    A kite is traditionally a tethered aircraft.
+    Kites have been used in China for centuries.
+    """,
+    
+    "history": """
+    The history of kites goes back thousands of years.
+    Kites were used for communication and military purposes.
+    """
+}
+
+# Normalize and tokenize them:
+
+tokens = {
+    name: text.lower()
+              .replace(".", "")
+              .replace(",", "")
+              .split()
+    for name, text in docs.items()
+}
+
+counts = {
+    name: Counter(doc_tokens)
+    for name, doc_tokens in tokens.items()
+}
+
+
+## 1. Term Frequency (TF)
+
+# Term Frequency measures how common a word is inside one document:
+
+def tf(term, doc_name):
+    return counts[doc_name][term] / len(tokens[doc_name])
+
+print(tf("kite", "intro"))
+print(tf("kite", "history"))
+
+
+# A word may have a high TF simply because it appears many times in a document.
+
+
+## 2. Document Frequency
+
+# Now ask a different question:
+
+# > In how many documents does this word appear?
+
+def document_frequency(term):
+    return sum(
+        term in doc_tokens
+        for doc_tokens in tokens.values()
+    )
+
+print(document_frequency("kite"))
+print(document_frequency("china"))
+
+# If a word appears in every document, it is less useful for distinguishing them.
+
+# If it appears in only one document, it may carry more information.
+
+
+
+## 3. Inverse Document Frequency (IDF)
+
+# IDF gives more weight to rare words:
+
+def idf(term):
+    num_docs = len(tokens)
+    docs_with_term = document_frequency(term)
+
+    return math.log(num_docs / docs_with_term)
+
+print(idf("kite"))
+print(idf("china"))
+
+# A common word gets a lower IDF.
+
+# A rarer word gets a higher IDF.
+
+
+## 4. TF-IDF
+
+def tfidf(term, doc_name):
+    return tf(term, doc_name) * idf(term)
+
+terms = ["kite", "china", "and"]
+
+for term in terms:
+    print(
+        term,
+        "intro:",
+        round(tfidf(term, "intro"), 4),
+        "history:",
+        round(tfidf(term, "history"), 4),
+    )
+```
+
+> TF measures how important a word is inside one document, while IDF reduces the importance of words that appear across many documents. TF-IDF combines both.
+
+Return of Zipf
+
+> Zipf’s Law suggests that raw frequency differences can become disproportionately large, so TF-IDF uses a logarithm to compress those differences. (We need to scale it)
+
+```python
+#Suppose we have a corpus of: 1,000,000 documents
+
+# "cat" appears in 1 document
+# "dog" appears in 10 documents
+# "the" appears in 900,000 documents
+
+# Without logarithmic scaling:
+num_docs = 1_000_000
+cat_idf_raw = num_docs / 1
+dog_idf_raw = num_docs / 10
+the_idf_raw = num_docs / 900_000
+print(cat_idf_raw)  # 1000000
+print(dog_idf_raw)  # 100000
+print(the_idf_raw)  # 1.111...
+
+
+# Without log:
+
+# cat → 1,000,000
+# dog →   100,000
+# the →         1.11
+
+# The differences are enormous.
+# Now apply log10():
+
+import math
+cat_idf_log = math.log10(num_docs / 1)
+dog_idf_log = math.log10(num_docs / 10)
+the_idf_log = math.log10(num_docs / 900_000)
+print(cat_idf_log)  # 6.0
+print(dog_idf_log)  # 5.0
+print(the_idf_log)  # ~0.046
+
+
+# With log:
+
+# cat → 6.000
+# dog → 5.000
+# the → 0.046
+
+So:
+WITHOUT LOG                WITH LOG
+
+cat  █████████████████     cat  ██████
+dog  ██                    dog  █████
+the  ·                     the  ·
+
+# without log → "cat" is 10x more important than "dog"
+# with log    → "cat" is only slightly more important than "dog"
+```
+
+Relevance ranking
+
+
+```python
+# Start with a shared vocabulary:
+
+
+vocabulary = [the, harry, store, faster, is, jill]
+
+# Represent a document using raw word counts:
+
+doc_0 = [3, 2, 1, 3, 0, 0]
+
+
+# Each position corresponds to the same vocabulary term:
+
+
+                #  the   harry   store   faster   is   jill
+
+# word count        3      2       1       3      0     0
+
+
+# Raw counts are not ideal because common words may dominate even if they are not very informative.
+
+# So replace each count with a TF-IDF weight:
+
+
+#                  the   harry   store   faster   is   jill
+
+# word count        3      2       1       3      0     0
+#                    ↓      ↓       ↓       ↓
+# TF-IDF           .02    .18     .15      .22     0     0
+
+
+# TF-IDF combines two ideas:
+
+
+# TF
+# How common is this word
+# inside THIS document?
+
+# IDF
+# How unusual or informative is this word
+# across ALL documents?
+
+
+# common everywhere
+#         ↓
+# low IDF
+#         ↓
+# low TF-IDF weight
+
+# rare across corpus
+# but important here
+#         ↓
+# high IDF
+#         ↓
+# higher TF-IDF weight
+
+
+# Now each document becomes a TF-IDF vector:
+
+
+doc_0 = [0.02, 0.18, 0.15, 0.22, 0, 0]
+doc_1 = [...]
+doc_2 = [...]
+
+
+# Then treat the search query as another document:
+
+
+query = "How long does it take to get to the store?"
+
+
+# Convert it into a TF-IDF vector using the same vocabulary:
+
+
+query_vec = [...]
+
+
+# Finally, compare the query vector against every document vector using cosine similarity:
+
+
+# query_vec
+#     │
+#     ├── cosine similarity → doc_0 = 0.5235
+#     ├── cosine similarity → doc_1 = 0.0000
+#     └── cosine similarity → doc_2 = 0.0000
+
+
+# Higher cosine similarity means the vectors point in a more similar direction:
+
+
+# higher cosine similarity
+#         ↓
+# more similar TF-IDF patterns
+#         ↓
+# more relevant document
+
+# QUERY:
+# How long does it take TO GET TO THE STORE?
+
+# DOC 0:
+# The faster Harry GOT TO THE STORE,
+# the faster and faster Harry would GET HOME.
+
+#  Similar words: 
+# to
+# get
+# the
+# store
+```
+
+> TF-IDF improves raw word-count vectors by giving more weight to terms that are important in a document but relatively rare across the corpus. Cosine similarity can then rank documents by how closely their weighted term distributions match the query.
+
