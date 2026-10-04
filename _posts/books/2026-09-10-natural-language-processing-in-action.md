@@ -546,3 +546,87 @@ TF(“dog,” documentB) = 100/580000 = .00017
 > Now you have something you can see that describes “something” about the two documents and their relationship to the word “dog” and each other. So instead of raw word counts to describe your documents in a corpus, you can use normalized term frequencies. Similarly you could calculate each word and get the relative importance to the document of that term. Your protagonist, Harry, and his need for speed are clearly central to the story of this document.
 
 Vectorizing
+
+> You’ve transformed your text into numbers on a basic level. But you’ve still just stored them in a dictionary, so you’ve taken one step out of the text-based world and into the realm of mathematics. Next you’ll go ahead and jump in all the way. Instead of describing a document in terms of a frequency dictionary, you’ll make a vector of those word counts.
+
+```python
+document_vector = []
+doc_length = len(tokens)
+for key, value in kite_counts.most_common():
+    document_vector.append(value / doc_length)
+document_vector
+[0.07207207207207207,
+0.06756756756756757,
+0.036036036036036036,
+...,
+0.0045045045045045045]
+```
+
+> Having one vector for one document isn’t enough. You can grab a couple more documents and make vectors for each of them as well. But the values within each vector need to be relative to something consistent across all the vectors. If you’re going to do math on them, they need to represent a position in a common space, relative to something consistent.
+
+> Your vectors need to have the same origin and share the same scale, or “units,” on each of their dimensions.
+
+> The first step in this process is to normalize the counts by calculating normalized term frequency instead of raw count in the document (as you did in the last section); the second step is to make all the vectors of standard length or dimension.
+
+> This collections of words in your vocabulary is often called a lexicon, which is the same concept referenced in earlier chapters, just in terms of your special corpus.
+
+```python
+from collections import Counter
+
+# docs is 3 docuemnts
+
+docs = [
+    "The faster Harry got to the store, the faster and faster Harry would get home.",
+    "Harry is hairy and faster than Jill.",
+    "Jill is not as hairy as Harry."
+]
+
+tokenized_docs = [
+    doc.lower()
+       .replace(",", "")
+       .replace(".", "")
+       .split()
+    for doc in docs
+]
+
+vocab = sorted(set(
+    token
+    for doc in tokenized_docs
+    for token in doc
+))
+
+['and', 'as', 'faster', 'get', 'got', 'hairy', 'harry',
+ 'home', 'is', 'jill', 'not', 'store', 'than', 'the',
+ 'to', 'would']
+
+
+# Now convert each document into a word-count vector using the same vocabulary:
+
+def vectorize(tokens, vocab):
+    counts = Counter(tokens)
+
+    return [counts[word] for word in vocab]
+
+doc_vectors = [
+    vectorize(tokens, vocab)
+    for tokens in tokenized_docs
+]
+
+for vector in doc_vectors:
+    print(vector)
+
+Document 1 → [1, 0, 3, 1, 1, 0, 2, 1, 0, 0, 0, 1, 0, 3, 1, 1]
+Document 2 → [1, 0, 1, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 0, 0, 0]
+Document 3 → [0, 2, 0, 0, 0, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0]
+
+# The important idea is that every position always represents the same word:
+
+              and  as  faster  get  got  hairy  harry  ...
+Document 1 →   1    0     3     1    1     0      2    ...
+Document 2 →   1    0     1     0    0     1      1    ...
+Document 3 →   0    2     0     0    0     1      1    ...
+
+# So we now have three vectors, one for each document, all living in the same vector space.
+```
+
+Vector spaces
