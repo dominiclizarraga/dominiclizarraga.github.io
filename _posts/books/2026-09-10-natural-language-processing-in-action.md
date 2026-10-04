@@ -444,3 +444,105 @@ There are two approaches to sentiment analysis:
 
 > The second approach, machine learning, relies on a labeled set of statements or documents to train a machine learning model to create those rules. A machine learning sentiment model is trained to process input text and output a numerical value for the sentiment you are trying to measure, like positivity or spamminess or trolliness. For the machine learning approach, you need a lot of data, text labeled with the “right” sentiment score.
 
+## Chapter 3. MAth with words (TF-IDF vectors)
+
+> This chapter covers counting words and term frequencies to analyze meaning, predicting word occurrence probabilities, vector representation of words, finding relevant documents from a corpus using
+inverse document frequencies and estimating the similarity with cosine and BM25.
+
+> Having collected and counted words (tokens), and bucketed them into stems or lemmas, it’s time to do something interesting with them. Detecting words is useful for simple tasks, like getting statistics about word usage or doing keyword search. But you’d like to know which words are more important to a particular document and across the corpus as a whole.
+
+> Then you can use that “importance” value to find relevant documents in a corpus based on keyword importance within each document.
+
+> The next step in your adventure is to turn the words of chapter 2 into continuous numbers rather than just integers representing word counts or binary “bit vectors” that detect the presence or absence of particular words.
+
+> Your goal is to find numerical representation of words that somehow capture the importance or information content of the words they represent. You’ll have to wait until chapter 4 to see how to turn this information content into numbers that represent the meaning of words.
+
+> We'll look at three increasingly powerful ways to represent words and their importance in a document:
+
+- Bags of words—Vectors of word counts or frequencies
+- Bags of n-grams—Counts of word pairs (bigrams), triplets (trigrams)
+- TF-IDF vectors—Word scores that better represent their importance
+
+> IMPORTANT TF-IDF stands for term frequency times inverse document frequency. Term frequencies are the counts of each word in a document, which you learned about in previous chapters. Inverse document frequency means that you’ll divide each of those word counts by the number of documents in which the word occurs.
+
+> Each of these techniques can be applied separately or as part of an NLP pipeline. These are all statistical models in that they are frequency based.
+
+Bag of words
+
+> In the previous chapter, you created your first vector space model of a text. You used one-hot encoding of each word and then combined all those vectors with a binary OR (or clipped sum) to create a vector representation of a text.
+
+> You then looked at an even more useful vector representation that counts the number of occurrences, or frequency, of each word in the given text.
+
+> As a first approximation, you assume that the more times a word occurs, the more meaning it must contribute to that document.
+
+```python
+from nltk.tokenize import TreebankWordTokenizer
+from collections import Counter
+
+sentence = """The faster Harry got to the store, the faster Harry,
+... the faster, would get home."""
+tokenizer = TreebankWordTokenizer()
+tokens = tokenizer.tokenize(sentence.lower())
+tokens
+['the',
+'faster',
+'harry',
+'got',
+'to',
+'the',
+'store',
+',',
+'the',
+'faster',
+'harry',
+',',
+'the',
+'faster',
+',',
+'would',
+'get',
+'home',
+'-']
+
+bag_of_words = Counter(token
+bag_of_words
+
+Counter({'the': 4,
+  'faster': 3,
+  'harry': 2,
+  'got': 1,
+  'to': 1,
+  'store': 1,
+  ',': 3,
+  'would': 1,
+  'get': 1,
+  'home': 1,
+  '.': 1})
+```
+
+> For short documents like this one, the unordered bag of words still contains a lot of information about the original intent of the sentence. And the information in a bag of words is sufficient to do some powerful things such as detect spam, compute sentiment (positivity, happiness, and so on), and even detect subtle intent, like sarcasm.
+
+> Let’s pause for a second and look a little deeper at normalized term frequency, a phrase (and calculation) we use often throughout this book.
+
+```python
+bag_of_words.most_common(4)
+[('the', 4), (',', 3), ('faster', 3), ('harry', 2)]
+
+times_harry_appears = bag_of_words['harry']
+num_unique_words = len(bag_of_words)
+
+tf = times_harry_appears / num_unique_words
+round(tf, 4)
+0.1818
+```
+
+> Let’s say you find the word “dog” 3 times in document A and 100 times in document B. Clearly “dog” is way more important to document B. But wait. Let’s say you find out document A is a 30-word email to a veterinarian and document B is War & Peace (approx 580,000 words!).
+
+```python
+TF(“dog,” documentA) = 3/30 = .1
+TF(“dog,” documentB) = 100/580000 = .00017
+```
+
+> Now you have something you can see that describes “something” about the two documents and their relationship to the word “dog” and each other. So instead of raw word counts to describe your documents in a corpus, you can use normalized term frequencies. Similarly you could calculate each word and get the relative importance to the document of that term. Your protagonist, Harry, and his need for speed are clearly central to the story of this document.
+
+Vectorizing
