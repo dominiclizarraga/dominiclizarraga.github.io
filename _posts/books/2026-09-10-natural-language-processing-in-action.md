@@ -444,7 +444,7 @@ There are two approaches to sentiment analysis:
 
 > The second approach, machine learning, relies on a labeled set of statements or documents to train a machine learning model to create those rules. A machine learning sentiment model is trained to process input text and output a numerical value for the sentiment you are trying to measure, like positivity or spamminess or trolliness. For the machine learning approach, you need a lot of data, text labeled with the “right” sentiment score.
 
-## Chapter 3. MAth with words (TF-IDF vectors)
+## Chapter 3. Math with words (TF-IDF vectors)
 
 > This chapter covers counting words and term frequencies to analyze meaning, predicting word occurrence probabilities, vector representation of words, finding relevant documents from a corpus using
 inverse document frequencies and estimating the similarity with cosine and BM25.
@@ -945,3 +945,38 @@ query_vec = [...]
 
 > TF-IDF improves raw word-count vectors by giving more weight to terms that are important in a document but relatively rare across the corpus. Cosine similarity can then rank documents by how closely their weighted term distributions match the query.
 
+> Keyword search is only one tool in your NLP pipeline. need to take one additional step to turn your simple search index (TF-IDF) into a chatbot. You need to store your training data in pairs of questions (or statements) and appropriate responses. Then you can use TF-IDF to search for a question (or statement) most like the user input text. Instead of returning the most similar statement in your database, you return the response associated with that statement.
+
+TF-IDF in practice and alternatives
+
+> Instead of implementing TF-IDF manually, `scikit-learn` provides `TfidfVectorizer`, which can tokenize the corpus, build the vocabulary, compute TF-IDF weights, and return the result as a sparse matrix.
+
+```python
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(docs)
+```
+
+Each row represents a document, each column represents a term in the vocabulary, and each cell contains that term's TF-IDF weight.
+
+Because most documents use only a small fraction of the total vocabulary, the matrix is usually sparse:
+
+```python
+                 harry   faster   jill   store   ...
+document_0        .48      .64      0      .21
+document_1        .37      .37     .49      0
+document_2        .22       0      .38      0
+```
+
+> TF-IDF is a strong lexical baseline: it matches documents based on weighted word overlap, but more advanced approaches can go beyond exact keyword matching and capture semantic relationships.
+
+> One such alternative to using straight TF-IDF cosine distance to rank query results is Okapi BM25, or its most recent variant, BM25F.
+
+> You can optimize your pipeline by choosing the weighting scheme that gives your users the most relevant results. But if your corpus isn’t too large, you might consider forging ahead with us into even more useful and accurate representations of the meaning of words and documents.
+
+> In subsequent chapters, we show you how to implement a semantic search engine that finds documents that “mean” something similar to the words in your query rather than just documents that use those exact words from your query. Semantic search is much better than anything TF-IDF weighting and stemming and lemmatization can ever hope to achieve.
+
+> The only reason Google and Bing and other web search engines don’t use the semantic search approach is that their corpus is too large. Semantic word and topic vectors don’t scale to billions of documents, but millions of documents are no problem.
+
+## Chapter 4. Finding meaning in word counts (semantic analysis)
