@@ -1431,3 +1431,202 @@ The other "cousin"
 
 Latent semantic analysis
 
+> Using SVD, LSA can break down your TF-IDF term-document matrix into three simpler matrices. And they can be multiplied back together to produce the original matrix, without any changes. This is like factorization of a large integer. Big whoop. But these three simpler matrices from SVD reveal properties about the original TFIDF matrix that you can exploit to simplify it.
+
+> It captures the essence of a dataset and ignores the noise. A JPEG image is ten times smaller than the original bitmap, but it still contains all the information of the original image.
+
+> Latent semantic analysis is a mathematical technique for finding the “best” way to linearly transform (rotate and stretch) any set of NLP vectors, like your TF-IDF vectors or bag-of-words vectors. And the “best” way for many applications is to line up the axes (dimensions) in your new vectors with the greatest “spread” or variance in the word frequencies. You can then eliminate those dimensions in the new vector space that don’t contribute much to the variance in the vectors from document to document.
+
+> Using SVD this way is called truncated singular value decomposition (truncated SVD). In the image processing and image compression world, you might have heard of this as principal component analysis (PCA). And we show you some tricks that help improve the accuracy of LSA vectors.
+
+> LSA uses SVD to find the combinations of words that are responsible, together, for the biggest variation in the data. You can rotate your TF-IDF vectors so that the new dimensions (basis vectors) of your rotated vectors all align with these maximum variance directions. The “basis vectors” are the axes of your new vector space and are analogous to your topic vectors in the three 6-D topic vectors from your thought experiment at the beginning of this chapter.
+
+> Each of your dimensions (axes) becomes a combination of word frequencies rather than a single word frequency. So you think of them as the weighted combinations of words that make up various “topics” used throughout your corpus.
+
+> The machine doesn’t “understand” what the combinations of words means, just that they go together. When it sees words like “dog,” “cat,” and “love” together a lot, it puts them together in a topic. It doesn’t know that such a topic is likely about “pets.” It might include a lot of words like “domesticated” and “feral” in that same topic, words that mean the opposite of each other. 
+
+> If they occur together a lot in the same documents, LSA will give them high scores for the same topics together. It’s up to us humans to look at what words have a high weight in each topic and give them a name.
+
+> you don’t have to know what all your topics
+“mean.” You can still do vector math with these new topic vectors, just like you did with TF-IDF vectors. You can add and subtract them and estimate the similarity between documents based on their topic vectors instead of just their word counts.
+
+> LSA gives you another bit of useful information. Like the “IDF” part of TF-IDF, it tells you which dimensions in your vector are important to the semantics (meaning) of your documents. You can discard those dimensions (topics) that have the least amount of variance between documents. These low-variance topics are usually distractions, noise, for any machine learning algorithm.
+
+> This generalization and compression that LSA performs accomplishes what you attempted in chapter 2 when you ignored stop words. But the LSA dimension reduction is much better, because it’s optimal. It retains as much information as possible, and it doesn’t discard any words, it only discards dimensions (topics). LSA compresses more meaning into fewer dimensions.
+
+Singular value decomposition
+
+> Singular value decomposition is the algorithm behind LSA. Let’s start with a corpus of only 11 documents and a vocabulary of 6 words, similar to what you had in mind for your thought experiment.
+
+The main idea is:
+
+> Transform a high-dimensional word representation into a smaller set of latent semantic dimensions ("topics").
+
+```python
+# Step 1 — Start with documents
+
+# Suppose we have documents containing these words:
+
+    vocabulary = [cat, dog, apple, lion, NYC, love]
+
+# Examples documents:
+
+#     D1: "NYC is the Big Apple"
+#     D2: "NYC is known as the Big Apple"
+#     D3: "The lion is a big cat"
+#     D4: "I love my pet cat"
+#     D5: "Your dog chased my cat"
+
+
+
+# Step 2 — Create the document-term matrix
+
+# Using BOW or TF-IDF, every document becomes a vector.
+
+# For example:
+
+    #               cat  dog  apple  lion  NYC  love
+
+    # D1             0    0     1      0    1     0
+    # D2             0    0     1      0    1     0
+    # D3             1    0     0      1    0     0
+    # D4             1    0     0      0    0     1
+    # D5             1    1     0      0    0     0
+
+# Each word is currently an independent dimension.
+
+    6 words → 6 dimensions
+
+# Step 3 — SVD looks for patterns
+
+# SVD analyzes how words occur across documents.
+
+# It may notice patterns such as:
+
+    # NYC   ↔ apple
+
+    # cat   ↔ lion
+    # cat   ↔ dog
+    # cat   ↔ love
+
+# Words that occur in similar contexts become related mathematically.
+
+# This is where we begin moving from:
+
+    # exact words
+
+# to:
+
+    # patterns of meaning
+
+# Step 4 — SVD decomposes the matrix
+
+# Mathematically:
+
+    # W = U Σ Vᵀ
+
+# Instead of thinking about the formula first, think:
+
+    # original word matrix
+    #         ↓
+    #        SVD
+    #         ↓
+    # discovers important patterns
+    #         ↓
+    # creates latent dimensions
+
+# These latent dimensions can be interpreted as "topics".
+
+# For example:
+
+    # Topic 1 → animals/pets
+    # Topic 2 → NYC/city
+
+# SVD does NOT receive these names.
+
+# We humans inspect the important words and interpret what each dimension appears to represent.
+
+# Step 5 — Reduce dimensions
+
+# Originally:
+
+    # Document → [cat, dog, apple, lion, NYC, love]
+
+                    # 6 dimensions
+
+# After SVD:
+
+    # Document → [Topic 1, Topic 2]
+
+                    # 2 dimensions
+
+# Example:
+
+    # "The lion is a big cat"
+
+#     TF-IDF:
+#     [0.7, 0, 0, 0.7, 0, 0]
+
+#             ↓ SVD
+
+#     Topic vector:
+#     [0.91, 0.03]
+
+# Meaning:
+
+    # animals/pets → HIGH
+    # NYC/city     → LOW
+
+
+# Step 6 — Compare documents in topic space
+
+# Now documents can be compared using their topic vectors.
+
+#     "The lion is a big cat"
+#         → [0.91, 0.03]
+
+#     "My dog chased my cat"
+#         → [0.87, 0.02]
+
+# These vectors are close together.
+
+# Therefore:
+
+#     cosine similarity → HIGH
+
+# Even when the documents don't contain exactly the same words, their underlying patterns can be similar.
+
+## Mental Model
+
+    # Documents
+    #     ↓
+    # Tokenization
+    #     ↓
+    # BOW / TF-IDF
+    #     ↓
+    # Document-Term Matrix
+    #     ↓
+    #    SVD
+    #     ↓
+    # Latent Topics
+    #     ↓
+    # Topic Vectors
+    #     ↓
+    # Semantic Similarity
+```
+In short:
+
+TF-IDF tells us which words are important.
+
+SVD discovers patterns of words that tend to vary/co-occur together.
+
+LSA uses those SVD-derived dimensions as a semantic space for representing and comparing documents.
+
+> Whether you run SVD on a BOW term-document matrix or a TF-IDF termdocument matrix, SVD will find combinations of words that belong together. SVD finds those co-occurring words by calculating the correlation between the columns (terms) of your term-document matrix. SVD simultaneously finds the correlation of term use between documents and the correlation of documents with each other.
+
+> With these two pieces of information SVD also computes the linear combinations of terms that have the greatest variation across the corpus. These linear combinations of term frequencies will become your topics. And you’ll keep only those topics that retain the most information, the most variance in your corpus. [NYC, apple]
+
+> A topic vector is kind of like a summary, or generalization, of what the document is about.
+
+The following sections show you what those three matrices (U, S, and V) look like.
+
