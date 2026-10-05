@@ -115,7 +115,7 @@ Another way.
 
 Using statistics, machine learning and more data. We nned to use vector for storing the words based on frequency and meaning, see how the "bag of words" can be represented by removing stop-words, rare-words:
 
-![ bag-of-words vector machine](/../graphics/nlp-in-action/bag_of_words.png)
+![ bag-of-words vector machine ](/../graphics/nlp-in-action/bag_of_words.png)
 
 > Those bins and the numbers they contain for each word are represented as long vectors containing a lot of zeros and a few ones or twos scattered around wherever the word for that bin occurred.
 
@@ -200,7 +200,7 @@ Most chatbots contain elements of these stages:
 
 > 4 Execute—Plan statements based on conversation history and objectives, and select the next response.
 
-![chatbot stages](/../graphics/nlp-in-action/chatbot_stages.png)
+![ chatbot stages ](/../graphics/nlp-in-action/chatbot_stages.png)
 
 One processing element in figure 1.3 that isn’t typically employed in search, forecasting, or question answering systems is natural language generation.
 
@@ -1495,7 +1495,7 @@ The main idea is:
 
 # Each word is currently an independent dimension.
 
-    6 words → 6 dimensions
+    # 6 words → 6 dimensions
 
 # Step 3 — SVD looks for patterns
 
@@ -1629,4 +1629,115 @@ LSA uses those SVD-derived dimensions as a semantic space for representing and c
 > A topic vector is kind of like a summary, or generalization, of what the document is about.
 
 The following sections show you what those three matrices (U, S, and V) look like.
+
+> The U matrix contains the term-topic matrix that tells you about “the company a word keeps.” This is the most important matrix for semantic analysis in NLP. U is the cross-correlation between words and topics based on word co-occurrence in the same document.
+
+SVD by itself finds topics
+
+```text
+                 Topic 1    Topic 2
+cat                .8         .1
+dog                .7         .1
+lion               .8        -.1
+apple               .0         .9
+NYC                 .0         .9
+love                .4         .2
+
+Topic 1 ≈ animals / pets
+Topic 2 ≈ NYC / city
+```
+
+> The singular values tell you how much information is captured by each dimension in your new semantic (topic) vector space. this is "S".
+
+```text
+Topic 1 → 3.1
+Topic 2 → 2.2
+Topic 3 → 1.8
+Topic 4 → 1.0
+Topic 5 → 0.8
+Topic 6 → 0.5
+
+more important
+     ↓
+
+3.1  ███████████████
+2.2  ███████████
+1.8  █████████
+1.0  █████
+0.8  ████
+0.5  ██
+
+     ↑
+less important
+
+6 words → 2 important latent dimensions
+
+```
+
+> The V matrix contains the “right singular vectors” as the columns of the documentdocument matrix. This gives you the shared meaning between documents, because it measures how often documents use the same topics in your new semantic model of the documents.
+
+```text
+                doc1   doc2   doc3   doc4   doc5
+Topic 1          .0     .0     .8     .7     .9
+Topic 2          .9     .9     .1     .1     .0
+```
+
+Truncating the topics
+
+> You now have a topic model, a way to transform word frequency vectors into topic weight vectors. But because you have just as many topics as words, your vector space model has just as many dimensions as the original BOW vectors. You’ve just created some new words and called them “topics” because they each combine words together in various ratios. You haven’t reduced the number of dimensions… yet.
+
+> You can ignore the S matrix, because the rows and columns of your U matrix are already arranged so that the most important topics (with the largest singular values) are on the left. Another reason you can ignore S is that most of the word-document vectors you’ll want to use with this model, like TF-IDF vectors, have already been normalized.
+
+> How many topics will be enough to capture the essence of a document? One way to measure the accuracy of LSA is to see how accurately you can recreate a term-document matrix from a topic-document matrix.
+
+```python
+err = []
+for numdim in range(len(s), 0, -1):
+  S[numdim - 1, numdim - 1] = 0
+  reconstructed_tdm = U.dot(S).dot(Vt)
+  err.append(np.sqrt(((reconstructed_tdm - tdm).values.flatten() ** 2).sum() / np.product(tdm.shape)))
+
+np.array(err).round(2)
+
+array([0.06, 0.12, 0.17, 0.28])
+```
+
+![ plot showing the accuracy of a model as dimensions are chopped off ](/../graphics/nlp-in-action/truncate_dims.png)
+
+
+> As you can see, the accuracy drop is pretty similar, whether you use TF-IDF vectors or BOW vectors for your model. But TF-IDF vectors will perform slightly better if you plan to retain only a few topics in your model.
+
+> In some cases you may find that you get perfect accuracy, after eliminating several of the dimensions in your term-document matrix. Can you guess why? The SVD algorithm behind LSA “notices” if words are always used together and puts them together in a topic. That’s how it can get a few dimensions “for free.”
+
+Principal component analysis
+
+> Principal component analysis is another name for SVD when it’s used for dimension reduction, like you did to accomplish your latent semantic analysis earlier. And the PCA model in scikit-learn has some tweaks to the SVD math that will improve the accuracy of your NLP pipeline.
+
+> SVD maximizes the variance along each axis. And variance turns out to be a pretty good indicator of “information,” or that “essence” you’re looking for.
+
+```text
+Original data
+many dimensions
+     ↓
+find directions with the most variation
+     ↓
+keep the strongest directions
+     ↓
+fewer dimensions
+but most useful information remains
+```
+
+Instead of representing a document with thousands of word dimensions, PCA/SVD can represent it with a much smaller number of latent dimensions while preserving much of the structure in the original data.
+
+```text
+10,000 word dimensions
+        ↓
+PCA / SVD
+        ↓
+100 latent dimensions
+```
+
+> Dimension reduction is the primary countermeasure for overfitting. By consolidating your dimensions (words) into a smaller number of dimensions (topics), your NLP pipeline will become more “general.” Your spam filter will work on a wider range of SMS messages if you reduce your dimensions, or “vocabulary.”
+
+> That’s exactly what LSA does—it reduces your dimensions and therefore helps prevent overfitting.
 
