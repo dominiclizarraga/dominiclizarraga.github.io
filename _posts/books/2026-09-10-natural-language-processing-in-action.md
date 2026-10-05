@@ -979,4 +979,141 @@ document_2        .22       0      .38      0
 
 > The only reason Google and Bing and other web search engines don’t use the semantic search approach is that their corpus is too large. Semantic word and topic vectors don’t scale to billions of documents, but millions of documents are no problem.
 
+> BM25 improves on basic TF-IDF ranking by combining IDF with term-frequency saturation and document-length normalization. Repeating a term helps, but with diminishing returns, and matching a term in a short focused document is often more valuable than matching it in a very long one.
+
+TF-IDF:
+How important is this term?
+
+BM25:
+How important is this term,
+how often does it appear,
+and how long is the document?
+
 ## Chapter 4. Finding meaning in word counts (semantic analysis)
+
+> We will cover: analyzing semantics (meaning) to create topic vectors, semantic search between topic vectors, scalable semantic analysis, using semantic components and navigating high-dimensional vector spaces.
+
+> This is the first time we talk about a machine being able to understand the “meaning” of words.
+
+> The TF-IDF vectors (term frequency–inverse document frequency vectors) from chapter 3 helped you estimate the importance of words in a chunk of text. You used TF-IDF vectors and matrices to tell you how important each word is to the overall meaning of a bit of text in a document collection.
+
+> Past NLP experimenters found an algorithm for revealing the meaning of word combinations and computing vectors to represent this meaning. It’s called latent semantic analysis (LSA). And when you use this tool, not only can you represent the meaning of words as vectors, but you can use them to represent the meaning of entire documents.
+
+> In this chapter, you’ll learn about these semantic or topic vectors. You’re going to use your weighted frequency scores from TF-IDF vectors to compute the topic “scores” that make up the dimensions of your topic vector. These topic vectors will help you do a lot of interesting things. They make it possible to search for documents based on their meaning—semantic search.
+
+> Most of the time, semantic search returns search results that are much better than keyword search (TFIDF search). Sometimes semantic search returns documents that are exactly what the user is searching for, even when they can’t think of the right words to put in the query.
+
+> And you can use these semantic vectors to identify the words and n-grams that best represent the subject (topic) of a statement, document, or corpus (collection of documents).
+
+Example:
+
+Sentence A:
+
+```text
+"The car is very fast"
+```
+
+Sentence B:
+
+```text
+"The automobile is really quick"
+```
+
+Sentence C:
+
+```text
+"I like cooking pasta"
+```
+
+A purely word-based representation may not see A and B as very similar because:
+
+```text
+car ≠ automobile
+fast ≠ quick
+very ≠ really
+```
+
+A semantic representation tries to capture relationships such as:
+
+```text
+car        ≈ automobile
+fast       ≈ quick
+```
+
+Suppose the semantic dimensions roughly represent:
+
+```text
+[transportation, speed, food]
+```
+
+Then the sentences could be represented as:
+
+```text
+A = [0.80, 0.70, 0.10]
+B = [0.75, 0.72, 0.08]
+C = [0.05, 0.10, 0.90]
+```
+
+We can compare them with cosine similarity:
+
+```python
+import numpy as np
+
+def cosine_similarity(a, b):
+    return np.dot(a, b) / (
+        np.linalg.norm(a) * np.linalg.norm(b)
+    )
+
+a = np.array([0.80, 0.70, 0.10])
+b = np.array([0.75, 0.72, 0.08])
+c = np.array([0.05, 0.10, 0.90])
+
+print(cosine_similarity(a, b))
+print(cosine_similarity(a, c))
+```
+
+Conceptually:
+
+```text
+A vs B → very high similarity
+A vs C → low similarity
+```
+
+So:
+
+```text
+"The car is very fast"
+        ≈
+"The automobile is really quick"
+
+similarity → very high
+```
+
+while:
+
+```text
+"The car is very fast"
+        ≠
+"I like cooking pasta"
+
+similarity → low
+```
+
+> In this chapter, you’re learning how to build an NLP pipeline that can figure out this kind of synonymy, all on its own. Your pipeline might even be able to find the similarity in meaning of the phrase “figure it out” and the word “compute.” Machines can only “compute” meaning, not “figure out” meaning.
+
+From word counts to topic scores
+
+> You know how to count the frequency of words. And you know how to score the importance of words in a TF-IDF vector or matrix. But that’s not enough. You want to score the meanings, the topics, that words are used for.
+
+> TF-IDF vectors count the exact spellings of terms in a document. So texts that restate the same meaning will have completely different TF-IDF vector representations if they spell things differently or use different words. This messes up search engines and document similarity comparisons that rely on counts of tokens.
+
+> In chapter 2, you normalized word endings so that words that differed only in their last few characters were collected together under a single token. You used normalization approaches such as stemming and lemmatization to create small collections of words with similar spellings, and often similar meanings, and then you processed these new tokens instead of the original words.
+
+> This lemmatization approach kept similarly spelled words together in your analysis, but not necessarily words with similar meanings. And it definitely failed to pair up most synonyms. Synonyms usually differ in more ways than just the word endings that lemmatization and stemming deal with. 
+
+> Even worse, lemmatization and stemming sometimes erroneously lump together antonyms, words with opposite meaning.
+
+> The end result is that two chunks of text that talk about the same thing but use different words will not be “close” to each other in your lemmatized TF-IDF vector space model. And sometimes two lemmatized TF-IDF vectors that are close to each other aren’t similar in meaning at all.
+
+> Even a state-of-the-art TF-IDF similarity score from chapter 3, such as Okapi BM25 or cosine similarity, would fail to connect these synonyms or push apart these antonyms.
+
