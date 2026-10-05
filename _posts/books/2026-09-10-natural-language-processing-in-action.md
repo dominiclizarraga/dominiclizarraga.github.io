@@ -1195,3 +1195,239 @@ topic weights × TF-IDF vector = topic vector
 
 So we transformed the document from a 6-dimensional word space into a 3-dimensional topic space.
 
+An algorithm for scoring topics
+
+> You still need an algorithmic way to determine these topic vectors. You need a transformation from TF-IDF vectors into topic vectors. A machine can’t tell which words belong together or what any of them signify.
+
+>  J. R. Firth, a 20th century British linguist, studied the ways you can estimate what a word or morpheme6 signifies. In 1957 he gave you a clue about how to compute the topics for words. Firth wrote: "You shall know a word by the company it keeps."
+
+> So how do you tell the “company” of a word? Well, the most straightforward approach would be to count co-occurrences in the same document. And you have exactly what you need for that in your bag-of-words (BOW) and TF-IDF vectors from chapter 3.
+
+> LSA is an algorithm to analyze your TF-IDF matrix (table of TF-IDF vectors) to gather up words into topics. It works on bag-of-words vectors, too, but TF-IDF vectors give slightly better results.
+
+> LSA also optimizes these topics to maintain diversity in the topic dimensions; when you use these new topics instead of the original words, you still capture much of the meaning (semantics) of the documents. 
+
+> The number of topics you need for your model to capture the meaning of your documents is far less than the number of words in the vocabulary of your TF-IDF vectors.
+
+LSA “COUSINS”
+
+- Linear discriminant analysis (LDA)
+- Latent Dirichlet allocation (LDiA)
+
+> LDA breaks down a document into only one topic. LDiA is more like LSA because it can break down documents into as many topics as you like.
+
+> Because it’s one dimensional, LDA doesn’t require singular value
+decomposition (SVD). You can just compute the centroid (average or mean) of all your TF-IDF vectors for each side of a binary class, like spam and nonspam.
+
+An LDA classifier
+
+> LDA is one of the most straightforward and fast dimension reduction and classification models you’ll find. But this book may be one of the only places you’ll read about it, because it’s not very flashy.
+
+> All you need to “train” an LDA model is to find the vector (line) between the two centroids for your binary class. LDA is a supervised algorithm, so you need labels for your messages. To do inference or prediction with that model, you just need to find out if a new TF-IDF vector is closer to the in-class (spam) centroid than it is to the out-of-class (nonspam) centroid.
+
+SMS Spam Classification with TF-IDF + Linear Discriminant Direction
+
+The idea is:
+
+```text
+SMS
+ ↓
+TF-IDF vector
+ ↓
+find the average SPAM vector
+find the average HAM vector
+ ↓
+spam direction = spam_centroid - ham_centroid
+ ↓
+project each SMS onto that direction
+ ↓
+spamminess score
+ ↓
+threshold
+ ↓
+SPAM / HAM
+```
+
+Here is a small working example:
+
+```python
+import numpy as np
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.preprocessing import MinMaxScaler
+
+# --------------------------------------------------
+# 1. Small labeled SMS dataset
+# --------------------------------------------------
+
+messages = [
+    "free prize claim now",
+    "free entry winner",
+    "claim your free offer",
+    "team meeting tomorrow",
+    "office meeting at noon",
+    "see you at the meeting",
+]
+
+labels = np.array([
+    1,  # spam
+    1,  # spam
+    1,  # spam
+    0,  # ham
+    0,  # ham
+    0,  # ham
+])
+
+# --------------------------------------------------
+# 2. Convert messages into TF-IDF vectors
+# --------------------------------------------------
+
+vectorizer = TfidfVectorizer()
+
+tfidf_docs = vectorizer.fit_transform(messages).toarray()
+
+print(vectorizer.get_feature_names_out())
+print(tfidf_docs.shape)
+
+# Each row = one SMS
+# Each column = one vocabulary term
+```
+
+Now compute the average TF-IDF vector for each class:
+
+```python
+spam_mask = labels == 1
+ham_mask = labels == 0
+
+spam_centroid = tfidf_docs[spam_mask].mean(axis=0)
+ham_centroid = tfidf_docs[ham_mask].mean(axis=0)
+
+print("spam centroid:", spam_centroid.round(2))
+print("ham centroid :", ham_centroid.round(2))
+```
+
+Conceptually:
+
+```text
+HAM centroid  -------------------------->  SPAM centroid
+                      spam direction
+```
+
+The direction from HAM to SPAM is:
+
+```python
+spam_direction = spam_centroid - ham_centroid
+```
+
+Now project every message onto that direction using the dot product:
+
+```python
+spamminess_raw = tfidf_docs.dot(spam_direction)
+
+print(spamminess_raw.round(3))
+```
+
+A larger score means the SMS points more strongly toward the spam side of the vector space.
+
+Normalize the scores to a convenient `0 → 1` range:
+
+```python
+scaler = MinMaxScaler()
+
+spamminess = scaler.fit_transform(
+    spamminess_raw.reshape(-1, 1)
+).ravel()
+
+print(spamminess.round(2))
+```
+
+Then classify with a threshold:
+
+```python
+predictions = (spamminess > 0.5).astype(int)
+
+for message, score, prediction in zip(
+    messages,
+    spamminess,
+    predictions,
+):
+    label = "SPAM" if prediction == 1 else "HAM"
+
+    print(
+        f"{score:.2f} | {label:4} | {message}"
+    )
+```
+
+Conceptually:
+
+```text
+0.0 --------------------------------------- 1.0
+HAM                                         SPAM
+
+"team meeting tomorrow"        → low score
+"free prize claim now"         → high score
+```
+
+You can also classify a new SMS:
+
+```python
+new_messages = [
+    "free offer claim prize",
+    "meeting tomorrow at office",
+]
+
+new_tfidf = vectorizer.transform(new_messages).toarray()
+
+new_raw_scores = new_tfidf.dot(spam_direction)
+
+new_scores = scaler.transform(
+    new_raw_scores.reshape(-1, 1)
+).ravel()
+
+for message, score in zip(new_messages, new_scores):
+    prediction = "SPAM" if score > 0.5 else "HAM"
+
+    print(
+        f"{score:.2f} | {prediction:4} | {message}"
+    )
+```
+
+The important part is:
+
+```python
+spam_centroid = tfidf_docs[spam_mask].mean(axis=0)
+
+ham_centroid = tfidf_docs[ham_mask].mean(axis=0)
+
+spam_direction = spam_centroid - ham_centroid
+
+spamminess = tfidf_docs.dot(spam_direction)
+```
+
+So the model is essentially learning:
+
+```text
+average HAM message
+        ↓
+direction toward
+        ↓
+average SPAM message
+```
+
+and then asking:
+
+How much does each new SMS point in that spam direction?
+
+> So far, the only thing your 1D vectors “understand” is the spamminess of words and documents. You’d like them to learn a lot more word nuances and give you a multidimensional vector that captures a word’s meaning.
+
+The other "cousin"
+
+- LDiA (Latent Dirichlet Allocation) can generate vectors that capture the semantics of words and documents.
+- It groups words into topics using a nonlinear statistical algorithm.
+- It is generally slower to train than linear approaches such as LSA.
+- It can be useful for topic modeling and document summarization.
+- For most classification or regression problems, LSA is usually a better first choice.
+
+> Key takeaway: LDiA should rarely be the first approach you try. Nonetheless, the topics it creates can sometimes mirror human intuition about words and topics more closely, making LDiA topics easier to explain to your boss.
+
+Latent semantic analysis
+
