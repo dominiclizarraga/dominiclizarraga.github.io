@@ -1117,3 +1117,81 @@ From word counts to topic scores
 
 > Even a state-of-the-art TF-IDF similarity score from chapter 3, such as Okapi BM25 or cosine similarity, would fail to connect these synonyms or push apart these antonyms.
 
+Topic vectors
+
+> When you do math on TF-IDF vectors, such as addition and subtraction, these sums and differences only tell you about the frequency of word uses in the documents whose vectors you combined or differenced. That math doesn’t tell you much about the meaning behind those words.
+
+> But “vector reasoning” with these sparse, high-dimensional vectors doesn’t work well. When you add or subtract these vectors from each other, they don’t represent an existing concept or word or topic well.
+
+> So you need a way to extract some additional information, meaning, from word statistics. You need a better estimate of what the words in a document “signify.” And you need to know what that combination of words means in a particular document. You’d like to represent that meaning with a vector that’s like a TF-IDF vector, but more compact and more meaningful.
+
+> We call these compact meaning vectors “word-topic vectors.” We call the document meaning vectors “document-topic vectors.” You can call either of these vectors “topic vectors,” as long as you’re clear on what the topic vectors are for, words or documents.
+
+> These topic vectors can be as compact or as expansive (high-dimensional) as you like. LSA topic vectors can have as few as one dimension, or they can have thousands of dimensions.
+
+> You can add and subtract the topic vectors you’ll compute in this chapter just like any other vector. Only this time the sums and differences mean a lot more than they did with TF-IDF vectors (chapter 3). And the distances between topic vectors is useful for things like clustering documents or semantic search. Before, you could cluster and search using keywords and TF-IDF vectors. Now you can cluster and search using semantics, meaning!
+
+> When you’re done, you’ll have one document-topic vector for each document in your corpus. And, even more importantly, you won’t have to reprocess the entire corpus to compute a new topic vector for a new document or phrase. You’ll have a topic vector for each word in your vocabulary, and you can use these word topic vectors to compute the topic vector for any document that uses some of those words.
+
+Challenges that NLP needs to deal:
+
+- Polysemy—The existence of words and phrases with more than one meaning
+- Homonyms—Words with the same spelling and pronunciation, but different meanings
+- Zeugma—Use of two meanings of a word simultaneously in the same sentence
+- Homographs—Words spelled the same, but with different pronunciations and meanings
+- Homophones—Words with the same pronunciation, but different spellings and meanings (an NLP challenge with voice interfaces)
+
+Example: from TF-IDF to Topic Vectors
+
+Start with a vocabulary of six words:
+
+```text
+[cat, dog, apple, lion, NYC, love]
+```
+
+A document may have this TF-IDF vector:
+
+```text
+TF-IDF = [0.4, 0.3, 0.1, 0.0, 0.2, 0.3]
+```
+
+Now define three topics and manually assign how much each word contributes:
+
+```text
+              cat   dog  apple  lion   NYC  love
+petness       .3    .3    0      0    -.2   .2
+animalness    .1    .1   -.1    .5     .1  -.1
+cityness       0   -.1    .2   -.1     .5   .1
+```
+
+For example, `petness` is the dot product between its weights and the TF-IDF vector:
+
+```text
+petness =
+.3(.4) + .3(.3) + 0(.1) + 0(.0) - .2(.2) + .2(.3)
+
+= 0.23
+```
+
+Repeat for all three topics:
+
+```text
+TF-IDF vector (6 dimensions)
+[cat, dog, apple, lion, NYC, love]
+              ↓
+       topic-weight matrix
+              ↓
+Topic vector (3 dimensions)
+[petness, animalness, cityness]
+```
+
+Mathematically:
+
+```text
+(3 × 6) @ (6 × 1) = (3 × 1)
+
+topic weights × TF-IDF vector = topic vector
+```
+
+So we transformed the document from a 6-dimensional word space into a 3-dimensional topic space.
+
