@@ -17,7 +17,7 @@ isbn: "9781098107956"
 2. [Chapter 2. Introduction to Machine Learning Systems Design](#chapter-2)
 3. [Chapter 3. Data Engineering Fundamentals](#chapter-3)
 4. [Chapter 4. Training Data](#chapter-4)
-5. Chapter 5. Feature Engineering
+5. [Chapter 5. Feature Engineering](#chapter-5)
 6. Chapter 6. Model Development and Offline Evaluation
 7. Chapter 7. Model Deployment and Prediction Service
 8. Chapter 8. Data Distribution Shifts and Monitoring
@@ -884,3 +884,69 @@ Summary
 > For tasks that don’t have natural labels, companies tend to rely on human annotators to annotate their data. However, hand labeling comes with many drawbacks. For example, hand labels can be expensive and slow. To combat the lack of hand labels, we discussed alternatives including weak supervision, semi-supervision, transfer learning, and active learning.
 
 > ML algorithms work well in situations when the data distribution is more balanced, and not so well when the classes are heavily imbalanced. Unfortunately, problems with class imbalance are the norm in the real world. In the following section, we discussed why class imbalance made it hard for ML algorithms to learn. We also discussed different techniques to handle class imbalance, from choosing the right metrics to resampling data to modifying the loss function to encourage the model to pay attention to certain samples.
+
+## Chapter 5. Feature Engineering (Common feature engineering operations, data leakage and good practices) {#chapter-5}
+
+> In 2014, the paper “Practical Lessons from Predicting Clicks on Ads at Facebook” claimed that having the right features is the most important thing in developing their ML models. Since then, many of the companies that I’ve worked with have discovered time and time again that once they have a workable model, having the right features tends to give them the biggest performance boost compared to clever algorithmic techniques such as hyperparameter tuning.
+
+> Due to its importance, a large part of many ML engineering and data science jobs is to come up with new useful features. In this chapter, we will go over common techniques and important considerations with respect to feature engineering.
+
+>  I get frequently asked: “Why do we have to worry about feature engineering? Doesn’t deep learning promise us that we no longer have to engineer features?” They are right. The promise of deep learning is that we won’t have to handcraft features. For this reason, deep learning is sometimes called feature learning. Many features can be automatically learned and extracted by algorithms. However, we’re still far from the point where all features can be automated. This is not to mention that, as of this writing, the majority of ML applications in production aren’t deep learning.
+
+> Feature engineering requires knowledge of domain-specific techniques.
+
+> For example, when detecting whether a comment is spam or not, on top of the text in the comment itself, you might want to use other information about:
+
+> The comment. How many upvotes/downvotes does it have? The user who posted this comment. When was this account created, how often do they post, and how many upvotes/downvotes do they have? The thread in which the comment was posted. How many views does it have? Popular threads tend to attract more spam. (Not just the message text)
+
+> The process of choosing what information to use and how to extract this information into a format usable by your ML models is feature engineering. For complex tasks such as recommending videos for users to watch next on TikTok, the number of features used can go up to millions. 
+
+Common Feature Engineering Operations
+
+> They include handling missing values, scaling, discretization, encoding categorical features, and generating the old-school but still very effective cross features as well as the newer and exciting positional features.
+
+Handling Missing Values
+
+> One of the first things you might notice when dealing with data in production is that some values are missing. However, one thing that many ML engineers I’ve interviewed don’t know is that not all types of missing values are equal.
+
+> There are three types of missing values. Missing not at random (MNAR), Missing at random (MAR), Missing completely at random (MCAR).
+
+> When encountering missing values, you can either fill in the missing values with certain values (imputation) or remove the missing values (deletion).
+
+Deletion
+
+> When I ask candidates about how to handle missing values during interviews, many tend to prefer deletion, not because it’s a better method, but because it’s easier to do.
+
+> One way to delete is column deletion: if a variable has too many missing values, just remove that variable. For example, in the example above, over 50% of the values for the variable “Marital status” are missing, so you might be tempted to remove this variable from your model. The drawback of this approach is that you might remove important information and reduce the accuracy of your model. Marital status might be highly correlated to buying houses, as married couples are much more likely to be homeowners than single people.
+
+> Another way to delete is row deletion: if a sample has missing value(s), just remove that sample. This method can work when the missing values are completely at random (MCAR) and the number of examples with missing values is small, such as less than 0.1%.
+
+Imputation
+
+> f you don’t want to delete missing values, you will have to impute them, which means “fill them with certain values.” Deciding which “certain values” to use is the hard part.
+
+> One common practice is to fill in missing values with their defaults. For example, if the job is missing, you might fill it with an empty string “”. Another common practice is to fill in missing values with the mean, median, or mode (the most common value).
+
+> In general, you want to avoid filling missing values with possible values, such as filling the missing number of children with 0—0 is a possible value for the number of children. It makes it hard to distinguish between people whose information is missing and people who don’t have children.
+
+> With imputation, you risk injecting your own bias into and adding noise to your data, or worse, data leakage.
+
+Scaling
+
+> Consider the task of predicting whether someone will buy a house in the next 12 months, and the data shown in. The values of the variable Age in our data range from 20 to 40, whereas the values of the variable Annual Income range from 10,000 to 150,000. When we input these two variables into an ML model, it won’t understand that 150,000 and 40 represent different things. It will just see them both as numbers, and because the number 150,000 is much bigger than 40, it might give it more importance, regardless of which variable is actually more useful for generating predictions.
+
+> During inference, you reuse the statistics you had obtained during training to scale new data. If the new data has changed significantly compared to the training, these statistics won’t be very useful. Therefore, it’s important to retrain your model often to account for these changes.
+
+Encoding Categorical Features
+
+Categorical features can become difficult in production because the set of possible categories is not always fixed. A model may work perfectly on historical data but fail when it encounters a new category it has never seen before—for example, a recommender system trained on millions of Amazon brands suddenly seeing a newly created brand. Mapping unseen values to an `UNKNOWN` category prevents crashes, but it can still hurt performance because the model may not have learned how to treat that category. A better approach is to intentionally group some low-frequency categories as `UNKNOWN` during training so the model learns how to handle unseen or rare values.
+
+Another solution is the hashing trick. Instead of maintaining a fixed dictionary of categories, each category is passed through a hash function that maps it to one of a predefined number of indices. This allows the model to handle new categories automatically without knowing the complete vocabulary in advance. The trade-off is hash collisions, where two different categories map to the same index, but in practice the impact can be surprisingly small when the hash space is large enough.
+
+Feature Crossing
+
+> Feature crossing is the technique to combine two or more features to generate new features. This technique is useful to model the nonlinear relationships between features. For example, for the task of predicting whether someone will want to buy a house in the next 12 months, you suspect that there might be a nonlinear relationship between marital status and number of children, so you combine them to create a new feature “marriage and children.
+
+> Because feature crossing helps model nonlinear relationships between variables, it’s essential for models that can’t learn or are bad at learning nonlinear relationships, such as linear regression, logistic regression, and tree-based models. It’s less important in neural networks, but it can still be useful because explicit feature crossing occasionally helps neural networks learn nonlinear relationships faster. DeepFM and xDeepFM are the family of models that have successfully leveraged explicit feature interactions for recommender systems and click-throughrate prediction.
+
+> 
