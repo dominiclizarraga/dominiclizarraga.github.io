@@ -1741,3 +1741,31 @@ PCA / SVD
 
 > That’s exactly what LSA does—it reduces your dimensions and therefore helps prevent overfitting.
 
+> Whichever algorithm or implementation you use for semantic analysis (LSA, PCA, SVD, truncated SVD, or LDiA), you should normalize your BOW or TF-IDF vectors first. Otherwise, you may end up with large scale differences between your topics.
+
+SVD use cases:
+
+```text
+TF-IDF / BOW sparse matrix
+        ↓
+TruncatedSVD
+        ↓
+LSA / topic vectors
+```
+
+PCA use cases:
+
+```text
+Dense numeric data
+        ↓
+PCA
+        ↓
+lower-dimensional representation
+```
+
+PCA is usually better for dense, centered numeric data. TruncatedSVD is usually better for sparse NLP matrices such as TF-IDF. Both reduce dimensions by keeping the directions that preserve the most useful variation in the data.
+
+Latent Dirichlet allocation (LDiA)
+
+> LSA should be your first choice for most topic modeling, semantic search, or content-based recommendation engines.38 Its math is straightforward and efficient, and it produces a linear transformation that can be applied to new batches of natural language without training and with little loss in accuracy. But LDiA can give slightly better results in some situations.
+
