@@ -1769,3 +1769,123 @@ Latent Dirichlet allocation (LDiA)
 
 > LSA should be your first choice for most topic modeling, semantic search, or content-based recommendation engines.38 Its math is straightforward and efficient, and it produces a linear transformation that can be applied to new batches of natural language without training and with little loss in accuracy. But LDiA can give slightly better results in some situations.
 
+> LDiA, Infer which topics exist in a corpus, which words belong strongly to each topic, and what mixture of topics makes up each document. All of this is made with a probabillistic model.
+
+Steps:
+
+1. Start with documents
+        ↓
+2. Convert them to Bag-of-Words counts
+        ↓
+3. Choose number of topics K
+        ↓
+4. LDiA learns which words belong to each topic
+        ↓
+5. LDiA computes the topic mixture for each document
+        ↓
+6. Each document becomes a topic vector
+
+Key difference from SVD/SLA
+
+LSA / SVD
+finds linear combinations of words that capture maximum variance
+
+LDiA
+models documents probabilistically as mixtures of topics made of distributions of words
+
+Also, topic selection by LDiA is more friendly for humans.
+
+> This is because words that frequently occur together are assigned the same topics, and humans expect that to be the case. Where LSA (PCA) tries to keep things spread apart that were spread apart to start with, LDiA tries to keep things close together that started out close together.
+
+>  This may sound like it’s the same thing, but it’s not. The math optimizes for different things. Your optimizer has a different objective function so it will reach a different objective. To keep close high-dimensional vectors close together in the lowerdimensional space, LDiA has to twist and contort the space (and the vectors) in nonlinear ways. This is a hard thing to visualize until you do it on something 3D and take “projections” of the resultant vectors in 2D.
+
+> LDiA works with raw BOW count vectors rather than normalized TF-IDF vectors.
+
+BOW counts:
+
+Vocabulary:
+
+[cat, dog, city, apple]
+
+Doc 1: "cat cat dog"
+Doc 2: "city apple city"
+Doc 3: "cat city"
+
+            cat   dog   city   apple
+
+Doc 1        2     1      0      0
+Doc 2        0     0      2      1
+Doc 3        1     0      1      0
+
+Vectors: 
+
+Doc 1 = [2, 1, 0, 0]
+Doc 2 = [0, 0, 2, 1]
+Doc 3 = [1, 0, 1, 0]
+
+Interpretation:
+
+2 = word appears twice
+1 = word appears once
+0 = word does not appear
+
+Normalized TF-IDF vectors:
+
+            cat    dog    city   apple
+
+Doc 1       0.74   0.67   0.00   0.00
+Doc 2       0.00   0.00   0.74   0.67
+Doc 3       0.71   0.00   0.71   0.00
+
+As vectors:
+
+Doc 1 = [0.74, 0.67, 0.00, 0.00]
+Doc 2 = [0.00, 0.00, 0.74, 0.67]
+Doc 3 = [0.71, 0.00, 0.71, 0.00]
+
+Now the values no longer mean:
+
+"how many times did this word appear?"
+
+They mean more like:
+
+"how important is this word in this document,
+relative to the rest of the corpus?"
+
+Distance and similarity
+
+> Remember that you can use similarity scores (and distances) to tell how similar or far apart two documents are based on the similarity (or distance) of the vectors you used to represent them.
+
+> LSA preserves large distances, but it doesn’t always preserve close distances (the fine “structure” of the relationships between your documents). The underlying SVD algorithm is focused on maximizing the variance between all your documents in the new topic vector space.
+
+```python
+sklearn.metrics.pairwise module
+
+'cityblock', 'cosine', 'euclidean', 'l1', 'l2', 'manhattan', 'braycurtis',
+'canberra', 'chebyshev', 'correlation', 'dice', 'hamming', 'jaccard',
+'kulsinski', 'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto',
+'russellrao', 'seuclidean', 'sokalmichener', 'sokalsneath', 'sqeuclidean',
+'yule'
+```
+
+Steering with feedback
+
+Steering with feedback means using labels, user judgments, or metadata to adjust vector positions or distance metrics so that useful pairs move closer together and bad pairs move farther apart.
+
+Topic vector power
+
+> With topic vectors, you can do things like compare the meaning of words, documents, statements, and corpora. You can find “clusters” of similar documents and statements. You’re no longer comparing the distance between documents based merely on their word usage. You’re no longer limited to keyword search and relevance ranking based entirely on word choice or vocabulary. You can now find documents that are relevant to your query, not just a good match for the word statistics themselves.
+
+Semantic search
+
+> When you search for a document based on a word or partial word it contains, that’s called full text search. This is what search engines do. They break a document into chunks (usually words) that can be indexed with an inverted index like you’d find at the back of a textbook. It takes a lot of bookkeeping and guesswork to deal with spelling errors and typos, but it works pretty well.
+
+> Semantic search is full text search that takes into account the meaning of the words in your query and the documents you’re searching. In this chapter, you’ve learned two ways— LSA and LDiA—to compute topic vectors that capture the semantics (meaning) of words and documents in a vector. One of the reasons that latent semantic analysis was first called latent semantic indexing was because it promised to power semantic search with an index of numerical values, like BOW and TF-IDF tables. Semantic search was the next big thing in information retrieval.
+
+Summary:
+
+- You can use SVD for semantic analysis to decompose and transform TF-IDF and BOW vectors into topic vectors.
+- Use LDiA when you need to compute explainable topic vectors
+- All vector can perform semantic search based on their meaning
+- Topic vectors can be used to predict whether a social post is spam 
+- to sidestep around the curse of dimensionality to find approximate nearest neighbors in your semantic vector space. tools: https://github.com/spotify/annoy https://radimrehurek.com/gensim/models/keyedvectors.html
