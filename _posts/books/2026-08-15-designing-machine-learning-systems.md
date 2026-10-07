@@ -949,4 +949,79 @@ Feature Crossing
 
 > Because feature crossing helps model nonlinear relationships between variables, it’s essential for models that can’t learn or are bad at learning nonlinear relationships, such as linear regression, logistic regression, and tree-based models. It’s less important in neural networks, but it can still be useful because explicit feature crossing occasionally helps neural networks learn nonlinear relationships faster. DeepFM and xDeepFM are the family of models that have successfully leveraged explicit feature interactions for recommender systems and click-throughrate prediction.
 
-> 
+> A caveat of feature crossing is that it can make your feature space blow up. Imagine feature A has 100 possible values and feature B has 100 possible features; crossing these two features will result in a feature with 100 × 100 = 10,000 possible values.
+
+Discrete and Continuous Positional Embeddings
+
+> First introduced to the deep learning community in the paper “Attention Is All You Need” (Vaswani et al. 2017), positional embedding has become a standard data engineering technique for many applications in both computer vision and NLP.
+
+> Given an arbitrary sequence of 8 words, such as “Sometimes all I really want to do is,” we want to predict the next word.
+
+> If we use a recurrent neural network, it will process words in sequential order, which means the order of words is implicitly inputted. However, if we use a model like a transformer, words are processed in parallel, so words’ positions need to be explicitly inputted so that our model knows the order of these words (“a dog bites a child” is very different from “a child bites a dog”).
+
+> A way to handle position embeddings is to treat it the way we’d treat word embedding. With word embedding, we use an embedding matrix with the vocabulary size as its number of columns, and each column is the embedding for the word at the index of that column. With position embedding, the number of columns is the number of positions. In our case, since we only work with the previous sequence size of 8, the positions go from 0 to 7.
+
+```text
+Sentence: "I love pizza"
+
+
+Word embedding("I")          Positional embedding(0)
+        │                              │
+        ▼                              ▼
+[0.12, -0.08, 0.31, 0.44]   [0.01, 0.04, -0.02, 0.05]
+        │                              │
+        └──────────────┬───────────────┘
+                       │
+                       ▼
+                 element-wise +
+                       │
+                       ▼
+              [0.13, -0.04, 0.29,  0.49]
+                       │
+                       ▼
+
+
+Word embedding("love")       Positional embedding(1)
+        │                              │
+        ▼                              ▼
+[0.50, 0.22, -0.11, 0.70]   [0.03, -0.01, 0.06, 0.02]
+        │                              │
+        └──────────────┬───────────────┘
+                       │
+                       ▼
+                 element-wise +
+                       │
+                       ▼
+              [0.53, 0.21, -0.05, 0.72]
+                       │
+                       ▼
+
+
+Word embedding("pizza")      Positional embedding(2)
+        │                              │
+        ▼                              ▼
+[0.33, 0.60, 0.18, -0.09]   [-0.02, 0.05, 0.01, 0.04]
+        │                              │
+        └──────────────┬───────────────┘
+                       │
+                       ▼
+                 element-wise +
+                       │
+                       ▼
+              [0.31, 0.65, 0.19, -0.05]
+                       │
+                       ▼
+
+
+        Final input sequence
+        sent to Transformer
+
+   [I + pos0]
+   [love + pos1]
+   [pizza + pos2]
+         │
+         ▼
+   ┌─────────────┐
+   │ Transformer │
+   └─────────────┘
+```
