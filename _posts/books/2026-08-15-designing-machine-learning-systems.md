@@ -1025,3 +1025,47 @@ Word embedding("pizza")      Positional embedding(2)
    │ Transformer │
    └─────────────┘
 ```
+
+Data Leakage
+
+> In July 2021, MIT Technology Review ran a provocative article titled “Hundreds of AI Tools Have Been Built to Catch Covid. None of Them Helped.” These models were trained to predict COVID-19 risks from medical scans. The article listed multiple examples where ML models that performed well during evaluation failed to be usable in actual production settings.
+
+> In one example, researchers trained their model on a mix of scans taken when patients were lying down and standing up. “Because patients scanned while lying down were more likely to be seriously ill, the model learned to predict serious covid risk from a person’s position.”
+
+> In some other cases, models were “found to be picking up on the text font that certain hospitals used to label the scans. As a result, fonts from hospitals with more serious caseloads became predictors of covid risk. Both of these are examples of data leakage. Data leakage refers to the phenomenon when a form of the label “leaks” into the set of features used for making predictions, and this same information is not available during inference.
+
+> Data leakage is challenging because often the leakage is nonobvious. It’s dangerous because it can cause your models to fail in an unexpected and spectacular way, even after extensive evaluation and testing.
+
+> Another example, a lung cancer model trained on data from Hospital A performed well internally but poorly at Hospital B. The reason was that, at Hospital A, patients suspected of having cancer were sent to a different CT scanner, which produced slightly different images. The model learned to use scanner-specific patterns as a shortcut for the cancer label instead of learning true signs of cancer. At Hospital B, scanners were assigned randomly, so that shortcut no longer worked. This is an example of label leakage, where information related to the target unintentionally appears in the input features.
+
+Common Causes for Data Leakage
+
+> When I learned ML in college, I was taught to randomly split my data into train, validation, and test splits. This is also how data is often reportedly split in ML research papers. However, this is also one common cause for data leakage.
+
+> For example, stock prices on the same day are influenced by the same market conditions, so including day 7 data in the training set while evaluating on other day 7 data gives the model information it would not have in a real prediction scenario. To avoid this, time-dependent datasets should usually be split chronologically: train on earlier data and evaluate on later data. For example, train on days 1–6 and test on day 7. This better simulates production, where the model must predict the future using only information available in the past.
+
+> To prevent future information from leaking into the training process and allowing models to cheat during evaluation, split your data by time, instead of splitting randomly, whenever possible. For example, if you have data from five weeks, use the first four weeks for the train split, then randomly split week 5 into validation and test splits.
+
+```text
+BAD
+Week 1  [T][E][T][V]
+Week 2  [E][T][V][T]
+Week 3  [T][V][E][T]
+Week 4  [V][T][E][T]
+Week 5  [T][E][V][T]
+
+Problem:
+The model sees part of Week 5 during training, then is evaluated on other samples from Week 5. That lets weekly trends leak into evaluation.
+
+GOOD
+Week 1  [T][T][T][T]
+Week 2  [T][T][T][T]
+Week 3  [T][T][T][T]
+Week 4  [T][T][T][T]
+Week 5  [V][V][E][E]
+
+T = Train, V = Valid, E = Test
+```
+
+Scaling before splitting
+
