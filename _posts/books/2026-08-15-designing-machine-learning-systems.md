@@ -1127,3 +1127,70 @@ Remove "purchase_history"
 
 > Be very careful every time you look at the test split. If you use the test split in any way other than to report a model’s final performance, whether to come up with ideas for new features or to tune hyperparameters, you risk leaking information from the future into your training process.
 
+Engineering Good Features
+
+Generally, adding more features leads to better model performance. In my experience, the list of features used for a model in production only grows over time. However, more features doesn’t always mean better model performance. Having too many features can be bad both during training and serving your model for the following reasons:
+
+- The more features you have, the more opportunities there are for data leakage.
+- Too many features can cause overfitting.
+- Too many features can increase memory required to serve a model, which, in turn, might require you to use a more expensive machine/instance to serve your model.
+- Too many features can increase inference latency
+- Useless features become technical debts.
+
+> Whenever your data pipeline changes, all the affected features need to be adjusted accordingly. For example, if one day your application decides to no longer take in information about users’ age, all features that use users’ age need to be updated.
+
+> In theory, if a feature doesn’t help a model make good predictions, regularization techniques like L1 regularization should reduce that feature’s weight to 0. However, in practice, it might help models learn faster if the features that are no longer useful (and even possibly harmful) are removed, prioritizing good features.
+
+> There are two factors you might want to consider when evaluating whether a feature is good for a model: importance to the model and generalization to unseen data.
+
+Feature Importance
+
+> There are many different methods for measuring a feature’s importance. If you use a classical ML algorithm like boosted gradient trees, the easiest way to measure the importance of your features is to use built-in feature importance functions implemented by [XGBoost](https://xgboost.readthedocs.io/en/latest/r_docs/R-package/docs/reference/xgb.importance.html). For more model-agnostic methods, you might want to look into SHAP (SHapley Additive exPlanations). InterpretML is a great open source package that leverages feature importance to help you understand how your model makes predictions.
+
+> Often, a small number of features accounts for a large portion of your model’s feature importance. When measuring feature importance for a click-through rate prediction model, the ads team at Facebook found out that the top 10 features are responsible for about half of the model’s total feature importance, whereas the last 300 features contribute less than 1% feature importance.
+
+>. Not only good for choosing the right features, feature importance techniques are also great for interpretability as they help you understand how your models work under the hood.
+
+Feature Generalization (how model performs on unseen data)
+
+> Since the goal of an ML model is to make correct predictions on unseen data, features used for the model should generalize to unseen data. Not all features generalize equally. For example, for the task of predicting whether a comment is spam, the identifier of each comment is not generalizable at all and shouldn’t be used as a feature for the model. However, the identifier of the user who posts the comment, such as username, might still be useful for a model to make predictions.
+
+> Measuring feature generalization is a lot less scientific than measuring feature importance, and it requires both intuition and subject matter expertise on top of statistical knowledge. Overall, there are two aspects you might want to consider with regards to generalization: feature coverage and distribution of feature values.
+
+> Coverage is the percentage of the samples that has values for this feature in the data—so the fewer values that are missing, the higher the coverage.
+
+> Low coverage example:   If `number_of_children` is available for only 1% of users, it may not generalize well enough to be a useful feature for predicting whether someone will buy a house.
+
+> Rare but useful feature:   A feature can still be valuable even with only 1% coverage if it is highly predictive—for example, if 99% of the samples where it appears have a positive label. In that case, the missingness itself may carry useful information.
+
+> For the feature values that are present, you might want to look into their distribution. If the set of values that appears in the seen data (such as the train split) has no overlap with the set of values that appears in the unseen data (such as the test split), this feature might even hurt your model’s performance.
+
+Summary
+
+> Because the success of today’s ML systems still depends on their features, it’s important for organizations interested in using ML in production to invest time and effort into feature engineering.
+
+> How to engineer good features is a complex question with no foolproof answers. The best way to learn is through experience: trying out different features and observing how they affect your models’ performance. It’s also possible to learn from experts. I find it extremely useful to read about how the winning teams of Kaggle competitions engineer their features to learn more about their techniques and the considerations they went through.
+
+Best practices for feature engineering:
+
+- Split data by time into train/valid/test splits instead of doing it randomly.
+
+- If you oversample your data, do it after splitting.
+
+- Scale and normalize your data after splitting to avoid data leakage.
+
+- Use statistics from only the train split, instead of the entire data
+
+- Understand how your data is generated, collected, and processed.
+
+- Keep track of your data’s lineage. (where your data comes from)
+
+- Understand feature importance to your model.
+
+- Use features that generalize well.
+
+- Remove no longer useful features from your models.
+
+> With a set of good features, we’ll move to the next part of the workflow: training ML models. Before we move on, I just want to reiterate that moving to modeling doesn’t mean we’re done with handling data or feature engineering. We are never done with data and features. In most real-world ML projects, the process of collecting data and feature engineering goes on as long as your models are in production. We need to use new, incoming data to continually improve models.
+
+## Chapter 6. Model Development and Offline Evaluation
