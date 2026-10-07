@@ -1069,3 +1069,61 @@ T = Train, V = Valid, E = Test
 
 Scaling before splitting
 
+> As discussed in the section “Scaling”, it’s important to scale your features. Scaling requires global statistics—e.g., mean, variance—of your data. One common mistake is to use the entire training data to generate global statistics before splitting it into different splits, leaking the mean and variance of the test samples into the training process, allowing a model to adjust its predictions for the test samples. This information isn’t available in production, so the model’s performance will likely degrade. 
+
+> To avoid this type of leakage, always split your data first before scaling, then use the statistics from the train split to scale all the splits. Some even suggest that we split our data before any exploratory data analysis and data processing, so that we don’t accidentally gain information about the test split.
+
+```text
+1. Split the data
+2. Fit the scaler on TRAIN only
+3. Use the TRAIN statistics to transform:
+   - train
+   - validation
+   - test
+```
+
+Filling in missing data with statistics from the test split
+
+> One common way to handle the missing values of a feature is to fill (input) them with the mean or median of all values present. Leakage might occur if the mean or median is calculated using entire data instead of just the train split. This type of leakage is similar to the type of leakage caused by scaling, and it can be prevented by using only statistics from the train split to fill in missing values in all the splits.
+
+Poor handling of data duplication before splitting
+
+> Data duplication can result from data collection or merging of different data sources. A 2021 Nature article listed data duplication as a common pitfall when using ML to detect COVID-19, which happened because “one dataset combined several other datasets without realizing that one of the component datasets already contains another
+component.” 
+
+> Data duplication can also happen because of data processing—for example, oversampling might result in duplicating certain examples. 
+
+> To avoid this, always check for duplicates before splitting and also after splitting just to make sure. If you oversample your data, do it after splitting.
+
+Group leakage
+
+> A group of examples have strongly correlated labels but are divided into different splits. For example, a patient might have two lung CT scans that are a week apart, which likely have the same labels on whether they contain signs of lung cancer, but one of them is in the train split and the second is in the test split. 
+
+> This type of leakage is common for objective detection tasks that contain photos of the same object taken milliseconds apart some of them landed in the train split while others landed in the test split. It’s hard avoiding this type of data leakage without understanding how your data was generated.
+
+> The example earlier about how information on whether a CT scan (Hospital A and B) shows signs of lung cancer is leaked via the scan machine is an example of this type of leakage. Detecting this type of data leakage requires a deep understanding of the way data is collected. For example, it would be very hard to figure out that the model’s poor performance in hospital B is due to its different scan machine procedure.
+
+Detecting Data Leakage
+
+> Data leakage can happen during many steps, from generating, collecting, sampling, splitting, and processing data to feature engineering. It’s important to monitor for data leakage during the entire lifecycle of an ML project.
+
+> If a feature has unusually high correlation, investigate how this feature is generated and whether the correlation makes sense. It’s possible that two features independently don’t contain leakage, but two features together can contain leakage. For example, when building a model to predict how long an employee will stay at a company, the starting date and the end date separately doesn’t tell us much about their tenure, but both together can give us that information.
+
+> An ablation study means removing one feature, or a group of features, and checking how much the model’s performance changes. If performance drops a lot, that feature is probably important and you should investigate why. When a model has too many features, you do not need to test every possible combination; you can focus on the features you think are most important or suspicious.
+
+```text
+Model accuracy with all features: 90%
+
+Remove "user_age"
+→ accuracy = 89%
+
+Remove "purchase_history"
+→ accuracy = 75%
+```
+
+> This suggests that purchase_history is much more important than user_age. You should then ask why the model depends so heavily on that feature
+
+> Keep an eye out for new features added to your model. If adding a new feature significantly improves your model’s performance, either that feature is really good or that feature just contains leaked information about label.
+
+> Be very careful every time you look at the test split. If you use the test split in any way other than to report a model’s final performance, whether to come up with ideas for new features or to tune hyperparameters, you risk leaking information from the future into your training process.
+
